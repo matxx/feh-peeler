@@ -4,7 +4,7 @@ import escapeRegExp from 'lodash-es/escapeRegExp'
 const searchAsRegexpToRegexp = (str: string) => new RegExp(str, 'ig')
 
 const searchAsTextToRegexp = (str: string) =>
-  new RegExp(escapeRegExp(str).replace(/\s+/g, '.+'), 'ig')
+  new RegExp(escapeRegExp(str).replace(/\s+/g, '.+?'), 'ig')
 
 export const useStoreSearches = defineStore('searches', () => {
   const useRegExp = ref(false)
