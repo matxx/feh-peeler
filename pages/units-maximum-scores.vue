@@ -18,6 +18,7 @@
                     v-model:sorters="sorters"
                     :size-sorters="sizeSorters"
                     :size-filters="sizeFilters"
+                    :error-messages-for-name="errorMessages"
                     @update:sorters="updateSorters"
                   />
                 </div>
@@ -55,6 +56,7 @@
             clearable
             class="mt-5"
             :label="t('scores.labels.unitName')"
+            :error-messages="errorMessages"
           />
         </div>
 
@@ -64,6 +66,7 @@
           v-model:sorters="sorters"
           :size-sorters="sizeSorters"
           :size-filters="sizeFilters"
+          :error-messages-for-name="errorMessages"
           @update:sorters="updateSorters"
         />
       </v-col>
@@ -321,6 +324,7 @@ function updateSorters([index, sorter]: [number, ISorter]) {
   sorters.value.orders[index] = sorter.order
 }
 
+const search = computed(() => filters.value.name)
 const searchLength = computed(() =>
   filters.value.name ? filters.value.name.length : 0,
 )
@@ -330,9 +334,7 @@ const counter = computed(() =>
 const searchIsActive = computed(
   () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
 )
-const regexp = computed(() =>
-  filters.value.name ? storeSearches.filterToRegexp(filters.value.name) : null,
-)
+const { regexp, errorMessages } = useSearch(search)
 
 function filterName(u: IUnit) {
   if (!regexp.value) return true

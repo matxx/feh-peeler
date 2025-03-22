@@ -15,7 +15,14 @@
     hide-details
     :clearable="clearable"
     :custom-filter="() => true"
-    no-data-text="global.typeAtLeastThreeCharacters"
+    :no-data-text="
+      hasError
+        ? 'global.invalidRegExp'
+        : searchIsActive
+          ? 'global.noSkillIsMatchingYourRequest'
+          : 'global.typeAtLeastThreeCharacters'
+    "
+    :error-messages="errorMessages"
     v-bind="$attrs"
     @update:model-value="$emit('update:model-value', $event ? $event.id : null)"
   >
@@ -62,6 +69,7 @@
         </template>
         <v-list-item-title>
           <AppRegExpMatches
+            v-if="regexp"
             :text="item.raw.name"
             :regexp="regexp"
           />
@@ -73,18 +81,17 @@
 
 <script setup lang="ts">
 import filter from 'lodash-es/filter'
+
 import {
   SKILL_CATEGORIES_WITH_ICON,
   type SkillCategory,
   type SkillId,
   type ISkill,
 } from '~/utils/types/skills'
-
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
-const storeSkills = useStoreSkills()
 const storeLinks = useStoreLinks()
-const storeSearches = useStoreSearches()
+const storeSkills = useStoreSkills()
 
 defineEmits(['update:model-value'])
 const skillId = defineModel<null | SkillId>()
@@ -138,7 +145,11 @@ const shouldDisplayIconInList = computed(() => {
 })
 
 const searchText = ref('')
-const regexp = computed(() => storeSearches.filterToRegexp(searchText.value))
+const searchIsActive = computed(
+  () =>
+    searchText.value && searchText.value.length >= MINIMAL_TEXT_SEARCH_LENGTH,
+)
+const { regexp, hasError, errorMessages } = useSearch(searchText)
 
 const skills = computed(
   () =>
@@ -147,10 +158,10 @@ const skills = computed(
       : storeSkills.sortedSkills) || [],
 )
 const skillsFiltered = computed(() =>
-  searchText.value && searchText.value.length >= MINIMAL_TEXT_SEARCH_LENGTH
+  regexp.value && searchIsActive.value
     ? filter(
         skills.value,
-        (skill) => !!skill.filterableName.match(regexp.value),
+        (skill) => !!skill.filterableName.match(regexp.value!),
       )
     : [],
 )

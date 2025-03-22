@@ -83,6 +83,8 @@
         >
           <ListSkills
             v-model="filters[tab]"
+            :regexps="regexps"
+            :error-messages="errorMessages"
             :category="tab"
             :filters-count="filtersCount"
             :highlighted-filters-indexes="highlightedFiltersIndexes"
@@ -99,12 +101,11 @@
 <script setup lang="ts">
 import { every } from 'lodash-es'
 
+import { SKILL_CATEGORIES, DEFAULT_SELECTED_TAB } from '~/utils/types/skills'
 import {
-  SKILL_CATEGORIES,
-  DEFAULT_SELECTED_TAB,
-  type SkillCategory,
-} from '~/utils/types/skills'
-import { getEmptyFilters } from '~/utils/functions/skillLists'
+  type FiltersBySkillCategory,
+  getEmptyFilters,
+} from '~/utils/functions/skillLists'
 
 const { t } = useI18n()
 const display = useDisplay()
@@ -170,10 +171,8 @@ const filtersIndexes = computed(() =>
 const tabSelected = ref(DEFAULT_SELECTED_TAB)
 const tabs = SKILL_CATEGORIES
 
-type Filters = {
-  [key in SkillCategory]: Array<string>
-}
-const filters = ref<Filters>(getEmptyFilters(filtersCount.value))
+const filters = ref<FiltersBySkillCategory>(getEmptyFilters(filtersCount.value))
+const { regexps, errorMessages } = useSearchesBySkillCategory(filters)
 
 watch(filtersCount, () => {
   Object.values(filters.value).forEach(
@@ -187,7 +186,7 @@ const CURRENT_PAYLOAD_VERSION = 1
 const { storeOnUpdate, update } = useLocalStorage(LOCAL_STORAGE_KEY)
 interface PayloadToSave {
   version: number
-  filters: Filters
+  filters: FiltersBySkillCategory
   filtersCount: number
   highlightedFiltersIndexes: number[]
   showRestrictions: boolean

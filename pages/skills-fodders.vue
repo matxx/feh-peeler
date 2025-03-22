@@ -37,6 +37,7 @@
           density="compact"
           :counter="counter"
           :color="searchIsActive ? 'success' : 'primary'"
+          :error-messages="errorMessages"
         />
       </v-col>
     </v-row>
@@ -140,9 +141,7 @@ const counter = computed(() =>
 const searchIsActive = computed(
   () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
 )
-const regexp = computed(() =>
-  search.value ? storeSearches.filterToRegexp(search.value) : null,
-)
+const { regexp, errorMessages } = useSearch(search)
 
 const sortedByAvailability = ref(true)
 
@@ -154,13 +153,9 @@ const update = debounce(() => {
 
   isUpdating.value = true
   nextTick(() => {
-    if (
-      !regexp.value ||
-      !search.value ||
-      search.value.length < MINIMAL_TEXT_SEARCH_LENGTH
-    ) {
+    if (!search.value || search.value.length < MINIMAL_TEXT_SEARCH_LENGTH) {
       skills.value = storeSkills.skills
-    } else {
+    } else if (regexp.value) {
       skills.value = filter(
         storeSkills.skills,
         (s) => !!s.filterableName.match(regexp.value!),

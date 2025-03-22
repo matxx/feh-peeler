@@ -30,6 +30,8 @@
         <ListSkills
           v-if="filters"
           v-model="filters[tab]"
+          :regexps="regexps"
+          :error-messages="errorMessages"
           :category="tab"
           :filters-count="2"
           :filters-on-new-lines="mobile"
@@ -46,7 +48,7 @@
 
 <script setup lang="ts">
 import type { IUnitInstance } from '~/utils/types/units'
-import type { Filters } from '~/utils/events/hall-of-forms'
+import type { FiltersBySkillCategory } from '~/utils/functions/skillLists'
 import {
   SKILL_CATEGORIES_FOR_HALL_OF_FORMS,
   type SkillCategory,
@@ -60,11 +62,13 @@ defineEmits(['equip'])
 const props = withDefaults(
   defineProps<{
     selectedUnitInstance: null | IUnitInstance
+    regexps: RegExpsBySkillCategory
+    errorMessages: ErrorMessagesBySkillCategory
     showDescriptions?: boolean
   }>(),
   { showDescriptions: false },
 )
-const filters = defineModel<Filters>('filters')
+const filters = defineModel<FiltersBySkillCategory>('filters')
 const tabSelected = defineModel<SkillCategory>('tabSelected')
 
 const highlightedSkillId = computed(

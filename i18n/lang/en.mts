@@ -12,6 +12,10 @@ export default {
     post: 'post | post | posts',
     video: 'video',
 
+    noSkillIsMatchingYourRequest: 'No skill is matching your request',
+    noUnitIsMatchingYourRequest: 'No unit is matching your request',
+    invalidRegExp: 'Invalid regular expression',
+
     useRegexInSearches: 'Use RegExp in searches',
     useTextInSearches: 'Use Text in searches',
     typeAtLeastThreeCharacters: 'Type at least three characters',

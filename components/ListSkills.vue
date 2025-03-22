@@ -94,6 +94,7 @@
                   ? storeTheme.highlightBgColor
                   : undefined
               "
+              :error-messages="errorMessages[category][i]"
               density="compact"
               @focus="lastFocusedInput = i"
             >
@@ -147,7 +148,6 @@ const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeTheme = useStoreTheme()
 const storeLinks = useStoreLinks()
-const storeSearches = useStoreSearches()
 
 const storeSkills = useStoreSkills()
 const storeSkillsRatingsGame8 = useStoreSkillsRatingsGame8()
@@ -157,6 +157,8 @@ const model = defineModel<string[]>()
 const props = withDefaults(
   defineProps<{
     category: SkillCategory
+    regexps: RegExpsBySkillCategory
+    errorMessages: ErrorMessagesBySkillCategory
     filtersCount?: number
     canClearAll?: boolean
     highlightedFiltersIndexes?: number[]
@@ -228,9 +230,9 @@ type skillMatchedWithIndex = [ISkill, number]
 const regexpsFromFilters = computed(() => {
   if (!model.value) return []
 
-  return model.value.map((value) =>
+  return model.value.map((value, index) =>
     value && value.length >= MINIMAL_TEXT_SEARCH_LENGTH
-      ? storeSearches.filterToRegexp(value)
+      ? props.regexps[props.category][index]
       : null,
   )
 })

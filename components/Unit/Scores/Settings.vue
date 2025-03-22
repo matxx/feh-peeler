@@ -21,6 +21,7 @@
         <UnitScoresFilters
           v-model:filters="filters"
           :size="sizeFilters"
+          :error-messages-for-name="errorMessagesForName"
         />
       </div>
     </div>
@@ -37,6 +38,7 @@ defineProps<{
   sorters: ISorters
   sizeFilters: number
   sizeSorters: number
+  errorMessagesForName: string[]
 }>()
 defineEmits(['update:sorters'])
 </script>

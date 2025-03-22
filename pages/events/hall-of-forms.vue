@@ -79,6 +79,8 @@
           ref="list"
           v-model:tab-selected="tabSelected"
           v-model:filters="filters"
+          :regexps="regexps"
+          :error-messages="errorMessages"
           :selected-unit-instance="selectedUnitInstance"
           :show-descriptions="showDescriptions"
           @equip="equipSkill"
@@ -97,13 +99,13 @@ import type { IUnitInstance, UnitId } from '~/utils/types/units'
 import {
   getEmptyFiltersInHallOfForms,
   getEmptyTeamInHallOfForms,
-  type Filters,
 } from '~/utils/events/hall-of-forms'
 import {
   DEFAULT_SELECTED_TAB,
   type SkillCategory,
   type ISkill,
 } from '~/utils/types/skills'
+import type { FiltersBySkillCategory } from '~/utils/functions/skillLists'
 
 const goTo = useGoTo()
 const { t } = useI18n()
@@ -123,8 +125,9 @@ const list = ref<InstanceType<typeof HallOfFormsSkillsLists>>()
 const showSp = ref(false)
 const showDescriptions = ref(false)
 const tabSelected = ref<SkillCategory>(DEFAULT_SELECTED_TAB)
-const filters = ref<Filters>(getEmptyFiltersInHallOfForms())
+const filters = ref<FiltersBySkillCategory>(getEmptyFiltersInHallOfForms())
 const units = ref<IUnitInstance[]>(getEmptyTeamInHallOfForms())
+const { regexps, errorMessages } = useSearchesBySkillCategory(filters)
 
 const selectedUnitInstanceIndex = ref<null | number>(null)
 const selectedUnitInstance = computed<null | IUnitInstance>(() =>

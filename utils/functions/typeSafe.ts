@@ -1,3 +1,12 @@
+// https://stackoverflow.com/a/75337277/5032734
+
+type ValueOf<T> = T[keyof T]
+type Entries<T> = [keyof T, ValueOf<T>][]
+
+export function objectEntries<T extends object>(obj: T): Entries<T> {
+  return Object.entries(obj) as Entries<T>
+}
+
 // https://stackoverflow.com/a/76176570/5032734
 
 export const objectFromEntries = <

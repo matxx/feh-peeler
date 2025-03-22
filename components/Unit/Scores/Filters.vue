@@ -9,6 +9,7 @@
         clearable
         class="mb-2"
         :label="t('scores.labels.unitName')"
+        :error-messages="errorMessagesForName"
       />
     </div>
     <div>
@@ -334,7 +335,10 @@ import {
 const SIZE = 24
 
 const filters = defineModel<IFilters>('filters')
-defineProps<{ size: number }>()
+defineProps<{
+  size: number
+  errorMessagesForName: string[]
+}>()
 const { t } = useI18n()
 const { mobile } = useDisplay()
 

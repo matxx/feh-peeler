@@ -15,7 +15,14 @@
     hide-details
     :clearable="clearable"
     :custom-filter="() => true"
-    no-data-text="global.typeAtLeastThreeCharacters"
+    :no-data-text="
+      hasError
+        ? 'global.invalidRegExp'
+        : searchIsActive
+          ? 'global.noUnitIsMatchingYourRequest'
+          : 'global.typeAtLeastThreeCharacters'
+    "
+    :error-messages="errorMessages"
     v-bind="$attrs"
     @update:model-value="$emit('update:model-value', $event ? $event.id : null)"
   >
@@ -66,6 +73,7 @@
         </template>
         <v-list-item-title>
           <AppRegExpMatches
+            v-if="regexp"
             :text="item.raw.full_name"
             :regexp="regexp"
           />
@@ -77,13 +85,12 @@
 
 <script setup lang="ts">
 import { filter } from 'lodash-es'
-import type { UnitId, IUnit } from '~/utils/types/units'
 
-import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
+import type { UnitId, IUnit } from '~/utils/types/units'
+import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
 const storeUnits = useStoreUnits()
 const storeLinks = useStoreLinks()
-const storeSearches = useStoreSearches()
 
 defineEmits(['update:model-value', 'click:thumbnail'])
 const unitId = defineModel<null | UnitId>()
@@ -117,12 +124,16 @@ watch(
 )
 
 const searchText = ref('')
-const regexp = computed(() => storeSearches.filterToRegexp(searchText.value))
+const searchIsActive = computed(
+  () =>
+    searchText.value && searchText.value.length >= MINIMAL_TEXT_SEARCH_LENGTH,
+)
+const { regexp, hasError, errorMessages } = useSearch(searchText)
 
 const units = computed(() => storeUnits.sortedUnits)
 const unitsFiltered = computed(() =>
-  searchText.value && searchText.value.length >= MINIMAL_TEXT_SEARCH_LENGTH
-    ? filter(units.value, (unit) => !!unit.filterableName.match(regexp.value))
+  regexp.value && searchIsActive.value
+    ? filter(units.value, (unit) => !!unit.filterableName.match(regexp.value!))
     : [],
 )
 </script>
