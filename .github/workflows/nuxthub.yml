@@ -3,7 +3,7 @@ on: push
 
 jobs:
   deploy:
-    name: 'Deploy to NuxtHub'
+    name: "Deploy to NuxtHub"
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
@@ -31,11 +31,7 @@ jobs:
         run: npx nuxthub@latest ensure
 
       - name: Build application
-        run: |
-          export FEH_PEELER_SENTRY_DSN=${{ secrets.FEH_PEELER_SENTRY_DSN }}
-          export GTAG_UA=${{ secrets.GTAG_UA }}
-          export SESSION_PASSWORD=${{ secrets.SESSION_PASSWORD }}
-          npm run build
+        run: npm run build
 
       - name: Deploy to NuxtHub
         uses: nuxt-hub/action@v1
