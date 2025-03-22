@@ -11,7 +11,6 @@
 ### QoL
 
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)
-1. debounce all searches
 1. complex filters for "/skills-fodders"
 1. replace all assets with spritesheets
 

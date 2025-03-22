@@ -3,13 +3,14 @@
     <div v-show="!mobile">
       <v-text-field
         v-model="filters.name"
+        :loading="filterNameLoading"
         :color="searchIsActive ? 'success' : 'primary'"
         :counter="counter"
         density="compact"
         clearable
         class="mb-2"
         :label="t('scores.labels.unitName')"
-        :error-messages="errorMessagesForName"
+        :error-messages="filterNameErrorMessages"
       />
     </div>
     <div>
@@ -337,7 +338,8 @@ const SIZE = 24
 const filters = defineModel<IFilters>('filters')
 defineProps<{
   size: number
-  errorMessagesForName: string[]
+  filterNameLoading: boolean
+  filterNameErrorMessages: string[]
 }>()
 const { t } = useI18n()
 const { mobile } = useDisplay()

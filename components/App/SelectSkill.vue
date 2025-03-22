@@ -3,7 +3,7 @@
     v-model="skill"
     v-model:search="searchText"
     return-object
-    :loading="storeSkills.isLoading"
+    :loading="storeSkills.isLoading || isUpdating"
     :items="skillsFiltered"
     item-title="name"
     item-value="id"
@@ -157,12 +157,17 @@ const skills = computed(
       ? storeSkills.sortedSkillsByCategory[props.skillCategory]
       : storeSkills.sortedSkills) || [],
 )
-const skillsFiltered = computed(() =>
+
+const skillsFiltered = ref<ISkill[]>([])
+const getSkillsFiltered = () =>
   regexp.value && searchIsActive.value
     ? filter(
         skills.value,
         (skill) => !!skill.filterableName.match(regexp.value!),
       )
-    : [],
-)
+    : []
+const updateSkillsFiltered = () => {
+  skillsFiltered.value = getSkillsFiltered()
+}
+const { isUpdating } = useDebounce(updateSkillsFiltered, [[regexp], [skills]])
 </script>

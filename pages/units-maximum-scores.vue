@@ -10,7 +10,7 @@
             v-show="mobile"
             class="mr-3"
           >
-            <UnitScoresSettingsMobile :active="anyFilterMobile">
+            <UnitScoresSettingsMobile :active="anyFilterActive">
               <template #drawer>
                 <div class="pa-5 pt-2">
                   <UnitScoresSettings
@@ -18,7 +18,8 @@
                     v-model:sorters="sorters"
                     :size-sorters="sizeSorters"
                     :size-filters="sizeFilters"
-                    :error-messages-for-name="errorMessages"
+                    :filter-name-loading="isUpdating"
+                    :filter-name-error-messages="errorMessages"
                     @update:sorters="updateSorters"
                   />
                 </div>
@@ -50,6 +51,7 @@
         <div v-show="mobile">
           <v-text-field
             v-model="filters.name"
+            :loading="isUpdating"
             :color="searchIsActive ? 'success' : 'primary'"
             :counter="counter"
             density="compact"
@@ -66,7 +68,8 @@
           v-model:sorters="sorters"
           :size-sorters="sizeSorters"
           :size-filters="sizeFilters"
-          :error-messages-for-name="errorMessages"
+          :filter-name-loading="isUpdating"
+          :filter-name-error-messages="errorMessages"
           @update:sorters="updateSorters"
         />
       </v-col>
@@ -257,10 +260,9 @@ import filter from 'lodash-es/filter'
 import sortBy from 'lodash-es/sortBy'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
-import debounce from 'lodash-es/debounce'
 import intersection from 'lodash-es/intersection'
 
-import { DEBOUNCE_TIME, MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
+import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 import type { IUnit } from '@/utils/types/units'
 import * as a from '@/utils/types/units-availabilities'
@@ -285,7 +287,6 @@ const { l } = useFandom()
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeLinks = useStoreLinks()
-const storeSearches = useStoreSearches()
 
 const storeUnits = useStoreUnits()
 const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
@@ -305,7 +306,7 @@ const sizeFilters = 20
 const filters = ref<IFilters>(createFilters())
 const sorters = ref<ISorters>(createSorters())
 
-const anyFilterMobile = computed(
+const anyFilterActive = computed(
   () =>
     filters.value.traits.length > 0 ||
     filters.value.moves.length > 0 ||
@@ -438,7 +439,7 @@ const f =
   (v: V) =>
     func(v, i)
 
-const getFilteredUnits = () =>
+const getUnitsFiltered = () =>
   flow(
     // @ts-expect-error unsafe typings
     f(filter, (u: IUnit) => filterName(u)),
@@ -477,28 +478,21 @@ const getFilteredUnits = () =>
     }),
   )(storeUnits.units)
 
-const isUpdating = ref(false)
-const updateFilteredUnits = debounce(() => {
-  if (isUpdating.value) return
+const updateUnitsFiltered = () => {
+  unitsFiltered.value = getUnitsFiltered()
+}
+const { isUpdating } = useDebounce(updateUnitsFiltered, [
+  [regexp],
+  [filters, { deep: true }],
+  [() => storeUnits.units],
+])
 
-  isUpdating.value = true
-  nextTick(() => {
-    filteredUnits.value = getFilteredUnits()
-    isUpdating.value = false
-  })
-}, DEBOUNCE_TIME)
-
-const filteredUnits = ref<IUnit[]>([])
-const sortedUnits = computed(() => sort(filteredUnits.value, sorters.value))
-const unitsByMaxScore = computed(() => groupBy(sortedUnits.value, 'max_score'))
+const unitsFiltered = ref<IUnit[]>([])
+const unitsSorted = computed(() => sort(unitsFiltered.value, sorters.value))
+const unitsByMaxScore = computed(() => groupBy(unitsSorted.value, 'max_score'))
 const scores = computed(() =>
   sortBy(compact(Object.keys(unitsByMaxScore.value))).reverse(),
 )
-
-onMounted(updateFilteredUnits)
-watch(filters, updateFilteredUnits, { deep: true })
-watch(() => storeUnits.units, updateFilteredUnits)
-watch(() => storeSearches.useRegExp, updateFilteredUnits)
 </script>
 
 <style lang="scss" scoped>

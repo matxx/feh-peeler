@@ -73,6 +73,7 @@
           >
             <v-text-field
               v-model="model[i]"
+              :loading="isUpdating"
               clearable
               :counter="
                 model[i] && model[i].length >= MINIMAL_TEXT_SEARCH_LENGTH
@@ -225,7 +226,7 @@ const headersAndActionsNotSortable = computed(() =>
 
 const lastFocusedInput = ref<number | null>(null)
 
-type skillMatchedWithIndex = [ISkill, number]
+type SkillMatchedWithIndex = [ISkill, number]
 
 const regexpsFromFilters = computed(() => {
   if (!model.value) return []
@@ -240,7 +241,7 @@ const noRegexpsFromFilters = computed(
   () => regexpsFromFilters.value.length === 0,
 )
 
-const skillsMatchedWithIndex = computed<skillMatchedWithIndex[]>(() => {
+const getSkillsMatchedWithIndex: () => SkillMatchedWithIndex[] = () => {
   if (!model.value) return []
   if (noRegexpsFromFilters.value) return []
 
@@ -257,7 +258,17 @@ const skillsMatchedWithIndex = computed<skillMatchedWithIndex[]>(() => {
       ),
     ]
   })
-})
+}
+
+const skillsMatchedWithIndex = ref<SkillMatchedWithIndex[]>([])
+const updateSkillsMatchedWithIndex = () => {
+  skillsMatchedWithIndex.value = getSkillsMatchedWithIndex()
+}
+const { isUpdating } = useDebounce(updateSkillsMatchedWithIndex, [
+  [regexpsFromFilters],
+  [skills],
+])
+
 const skillsDisplayed = computed(() => {
   return sortBy(
     reject(

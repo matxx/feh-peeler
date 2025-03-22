@@ -99,15 +99,13 @@
 
 <script setup lang="ts">
 import filter from 'lodash-es/filter'
-import debounce from 'lodash-es/debounce'
 
 import type { ISkill } from '@/utils/types/skills'
-import { DEBOUNCE_TIME, MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
+import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeLinks = useStoreLinks()
-const storeSearches = useStoreSearches()
 
 const storeUnits = useStoreUnits()
 const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
@@ -132,6 +130,7 @@ const headers = computed(() =>
 
 const iconSize = 30
 const size = 40
+const itemsPerPage = ref(10)
 
 const search = ref<string | null>(null)
 const searchLength = computed(() => (search.value ? search.value.length : 0))
@@ -145,27 +144,23 @@ const { regexp, errorMessages } = useSearch(search)
 
 const sortedByAvailability = ref(true)
 
-const isUpdating = ref(false)
 const skills = ref<ISkill[]>([])
-const itemsPerPage = ref(10)
-const update = debounce(() => {
-  if (isUpdating.value) return
-
-  isUpdating.value = true
-  nextTick(() => {
-    if (!search.value || search.value.length < MINIMAL_TEXT_SEARCH_LENGTH) {
-      skills.value = storeSkills.skills
-    } else if (regexp.value) {
-      skills.value = filter(
-        storeSkills.skills,
-        (s) => !!s.filterableName.match(regexp.value!),
-      )
-    }
-    isUpdating.value = false
-  })
-}, DEBOUNCE_TIME)
-onMounted(update)
-watch(search, update)
-watch(() => storeSkills.skills, update)
-watch(() => storeSearches.useRegExp, update)
+const updateSkillsFiltered = () => {
+  if (
+    !regexp.value ||
+    !search.value ||
+    search.value.length < MINIMAL_TEXT_SEARCH_LENGTH
+  ) {
+    skills.value = storeSkills.skills
+  } else {
+    skills.value = filter(
+      storeSkills.skills,
+      (s) => !!s.filterableName.match(regexp.value!),
+    )
+  }
+}
+const { isUpdating } = useDebounce(updateSkillsFiltered, [
+  [regexp],
+  [() => storeSkills.skills],
+])
 </script>

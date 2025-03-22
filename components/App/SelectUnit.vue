@@ -3,7 +3,7 @@
     v-model="unit"
     v-model:search="searchText"
     return-object
-    :loading="storeUnits.isLoading"
+    :loading="storeUnits.isLoading || isUpdating"
     :items="unitsFiltered"
     item-title="full_name"
     item-value="id"
@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { filter } from 'lodash-es'
+import filter from 'lodash-es/filter'
 
 import type { UnitId, IUnit } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
@@ -131,9 +131,14 @@ const searchIsActive = computed(
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
 const units = computed(() => storeUnits.sortedUnits)
-const unitsFiltered = computed(() =>
+
+const unitsFiltered = ref<IUnit[]>([])
+const getUnitsFiltered = () =>
   regexp.value && searchIsActive.value
     ? filter(units.value, (unit) => !!unit.filterableName.match(regexp.value!))
-    : [],
-)
+    : []
+const updateUnitsFiltered = () => {
+  unitsFiltered.value = getUnitsFiltered()
+}
+const { isUpdating } = useDebounce(updateUnitsFiltered, [[regexp], [units]])
 </script>

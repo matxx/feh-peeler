@@ -18,7 +18,6 @@ export const SITE_IMAGE_URL =
   'https://feh-peeler.com/android-chrome-512x512.png'
 export const SITE_IMAGE_SIZE = 512
 
-export const DEBOUNCE_TIME = 500
 export const MINIMAL_TEXT_SEARCH_LENGTH = 3
 
 export const GITHUB_LINK = 'https://github.com/matxx/feh-peeler'
