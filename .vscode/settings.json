@@ -1,0 +1,15 @@
+{
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.requireConfig": true,
+  "files.autoSave": "onFocusChange",
+  "nuxt.isNuxtApp": true,
+  "files.exclude": {
+    "public/scripts": true
+  },
+  "files.refactoring.autoSave": true
+}

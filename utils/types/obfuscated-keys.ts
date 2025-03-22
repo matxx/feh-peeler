@@ -1,0 +1,16 @@
+export const FODDER_LOWEST_RARITY_WHEN_OBTAINED = 'flrwo'
+export const FODDER_LOWEST_RARITY_FOR_INHERITANCE = 'flrfi'
+
+export const GENERIC_SUMMON_POOL = 'gsp'
+export const SPECIAL_SUMMON_POOL = 'ssp'
+export const HEROIC_GRAILS = 'hg'
+export const NORMAL_DIVINE_CODES = 'dc'
+export const LIMITED_DIVINE_CODES = 'ldc'
+export const FOCUS_ONLY = 'foc'
+
+export const AV_GENERIC_POOL_34 = 'g4'
+export const AV_HEROIC_GRAILS = 'hg'
+export const AV_DIVINE_CODES = 'dc'
+export const AV_SPECIAL_POOL_4 = 'sh4'
+export const AV_GENERIC_POOL_45 = 'gsr'
+export const AV_SPECIAL_POOL_45 = 'shsr'

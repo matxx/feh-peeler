@@ -1,0 +1,18 @@
+// inspired by
+// https://github.com/nuxt/nuxt/issues/15412#issuecomment-1756506346
+
+// Any variables in the sass files in this folder - https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/styles/settings/
+
+// $font-family-baloo: 'Baloo', sans-serif;
+// $font-family-roboto-flex: 'Roboto Flex', sans-serif;
+
+@use 'vuetify'
+
+// @use 'vuetify' with (
+//   // https://github.com/vuetifyjs/vuetify/blob/416a9a5524f09b79205830dcf47d04a17b4c231f/packages/vuetify/src/styles/settings/_variables.scss#L176-L285
+//   $heading-font-family: $font-family-baloo,
+//   $body-font-family: $font-family-roboto-flex
+// );
+
+// @import url('https://fonts.googleapis.com/css2?family=Bakbak+One&family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
+// @import url('https://fonts.cdnfonts.com/css/baloo');

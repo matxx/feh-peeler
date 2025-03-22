@@ -1,0 +1,64 @@
+<template>
+  <div class="ma-3">
+    <div class="mb-3">
+      {{ t('global.inpiredBy') }}
+      <!-- eslint-disable vue/html-closing-bracket-newline -->
+      <a
+        href="https://www.reddit.com/user/JabPerson/"
+        target="_blank"
+        class="text-decoration-none"
+      >
+        @JabPerson</a
+      >
+      Reddit
+      <!-- eslint-enable vue/html-closing-bracket-newline -->
+      <a
+        href="https://www.reddit.com/r/FireEmblemHeroes/comments/1gumcdt/can_you_inherit_all_their_fodder_in_one_go/"
+        target="_blank"
+        class="text-decoration-none"
+      >
+        {{ t('global.post') }}
+      </a>
+    </div>
+    <div>
+      <AppSelectUnit
+        v-model="unitId"
+        class="mb-5"
+        :label="t('bindingWorlds.labels.unitName')"
+        clearable
+        thumbnail-at-end
+      />
+    </div>
+    <div>
+      <UnitFodder
+        v-if="selectedUnit"
+        :unit="selectedUnit"
+        :size="SIZE"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { UnitId } from '~/utils/types/units'
+
+const SIZE = 40
+
+const { t } = useI18n()
+const storeUnits = useStoreUnits()
+const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
+const storeSkills = useStoreSkills()
+const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
+
+const unitId = ref<UnitId | null>(null)
+const selectedUnit = computed(() =>
+  unitId.value ? storeUnits.unitsById[unitId.value] : undefined,
+)
+
+onMounted(() => {
+  storeUnits.load()
+  storeUnitsAvailabilities.load()
+  storeSkills.load()
+  storeSkillsAvailabilities.load()
+})
+</script>

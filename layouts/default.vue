@@ -1,0 +1,25 @@
+<template>
+  <v-app>
+    <AppHeader v-model:is-drawer-open="isDrawerOpen" />
+    <AppNavigationDrawer v-model:is-open="isDrawerOpen" />
+
+    <v-main>
+      <slot />
+    </v-main>
+
+    <TheSnackbar />
+  </v-app>
+</template>
+
+<script setup lang="ts">
+const storeTheme = useStoreTheme()
+const isDrawerOpen = ref(false)
+onMounted(() => {
+  useStoreAccents().load()
+})
+useHead({
+  htmlAttrs: {
+    class: `theme-${storeTheme.appliedTheme}`,
+  },
+})
+</script>

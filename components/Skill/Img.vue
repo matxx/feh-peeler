@@ -1,0 +1,21 @@
+<template>
+  <img
+    v-if="skill.image_url"
+    :src="skill.image_url"
+    :height="size"
+    :width="size"
+  />
+  <SkillImgCategory
+    v-else
+    :category="skill.category"
+    :size="size"
+  />
+</template>
+
+<script setup lang="ts">
+import type { ISkill } from '@/utils/types/skills'
+defineProps<{
+  skill: ISkill
+  size: number
+}>()
+</script>
