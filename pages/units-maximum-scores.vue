@@ -224,7 +224,7 @@
                     </a>
                   </div>
                   <div>
-                    > Units with NO PRF weapon +
+                    > Units without PRF weapon +
                     <a
                       :href="l('Category:Duel Passives')"
                       target="_blank"
@@ -239,6 +239,35 @@
                       class="text-decoration-none"
                     >
                       300 SP seal
+                    </a>
+                  </div>
+                </v-alert>
+
+                <v-alert
+                  v-else-if="score === '754'"
+                  border="start"
+                  type="warning"
+                  variant="tonal"
+                  elevation="2"
+                  class="mt-2 mb-2"
+                  density="compact"
+                >
+                  <div>
+                    > Units without PRF weapon +
+                    <a
+                      :href="l('Category:Duel Passives')"
+                      target="_blank"
+                      class="text-decoration-none"
+                    >
+                      Duel (A Passive)
+                    </a>
+                    +
+                    <a
+                      :href="l('Sacred Seals')"
+                      target="_blank"
+                      class="text-decoration-none"
+                    >
+                      240 SP seal
                     </a>
                   </div>
                 </v-alert>
