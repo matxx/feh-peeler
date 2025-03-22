@@ -172,4 +172,5 @@ const update = debounce(() => {
 onMounted(update)
 watch(search, update)
 watch(() => storeSkills.skills, update)
+watch(() => storeSearches.useRegExp, update)
 </script>

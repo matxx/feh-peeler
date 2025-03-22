@@ -496,6 +496,7 @@ const scores = computed(() =>
 onMounted(updateFilteredUnits)
 watch(filters, updateFilteredUnits, { deep: true })
 watch(() => storeUnits.units, updateFilteredUnits)
+watch(() => storeSearches.useRegExp, updateFilteredUnits)
 </script>
 
 <style lang="scss" scoped>
