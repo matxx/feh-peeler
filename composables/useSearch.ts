@@ -12,7 +12,10 @@ export default function (search: Ref<string | null>) {
 
   function updateRegExp() {
     hasError.value = false
-    if (!search.value) return
+    if (!search.value) {
+      regexp.value = null
+      return
+    }
 
     try {
       regexp.value = storeSearches.filterToRegexp(search.value)
