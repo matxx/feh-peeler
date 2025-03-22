@@ -12,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+const { locale } = useI18n()
 const storeTheme = useStoreTheme()
 const isDrawerOpen = ref(false)
 onMounted(() => {
@@ -19,6 +20,7 @@ onMounted(() => {
 })
 useHead({
   htmlAttrs: {
+    lang: locale.value,
     class: `theme-${storeTheme.appliedTheme}`,
   },
 })

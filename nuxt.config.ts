@@ -47,9 +47,6 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: {
-        lang: 'fr',
-      },
       title: SITE_TITLE,
       meta: [
         { name: 'description', content: SITE_DESCRIPTION },
