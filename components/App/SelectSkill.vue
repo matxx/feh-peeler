@@ -2,6 +2,7 @@
   <v-autocomplete
     v-model="skill"
     v-model:search="searchText"
+    autocomplete="off"
     return-object
     :loading="storeSkills.isLoading || isUpdating"
     :items="skillsFiltered"

@@ -2,6 +2,7 @@
   <v-autocomplete
     v-model="unit"
     v-model:search="searchText"
+    autocomplete="off"
     return-object
     :loading="storeUnits.isLoading || isUpdating"
     :items="unitsFiltered"
