@@ -23,14 +23,14 @@
     />
 
     <CompoHeroicGrails
-      :disabled="!availability.is_in[HEROIC_GRAILS]"
+      v-if="availability.is_in[HEROIC_GRAILS]"
       :size="tileSize"
     />
 
     <CompoDivineCodes
+      v-if="availability.is_in[NORMAL_DIVINE_CODES]"
       :size="tileSize"
       :number="divineCodesNormalLowestNumber"
-      :disabled="isNormalDivineCodeDisabled"
     >
       <template #tooltip:append>
         <div
@@ -44,9 +44,9 @@
     </CompoDivineCodes>
 
     <CompoDivineCodes
+      v-if="availability.is_in[LIMITED_DIVINE_CODES]"
       ephemera
       :size="tileSize"
-      :disabled="isLimitedDivineCodeDisabled"
     >
       <template #tooltip:append>
         <div
@@ -92,19 +92,12 @@ const availability = computed(
   () => storeUnitsAvailabilities.availabilitiesById[props.unit.id],
 )
 
-const isNormalDivineCodeDisabled = computed(
-  () => !availability.value.is_in[NORMAL_DIVINE_CODES],
-)
-
 const divineCodesNormalLowestNumber = computed(
   () =>
     availability.value.divine_codes.normal &&
     minBy(availability.value.divine_codes.normal, 'number')?.number,
 )
 
-const isLimitedDivineCodeDisabled = computed(
-  () => !availability.value.is_in[LIMITED_DIVINE_CODES],
-)
 const divineCodesLimited = computed(() =>
   availability.value.divine_codes.limited
     ? sortBy(
