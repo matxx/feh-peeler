@@ -10,7 +10,6 @@
 
 ### QoL
 
-1. (units fodder) do not take into account "non-5 star locked specials"
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)
 1. complex filters for "/skills-fodders"

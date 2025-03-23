@@ -45,7 +45,7 @@ export const useStoreLinks = defineStore('links', () => {
     if (shoudLinkToFandom.value) {
       return lFandom(unit.full_name)
     } else {
-      return lGame8(unit.game8_id)
+      return unit.game8_id ? lGame8(unit.game8_id) : undefined
     }
   }
 

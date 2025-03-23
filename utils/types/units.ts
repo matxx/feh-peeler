@@ -32,7 +32,7 @@ export interface IUnitThumbnail {
 
 export interface IUnitData {
   id: UnitId
-  game8_id: Game8Id
+  game8_id: Game8Id | null
 
   name: string
   title: string
