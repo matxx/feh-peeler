@@ -36,7 +36,7 @@ export const useStoreLinks = defineStore('links', () => {
     if (shoudLinkToFandom.value) {
       return lFandom(skill.group_name)
     } else {
-      return lGame8(skill.game8_id)
+      return skill.game8_id ? lGame8(skill.game8_id) : undefined
     }
   }
   function unit(unit?: IUnit) {

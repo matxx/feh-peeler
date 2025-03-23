@@ -79,7 +79,7 @@ export interface ISkillRestrictions<T> {
 
 export interface ISkillData {
   id: SkillId
-  game8_id: Game8Id
+  game8_id: Game8Id | null
 
   name: string
   group_name: string
