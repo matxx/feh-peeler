@@ -53,7 +53,9 @@
                       category === SKILL_SPECIAL
                     "
                   >
-                    ({{ item && item.fodder[avail] }}){{ refsStars.special }}
+                    ({{ item && item.fodder[avail] }}){{
+                      refsStars[REF_SPECIAL]
+                    }}
                   </span>
                   <span
                     v-else-if="
@@ -63,7 +65,7 @@
                     "
                   >
                     ({{ item && item.fodder[avail] }}){{
-                      refsStars.multipleSkill
+                      refsStars[REF_MULTIPLE_SKILL]
                     }}
                   </span>
                   <span v-else>
@@ -139,20 +141,20 @@
     >
       <div
         v-for="ref in refsList"
-        :key="ref.index"
+        :key="ref"
       >
-        {{ '*'.repeat(ref.index) }} {{ ref.text }}
+        {{ refsStars[ref] }} {{ refsText[ref] }}
       </div>
     </div>
   </AppRenderOnceWhileActive>
 </template>
 
 <script setup lang="ts">
+import some from 'lodash-es/some'
 import take from 'lodash-es/take'
 import sumBy from 'lodash-es/sumBy'
 import filter from 'lodash-es/filter'
 import values from 'lodash-es/values'
-import compact from 'lodash-es/compact'
 import isEmpty from 'lodash-es/isEmpty'
 import orderBy from 'lodash-es/orderBy'
 import intersection from 'lodash-es/intersection'
@@ -172,7 +174,6 @@ import {
   groupBy,
   objectEntries,
 } from '~/utils/functions/typeSafe'
-import { some, sortBy } from 'lodash-es'
 
 const props = defineProps<{
   unit: IUnit
@@ -272,47 +273,30 @@ const totals = computed(() =>
   ),
 )
 
-interface IRef {
-  index: number
-  text: string
-}
-interface IRefsHash {
-  special: null | IRef
-  multipleSkill: null | IRef
+type Ref = typeof REF_SPECIAL | typeof REF_MULTIPLE_SKILL
+type HasRefs = { [key in Ref]: boolean }
+
+const REF_SPECIAL = 'SPECIAL'
+const REF_MULTIPLE_SKILL = 'MULTIPLE_SKILL'
+const SORTED_REFS: Ref[] = [REF_SPECIAL, REF_MULTIPLE_SKILL]
+
+const refsText = {
+  [REF_SPECIAL]: t('unitsFodder.explanationOnSpecial'),
+  [REF_MULTIPLE_SKILL]: t('unitsFodder.explanationOnMultipleSkills'),
 }
 
-const refsHash = computed(() => {
-  const res: IRefsHash = {
-    special: null,
-    multipleSkill: null,
-  }
-  let i = 1
-  if (isUnitFiveStarLocked.value && hasSpecialNotFiveStarLocked.value) {
-    res.special = {
-      index: i,
-      text: t('unitsFodder.explanationOnSpecial'),
-    }
-    i += 1
-  }
-  if (hasMultipleSkillsInSameSlots.value) {
-    res.multipleSkill = {
-      index: i,
-      text: t('unitsFodder.explanationOnMultipleSkills'),
-    }
-    i += 1
-  }
-  return res
-})
+const hasRefs = computed<HasRefs>(() => ({
+  [REF_SPECIAL]:
+    isUnitFiveStarLocked.value && hasSpecialNotFiveStarLocked.value,
+  [REF_MULTIPLE_SKILL]: hasMultipleSkillsInSameSlots.value,
+}))
 const refsList = computed(() =>
-  sortBy(compact(values(refsHash.value)), 'index'),
+  filter(SORTED_REFS, (ref) => hasRefs.value[ref]),
 )
 const anyRef = computed(() => refsList.value.length > 0)
 const refsStars = computed(() =>
   objectFromEntries(
-    objectEntries(refsHash.value).map(([key, value]) => [
-      key,
-      value && '*'.repeat(value.index),
-    ]),
+    refsList.value.map((ref, index) => [ref, '*'.repeat(index + 1)]),
   ),
 )
 </script>

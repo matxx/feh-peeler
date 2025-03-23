@@ -314,9 +314,9 @@ export default {
     skillName: 'Skill name',
     totals: 'Totals',
     explanationOnSpecial:
-      'Special not counted in totals as it is not 5★ locked',
+      'Not counted in totals (as this Special is not 5★ locked)',
     explanationOnMultipleSkills:
-      'For skills in the same slot, only the skill with highest tier and number of required inherit slot is counted in totals',
+      'Not counted in totals. For skills in the same slot, only the skill with highest tier and number of required inherit slot is used.',
     allSkillsCanBeInheritedInOneGo: 'All skills can be inherited in one go',
     notAllSkillsCanBeInheritedInOneGo:
       'Not all skills can be inherited in one go',
