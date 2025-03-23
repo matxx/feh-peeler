@@ -1,8 +1,9 @@
 import min from 'lodash-es/min'
 import keyBy from 'lodash-es/keyBy'
+import compact from 'lodash-es/compact'
 import * as Sentry from '@sentry/nuxt'
 
-import type { IUnit } from '@/utils/types/units'
+import type { IUnit, UnitId } from '@/utils/types/units'
 import {
   AV_SCORE_GENERIC_POOL_3_4,
   AV_SCORE_HEROIC_GRAILS,
@@ -115,6 +116,14 @@ export const useStoreUnitsAvailabilities = defineStore(
       return min(availabilities)
     }
 
+    const isFiveStarLocked = (availability: IUnitAvailability) =>
+      availability
+        ? (min(compact(Object.values(availability.lowest_rarity))) || 0) === 5
+        : null
+    const isIdFiveStarLocked = (unitId: UnitId) =>
+      isFiveStarLocked(availabilitiesById.value[unitId])
+    const isUnitFiveStarLocked = (unit: IUnit) => isIdFiveStarLocked(unit.id)
+
     return {
       isLoading,
       isLoaded,
@@ -124,6 +133,10 @@ export const useStoreUnitsAvailabilities = defineStore(
       availabilitiesById,
 
       availabiltySortingVector,
+
+      isFiveStarLocked,
+      isIdFiveStarLocked,
+      isUnitFiveStarLocked,
     }
   },
 )

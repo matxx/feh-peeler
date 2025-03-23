@@ -9,7 +9,7 @@ but is not rendered before it has been "active" at least once
     v-if="isLoaded || isPresent"
     v-show="isPresent"
   >
-    <slot :item="item!" />
+    <slot v-bind="{ item }" />
   </component>
 </template>
 

@@ -41,17 +41,36 @@
               :key="avail"
               class="text-center"
             >
-              <RenderOncePresent
+              <AppRenderOncePresent
+                v-if="!skill.is_prf"
                 :item="storeSkillsAvailabilities.availabilitiesById[skill.id]"
               >
-                {{
-                  skill.is_prf
-                    ? undefined
-                    : storeSkillsAvailabilities.availabilitiesById[skill.id] &&
-                      storeSkillsAvailabilities.availabilitiesById[skill.id]
-                        .fodder[avail]
-                }}
-              </RenderOncePresent>
+                <template #default="{ item }">
+                  <span
+                    v-if="
+                      isUnitFiveStarLocked &&
+                      !storeSkillsAvailabilities.isFiveStarLocked(item) &&
+                      category === SKILL_SPECIAL
+                    "
+                  >
+                    ({{ item && item.fodder[avail] }}){{ refsStars.special }}
+                  </span>
+                  <span
+                    v-else-if="
+                      relevantSkillsMaxTierByCategoryByAv[avail][category] &&
+                      relevantSkillsMaxTierByCategoryByAv[avail][category]
+                        .id !== skill.id
+                    "
+                  >
+                    ({{ item && item.fodder[avail] }}){{
+                      refsStars.multipleSkill
+                    }}
+                  </span>
+                  <span v-else>
+                    {{ item && item.fodder[avail] }}
+                  </span>
+                </template>
+              </AppRenderOncePresent>
             </td>
           </tr>
         </template>
@@ -63,9 +82,7 @@
       >
         <tr>
           <th />
-          <th>
-            {{ t('unitsFodder.totals') }}
-          </th>
+          <th>{{ t('unitsFodder.totals') }}</th>
           <td
             v-for="(avail, index) in AVAILABILITIES"
             :key="avail"
@@ -115,28 +132,47 @@
         </tr>
       </AppRenderOnceWhileActive>
     </v-table>
+
+    <div
+      v-if="anyRef"
+      class="mt-3"
+    >
+      <div
+        v-for="ref in refsList"
+        :key="ref.index"
+      >
+        {{ '*'.repeat(ref.index) }} {{ ref.text }}
+      </div>
+    </div>
   </AppRenderOnceWhileActive>
 </template>
 
 <script setup lang="ts">
 import take from 'lodash-es/take'
-import maxBy from 'lodash-es/maxBy'
 import sumBy from 'lodash-es/sumBy'
 import filter from 'lodash-es/filter'
-// import groupBy from 'lodash-es/groupBy'
+import values from 'lodash-es/values'
+import compact from 'lodash-es/compact'
 import isEmpty from 'lodash-es/isEmpty'
+import orderBy from 'lodash-es/orderBy'
 import intersection from 'lodash-es/intersection'
 
 import { INHERIT_SLOTS } from '~/utils/constants'
 import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
+  SKILL_SPECIAL,
   type ISkill,
   type ISkillsByCategory,
 } from '~/utils/types/skills'
 import { AVAILABILITIES } from '~/utils/types/skills-availabilities'
 import type { IUnit } from '~/utils/types/units'
-import { objectFromEntries, groupBy } from '~/utils/functions/typeSafe'
+import {
+  objectFromEntries,
+  groupBy,
+  objectEntries,
+} from '~/utils/functions/typeSafe'
+import { some, sortBy } from 'lodash-es'
 
 const props = defineProps<{
   unit: IUnit
@@ -148,9 +184,18 @@ const storeLinks = useStoreLinks()
 const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
 const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
 
+const DEFAULT_IS_UNIT_FIVE_STAR_LOCKED = false
+
 const availability = computed(
   () => storeUnitsAvailabilities.availabilitiesById[props.unit.id],
 )
+const isUnitFiveStarLocked = computed(
+  () =>
+    isEmpty(availability.value.lowest_rarity) || // new units
+    storeUnitsAvailabilities.isFiveStarLocked(availability.value) ||
+    DEFAULT_IS_UNIT_FIVE_STAR_LOCKED,
+)
+
 const skills = computed(() =>
   availability.value.skill_ids.map((id) => storeSkills.skillsById[id]),
 )
@@ -166,32 +211,107 @@ const skillsMaxTierByCategory = computed<ISkillsByCategory>(() =>
   groupBy(skillsMaxTier.value, 'category'),
 )
 
+const hasSpecialNotFiveStarLocked = computed(() =>
+  some(
+    skillsMaxTierByCategory.value[SKILL_SPECIAL],
+    (skill) => !storeSkillsAvailabilities.isSkillFiveStarLocked(skill),
+  ),
+)
+const hasMultipleSkillsInSameSlots = computed(() =>
+  some(
+    values(skillsMaxTierByCategory.value).map(
+      (skills) => filter(skills, (s) => !s.is_prf).length > 1,
+    ),
+  ),
+)
+
+const relevantSkillsMaxTierByCategoryByAv = computed(() =>
+  objectFromEntries(
+    AVAILABILITIES.map((avail) => [
+      avail,
+      objectFromEntries(
+        objectEntries(skillsMaxTierByCategory.value).map(
+          ([category, skills]) => {
+            const skils = orderBy(
+              skills,
+              [
+                'tier',
+                (skill) =>
+                  storeSkillsAvailabilities.requiredInheritSlotsCount(
+                    skill,
+                    isUnitFiveStarLocked.value,
+                    avail,
+                  ),
+              ],
+              ['desc', 'desc'],
+            )
+            return [category, skils[0]]
+          },
+        ),
+      ),
+    ]),
+  ),
+)
+
 const totals = computed(() =>
   objectFromEntries(
     AVAILABILITIES.map((avail) => [
       avail,
       sumBy(
-        Object.entries(skillsMaxTierByCategory.value),
-        ([_category, skills]) => {
-          if (skills.length === 0) return 0
-
-          const skill = maxBy(skills, (skill) => {
-            const availability =
-              storeSkillsAvailabilities.availabilitiesById[skill.id]
-            if (!availability) return 0
-
-            return availability.fodder[avail]
-          })
-          if (!skill) return 0
-          if (skill.is_prf) return 0
-
-          const availability =
-            storeSkillsAvailabilities.availabilitiesById[skill.id]
-          if (!availability) return 0
-
-          return availability.fodder[avail]
-        },
+        values(relevantSkillsMaxTierByCategoryByAv.value[avail]),
+        (skill) =>
+          skill
+            ? storeSkillsAvailabilities.requiredInheritSlotsCount(
+                skill,
+                isUnitFiveStarLocked.value,
+                avail,
+              )
+            : 0,
       ),
+    ]),
+  ),
+)
+
+interface IRef {
+  index: number
+  text: string
+}
+interface IRefsHash {
+  special: null | IRef
+  multipleSkill: null | IRef
+}
+
+const refsHash = computed(() => {
+  const res: IRefsHash = {
+    special: null,
+    multipleSkill: null,
+  }
+  let i = 1
+  if (isUnitFiveStarLocked.value && hasSpecialNotFiveStarLocked.value) {
+    res.special = {
+      index: i,
+      text: t('unitsFodder.explanationOnSpecial'),
+    }
+    i += 1
+  }
+  if (hasMultipleSkillsInSameSlots.value) {
+    res.multipleSkill = {
+      index: i,
+      text: t('unitsFodder.explanationOnMultipleSkills'),
+    }
+    i += 1
+  }
+  return res
+})
+const refsList = computed(() =>
+  sortBy(compact(values(refsHash.value)), 'index'),
+)
+const anyRef = computed(() => refsList.value.length > 0)
+const refsStars = computed(() =>
+  objectFromEntries(
+    objectEntries(refsHash.value).map(([key, value]) => [
+      key,
+      value && '*'.repeat(value.index),
     ]),
   ),
 )
