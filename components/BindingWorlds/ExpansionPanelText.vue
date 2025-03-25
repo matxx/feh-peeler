@@ -165,6 +165,7 @@
             v-model="localUnit.skillIds[category]"
             :skill-category="category"
             :disabled="disabled"
+            :show-icon-in-list="!mobile"
             :show-icon-in-selection="!mobile"
             clearable
             class="mb-2"
