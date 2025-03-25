@@ -86,7 +86,6 @@
 
 <script setup lang="ts">
 import some from 'lodash-es/some'
-import { SUMMONER_SPECIFIC_HIDING_REASONS } from '~/utils/events/binding-worlds'
 import type { UnitInBindingWorlds } from '~/utils/events/binding-worlds'
 
 const { t } = useI18n()
@@ -115,49 +114,13 @@ function confirmReset() {
 }
 
 function updateUnit(index: number, unitNewValue: UnitInBindingWorlds) {
-  const [unitOldValue] = units.value.splice(index, 1, unitNewValue)
+  units.value.splice(index, 1, unitNewValue)
   openedPanel.value = null
-
-  updateOtherUnits(unitNewValue, unitOldValue, index)
 }
 
 function addUnit(unit: UnitInBindingWorlds) {
-  updateOtherUnits(unit)
-
   units.value.push(unit)
   openedPanel.value = null
-}
-
-function updateOtherUnits(
-  unitNewValue: UnitInBindingWorlds,
-  unitOldValue?: UnitInBindingWorlds,
-  index?: number,
-) {
-  units.value.forEach((otherUnit, idx) => {
-    if (idx === index) return
-    if (otherUnit.id !== unitNewValue.id) return
-
-    otherUnit.rating = unitNewValue.rating
-
-    if (
-      otherUnit.hidingReason &&
-      SUMMONER_SPECIFIC_HIDING_REASONS.includes(otherUnit.hidingReason)
-    ) {
-      // do not update
-    } else if (
-      unitOldValue &&
-      !unitNewValue.hidingReason &&
-      unitOldValue.hidingReason &&
-      SUMMONER_SPECIFIC_HIDING_REASONS.includes(unitOldValue.hidingReason)
-    ) {
-      // do not update
-    } else if (
-      !unitNewValue.hidingReason ||
-      !SUMMONER_SPECIFIC_HIDING_REASONS.includes(unitNewValue.hidingReason)
-    ) {
-      otherUnit.hidingReason = unitNewValue.hidingReason
-    }
-  })
 }
 
 const LOCAL_STORAGE_KEY = 'feh-peeler:binding-worlds'
