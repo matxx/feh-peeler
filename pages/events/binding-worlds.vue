@@ -130,11 +130,13 @@ const { storeOnUpdate, updateOnMounted } = useLocalStorage(LOCAL_STORAGE_KEY)
 interface IPayloadToSaveV1 {
   version: 1
   units: UnitInBindingWorlds[]
+  showAll: boolean
 }
 
 const payloadToSave = computed<IPayloadToSaveV1>(() => ({
   version: CURRENT_PAYLOAD_VERSION,
   units: units.value,
+  showAll: showAll.value,
 }))
 storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
@@ -150,6 +152,7 @@ function updateData(data: IPayloadToSaveV1) {
     // nextTick(() => {
     // console.log('isLoading - 22')
     units.value = data.units
+    showAll.value = data.showAll
 
     // console.log('fixing units')
     // units.value.forEach((unit) => {
