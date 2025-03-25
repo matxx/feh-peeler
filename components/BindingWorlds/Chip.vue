@@ -1,5 +1,5 @@
 <template>
-  <v-chip>
+  <v-chip v-tooltip:bottom="skill?.name">
     <SkillImgCategory
       :category="category"
       :size="SIZE"
@@ -25,7 +25,12 @@ const props = defineProps<{
   skillId: SkillId | null
 }>()
 
+const storeSkills = useStoreSkills()
 const storeSkillsRatingsGame8 = useStoreSkillsRatingsGame8()
+
+const skill = computed(() =>
+  props.skillId ? storeSkills.skillsById[props.skillId] : undefined,
+)
 
 const ratings = computed(() =>
   props.skillId
