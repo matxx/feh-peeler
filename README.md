@@ -17,8 +17,6 @@
 
 ### Fixes
 
-1. Game8 links to T3 skills & sacred seal are mixed up (ex: A/R Push 3)
-
 ## Setup
 
 Make sure to install the dependencies:

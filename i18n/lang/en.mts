@@ -236,6 +236,7 @@ export default {
       [bindingWorlds.HIDING_REASON_GRAND_HERO_BATTLE]: 'Grand Hero Battle',
       [bindingWorlds.HIDING_REASON_BAD_UNIT]: 'Bad Unit',
       [bindingWorlds.HIDING_REASON_GOT_IT]: 'Already Got It',
+      [bindingWorlds.HIDING_REASON_DUPLICATE]: 'Duplicate',
       [bindingWorlds.HIDING_REASON_NO_SKILL_X]: 'No Skill X',
       [bindingWorlds.HIDING_REASON_BAD_SKILL]: 'Bad Skill(s)',
       [bindingWorlds.HIDING_REASON_MALE]: 'Male',
