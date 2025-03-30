@@ -4,31 +4,36 @@
     class="d-flex"
   >
     <CompoAvailability
-      v-if="availability.is_in[GENERIC_SUMMON_POOL]"
+      v-if="showAll || availability.is_in[GENERIC_SUMMON_POOL]"
+      :disabled="!availability.is_in[GENERIC_SUMMON_POOL]"
       :size="tileSize"
       :rarity="availability.lowest_rarity[GENERIC_SUMMON_POOL]"
       is-generic-pool
     />
     <CompoAvailability
-      v-if="availability.is_in[SPECIAL_SUMMON_POOL]"
+      v-if="showAll || availability.is_in[SPECIAL_SUMMON_POOL]"
+      :disabled="!availability.is_in[SPECIAL_SUMMON_POOL]"
       :size="tileSize"
       :rarity="availability.lowest_rarity[SPECIAL_SUMMON_POOL]"
       is-special-pool
     />
     <CompoAvailability
-      v-if="availability.is_in[FOCUS_ONLY]"
+      v-if="showAll || availability.is_in[FOCUS_ONLY]"
+      :disabled="!availability.is_in[FOCUS_ONLY]"
       :size="tileSize"
       :rarity="availability.lowest_rarity[FOCUS_ONLY]"
       is-limited-hero
     />
 
     <CompoHeroicGrails
-      v-if="availability.is_in[HEROIC_GRAILS]"
+      v-if="showAll || availability.is_in[HEROIC_GRAILS]"
+      :disabled="!availability.is_in[HEROIC_GRAILS]"
       :size="tileSize"
     />
 
     <CompoDivineCodes
-      v-if="availability.is_in[NORMAL_DIVINE_CODES]"
+      v-if="showAll || availability.is_in[NORMAL_DIVINE_CODES]"
+      :disabled="!availability.is_in[NORMAL_DIVINE_CODES]"
       :size="tileSize"
       :number="divineCodesNormalLowestNumber"
     >
@@ -44,7 +49,8 @@
     </CompoDivineCodes>
 
     <CompoDivineCodes
-      v-if="availability.is_in[LIMITED_DIVINE_CODES]"
+      v-if="showAll || availability.is_in[LIMITED_DIVINE_CODES]"
+      :disabled="!availability.is_in[LIMITED_DIVINE_CODES]"
       ephemera
       :size="tileSize"
     >
@@ -82,8 +88,13 @@ const props = withDefaults(
     tileSize: number
     size?: number
     sizeCorner?: number
+    showAll?: boolean
   }>(),
-  { size: 80, sizeCorner: 30 },
+  {
+    size: 80,
+    sizeCorner: 30,
+    showAll: false,
+  },
 )
 const { t } = useI18n()
 const storeUnitsAvailabilities = useStoreUnitsAvailabilities()

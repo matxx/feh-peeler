@@ -20,18 +20,30 @@
         {{ t('global.post') }}
       </a>
     </div>
-    <div>
+
+    <div class="mb-5">
       <AppSelectUnit
         v-model="unitId"
-        class="mb-5"
         :label="t('bindingWorlds.labels.unitName')"
         clearable
         thumbnail-at-end
       />
     </div>
-    <div>
+    <div
+      v-if="selectedUnit"
+      class="mb-5 d-flex align-center"
+    >
+      <div class="mr-3">
+        {{ t('unitsFodder.availability') }}
+      </div>
+      <UnitAvailability
+        :unit="selectedUnit"
+        :tile-size="SIZE"
+        show-all
+      />
+    </div>
+    <div v-if="selectedUnit">
       <UnitFodder
-        v-if="selectedUnit"
         :unit="selectedUnit"
         :size="SIZE"
       />

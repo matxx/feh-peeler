@@ -310,6 +310,7 @@ export default {
   },
 
   unitsFodder: {
+    availability: 'Availability',
     numberOfSlotsRequiredToInherit: 'Number of slots required to inherit',
     skillKind: 'Skill kind',
     skillName: 'Skill name',

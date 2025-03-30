@@ -19,7 +19,7 @@
       </div>
     </td>
     <td>
-      <SkillFodderAvailabilityUnit
+      <UnitAvailability
         :unit="unit"
         :tile-size="tileSize"
       />
