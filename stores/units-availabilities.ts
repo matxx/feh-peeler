@@ -118,7 +118,7 @@ export const useStoreUnitsAvailabilities = defineStore(
 
     const isFiveStarLocked = (availability: IUnitAvailability) =>
       availability
-        ? (min(compact(Object.values(availability.lowest_rarity))) || 0) === 5
+        ? (min(compact(Object.values(availability.lowest_rarity))) || 0) > 4
         : null
     const isIdFiveStarLocked = (unitId: UnitId) =>
       isFiveStarLocked(availabilitiesById.value[unitId])
