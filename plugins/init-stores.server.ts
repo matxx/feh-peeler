@@ -15,10 +15,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   promises.push(useStoreAccents().load())
 
   const storeLinks = useStoreLinks()
-  if (hasOwnProp(session.data, 'shoudLinkToFandom')) {
-    promises.push(
-      storeLinks.asyncSetShoudLinkToFandom(session.data.shoudLinkToFandom),
-    )
+  if (hasOwnProp(session.data, 'linksTarget')) {
+    promises.push(storeLinks.asyncSetTarget(session.data.linksTarget))
   }
 
   const storeSearches = useStoreSearches()

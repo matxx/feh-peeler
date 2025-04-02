@@ -22,9 +22,10 @@
               />
             </th>
             <th>
-              <a
-                :href="storeLinks.skill(skill)"
-                target="_blank"
+              <NuxtLink
+                :to="storeLinks.skillTo(skill)"
+                :href="storeLinks.skillHref(skill)"
+                :target="storeLinks.htmlTarget"
                 class="d-flex align-center"
               >
                 <SkillImg
@@ -34,7 +35,7 @@
                   class="mr-2"
                 />
                 {{ skill.name }}
-              </a>
+              </NuxtLink>
             </th>
             <td
               v-for="avail in AVAILABILITIES"
@@ -155,6 +156,7 @@ import take from 'lodash-es/take'
 import sumBy from 'lodash-es/sumBy'
 import filter from 'lodash-es/filter'
 import values from 'lodash-es/values'
+import compact from 'lodash-es/compact'
 import isEmpty from 'lodash-es/isEmpty'
 import orderBy from 'lodash-es/orderBy'
 import intersection from 'lodash-es/intersection'
@@ -198,7 +200,7 @@ const isUnitFiveStarLocked = computed(
 )
 
 const skills = computed(() =>
-  availability.value.skill_ids.map((id) => storeSkills.skillsById[id]),
+  compact(availability.value.skill_ids.map((id) => storeSkills.skillsById[id])),
 )
 const skillsMaxTier = computed<ISkill[]>(() =>
   filter(

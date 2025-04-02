@@ -9,7 +9,7 @@
         {{ t(`layout.drawer.subheader.parameters`) }}
       </v-list-subheader>
 
-      <v-list-item @click="storeLinks.toggle">
+      <v-list-item @click="storeLinks.cycle">
         <template #prepend>
           <v-img
             :src="storeLinks.imageToUse"
@@ -18,11 +18,7 @@
           />
         </template>
         <v-list-item-title>
-          {{
-            t('layout.linksPointTo', {
-              website: storeLinks.websiteToUse,
-            })
-          }}
+          {{ t(`layout.header.target.${storeLinks.target}`) }}
         </v-list-item-title>
       </v-list-item>
 

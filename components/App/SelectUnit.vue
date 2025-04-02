@@ -52,7 +52,8 @@
 
       <v-btn
         :disabled="!unit"
-        :href="unit ? storeLinks.unit(unit) : undefined"
+        :to="storeLinks.unitTo(unit)"
+        :href="storeLinks.unitHref(unit)"
         target="_blank"
         icon="mdi-open-in-new"
         size="x-small"
@@ -108,12 +109,12 @@ withDefaults(
   },
 )
 
-const unit = ref<IUnit | null>(null)
+const unit = ref<IUnit>()
 const isInitialized = ref(false)
 function updateUnit() {
-  unit.value = (unitId.value && storeUnits.unitsById[unitId.value]) || null
+  unit.value = (unitId.value && storeUnits.unitsById[unitId.value]) || undefined
 }
-watch(() => unitId, updateUnit, { immediate: true })
+watch(unitId, updateUnit, { immediate: true })
 watch(
   () => storeUnits.isLoaded,
   () => {

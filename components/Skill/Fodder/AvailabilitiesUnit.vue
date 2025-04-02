@@ -8,13 +8,14 @@
           :size-corner="tileSize / 3"
         />
         <div>
-          <a
-            :href="storeLinks.unit(unit)"
-            target="_blank"
+          <NuxtLink
+            :to="storeLinks.unitTo(unit)"
+            :href="storeLinks.unitHref(unit)"
+            :target="storeLinks.htmlTarget"
             class="text-decoration-none"
           >
             {{ unit.full_name }}
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </td>

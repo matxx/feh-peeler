@@ -4,6 +4,7 @@ import { IVS_HASH } from '~/utils/types/IVs'
 import * as skillTypes from '~/utils/types/skills'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
+import * as links from '~/utils/types/links'
 import * as themes from '~/utils/types/themes'
 
 export default {
@@ -289,12 +290,17 @@ export default {
   },
 
   layout: {
-    linksPointTo: 'Links point to {website}',
+    target: 'Links point to {website}',
     header: {
       theme: {
         [themes.DEVICE]: 'Use device theme',
         [themes.DARK]: 'Dark theme',
         [themes.LIGHT]: 'Light theme',
+      },
+      target: {
+        [links.TARGET_FEH_PEELER]: 'Links point here',
+        [links.TARGET_FANDOM]: 'Links point to Fandom',
+        [links.TARGET_GAME8]: 'Links point to Game8',
       },
     },
     drawer: {

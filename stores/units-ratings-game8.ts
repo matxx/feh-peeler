@@ -19,7 +19,7 @@ export const useStoreUnitsRatingsGame8 = defineStore(
       [index: UnitId]: IUnitRatingsGame8
     }>(() => keyBy(unitsRatingsGame8.value, 'id'))
 
-    function load() {
+    async function load() {
       if (isLoaded.value) return
 
       isLoading.value = true

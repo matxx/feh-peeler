@@ -29,7 +29,7 @@
 const props = withDefaults(
   defineProps<{
     disabled?: boolean
-    rarity?: number | undefined
+    rarity?: number
     size: number
   }>(),
   {

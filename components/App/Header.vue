@@ -29,21 +29,43 @@
 
     <v-spacer v-show="!mobile" />
 
-    <v-btn
-      v-show="!mobile"
-      v-tooltip:bottom="
-        t('layout.linksPointTo', {
-          website: storeLinks.websiteToUse,
-        })
-      "
-      icon
-      @click="storeLinks.toggle"
-    >
-      <img
-        :src="storeLinks.imageToUse"
-        :height="24"
-      />
-    </v-btn>
+    <v-menu>
+      <template #activator="{ props: menuProps }">
+        <v-btn
+          v-show="!mobile"
+          v-tooltip:bottom="t(`layout.header.target.${storeLinks.target}`)"
+          v-bind="menuProps"
+          icon
+        >
+          <img
+            :src="storeLinks.imageToUse"
+            :height="24"
+          />
+        </v-btn>
+      </template>
+      <v-list
+        :selected="[storeLinks.target]"
+        color="primary"
+      >
+        <v-list-item
+          v-for="item in targets"
+          :key="item.key"
+          :value="item.key"
+          @click="storeLinks.setTarget(item.key)"
+        >
+          <template #prepend>
+            <img
+              :src="item.image"
+              :height="24"
+              class="mr-6"
+            />
+          </template>
+          <v-list-item-title>
+            {{ item.text }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
     <v-menu>
       <template #activator="{ props: menuProps }">
@@ -118,6 +140,7 @@ import {
   GITHUB_LINK,
   URL_HASH_FOR_COOKIE_MANAGEMENT,
 } from '@/utils/constants'
+import { TARGETS } from '~/utils/types/links'
 import { THEMES } from '~/utils/types/themes'
 
 const isDrawerOpen = defineModel<boolean>('is-drawer-open')
@@ -128,6 +151,12 @@ const route = useRoute()
 const storeTheme = useStoreTheme()
 const storeLinks = useStoreLinks()
 const storeSearches = useStoreSearches()
+
+const targets = TARGETS.map((target) => ({
+  key: target,
+  text: t(`layout.header.target.${target}`),
+  image: storeLinks.imageFor(target),
+}))
 
 const themes = THEMES.map((theme) => ({
   key: theme,

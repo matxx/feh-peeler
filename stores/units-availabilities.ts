@@ -43,7 +43,7 @@ export const useStoreUnitsAvailabilities = defineStore(
       keyBy(availabilities.value, 'id'),
     )
 
-    function load() {
+    async function load() {
       if (isLoaded.value) return
 
       isLoading.value = true

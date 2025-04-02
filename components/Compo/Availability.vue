@@ -37,7 +37,7 @@ const { t } = useI18n()
 const props = withDefaults(
   defineProps<{
     size: number
-    rarity: number | undefined
+    rarity?: number
     disabled?: boolean
     isGenericPool?: boolean
     isSpecialPool?: boolean
@@ -45,6 +45,7 @@ const props = withDefaults(
     tooltipLocation?: Anchor
   }>(),
   {
+    rarity: undefined,
     disabled: false,
     isGenericPool: false,
     isSpecialPool: false,

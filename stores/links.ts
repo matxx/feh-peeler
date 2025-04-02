@@ -1,8 +1,16 @@
 import * as Sentry from '@sentry/nuxt'
 
+import LogoFehPeeler from '~/assets/images/feh-peeler-logo.png'
 import LogoFandom from '~/assets/images/fandom-logo.png'
 import LogoGame8 from '~/assets/images/game8-logo-square.png'
 
+import {
+  TARGET_FEH_PEELER,
+  TARGET_FANDOM,
+  TARGET_GAME8,
+  DEFAULT_TARGET,
+  type Target,
+} from '~/utils/types/links'
 import type { ISkill } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
 
@@ -10,42 +18,77 @@ export const useStoreLinks = defineStore('links', () => {
   const { l: lFandom } = useFandom()
   const { l: lGame8 } = useGame8()
 
-  const shoudLinkToFandom = ref(false)
+  const target = ref<Target>(DEFAULT_TARGET)
 
-  const imageToUse = computed(() =>
-    shoudLinkToFandom.value ? LogoFandom : LogoGame8,
+  const imageToUse = computed(() => imageFor(target.value))
+  const htmlTarget = computed(() =>
+    target.value === TARGET_FEH_PEELER ? '_self' : '_blank',
   )
 
-  const websiteToUse = computed(() =>
-    shoudLinkToFandom.value ? WEBSITE_NAME_FANDOM : WEBSITE_NAME_GAME8,
-  )
-
-  function setShoudLinkToFandom(value: boolean) {
-    shoudLinkToFandom.value = !!value
-  }
-  async function asyncSetShoudLinkToFandom(value: boolean) {
-    setShoudLinkToFandom(value)
-  }
-  function toggle() {
-    shoudLinkToFandom.value = !shoudLinkToFandom.value
-  }
-
-  function skill(skill?: ISkill) {
-    if (!skill) return
-
-    if (shoudLinkToFandom.value) {
-      return lFandom(skill.group_name)
-    } else {
-      return skill.game8_id ? lGame8(skill.game8_id) : undefined
+  function imageFor(target: Target) {
+    switch (target) {
+      case TARGET_FEH_PEELER:
+        return LogoFehPeeler
+      case TARGET_FANDOM:
+        return LogoFandom
+      case TARGET_GAME8:
+        return LogoGame8
     }
   }
-  function unit(unit?: IUnit) {
+
+  function setTarget(value: Target) {
+    target.value = value
+  }
+  async function asyncSetTarget(value: Target) {
+    setTarget(value)
+  }
+
+  function cycle() {
+    switch (target.value) {
+      case TARGET_FEH_PEELER:
+        setTarget(TARGET_FANDOM)
+        break
+      case TARGET_FANDOM:
+        setTarget(TARGET_GAME8)
+        break
+      case TARGET_GAME8:
+        setTarget(TARGET_FEH_PEELER)
+    }
+  }
+
+  function skillTo(skill?: ISkill) {
+    if (!skill) return
+    if (target.value === TARGET_FEH_PEELER)
+      return `/skills-fodders?name=${encodeURIComponent(skill.name)}`
+  }
+  function unitTo(unit?: IUnit) {
+    if (!unit) return
+    if (target.value === TARGET_FEH_PEELER)
+      return `/units-fodder?name=${encodeURIComponent(unit.full_name)}`
+  }
+
+  function skillHref(skill?: ISkill) {
+    if (!skill) return
+
+    switch (target.value) {
+      case TARGET_FEH_PEELER:
+        return
+      case TARGET_FANDOM:
+        return lFandom(skill.group_name)
+      case TARGET_GAME8:
+        return skill.game8_id ? lGame8(skill.game8_id) : undefined
+    }
+  }
+  function unitHref(unit?: IUnit) {
     if (!unit) return
 
-    if (shoudLinkToFandom.value) {
-      return lFandom(unit.full_name)
-    } else {
-      return unit.game8_id ? lGame8(unit.game8_id) : undefined
+    switch (target.value) {
+      case TARGET_FEH_PEELER:
+        return
+      case TARGET_FANDOM:
+        return lFandom(unit.full_name)
+      case TARGET_GAME8:
+        return unit.game8_id ? lGame8(unit.game8_id) : undefined
     }
   }
 
@@ -53,7 +96,7 @@ export const useStoreLinks = defineStore('links', () => {
     return $fetch('/api/update-links', {
       method: 'PUT',
       body: {
-        shoudLinkToFandom: shoudLinkToFandom.value,
+        target: target.value,
       },
     }).then(
       async () => {},
@@ -64,19 +107,22 @@ export const useStoreLinks = defineStore('links', () => {
       },
     )
   }
-  watch(shoudLinkToFandom, storeInSession)
+  watch(target, storeInSession)
 
   return {
-    shoudLinkToFandom,
-    setShoudLinkToFandom,
-    asyncSetShoudLinkToFandom,
-    toggle,
+    target,
+    setTarget,
+    asyncSetTarget,
+    cycle,
 
     imageToUse,
-    websiteToUse,
+    imageFor,
+    htmlTarget,
 
-    skill,
-    unit,
+    skillTo,
+    unitTo,
+    skillHref,
+    unitHref,
   }
 })
 

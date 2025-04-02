@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import compact from 'lodash-es/compact'
+
 import type { ISkill } from '@/utils/types/skills'
 
 const storeSkills = useStoreSkills()
@@ -29,6 +31,8 @@ const props = defineProps<{
 }>()
 
 const bridges = computed(() =>
-  props.skill.bridge_ids.map((bridgeId) => storeSkills.skillsById[bridgeId]),
+  compact(
+    props.skill.bridge_ids.map((bridgeId) => storeSkills.skillsById[bridgeId]),
+  ),
 )
 </script>

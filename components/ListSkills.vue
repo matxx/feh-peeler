@@ -32,12 +32,13 @@
     </template>
 
     <template #[`item.name`]="{ item }">
-      <a
-        :href="storeLinks.skill(item)"
-        target="_blank"
+      <NuxtLink
+        :to="storeLinks.skillTo(item)"
+        :href="storeLinks.skillHref(item)"
+        :target="storeLinks.htmlTarget"
       >
         {{ item.name }}
-      </a>
+      </NuxtLink>
     </template>
 
     <template #[`item.game8_rating`]="{ item }">

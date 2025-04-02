@@ -3,7 +3,7 @@ import { z } from 'zod'
 import getConfig from '~/server/utils/session-config'
 
 const schema = z.object({
-  shoudLinkToFandom: z.boolean(),
+  target: z.string(),
 })
 
 export default defineEventHandler(async (event) => {
@@ -23,6 +23,6 @@ export default defineEventHandler(async (event) => {
   const session = await getSession(event, config)
 
   const update = session.data
-  update.shoudLinkToFandom = body.shoudLinkToFandom
+  update.linksTarget = body.target
   await updateSession(event, config, update)
 })

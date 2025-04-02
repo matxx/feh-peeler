@@ -57,18 +57,26 @@ import type { UnitId } from '~/utils/types/units'
 const SIZE = 40
 
 const { t } = useI18n()
+const route = useRoute()
 const storeUnits = useStoreUnits()
 const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
 const storeSkills = useStoreSkills()
 const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
 
-const unitId = ref<UnitId | null>(null)
+const unitId = ref<UnitId>()
 const selectedUnit = computed(() =>
   unitId.value ? storeUnits.unitsById[unitId.value] : undefined,
 )
 
 onMounted(() => {
-  storeUnits.load()
+  storeUnits.load().then(() => {
+    if (!route.query.name) return
+
+    const unit = storeUnits.unitsByFullName[String(route.query.name)]
+    if (!unit) return
+
+    unitId.value = unit.id
+  })
   storeUnitsAvailabilities.load()
   storeSkills.load()
   storeSkillsAvailabilities.load()

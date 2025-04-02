@@ -19,7 +19,7 @@ export const useStoreSkillsDescriptions = defineStore(
       [index: SkillId]: ISkillDescription
     }>(() => keyBy(skillsDescriptions.value, 'id'))
 
-    function load() {
+    async function load() {
       if (isLoaded.value) return
 
       isLoading.value = true

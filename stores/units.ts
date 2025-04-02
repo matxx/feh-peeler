@@ -28,12 +28,15 @@ export const useStoreUnits = defineStore('units', () => {
   const unitsById = computed<{ [index: string]: IUnit }>(() =>
     keyBy(units.value, 'id'),
   )
+  const unitsByFullName = computed<{ [index: string]: IUnit }>(() =>
+    keyBy(units.value, 'full_name'),
+  )
 
   const sortedUnits = computed<IUnit[]>(() =>
     sortBy(units.value, 'sortableName'),
   )
 
-  function load() {
+  async function load() {
     if (isLoaded.value) return
 
     isLoading.value = true
@@ -65,6 +68,7 @@ export const useStoreUnits = defineStore('units', () => {
     unitsData,
     units,
     unitsById,
+    unitsByFullName,
     sortedUnits,
   }
 })

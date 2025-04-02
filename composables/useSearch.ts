@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nuxt'
 
-export default function (search: Ref<string | null>) {
+export default function (search: Ref<string | undefined | null>) {
   const { t } = useI18n()
   const storeSearches = useStoreSearches()
 
@@ -32,7 +32,7 @@ export default function (search: Ref<string | null>) {
       }
     }
   }
-  watch(search, updateRegExp)
+  watch(search, updateRegExp, { immediate: true })
   watch(() => storeSearches.useRegExp, updateRegExp)
 
   return {

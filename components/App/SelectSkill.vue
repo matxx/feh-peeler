@@ -36,7 +36,8 @@
     <template #append>
       <v-btn
         :disabled="!skill"
-        :href="skill ? storeLinks.skill(skill) : undefined"
+        :to="storeLinks.skillTo(skill)"
+        :href="storeLinks.skillHref(skill)"
         target="_blank"
         icon="mdi-open-in-new"
         size="x-small"
@@ -113,12 +114,13 @@ const props = withDefaults(
   },
 )
 
-const skill = ref<ISkill | null>(null)
+const skill = ref<ISkill>()
 const isInitialized = ref(false)
 function updateSkill() {
-  skill.value = (skillId.value && storeSkills.skillsById[skillId.value]) || null
+  skill.value =
+    (skillId.value && storeSkills.skillsById[skillId.value]) || undefined
 }
-watch(() => skillId, updateSkill, { immediate: true })
+watch(skillId, updateSkill, { immediate: true })
 watch(
   () => storeSkills.skillsById,
   () => {

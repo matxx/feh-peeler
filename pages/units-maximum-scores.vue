@@ -117,16 +117,17 @@
                   key-field="id"
                   direction="horizontal"
                 >
-                  <a
-                    :href="storeLinks.unit(item)"
-                    target="_blank"
+                  <NuxtLink
+                    :to="storeLinks.unitTo(item)"
+                    :href="storeLinks.unitHref(item)"
+                    :target="storeLinks.htmlTarget"
                   >
                     <CompoUnitThumbnail
                       :unit="item"
                       :size="size"
                       :size-corner="sizeCorner"
                     />
-                  </a>
+                  </NuxtLink>
                 </RecycleScroller>
               </client-only>
             </div>

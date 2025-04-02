@@ -23,7 +23,7 @@ export const useStoreAccents = defineStore('accents', () => {
     return str.replace(regexp.value, (m) => substitutions[m])
   }
 
-  function load() {
+  async function load() {
     if (isLoaded.value) return
 
     isLoading.value = true

@@ -67,12 +67,13 @@
               </div>
             </template>
             <template #[`item.name`]="{ item }">
-              <a
-                :href="storeLinks.skill(item)"
-                target="_blank"
+              <NuxtLink
+                :to="storeLinks.skillTo(item)"
+                :href="storeLinks.skillHref(item)"
+                :target="storeLinks.htmlTarget"
               >
                 {{ item.name }}
-              </a>
+              </NuxtLink>
             </template>
             <template #[`item.availability`]="{ item }">
               <SkillFodderAvailabilities
@@ -104,6 +105,7 @@ import type { ISkill } from '@/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const { t } = useI18n()
+const route = useRoute()
 const { mobile } = useDisplay()
 const storeLinks = useStoreLinks()
 
@@ -132,7 +134,9 @@ const iconSize = 30
 const size = 40
 const itemsPerPage = ref(10)
 
-const search = ref<string | null>(null)
+const search = ref<string | undefined>(
+  route.query.name ? String(route.query.name) : undefined,
+)
 const searchLength = computed(() => (search.value ? search.value.length : 0))
 const counter = computed(() =>
   searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
