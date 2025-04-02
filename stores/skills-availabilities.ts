@@ -57,7 +57,7 @@ export const useStoreSkillsAvailabilities = defineStore(
             compact(
               Object.values(availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED]),
             ),
-          ) || 0) === 5
+          ) || 0) > 4
         : null
     const isIdFiveStarLocked = (skillId: SkillId) =>
       isFiveStarLocked(availabilitiesById.value[skillId])
