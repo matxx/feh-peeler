@@ -96,22 +96,3 @@ export interface IUnitRatingsGame8 {
   recommended_bane: IV
   recommended_plus10: IV
 }
-
-export interface IUnitStats {
-  id: UnitId
-  level1_hp: number
-  level1_atk: number
-  level1_spd: number
-  level1_def: number
-  level1_res: number
-  growth_rate_hp: number
-  growth_rate_atk: number
-  growth_rate_spd: number
-  growth_rate_def: number
-  growth_rate_res: number
-  level40_hp: number
-  level40_atk: number
-  level40_spd: number
-  level40_def: number
-  level40_res: number
-}

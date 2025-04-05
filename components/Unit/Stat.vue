@@ -1,0 +1,108 @@
+<template>
+  <AppRenderOnceWhileActive
+    :active="storeDataUnitsStats.isLoaded && storeDataConstants.isLoaded"
+  >
+    <v-table class="text-no-wrap">
+      <thead>
+        <tr>
+          <th>
+            {{ t('pages.units.stats.headers.stat') }}
+          </th>
+          <th>
+            <div class="d-flex align-center justify-space-between">
+              <div>
+                {{ t('pages.units.stats.headers.unit') }}
+              </div>
+              <div>-</div>
+              <div>
+                {{ t('pages.units.stats.headers.max') }}
+              </div>
+            </div>
+          </th>
+          <th class="text-end">
+            {{ t('pages.units.stats.headers.rank') }}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody v-if="storeDataConstants.constants">
+        <tr
+          v-for="stat in STATS"
+          :key="stat"
+        >
+          <th
+            :class="
+              stats[`iv_${stat}`]
+                ? statsIVsColors[stats[`iv_${stat}`]!]
+                : undefined
+            "
+          >
+            {{ statsNames[stat] }}
+          </th>
+          <td>
+            <div class="d-flex align-center">
+              <div>
+                {{ stats[`level40_${stat}`] }}
+              </div>
+              <v-progress-linear
+                :location="null"
+                bg-color="#92aed9"
+                :color="statsColors[stat]"
+                height="12"
+                :model-value="stats[`level40_${stat}`]"
+                min="0"
+                :max="storeDataConstants.constants[`units_max_${stat}`]"
+                rounded
+                class="mx-3"
+              />
+              <div>
+                {{ storeDataConstants.constants[`units_max_${stat}`] }}
+              </div>
+            </div>
+          </td>
+          <td class="text-end">
+            {{ stats[`rank_${stat}`] }}
+            /
+            {{ storeDataConstants.constants.units_count }}
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
+  </AppRenderOnceWhileActive>
+</template>
+
+<script setup lang="ts">
+import { STATS, BANE, BOON } from '~/utils/types/units-stats'
+
+import type { IUnit } from '~/utils/types/units'
+
+const props = defineProps<{
+  unit: IUnit
+}>()
+
+const { t } = useI18n()
+const storeDataConstants = useStoreDataConstants()
+const storeDataUnitsStats = useStoreDataUnitsStats()
+
+const stats = computed(() => storeDataUnitsStats.statsById[props.unit.id])
+
+const statsNames = {
+  hp: 'HP',
+  atk: 'Atk',
+  spd: 'Spd',
+  def: 'Def',
+  res: 'Res',
+}
+const statsIVsColors = {
+  [BANE]: 'text-red',
+  [BOON]: 'text-blue',
+  null: undefined,
+}
+const statsColors = {
+  hp: 'pink-accent-2',
+  atk: 'red-darken-4',
+  spd: 'green-darken-4',
+  def: 'yellow-darken-1',
+  res: 'blue-darken-4',
+}
+</script>

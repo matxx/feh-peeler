@@ -7,6 +7,9 @@ import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as links from '~/utils/types/links'
 import * as themes from '~/utils/types/themes'
 
+export const TAB_FODDER = 'fodder'
+export const TAB_STATS = 'stats'
+
 export default {
   global: {
     inpiredBy: 'Inspired by',
@@ -336,6 +339,23 @@ export default {
       [obfuscatedKeys.AV_SPECIAL_POOL_4]: '4★ Sperial Heroes',
       [obfuscatedKeys.AV_GENERIC_POOL_45]: '4★ SR Generic Summon Pool',
       [obfuscatedKeys.AV_SPECIAL_POOL_45]: '4★ SHSR',
+    },
+  },
+
+  pages: {
+    units: {
+      tabs: {
+        [TAB_FODDER]: 'Fodder',
+        [TAB_STATS]: 'Stats',
+      },
+      stats: {
+        headers: {
+          stat: 'Stat',
+          rank: 'Rank',
+          unit: 'Unit',
+          max: 'Max',
+        },
+      },
     },
   },
 }

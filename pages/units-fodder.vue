@@ -43,25 +43,60 @@
       />
     </div>
     <div v-if="selectedUnit">
-      <UnitFodder
-        :unit="selectedUnit"
-        :size="SIZE"
-      />
+      <v-card>
+        <v-tabs
+          v-model="tabSelected"
+          bg-color="primary"
+        >
+          <v-tab
+            v-for="tab in tabs"
+            :key="tab.key"
+            :value="tab.key"
+          >
+            {{ tab.title }}
+          </v-tab>
+        </v-tabs>
+
+        <v-tabs-window v-model="tabSelected">
+          <v-tabs-window-item :value="TAB_FODDER">
+            <UnitFodder
+              :unit="selectedUnit"
+              :size="SIZE"
+            />
+          </v-tabs-window-item>
+          <v-tabs-window-item :value="TAB_STATS">
+            <UnitStat :unit="selectedUnit" />
+          </v-tabs-window-item>
+        </v-tabs-window>
+      </v-card>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { TAB_FODDER, TAB_STATS } from '~/i18n/lang/en.mjs'
 import type { UnitId } from '~/utils/types/units'
 
 const SIZE = 40
 
+const DEFAULT_TAB = TAB_FODDER
+const TABS = [TAB_FODDER, TAB_STATS]
+
+const tabSelected = ref<string>(DEFAULT_TAB)
+
 const { t } = useI18n()
 const route = useRoute()
+const storeDataConstants = useStoreDataConstants()
 const storeUnits = useStoreUnits()
+const storeDataUnitsStats = useStoreDataUnitsStats()
 const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
 const storeSkills = useStoreSkills()
 const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
+
+const tabs = TABS.map((tab) => ({
+  key: tab,
+  title: t(`pages.units.tabs.${tab}`),
+}))
 
 const unitId = ref<UnitId>()
 const selectedUnit = computed(() =>
@@ -69,16 +104,24 @@ const selectedUnit = computed(() =>
 )
 
 onMounted(() => {
-  storeUnits.load().then(() => {
+  storeDataConstants.load()
+  storeUnits.load()
+  storeDataUnitsStats.load()
+  storeUnitsAvailabilities.load()
+  storeSkills.load()
+  storeSkillsAvailabilities.load()
+})
+
+watch(
+  () => storeUnits.isLoaded,
+  () => {
+    if (!storeUnits.isLoaded) return
     if (!route.query.name) return
 
     const unit = storeUnits.unitsByFullName[String(route.query.name)]
     if (!unit) return
 
     unitId.value = unit.id
-  })
-  storeUnitsAvailabilities.load()
-  storeSkills.load()
-  storeSkillsAvailabilities.load()
-})
+  },
+)
 </script>
