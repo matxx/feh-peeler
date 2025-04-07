@@ -273,7 +273,7 @@ export default {
       '/': 'Home',
       '/assets': 'Assets',
       '/units-maximum-scores': 'Units Maximum Scores',
-      '/units-fodder': 'Units Fodder',
+      '/units': 'Units Details',
       '/skills-fodders': 'Skills Fodder Details',
       '/skills-lists': 'Skills & Ratings',
       '/events/hall-of-forms': 'Hall of Forms',
@@ -282,7 +282,8 @@ export default {
     subtitle: {
       '/units-maximum-scores':
         'compare units scores (for arena and other modes)',
-      '/units-fodder': "can I inherit all unit's skills in one go ?",
+      '/units':
+        "availability, stats, fodder (can I inherit all unit's skills in one go ?)",
       '/skills-fodders':
         'check if a skill is available in the 3★/4★ pool, grails shop, divine codes, ...',
       '/skills-lists':

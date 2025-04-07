@@ -210,9 +210,9 @@ export default defineNuxtConfig({
         // fr: '/listes-de-competences',
         en: '/skills-lists',
       },
-      'units-fodder': {
-        // fr: '/competences-des-unites',
-        en: '/units-fodder',
+      units: {
+        // fr: '/unites',
+        en: '/units',
       },
       'skills-fodders': {
         // fr: '/listes-des-possesseurs-de-competences',

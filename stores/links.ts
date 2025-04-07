@@ -64,7 +64,7 @@ export const useStoreLinks = defineStore('links', () => {
   function unitTo(unit?: IUnit) {
     if (!unit) return
     if (target.value === TARGET_FEH_PEELER)
-      return `/units-fodder?name=${encodeURIComponent(unit.full_name)}`
+      return `/units?name=${encodeURIComponent(unit.full_name)}`
   }
 
   function skillHref(skill?: ISkill) {
