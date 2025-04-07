@@ -1,13 +1,19 @@
 <template>
   <v-navigation-drawer
-    v-if="mounted && mobile"
-    v-model="isOpen"
+    v-if="mounted"
+    disable-resize-watcher
+    disable-route-watcher
+    :model-value="route.path === '/' ? mobile && isOpen : isOpen"
+    @update:model-value="isOpen = $event"
   >
     <AppPages v-show="route.path !== '/'" />
 
-    <v-divider />
+    <v-divider v-show="mobile" />
 
-    <v-list lines="one">
+    <v-list
+      v-show="mobile"
+      lines="one"
+    >
       <v-list-subheader>
         {{ t(`layout.drawer.subheader.parameters`) }}
       </v-list-subheader>
@@ -44,9 +50,12 @@
       </v-list-item>
     </v-list>
 
-    <v-divider />
+    <v-divider v-show="mobile" />
 
-    <v-list lines="one">
+    <v-list
+      v-show="mobile"
+      lines="one"
+    >
       <v-list-subheader>
         {{ t(`layout.drawer.subheader.misc`) }}
       </v-list-subheader>

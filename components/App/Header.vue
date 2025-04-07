@@ -4,7 +4,7 @@
     color="primary"
   >
     <v-btn
-      v-show="mobile"
+      v-show="mobile || route.path !== '/'"
       icon
       @click="isDrawerOpen = !isDrawerOpen"
     >
