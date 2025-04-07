@@ -14,12 +14,13 @@ interface IConstants {
   units_max_res_id: UnitId
 }
 
-export const useStoreDataConstants = defineStore('data-constants', () => {
+export const useStoreDataConstants = defineStore('data/constants', () => {
   const { isLoading, isLoaded, load } = useData(
     'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/constants.json',
+    'stores/data/constants/load',
     (result) => {
       constants.value = JSON.parse(result as string)
-      // stats.value = result
+      // constants.value = result
     },
   )
 

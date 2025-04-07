@@ -43,11 +43,14 @@
 
     <template #[`item.game8_rating`]="{ item }">
       {{
-        storeSkillsRatingsGame8.skillsRatingsGame8ById[item.id]?.game8_rating
+        storeDataSkillsRatingsGame8.skillsRatingsGame8ById[item.id]
+          ?.game8_rating
       }}
     </template>
     <template #[`item.game8_grade`]="{ item }">
-      {{ storeSkillsRatingsGame8.skillsRatingsGame8ById[item.id]?.game8_grade }}
+      {{
+        storeDataSkillsRatingsGame8.skillsRatingsGame8ById[item.id]?.game8_grade
+      }}
     </template>
     <template #[`item.description`]="{ item }">
       <div
@@ -151,8 +154,8 @@ const { mobile } = useDisplay()
 const storeTheme = useStoreTheme()
 const storeLinks = useStoreLinks()
 
-const storeSkills = useStoreSkills()
-const storeSkillsRatingsGame8 = useStoreSkillsRatingsGame8()
+const storeDataSkills = useStoreDataSkills()
+const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
 
 defineEmits(['equip'])
 const model = defineModel<string[]>()
@@ -191,7 +194,7 @@ const filterIndexes = computed(() =>
 )
 
 const skills = computed(
-  () => storeSkills.sortedSkillsByCategory[props.category] || [],
+  () => storeDataSkills.sortedSkillsByCategory[props.category] || [],
 )
 
 const GRID_COLUMN_COUNT = 12

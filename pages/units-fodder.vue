@@ -89,9 +89,9 @@ const route = useRoute()
 const storeDataConstants = useStoreDataConstants()
 const storeUnits = useStoreUnits()
 const storeDataUnitsStats = useStoreDataUnitsStats()
-const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
-const storeSkills = useStoreSkills()
-const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
+const storeDataSkills = useStoreDataSkills()
+const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
 const tabs = TABS.map((tab) => ({
   key: tab,
@@ -107,9 +107,9 @@ onMounted(() => {
   storeDataConstants.load()
   storeUnits.load()
   storeDataUnitsStats.load()
-  storeUnitsAvailabilities.load()
-  storeSkills.load()
-  storeSkillsAvailabilities.load()
+  storeDataUnitsAvailabilities.load()
+  storeDataSkills.load()
+  storeDataSkillsAvailabilities.load()
 })
 
 watch(

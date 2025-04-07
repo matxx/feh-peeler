@@ -4,7 +4,7 @@
     v-model:search="searchText"
     autocomplete="off"
     return-object
-    :loading="storeSkills.isLoading || isUpdating"
+    :loading="storeDataSkills.isLoading || isUpdating"
     :items="skillsFiltered"
     item-title="name"
     item-value="id"
@@ -93,7 +93,7 @@ import {
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const storeLinks = useStoreLinks()
-const storeSkills = useStoreSkills()
+const storeDataSkills = useStoreDataSkills()
 
 defineEmits(['update:model-value'])
 const skillId = defineModel<null | SkillId>()
@@ -118,11 +118,11 @@ const skill = ref<ISkill>()
 const isInitialized = ref(false)
 function updateSkill() {
   skill.value =
-    (skillId.value && storeSkills.skillsById[skillId.value]) || undefined
+    (skillId.value && storeDataSkills.skillsById[skillId.value]) || undefined
 }
 watch(skillId, updateSkill, { immediate: true })
 watch(
-  () => storeSkills.skillsById,
+  () => storeDataSkills.skillsById,
   () => {
     if (isInitialized.value) return
 
@@ -157,8 +157,8 @@ const { regexp, hasError, errorMessages } = useSearch(searchText)
 const skills = computed(
   () =>
     (props.skillCategory
-      ? storeSkills.sortedSkillsByCategory[props.skillCategory]
-      : storeSkills.sortedSkills) || [],
+      ? storeDataSkills.sortedSkillsByCategory[props.skillCategory]
+      : storeDataSkills.sortedSkills) || [],
 )
 
 const skillsFiltered = ref<ISkill[]>([])

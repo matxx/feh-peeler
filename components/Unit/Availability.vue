@@ -1,6 +1,6 @@
 <template>
   <AppRenderOnceWhileActive
-    :active="storeUnitsAvailabilities.isLoaded"
+    :active="storeDataUnitsAvailabilities.isLoaded"
     class="d-flex"
   >
     <CompoAvailability
@@ -97,10 +97,10 @@ const props = withDefaults(
   },
 )
 const { t } = useI18n()
-const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 
 const availability = computed(
-  () => storeUnitsAvailabilities.availabilitiesById[props.unit.id],
+  () => storeDataUnitsAvailabilities.availabilitiesById[props.unit.id],
 )
 
 const divineCodesNormalLowestNumber = computed(

@@ -25,16 +25,16 @@ const props = defineProps<{
   skillId: SkillId | null
 }>()
 
-const storeSkills = useStoreSkills()
-const storeSkillsRatingsGame8 = useStoreSkillsRatingsGame8()
+const storeDataSkills = useStoreDataSkills()
+const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
 
 const skill = computed(() =>
-  props.skillId ? storeSkills.skillsById[props.skillId] : undefined,
+  props.skillId ? storeDataSkills.skillsById[props.skillId] : undefined,
 )
 
 const ratings = computed(() =>
   props.skillId
-    ? storeSkillsRatingsGame8.skillsRatingsGame8ById[props.skillId]
+    ? storeDataSkillsRatingsGame8.skillsRatingsGame8ById[props.skillId]
     : undefined,
 )
 </script>

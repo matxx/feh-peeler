@@ -1,5 +1,5 @@
 <template>
-  <AppRenderOnceWhileActive :active="storeUnitsAvailabilities.isLoaded">
+  <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
     <v-table class="text-no-wrap">
       <UnitFodderThead :size="size" />
 
@@ -44,13 +44,15 @@
             >
               <AppRenderOncePresent
                 v-if="!skill.is_prf"
-                :item="storeSkillsAvailabilities.availabilitiesById[skill.id]"
+                :item="
+                  storeDataSkillsAvailabilities.availabilitiesById[skill.id]
+                "
               >
                 <template #default="{ item }">
                   <span
                     v-if="
                       isUnitFiveStarLocked &&
-                      !storeSkillsAvailabilities.isFiveStarLocked(item) &&
+                      !storeDataSkillsAvailabilities.isFiveStarLocked(item) &&
                       category === SKILL_SPECIAL
                     "
                   >
@@ -80,7 +82,7 @@
       </tbody>
 
       <AppRenderOnceWhileActive
-        :active="storeSkillsAvailabilities.isLoaded"
+        :active="storeDataSkillsAvailabilities.isLoaded"
         tag="tfoot"
       >
         <tr>
@@ -182,25 +184,27 @@ const props = defineProps<{
   size: number
 }>()
 const { t } = useI18n()
-const storeSkills = useStoreSkills()
+const storeDataSkills = useStoreDataSkills()
 const storeLinks = useStoreLinks()
-const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
-const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
+const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
 const DEFAULT_IS_UNIT_FIVE_STAR_LOCKED = false
 
 const availability = computed(
-  () => storeUnitsAvailabilities.availabilitiesById[props.unit.id],
+  () => storeDataUnitsAvailabilities.availabilitiesById[props.unit.id],
 )
 const isUnitFiveStarLocked = computed(
   () =>
     isEmpty(availability.value.lowest_rarity) || // new units
-    storeUnitsAvailabilities.isFiveStarLocked(availability.value) ||
+    storeDataUnitsAvailabilities.isFiveStarLocked(availability.value) ||
     DEFAULT_IS_UNIT_FIVE_STAR_LOCKED,
 )
 
 const skills = computed(() =>
-  compact(availability.value.skill_ids.map((id) => storeSkills.skillsById[id])),
+  compact(
+    availability.value.skill_ids.map((id) => storeDataSkills.skillsById[id]),
+  ),
 )
 const skillsMaxTier = computed<ISkill[]>(() =>
   filter(
@@ -217,7 +221,7 @@ const skillsMaxTierByCategory = computed<ISkillsByCategory>(() =>
 const hasSpecialNotFiveStarLocked = computed(() =>
   some(
     skillsMaxTierByCategory.value[SKILL_SPECIAL],
-    (skill) => !storeSkillsAvailabilities.isSkillFiveStarLocked(skill),
+    (skill) => !storeDataSkillsAvailabilities.isSkillFiveStarLocked(skill),
   ),
 )
 const hasMultipleSkillsInSameSlots = computed(() =>
@@ -240,7 +244,7 @@ const relevantSkillsMaxTierByCategoryByAv = computed(() =>
               [
                 'tier',
                 (skill) =>
-                  storeSkillsAvailabilities.requiredInheritSlotsCount(
+                  storeDataSkillsAvailabilities.requiredInheritSlotsCount(
                     skill,
                     isUnitFiveStarLocked.value,
                     avail,
@@ -264,7 +268,7 @@ const totals = computed(() =>
         values(relevantSkillsMaxTierByCategoryByAv.value[avail]),
         (skill) =>
           skill
-            ? storeSkillsAvailabilities.requiredInheritSlotsCount(
+            ? storeDataSkillsAvailabilities.requiredInheritSlotsCount(
                 skill,
                 isUnitFiveStarLocked.value,
                 avail,

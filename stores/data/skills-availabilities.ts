@@ -1,7 +1,6 @@
 import min from 'lodash-es/min'
 import keyBy from 'lodash-es/keyBy'
 import compact from 'lodash-es/compact'
-import * as Sentry from '@sentry/nuxt'
 
 import { type SkillId, type ISkill, SKILL_SPECIAL } from '~/utils/types/skills'
 import type {
@@ -11,45 +10,23 @@ import type {
 } from '@/utils/types/skills-availabilities'
 import { FODDER_LOWEST_RARITY_WHEN_OBTAINED } from '~/utils/types/obfuscated-keys'
 
-const JSON_URL =
-  'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills-availabilities.json'
-
-export const useStoreSkillsAvailabilities = defineStore(
-  'skills-availabilities',
+export const useStoreDataSkillsAvailabilities = defineStore(
+  'data/skills-availabilities',
   () => {
-    const { addToastWithGenericError } = useStoreSnackbar()
+    const { isLoading, isLoaded, load } = useData(
+      'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills-availabilities.json',
+      'stores/data/skills-availabilities/load',
+      (result) => {
+        availabilities.value = JSON.parse(result as string)
+        // availabilities.value = result
+      },
+    )
 
-    const isLoading = ref(false)
-    const isLoaded = ref(false)
     const availabilities = ref<ISkillAvailability[]>([])
 
     const availabilitiesById = computed<ISkillAvailabilityById>(() =>
       keyBy(availabilities.value, 'id'),
     )
-
-    async function load() {
-      if (isLoaded.value) return
-
-      isLoading.value = true
-
-      return $fetch(JSON_URL)
-        .then(
-          (result) => {
-            availabilities.value = JSON.parse(result as string)
-            // availabilities.value = result
-          },
-          (error) => {
-            addToastWithGenericError()
-            Sentry.captureException(error, {
-              tags: { locator: 'stores/skills/load' },
-            })
-          },
-        )
-        .finally(() => {
-          isLoaded.value = true
-          isLoading.value = false
-        })
-    }
 
     const isFiveStarLocked = (availability?: ISkillAvailability) =>
       availability
@@ -103,6 +80,6 @@ export const useStoreSkillsAvailabilities = defineStore(
 
 if (import.meta.hot) {
   import.meta.hot.accept(
-    acceptHMRUpdate(useStoreSkillsAvailabilities, import.meta.hot),
+    acceptHMRUpdate(useStoreDataSkillsAvailabilities, import.meta.hot),
   )
 }

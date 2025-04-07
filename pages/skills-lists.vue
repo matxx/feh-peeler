@@ -110,17 +110,17 @@ import {
 const { t } = useI18n()
 const display = useDisplay()
 const { mobile, sm, md, lgAndUp } = useDisplay()
-const storeSkills = useStoreSkills()
-const storeSkillsDescriptions = useStoreSkillsDescriptions()
-const storeSkillsRatingsGame8 = useStoreSkillsRatingsGame8()
+const storeDataSkills = useStoreDataSkills()
+const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
+const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
 
 const MAX_FILTERS_COUNT_MOBILE = 1
 const MAX_FILTERS_COUNT_DESKTOP = 6
 
 onMounted(() => {
-  storeSkills.load()
-  storeSkillsDescriptions.load()
-  storeSkillsRatingsGame8.load()
+  storeDataSkills.load()
+  storeDataSkillsDescriptions.load()
+  storeDataSkillsRatingsGame8.load()
 
   boot()
 })
@@ -152,9 +152,9 @@ watch(display.mobile, () => {
 
 const isLoaded = computed(() =>
   every([
-    storeSkills.isLoaded,
-    storeSkillsDescriptions.isLoaded,
-    storeSkillsRatingsGame8.isLoaded,
+    storeDataSkills.isLoaded,
+    storeDataSkillsDescriptions.isLoaded,
+    storeDataSkillsRatingsGame8.isLoaded,
   ]),
 )
 

@@ -319,11 +319,11 @@ const { mobile } = useDisplay()
 const storeLinks = useStoreLinks()
 
 const storeUnits = useStoreUnits()
-const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 
 onMounted(() => {
   storeUnits.load()
-  storeUnitsAvailabilities.load()
+  storeDataUnitsAvailabilities.load()
 })
 
 const totalSize = 60
@@ -399,7 +399,7 @@ function filterWeaponType(filters: IFilters, u: IUnit) {
 function filterAvailability(filters: IFilters, u: IUnit) {
   if (filters.availabilities.length === 0) return true
 
-  const availability = storeUnitsAvailabilities.availabilitiesById[u.id]
+  const availability = storeDataUnitsAvailabilities.availabilitiesById[u.id]
   if (!availability) return false
 
   if (

@@ -1,6 +1,10 @@
 import * as Sentry from '@sentry/nuxt'
 
-export default function useData(url: string, cb: (result: unknown) => void) {
+export default function useData(
+  url: string,
+  locator: string,
+  cb: (result: unknown) => void,
+) {
   const { addToastWithGenericError } = useStoreSnackbar()
 
   const isLoading = ref(false)
@@ -15,7 +19,7 @@ export default function useData(url: string, cb: (result: unknown) => void) {
       .then(cb, (error) => {
         addToastWithGenericError()
         Sentry.captureException(error, {
-          tags: { locator: 'stores/stats/load' },
+          tags: { locator },
         })
       })
       .finally(() => {

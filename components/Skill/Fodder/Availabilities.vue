@@ -1,5 +1,5 @@
 <template>
-  <AppRenderOnceWhileActive :active="storeSkillsAvailabilities.isLoaded">
+  <AppRenderOnceWhileActive :active="storeDataSkillsAvailabilities.isLoaded">
     <div class="d-flex align-center my-1">
       <SkillImg
         v-show="withIcon"
@@ -119,8 +119,8 @@ import {
 
 const { t } = useI18n()
 const storeUnits = useStoreUnits()
-const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
-const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
+const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
 const props = withDefaults(
   defineProps<{
@@ -135,7 +135,7 @@ const props = withDefaults(
 
 const isOpen = ref(false)
 const availability = computed(
-  () => storeSkillsAvailabilities.availabilitiesById[props.skill.id],
+  () => storeDataSkillsAvailabilities.availabilitiesById[props.skill.id],
 )
 
 const isNormalDivineCodeDisabled = computed(
@@ -170,7 +170,7 @@ const sortedFodders = computed(() =>
   sortBy(fodders.value, [
     (unit) =>
       props.sortedByAvailability
-        ? storeUnitsAvailabilities.availabiltySortingVector(unit)
+        ? storeDataUnitsAvailabilities.availabiltySortingVector(unit)
         : 0,
     'sortableName',
   ]),

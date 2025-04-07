@@ -3,7 +3,6 @@ import sumBy from 'lodash-es/sumBy'
 import sortBy from 'lodash-es/sortBy'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
-import * as Sentry from '@sentry/nuxt'
 
 import { getSortableName } from '@/utils/functions/skillSortingVector'
 import type {
@@ -14,22 +13,25 @@ import type {
 } from '@/utils/types/skills'
 import type { IUnitInstance } from '~/utils/types/units'
 
-const JSON_URL =
-  'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills.json'
+export const useStoreDataSkills = defineStore('data/skills', () => {
+  const { isLoading, isLoaded, load } = useData(
+    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills.json',
+    'stores/data/skills/load',
+    (result) => {
+      skillsData.value = JSON.parse(result as string)
+      // skillsData.value = result
+    },
+  )
 
-export const useStoreSkills = defineStore('skills', () => {
-  const { addToastWithGenericError } = useStoreSnackbar()
-  const storeAccents = useStoreAccents()
+  const storeDataAccents = useStoreDataAccents()
 
-  const isLoading = ref(false)
-  const isLoaded = ref(false)
   const skillsData = ref<ISkillData[]>([])
 
   const skills = computed<ISkill[]>(() =>
-    storeAccents.isLoaded
+    storeDataAccents.isLoaded
       ? skillsData.value.map((skill) => ({
           ...skill,
-          filterableName: storeAccents.transliterate(skill.name),
+          filterableName: storeDataAccents.transliterate(skill.name),
           sortableName: getSortableName(skill.name),
         }))
       : [],
@@ -52,30 +54,6 @@ export const useStoreSkills = defineStore('skills', () => {
     )
   }
 
-  async function load() {
-    if (isLoaded.value) return
-
-    isLoading.value = true
-
-    return $fetch(JSON_URL)
-      .then(
-        (result) => {
-          skillsData.value = JSON.parse(result as string)
-          // skillsData.value = result
-        },
-        (error) => {
-          addToastWithGenericError()
-          Sentry.captureException(error, {
-            tags: { locator: 'stores/skills/load' },
-          })
-        },
-      )
-      .finally(() => {
-        isLoaded.value = true
-        isLoading.value = false
-      })
-  }
-
   return {
     isLoading,
     isLoaded,
@@ -93,5 +71,5 @@ export const useStoreSkills = defineStore('skills', () => {
 })
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useStoreSkills, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useStoreDataSkills, import.meta.hot))
 }

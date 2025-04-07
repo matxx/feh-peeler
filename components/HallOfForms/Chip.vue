@@ -53,15 +53,15 @@ const props = withDefaults(
 )
 
 const { t } = useI18n()
-const storeSkills = useStoreSkills()
-const storeSkillsRatingsGame8 = useStoreSkillsRatingsGame8()
+const storeDataSkills = useStoreDataSkills()
+const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
 
 const skill = computed(() =>
-  props.skillId ? storeSkills.skillsById[props.skillId] : null,
+  props.skillId ? storeDataSkills.skillsById[props.skillId] : null,
 )
 const ratings = computed(() =>
   props.skillId
-    ? storeSkillsRatingsGame8.skillsRatingsGame8ById[props.skillId]
+    ? storeDataSkillsRatingsGame8.skillsRatingsGame8ById[props.skillId]
     : undefined,
 )
 </script>

@@ -12,7 +12,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   const promises = []
 
-  promises.push(useStoreAccents().load())
+  promises.push(useStoreDataAccents().load())
 
   const storeLinks = useStoreLinks()
   if (hasOwnProp(session.data, 'linksTarget')) {

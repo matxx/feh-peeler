@@ -21,7 +21,7 @@ import compact from 'lodash-es/compact'
 
 import type { ISkill } from '@/utils/types/skills'
 
-const storeSkills = useStoreSkills()
+const storeDataSkills = useStoreDataSkills()
 
 const props = defineProps<{
   skill: ISkill
@@ -32,7 +32,9 @@ const props = defineProps<{
 
 const bridges = computed(() =>
   compact(
-    props.skill.bridge_ids.map((bridgeId) => storeSkills.skillsById[bridgeId]),
+    props.skill.bridge_ids.map(
+      (bridgeId) => storeDataSkills.skillsById[bridgeId],
+    ),
   ),
 )
 </script>

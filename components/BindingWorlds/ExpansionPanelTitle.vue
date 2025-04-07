@@ -137,19 +137,19 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const storeUnits = useStoreUnits()
-const storeUnitsRatingsGame8 = useStoreUnitsRatingsGame8()
-const storeSkills = useStoreSkills()
+const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
+const storeDataSkills = useStoreDataSkills()
 
 const unitDetails = computed(() =>
   props.unit.id ? storeUnits.unitsById[props.unit.id] : undefined,
 )
 const ratings = computed(() =>
   props.unit.id
-    ? storeUnitsRatingsGame8.unitsRatingsGame8ById[props.unit.id]
+    ? storeDataUnitsRatingsGame8.unitsRatingsGame8ById[props.unit.id]
     : undefined,
 )
 
-const totalSP = computed(() => storeSkills.sumSP(props.unit))
+const totalSP = computed(() => storeDataSkills.sumSP(props.unit))
 </script>
 
 <style lang="css" scoped>

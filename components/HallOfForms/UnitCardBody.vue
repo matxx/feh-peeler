@@ -56,8 +56,8 @@ const props = withDefaults(
 )
 
 const { t } = useI18n()
-const storeSkills = useStoreSkills()
-const totalSP = computed(() => storeSkills.sumSP(props.unitInstance))
+const storeDataSkills = useStoreDataSkills()
+const totalSP = computed(() => storeDataSkills.sumSP(props.unitInstance))
 </script>
 
 <style lang="css" scoped>

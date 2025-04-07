@@ -92,9 +92,9 @@ const { t } = useI18n()
 
 onMounted(() => {
   useStoreUnits().load()
-  useStoreUnitsRatingsGame8().load()
-  useStoreSkills().load()
-  useStoreSkillsRatingsGame8().load()
+  useStoreDataUnitsRatingsGame8().load()
+  useStoreDataSkills().load()
+  useStoreDataSkillsRatingsGame8().load()
 })
 
 const showAll = ref(false)

@@ -1,7 +1,6 @@
 import min from 'lodash-es/min'
 import keyBy from 'lodash-es/keyBy'
 import compact from 'lodash-es/compact'
-import * as Sentry from '@sentry/nuxt'
 
 import type { IUnit, UnitId } from '@/utils/types/units'
 import {
@@ -27,45 +26,23 @@ import {
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
 
-const JSON_URL =
-  'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units-availabilities.json'
-
-export const useStoreUnitsAvailabilities = defineStore(
-  'units-availabilities',
+export const useStoreDataUnitsAvailabilities = defineStore(
+  'data/units-availabilities',
   () => {
-    const { addToastWithGenericError } = useStoreSnackbar()
+    const { isLoading, isLoaded, load } = useData(
+      'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units-availabilities.json',
+      'stores/data/units-availabilities/load',
+      (result) => {
+        availabilities.value = JSON.parse(result as string)
+        // availabilities.value = result
+      },
+    )
 
-    const isLoading = ref(false)
-    const isLoaded = ref(false)
     const availabilities = ref<IUnitAvailability[]>([])
 
     const availabilitiesById = computed<IUnitAvailabilityById>(() =>
       keyBy(availabilities.value, 'id'),
     )
-
-    async function load() {
-      if (isLoaded.value) return
-
-      isLoading.value = true
-
-      return $fetch(JSON_URL)
-        .then(
-          (result) => {
-            availabilities.value = JSON.parse(result as string)
-            // availabilities.value = result
-          },
-          (error) => {
-            addToastWithGenericError()
-            Sentry.captureException(error, {
-              tags: { locator: 'stores/units/load' },
-            })
-          },
-        )
-        .finally(() => {
-          isLoaded.value = true
-          isLoading.value = false
-        })
-    }
 
     function availabiltySortingVector(unit: IUnit) {
       const availability = availabilitiesById.value[unit.id]
@@ -143,6 +120,6 @@ export const useStoreUnitsAvailabilities = defineStore(
 
 if (import.meta.hot) {
   import.meta.hot.accept(
-    acceptHMRUpdate(useStoreUnitsAvailabilities, import.meta.hot),
+    acceptHMRUpdate(useStoreDataUnitsAvailabilities, import.meta.hot),
   )
 }

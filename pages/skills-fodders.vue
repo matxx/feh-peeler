@@ -51,9 +51,9 @@
             :items="skills"
             :loading="
               storeUnits.isLoading ||
-              storeUnitsAvailabilities.isLoading ||
-              storeSkills.isLoading ||
-              storeSkillsAvailabilities.isLoading ||
+              storeDataUnitsAvailabilities.isLoading ||
+              storeDataSkills.isLoading ||
+              storeDataSkillsAvailabilities.isLoading ||
               isUpdating
             "
             class="text-no-wrap"
@@ -110,15 +110,15 @@ const { mobile } = useDisplay()
 const storeLinks = useStoreLinks()
 
 const storeUnits = useStoreUnits()
-const storeUnitsAvailabilities = useStoreUnitsAvailabilities()
-const storeSkills = useStoreSkills()
-const storeSkillsAvailabilities = useStoreSkillsAvailabilities()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
+const storeDataSkills = useStoreDataSkills()
+const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
 onMounted(() => {
   storeUnits.load()
-  storeUnitsAvailabilities.load()
-  storeSkills.load()
-  storeSkillsAvailabilities.load()
+  storeDataUnitsAvailabilities.load()
+  storeDataSkills.load()
+  storeDataSkillsAvailabilities.load()
 })
 
 const keys = ['image', 'name', 'availability', 'pre-inheritance']
@@ -155,16 +155,16 @@ const updateSkillsFiltered = () => {
     !search.value ||
     search.value.length < MINIMAL_TEXT_SEARCH_LENGTH
   ) {
-    skills.value = storeSkills.skills
+    skills.value = storeDataSkills.skills
   } else {
     skills.value = filter(
-      storeSkills.skills,
+      storeDataSkills.skills,
       (s) => !!s.filterableName.match(regexp.value!),
     )
   }
 }
 const { isUpdating } = useDebounce(updateSkillsFiltered, [
   [regexp],
-  [() => storeSkills.skills],
+  [() => storeDataSkills.skills],
 ])
 </script>

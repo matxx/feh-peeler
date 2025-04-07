@@ -114,10 +114,10 @@ const storeUnits = useStoreUnits()
 
 onMounted(() => {
   storeUnits.load()
-  useStoreUnitsRatingsGame8().load()
-  useStoreSkills().load()
-  useStoreSkillsDescriptions().load()
-  useStoreSkillsRatingsGame8().load()
+  useStoreDataUnitsRatingsGame8().load()
+  useStoreDataSkills().load()
+  useStoreDataSkillsDescriptions().load()
+  useStoreDataSkillsRatingsGame8().load()
 })
 
 const list = ref<InstanceType<typeof HallOfFormsSkillsLists>>()

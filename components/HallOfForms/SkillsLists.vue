@@ -56,7 +56,7 @@ import {
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
-const storeSkills = useStoreSkills()
+const storeDataSkills = useStoreDataSkills()
 
 defineEmits(['equip'])
 const props = withDefaults(
@@ -79,7 +79,7 @@ const highlightedSkillId = computed(
 )
 const highlightedSkill = computed(() =>
   tabSelected.value && highlightedSkillId.value
-    ? storeSkills.skillsById[highlightedSkillId.value]
+    ? storeDataSkills.skillsById[highlightedSkillId.value]
     : undefined,
 )
 
