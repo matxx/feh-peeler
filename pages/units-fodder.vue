@@ -123,5 +123,6 @@ watch(
 
     unitId.value = unit.id
   },
+  { immediate: true },
 )
 </script>
