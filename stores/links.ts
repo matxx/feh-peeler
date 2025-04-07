@@ -15,6 +15,7 @@ import type { ISkill } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
 
 export const useStoreLinks = defineStore('links', () => {
+  const localePath = useLocalePath()
   const { l: lFandom } = useFandom()
   const { l: lGame8 } = useGame8()
 
@@ -59,12 +60,15 @@ export const useStoreLinks = defineStore('links', () => {
   function skillTo(skill?: ISkill) {
     if (!skill) return
     if (target.value === TARGET_FEH_PEELER)
-      return `/skills-fodders?name=${encodeURIComponent(skill.name)}`
+      return {
+        path: localePath('/skills-fodders'),
+        query: { name: skill.name },
+      }
   }
   function unitTo(unit?: IUnit) {
     if (!unit) return
     if (target.value === TARGET_FEH_PEELER)
-      return `/units?name=${encodeURIComponent(unit.full_name)}`
+      return { path: localePath('/units'), query: { name: unit.full_name } }
   }
 
   function skillHref(skill?: ISkill) {

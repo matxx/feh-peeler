@@ -4,7 +4,7 @@
       <v-list-subheader>
         {{ t(`home.subheader.devOnly`) }}
       </v-list-subheader>
-      <v-list-item :to="localPath('/assets')">
+      <v-list-item :to="localePath('/assets')">
         <v-list-item-title class="pl-5 text-primary">
           {{ t('home.title./assets') }}
         </v-list-item-title>
@@ -20,7 +20,7 @@
       </v-list-subheader>
       <v-list-item
         v-if="item.item"
-        :to="localPath(item.link)"
+        :to="localePath(item.link)"
       >
         <v-list-item-title class="pl-5 text-primary">
           {{ t(`home.title.${item.link}`) }}
@@ -47,7 +47,7 @@ withDefaults(
 )
 
 const { t } = useI18n()
-const localPath = useLocalePath()
+const localePath = useLocalePath()
 
 const ITEMS = [
   { subheader: true, text: t('home.subheader.unitsAndSkills') },

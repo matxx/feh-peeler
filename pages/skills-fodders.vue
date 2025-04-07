@@ -106,8 +106,10 @@ import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
 const { mobile } = useDisplay()
 const storeLinks = useStoreLinks()
+const localePath = useLocalePath()
 
 const storeUnits = useStoreUnits()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
@@ -134,9 +136,22 @@ const iconSize = 30
 const size = 40
 const itemsPerPage = ref(10)
 
-const search = ref<string | undefined>(
-  route.query.name ? String(route.query.name) : undefined,
-)
+const search = ref<string>()
+watch(search, updateRouteWithSearch)
+function updateRouteWithSearch() {
+  router.replace({
+    path: localePath('/skills-fodders'),
+    query: search.value ? { name: search.value } : undefined,
+  })
+}
+
+watch(route, updateSearchFromRoute, { immediate: true })
+function updateSearchFromRoute() {
+  if (!route.query.name) return
+
+  search.value = String(route.query.name)
+}
+
 const searchLength = computed(() => (search.value ? search.value.length : 0))
 const counter = computed(() =>
   searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
