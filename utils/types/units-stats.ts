@@ -34,6 +34,7 @@ export interface IUnitStat {
   rank_spd: number
   rank_def: number
   rank_res: number
+  rank_bst: number
 
   iv_hp: IV | null
   iv_atk: IV | null

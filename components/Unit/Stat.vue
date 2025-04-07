@@ -2,7 +2,10 @@
   <AppRenderOnceWhileActive
     :active="storeDataUnitsStats.isLoaded && storeDataConstants.isLoaded"
   >
-    <v-table class="text-no-wrap">
+    <v-table
+      v-if="storeDataConstants.constants"
+      class="text-no-wrap"
+    >
       <thead>
         <tr>
           <th>
@@ -25,7 +28,7 @@
         </tr>
       </thead>
 
-      <tbody v-if="storeDataConstants.constants">
+      <tbody>
         <tr
           v-for="stat in STATS"
           :key="stat"
@@ -46,7 +49,7 @@
               </div>
               <v-progress-linear
                 :location="null"
-                bg-color="#92aed9"
+                :bg-color="barBgColor"
                 :color="statsColors[stat]"
                 height="12"
                 :model-value="stats[`level40_${stat}`]"
@@ -67,6 +70,42 @@
           </td>
         </tr>
       </tbody>
+
+      <tfoot>
+        <tr>
+          <th>
+            {{ t('pages.units.stats.headers.total') }} ({{
+              t('pages.units.stats.headers.bst')
+            }})
+          </th>
+          <td>
+            <div class="d-flex align-center">
+              <div>
+                {{ unit.bst }}
+              </div>
+              <v-progress-linear
+                :location="null"
+                :bg-color="barBgColor"
+                color="on-surface"
+                height="12"
+                :model-value="unit.bst"
+                min="0"
+                :max="storeDataConstants.constants.units_max_bst"
+                rounded
+                class="mx-3"
+              />
+              <div>
+                {{ storeDataConstants.constants.units_max_bst }}
+              </div>
+            </div>
+          </td>
+          <td class="text-end">
+            {{ stats.rank_bst }}
+            /
+            {{ storeDataConstants.constants.units_count }}
+          </td>
+        </tr>
+      </tfoot>
     </v-table>
   </AppRenderOnceWhileActive>
 </template>
@@ -105,4 +144,5 @@ const statsColors = {
   def: 'yellow-darken-1',
   res: 'blue-darken-4',
 }
+const barBgColor = 'gray'
 </script>

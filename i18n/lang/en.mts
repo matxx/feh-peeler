@@ -355,6 +355,8 @@ export default {
           rank: 'Rank',
           unit: 'Unit',
           max: 'Max',
+          total: 'Total',
+          bst: 'BST',
         },
       },
     },
