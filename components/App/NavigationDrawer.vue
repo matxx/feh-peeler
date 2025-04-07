@@ -2,8 +2,11 @@
   <v-navigation-drawer
     v-if="mounted && mobile"
     v-model="isOpen"
-    :location="mobile ? 'bottom' : undefined"
   >
+    <AppPages v-show="route.path !== '/'" />
+
+    <v-divider />
+
     <v-list lines="one">
       <v-list-subheader>
         {{ t(`layout.drawer.subheader.parameters`) }}
@@ -39,7 +42,11 @@
           {{ t(storeSearches.textKeyToUse) }}
         </v-list-item-title>
       </v-list-item>
+    </v-list>
 
+    <v-divider />
+
+    <v-list lines="one">
       <v-list-subheader>
         {{ t(`layout.drawer.subheader.misc`) }}
       </v-list-subheader>
@@ -75,6 +82,7 @@ const SIZE = 24
 const isOpen = defineModel<boolean>('is-open')
 
 const { t } = useI18n()
+const route = useRoute()
 const { mobile } = useDisplay()
 const { mounted } = useMounted()
 const storeLinks = useStoreLinks()
