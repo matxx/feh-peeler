@@ -6,26 +6,6 @@
           class="d-flex align-center"
           :class="{ 'mb-3': !mobile }"
         >
-          <div
-            v-show="mobile"
-            class="mr-3"
-          >
-            <UnitScoresSettingsMobile :active="anyFilterActive">
-              <template #drawer>
-                <div class="pa-5 pt-2">
-                  <UnitScoresSettings
-                    v-model:filters="filters"
-                    v-model:sorters="sorters"
-                    :size-sorters="sizeSorters"
-                    :size-filters="sizeFilters"
-                    :filter-name-loading="isUpdating"
-                    :filter-name-error-messages="errorMessages"
-                    @update:sorters="updateSorters"
-                  />
-                </div>
-              </template>
-            </UnitScoresSettingsMobile>
-          </div>
           <div>
             {{ t('global.inpiredBy') }}
             <!-- eslint-disable vue/html-closing-bracket-newline -->
@@ -59,7 +39,25 @@
             class="mt-5"
             :label="t('scores.labels.unitName')"
             :error-messages="errorMessages"
-          />
+          >
+            <template #prepend>
+              <UnitScoresSettingsMobile :active="anyFilterActive">
+                <template #drawer>
+                  <div class="pa-5 pt-2">
+                    <UnitScoresSettings
+                      v-model:filters="filters"
+                      v-model:sorters="sorters"
+                      :size-sorters="sizeSorters"
+                      :size-filters="sizeFilters"
+                      :filter-name-loading="isUpdating"
+                      :filter-name-error-messages="errorMessages"
+                      @update:sorters="updateSorters"
+                    />
+                  </div>
+                </template>
+              </UnitScoresSettingsMobile>
+            </template>
+          </v-text-field>
         </div>
 
         <UnitScoresSettings
