@@ -7,15 +7,14 @@
             color="primary"
             density="compact"
           >
-            <v-toolbar-title class="ml-4">
-              <div class="d-flex align-center">
-                <SkillImg
-                  :skill="skill"
-                  :size="TOOLBAR_ICON_SIZE"
-                  class="mr-2"
-                />
-                {{ skill.name }}
-              </div>
+            <SkillImg
+              :skill="skill"
+              :size="TOOLBAR_ICON_SIZE"
+              class="mx-4"
+            />
+
+            <v-toolbar-title class="ml-0">
+              {{ skill.name }}
             </v-toolbar-title>
 
             <template v-if="!mobile">

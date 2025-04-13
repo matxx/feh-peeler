@@ -7,7 +7,16 @@
             color="primary"
             density="compact"
           >
-            <v-toolbar-title>
+            <CompoUnitThumbnail
+              :unit="unit"
+              :size="25"
+              :size-corner="10"
+              :margin="5"
+              :margin-icon="-5"
+              class="mx-4"
+            />
+
+            <v-toolbar-title class="ml-0">
               {{ unit.full_name }}
             </v-toolbar-title>
 
