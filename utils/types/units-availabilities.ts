@@ -51,7 +51,7 @@ export type IUnitAvailabilityById = {
 // do not use 0, it causes problems in units scores filters
 export const AV_SCORE_GENERIC_POOL_3_4 = 5
 export const AV_SCORE_HEROIC_GRAILS = 10
-// export const AV_SCORE_LIMITED_DIVINE_CODES = 20
+export const AV_SCORE_LIMITED_DIVINE_CODES = 20
 export const AV_SCORE_NORMAL_DIVINE_CODES = 30
 export const AV_SCORE_SPECIAL_POOL_4 = 40
 export const AV_SCORE_GENERIC_POOL_45 = 50
@@ -61,11 +61,13 @@ export const AV_SCORE_LIMITED_HEROES = 80
 export const AV_SCORE_SPECIAL_POOL_5 = 90
 export const AV_SCORE_INFINITY = 1000
 
+export type AV_Availability = number
+
 export const AV_SCORES = [
   AV_SCORE_GENERIC_POOL_3_4,
   AV_SCORE_HEROIC_GRAILS,
   // AV_SCORE_LIMITED_DIVINE_CODES,
-  AV_SCORE_NORMAL_DIVINE_CODES,
+  // AV_SCORE_NORMAL_DIVINE_CODES,
   AV_SCORE_SPECIAL_POOL_4,
   AV_SCORE_GENERIC_POOL_45,
   AV_SCORE_SPECIAL_POOL_45,

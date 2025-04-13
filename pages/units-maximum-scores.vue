@@ -290,7 +290,6 @@ import filter from 'lodash-es/filter'
 import sortBy from 'lodash-es/sortBy'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
-import intersection from 'lodash-es/intersection'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
@@ -301,14 +300,9 @@ import {
   SPECIAL_SUMMON_POOL,
   HEROIC_GRAILS,
   NORMAL_DIVINE_CODES,
-  // LIMITED_DIVINE_CODES,
+  LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
-import {
-  WEAPON_AGGREGATIONS_FOR_FILTERS,
-  WEAPON_AGGREGATED_TYPES,
-} from '@/utils/types/weapons'
-import type { AggregatedWeaponType } from '@/utils/types/weapons'
 
 import type { IFilters, ISorter, ISorters } from '@/utils/types/scores'
 import { createFilters, createSorters, sort } from '@/utils/types/scores'
@@ -338,12 +332,10 @@ const sorters = ref<ISorters>(createSorters())
 
 const anyFilterActive = computed(
   () =>
-    filters.value.traits.length > 0 ||
-    filters.value.moves.length > 0 ||
-    filters.value.weapons.length > 0 ||
-    filters.value.availabilities.length > 0 ||
-    filters.value.isDuo ||
-    filters.value.isHarmonized ||
+    filters.value.traits.size > 0 ||
+    filters.value.moves.size > 0 ||
+    filters.value.weapons.size > 0 ||
+    filters.value.availabilities.size > 0 ||
     filters.value.isRefresher ||
     false,
 )
@@ -375,54 +367,44 @@ function filterName(u: IUnit) {
 }
 
 function filterMoveType(filters: IFilters, u: IUnit) {
-  if (filters.moves.length === 0) return true
+  if (filters.moves.size === 0) return true
 
-  return filters.moves.includes(u.move_type)
+  return filters.moves.has(u.move_type)
 }
 
 function filterWeaponType(filters: IFilters, u: IUnit) {
-  if (filters.weapons.length === 0) return true
-  if (filters.weapons.includes(u.weapon_type)) return true
+  if (filters.weapons.size === 0) return true
 
-  // @ts-expect-error lodash unsafe function
-  const aggregators: AggregatedWeaponType[] = intersection(
-    filters.weapons,
-    WEAPON_AGGREGATED_TYPES,
-  )
-  if (aggregators.length === 0) return false
-
-  return some(aggregators, (aggregator) =>
-    WEAPON_AGGREGATIONS_FOR_FILTERS[aggregator].includes(u.weapon_type),
-  )
+  return filters.weapons.has(u.weapon_type)
 }
 
 function filterAvailability(filters: IFilters, u: IUnit) {
-  if (filters.availabilities.length === 0) return true
+  if (filters.availabilities.size === 0) return true
 
   const availability = storeDataUnitsAvailabilities.availabilitiesById[u.id]
   if (!availability) return false
 
   if (
     availability.is_in[HEROIC_GRAILS] &&
-    filters.availabilities.includes(a.AV_SCORE_HEROIC_GRAILS)
+    filters.availabilities.has(a.AV_SCORE_HEROIC_GRAILS)
   ) {
     return true
   }
-  // if (
-  //   availability.is_in[LIMITED_DIVINE_CODES] &&
-  //   filters.availabilities.includes(a.AV_SCORE_LIMITED_DIVINE_CODES)
-  // ) {
-  //   return true
-  // }
+  if (
+    availability.is_in[LIMITED_DIVINE_CODES] &&
+    filters.availabilities.has(a.AV_SCORE_LIMITED_DIVINE_CODES)
+  ) {
+    return true
+  }
   if (
     availability.is_in[NORMAL_DIVINE_CODES] &&
-    filters.availabilities.includes(a.AV_SCORE_NORMAL_DIVINE_CODES)
+    filters.availabilities.has(a.AV_SCORE_NORMAL_DIVINE_CODES)
   ) {
     return true
   }
   if (
     availability.is_in[FOCUS_ONLY] &&
-    filters.availabilities.includes(a.AV_SCORE_LIMITED_HEROES)
+    filters.availabilities.has(a.AV_SCORE_LIMITED_HEROES)
   ) {
     return true
   }
@@ -431,32 +413,26 @@ function filterAvailability(filters: IFilters, u: IUnit) {
     switch (availability.lowest_rarity[GENERIC_SUMMON_POOL]) {
       case 3:
       case 4:
-        if (filters.availabilities.includes(a.AV_SCORE_GENERIC_POOL_3_4))
-          return true
+        if (filters.availabilities.has(a.AV_SCORE_GENERIC_POOL_3_4)) return true
         break
       case 4.5:
-        if (filters.availabilities.includes(a.AV_SCORE_GENERIC_POOL_45))
-          return true
+        if (filters.availabilities.has(a.AV_SCORE_GENERIC_POOL_45)) return true
         break
       case 5:
-        if (filters.availabilities.includes(a.AV_SCORE_GENERIC_POOL_5))
-          return true
+        if (filters.availabilities.has(a.AV_SCORE_GENERIC_POOL_5)) return true
     }
   }
 
   if (availability.is_in[SPECIAL_SUMMON_POOL]) {
     switch (availability.lowest_rarity[SPECIAL_SUMMON_POOL]) {
       case 4:
-        if (filters.availabilities.includes(a.AV_SCORE_SPECIAL_POOL_4))
-          return true
+        if (filters.availabilities.has(a.AV_SCORE_SPECIAL_POOL_4)) return true
         break
       case 4.5:
-        if (filters.availabilities.includes(a.AV_SCORE_SPECIAL_POOL_45))
-          return true
+        if (filters.availabilities.has(a.AV_SCORE_SPECIAL_POOL_45)) return true
         break
       case 5:
-        if (filters.availabilities.includes(a.AV_SCORE_SPECIAL_POOL_5))
-          return true
+        if (filters.availabilities.has(a.AV_SCORE_SPECIAL_POOL_5)) return true
     }
   }
 
@@ -485,26 +461,11 @@ const getUnitsFiltered = () =>
     ),
     // @ts-expect-error unsafe typings
     f(filter, (u: IUnit) => {
-      if (
-        !filters.value.isDuo &&
-        !filters.value.isHarmonized &&
-        filters.value.traits.length === 0
-      ) {
-        return true
-      }
+      if (filters.value.traits.size === 0) return true
 
-      if (filters.value.isDuo && u.is_duo) return true
-      if (filters.value.isHarmonized && u.is_harmonized) return true
-
-      if (
-        some(filters.value.traits, (trait) => {
-          if (u[trait]) return true
-        })
-      ) {
-        return true
-      }
-
-      return false
+      return some(Array.from(filters.value.traits), (trait) => {
+        if (u[trait]) return true
+      })
     }),
   )(storeUnits.units)
 

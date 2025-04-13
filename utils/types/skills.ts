@@ -91,7 +91,6 @@ export interface ISkillData {
   sp: number
   tier: number
 
-  bridge_ids: SkillId[]
   downgrade_ids?: SkillId[]
   upgrade_ids?: SkillId[]
 

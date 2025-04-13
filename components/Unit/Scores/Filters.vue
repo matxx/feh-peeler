@@ -8,30 +8,29 @@
         :counter="counter"
         density="compact"
         clearable
-        class="mb-2"
         :label="t('scores.labels.unitName')"
         :error-messages="filterNameErrorMessages"
       />
     </div>
-    <div>
+
+    <div class="mt-1">
       <div
         v-for="(array, index) in a.SORTED_AV_SCORES_FOR_FILTERS"
         :key="index"
       >
-        <v-btn-toggle
-          v-model="filters.availabilities"
-          multiple
+        <v-btn-group
           divided
           color="primary"
           density="compact"
           variant="outlined"
-          class="mr-2 mb-1"
         >
           <v-btn
             v-for="availability in array"
             :key="availability"
             size="small"
-            :value="availability"
+            class="text-primary"
+            :active="filters.availabilities.has(availability)"
+            @click="toggleAvailability(availability)"
           >
             <CompoAvailability
               v-if="availability === a.AV_SCORE_GENERIC_POOL_3_4"
@@ -84,22 +83,23 @@
               :size="SIZE"
             />
           </v-btn>
-        </v-btn-toggle>
+        </v-btn-group>
       </div>
+    </div>
 
-      <div class="mt-2">
-        <v-btn-toggle
-          v-model="filters.traits"
-          multiple
+    <div class="mt-1">
+      <div>
+        <v-btn-group
           divided
           color="primary"
           density="compact"
           variant="outlined"
-          class="mr-2 mb-1"
         >
           <v-btn
             size="small"
-            :value="TRAIT_REARMED"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_REARMED)"
+            @click="toggleTrait(scores.TRAIT_REARMED)"
           >
             <img
               src="assets/icons/unit_types/rearmed.png"
@@ -109,7 +109,9 @@
           </v-btn>
           <v-btn
             size="small"
-            :value="TRAIT_ATTUNED"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_ATTUNED)"
+            @click="toggleTrait(scores.TRAIT_ATTUNED)"
           >
             <img
               src="assets/icons/unit_types/attuned.png"
@@ -119,7 +121,9 @@
           </v-btn>
           <v-btn
             size="small"
-            :value="TRAIT_ASCENDED"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_ASCENDED)"
+            @click="toggleTrait(scores.TRAIT_ASCENDED)"
           >
             <img
               src="assets/icons/unit_types/ascended.png"
@@ -129,7 +133,9 @@
           </v-btn>
           <v-btn
             size="small"
-            :value="TRAIT_EMBLEM"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_EMBLEM)"
+            @click="toggleTrait(scores.TRAIT_EMBLEM)"
           >
             <img
               src="assets/icons/unit_types/emblem.png"
@@ -139,7 +145,9 @@
           </v-btn>
           <v-btn
             size="small"
-            :value="TRAIT_AIDED"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_AIDED)"
+            @click="toggleTrait(scores.TRAIT_AIDED)"
           >
             <img
               src="assets/icons/unit_types/aided.png"
@@ -147,22 +155,21 @@
               :height="size"
             />
           </v-btn>
-        </v-btn-toggle>
+        </v-btn-group>
       </div>
 
-      <div class="mb-2">
-        <v-btn-toggle
-          v-model="kinds"
-          multiple
+      <div>
+        <v-btn-group
           divided
           color="primary"
           density="compact"
           variant="outlined"
-          class="mr-1 mb-1"
         >
           <v-btn
             size="small"
-            :value="DUO"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_DUO)"
+            @click="toggleTrait(scores.TRAIT_DUO)"
           >
             <img
               src="assets/icons/unit_types/duo.png"
@@ -172,7 +179,9 @@
           </v-btn>
           <v-btn
             size="small"
-            :value="HARMONIZED"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_HARMONIZED)"
+            @click="toggleTrait(scores.TRAIT_HARMONIZED)"
           >
             <img
               src="assets/icons/unit_types/harmonized.png"
@@ -180,61 +189,99 @@
               :height="size"
             />
           </v-btn>
-        </v-btn-toggle>
+        </v-btn-group>
 
-        <v-btn-toggle
-          v-model="isRefresher"
+        <v-btn-group
+          divided
           color="primary"
           density="compact"
           variant="outlined"
-          class="mr-1 mb-1"
         >
           <v-btn
             size="small"
-            :value="true"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_LEGENDARY)"
+            @click="toggleTrait(scores.TRAIT_LEGENDARY)"
           >
             <img
-              src="assets/icons/unit_types/dancer.png"
+              src="assets/icons/unit_types/legendary.png"
               :width="size"
               :height="size"
             />
           </v-btn>
-        </v-btn-toggle>
+          <v-btn
+            size="small"
+            class="text-primary"
+            :active="filters.traits.has(scores.TRAIT_MYTHIC)"
+            @click="toggleTrait(scores.TRAIT_MYTHIC)"
+          >
+            <img
+              src="assets/icons/unit_types/mythic.png"
+              :width="size"
+              :height="size"
+            />
+          </v-btn>
+        </v-btn-group>
       </div>
     </div>
 
-    <div>
-      <div class="mb-3">
-        <v-btn-toggle
-          v-model="filters.moves"
-          multiple
-          color="primary"
+    <div class="mt-1">
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.isRefresher"
+          @click="filters.isRefresher = !filters.isRefresher"
+        >
+          <img
+            src="assets/icons/unit_types/dancer.png"
+            :width="size"
+            :height="size"
+          />
+        </v-btn>
+      </v-btn-group>
+    </div>
+
+    <div class="mt-1">
+      <v-btn-toggle
+        v-model="filters.moves"
+        multiple
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
+          v-for="moveType in SORTED_MOVE_TYPES"
+          :key="moveType"
+          :value="moveType"
+          size="small"
+        >
+          <AppIconMoveType
+            :move-type="moveType"
+            :size="size"
+          />
+        </v-btn>
+      </v-btn-toggle>
+    </div>
+
+    <div class="mt-1">
+      <div class="d-flex">
+        <v-btn-group
           density="compact"
           variant="outlined"
         >
           <v-btn
-            v-for="moveType in SORTED_MOVE_TYPES"
-            :key="moveType"
-            :value="moveType"
             size="small"
+            @click="filters.weapons = new Set()"
           >
-            <AppIconMoveType
-              :move-type="moveType"
-              :size="size"
-            />
+            <v-icon>mdi-restart</v-icon>
           </v-btn>
-        </v-btn-toggle>
-      </div>
-
-      <div class="d-flex">
-        <v-sheet
-          :height="36"
-          :width="50"
-          color="transparent"
-        />
-        <v-btn-toggle
-          v-model="filters.weapons"
-          multiple
+        </v-btn-group>
+        <v-btn-group
           color="primary"
           density="compact"
           variant="outlined"
@@ -242,40 +289,42 @@
           <v-btn
             v-for="weaponType in WEAPON_COLORS_FOR_FILTERS"
             :key="weaponType"
-            :value="weaponType"
             size="small"
+            class="text-primary"
+            :active="isWeaponAggregateActive[weaponType]"
+            @click="toggleWeaponColor(weaponType)"
           >
             <AppIconWeaponType
               :weapon-type="weaponType"
               :size="size"
             />
           </v-btn>
-        </v-btn-toggle>
+        </v-btn-group>
       </div>
       <div
         v-for="(line, index) in SORTED_WEAPONS_MATRIX_FOR_FILTERS"
         :key="index"
       >
-        <v-btn-toggle
-          v-model="filters.weapons"
-          multiple
+        <v-btn-group
           color="primary"
           density="compact"
           variant="outlined"
         >
           <v-btn
-            :value="WEAPON_FAMILY_TYPES_FOR_FILTERS[index]"
             size="small"
+            class="text-primary"
+            :active="
+              isWeaponAggregateActive[WEAPON_FAMILY_TYPES_FOR_FILTERS[index]]
+            "
+            @click="toggleWeaponFamily(WEAPON_FAMILY_TYPES_FOR_FILTERS[index])"
           >
             <AppIconWeaponType
               :weapon-type="WEAPON_FAMILY_TYPES_FOR_FILTERS[index]"
               :size="size"
             />
           </v-btn>
-        </v-btn-toggle>
-        <v-btn-toggle
-          v-model="filters.weapons"
-          multiple
+        </v-btn-group>
+        <v-btn-group
           color="primary"
           density="compact"
           variant="outlined"
@@ -283,55 +332,59 @@
           <v-btn
             v-for="weaponType in line"
             :key="weaponType"
-            :value="weaponType"
             size="small"
+            class="text-primary"
+            :active="filters.weapons.has(weaponType)"
+            @click="toggleWeapon(weaponType)"
           >
             <AppIconWeaponType
               :weapon-type="weaponType"
               :size="size"
             />
           </v-btn>
-        </v-btn-toggle>
-        <v-btn-toggle
+        </v-btn-group>
+        <v-btn-group
           v-if="index === 0"
-          v-model="filters.weapons"
-          multiple
           color="primary"
           density="compact"
           variant="outlined"
         >
           <v-btn
-            :value="WEAPON_C_ST"
             size="small"
+            class="text-primary"
+            :active="filters.weapons.has(WEAPON_C_ST)"
+            @click="toggleWeapon(WEAPON_C_ST)"
           >
             <AppIconWeaponType
               :weapon-type="WEAPON_C_ST"
               :size="size"
             />
           </v-btn>
-        </v-btn-toggle>
+        </v-btn-group>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import difference from 'lodash-es/difference'
+
 import * as a from '@/utils/types/units-availabilities'
+import * as scores from '@/utils/types/scores'
+import type { IFilters, Trait } from '@/utils/types/scores'
+import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import { SORTED_MOVE_TYPES } from '@/utils/types/moves'
 import {
   WEAPON_C_ST,
   SORTED_WEAPONS_MATRIX_FOR_FILTERS,
   WEAPON_COLORS_FOR_FILTERS,
   WEAPON_FAMILY_TYPES_FOR_FILTERS,
+  WEAPON_AGGREGATIONS_FOR_FILTERS,
+  type WeaponType,
+  type ColorWeaponType,
+  type FamilyWeaponType,
+  type AggregatedWeaponType,
 } from '@/utils/types/weapons'
-import type { IFilters } from '@/utils/types/scores'
-import {
-  TRAIT_REARMED,
-  TRAIT_ATTUNED,
-  TRAIT_ASCENDED,
-  TRAIT_EMBLEM,
-  TRAIT_AIDED,
-} from '@/utils/types/scores'
 
 const SIZE = 24
 
@@ -354,25 +407,62 @@ const searchIsActive = computed(
   () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
 )
 
-const isRefresher = ref(filters.value?.isRefresher ? true : false)
-watch(isRefresher, () => {
+const isWeaponAggregateActive = computed(() =>
+  objectFromEntries(
+    objectEntries(WEAPON_AGGREGATIONS_FOR_FILTERS).map(
+      ([aggregate, weaponTypes]) => [
+        aggregate,
+        filters.value
+          ? difference(weaponTypes, Array.from(filters.value.weapons))
+              .length === 0
+          : false,
+      ],
+    ),
+  ),
+)
+
+function toggleAvailability(availability: a.AV_Availability) {
   if (!filters.value) return
 
-  filters.value.isRefresher = !!isRefresher.value
-})
-
-const DUO = 'DUO'
-const HARMONIZED = 'HARMONIZED'
-
-const initialKinds = []
-if (filters.value?.isDuo) initialKinds.push(DUO)
-if (filters.value?.isHarmonized) initialKinds.push(HARMONIZED)
-
-const kinds = ref<string[]>([])
-watch(kinds, () => {
+  if (filters.value.availabilities.has(availability)) {
+    filters.value.availabilities.delete(availability)
+  } else {
+    filters.value.availabilities.add(availability)
+  }
+}
+function toggleTrait(trait: Trait) {
   if (!filters.value) return
 
-  filters.value.isDuo = kinds.value.includes(DUO)
-  filters.value.isHarmonized = kinds.value.includes(HARMONIZED)
-})
+  if (filters.value.traits.has(trait)) {
+    filters.value.traits.delete(trait)
+  } else {
+    filters.value.traits.add(trait)
+  }
+}
+function toggleWeapon(weaponType: WeaponType) {
+  if (!filters.value) return
+
+  if (filters.value.weapons.has(weaponType)) {
+    filters.value.weapons.delete(weaponType)
+  } else {
+    filters.value.weapons.add(weaponType)
+  }
+}
+
+function toggleWeaponColor(weaponType: ColorWeaponType) {
+  toggleWeaponAggregate(weaponType)
+}
+function toggleWeaponFamily(weaponType: FamilyWeaponType) {
+  toggleWeaponAggregate(weaponType)
+}
+function toggleWeaponAggregate(aggregate: AggregatedWeaponType) {
+  if (!filters.value) return
+
+  const types = WEAPON_AGGREGATIONS_FOR_FILTERS[aggregate]
+  if (isWeaponAggregateActive.value[aggregate]) {
+    types.forEach((type) => filters.value!.weapons.delete(type))
+  } else {
+    types.forEach((type) => filters.value!.weapons.add(type))
+  }
+}
 </script>
