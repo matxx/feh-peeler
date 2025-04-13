@@ -1,6 +1,8 @@
 <template>
   <Teleport to="body">
     <v-dialog v-model="isOpen">
+      <div id="skills-modals-root" />
+
       <v-card :loading="isLoading">
         <template v-if="skill">
           <v-toolbar

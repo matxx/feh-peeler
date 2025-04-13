@@ -1,5 +1,10 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataSkillsAvailabilities.isLoaded">
+    <SkillFodderSorting
+      v-if="sortedFodders.length > 1"
+      class="ml-3 mb-3"
+    />
+
     <v-table>
       <thead>
         <tr>

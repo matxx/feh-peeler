@@ -388,8 +388,8 @@ export default {
       canUse: 'Can use',
       effect: 'Effect',
       fodders: {
-        sortByAvailability: 'Fodders sorted by Availability',
-        sortByName: 'Fodders sorted by Name',
+        sortByAvailability: 'Sorted by Availability',
+        sortByName: 'Sorted by Name',
       },
     },
   },

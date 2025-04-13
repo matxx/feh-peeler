@@ -1,13 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col class="d-flex align-center">
-        <div
-          v-show="mobile"
-          class="mr-3"
-        >
-          <SkillFodderSortingMobile />
-        </div>
+      <v-col>
         <div>
           {{ t('global.inpiredBy') }}
           <a
@@ -18,9 +12,6 @@
             KannaDB
           </a>
         </div>
-      </v-col>
-      <v-col v-show="!mobile">
-        <SkillFodderSortingDesktop />
       </v-col>
     </v-row>
 
