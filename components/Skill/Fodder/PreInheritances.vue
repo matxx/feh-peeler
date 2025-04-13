@@ -1,15 +1,14 @@
 <template>
   <div>
     <div
-      v-for="bridge in bridges"
-      :key="bridge.id"
+      v-for="downgrade in downgrades"
+      :key="downgrade.id"
       class="d-flex align-center"
     >
       <SkillFodderAvailabilities
-        :skill="bridge"
+        :skill="downgrade"
         :tile-size="tileSize"
         :skill-icon-size="skillIconSize"
-        :sorted-by-availability="sortedByAvailability"
         with-icon
       />
     </div>
@@ -27,14 +26,13 @@ const props = defineProps<{
   skill: ISkill
   tileSize: number
   skillIconSize: number
-  sortedByAvailability: boolean
 }>()
 
-const bridges = computed(() =>
+const downgrades = computed(() =>
   props.skill.downgrade_ids
     ? compact(
         props.skill.downgrade_ids.map(
-          (bridgeId) => storeDataSkills.skillsById[bridgeId],
+          (downgradeId) => storeDataSkills.skillsById[downgradeId],
         ),
       )
     : [],

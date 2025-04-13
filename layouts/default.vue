@@ -15,9 +15,7 @@
 const { locale } = useI18n()
 const storeTheme = useStoreTheme()
 const isDrawerOpen = ref(false)
-onMounted(() => {
-  useStoreDataAccents().load()
-})
+useDataStores([useStoreDataAccents()])
 useHead({
   htmlAttrs: {
     lang: locale.value,

@@ -1,20 +1,21 @@
 <template>
   <v-switch
-    v-model="sortedByAvailability"
     density="compact"
     color="primary"
     hide-details
+    :model-value="storeGlobals.sortedByAvailability"
+    @update:model-value="storeGlobals.setSortedByAvailability(!!$event)"
   >
     <template #label>
       {{
-        sortedByAvailability
-          ? t('skillsFodders.foddersSortByAvailability')
-          : t('skillsFodders.foddersSortByName')
+        storeGlobals.sortedByAvailability
+          ? t('skills.show.fodders.sortByAvailability')
+          : t('skills.show.fodders.sortByName')
       }}
       <v-tooltip location="end">
         <template #activator="{ props: tooltipProps }">
           <v-icon
-            v-show="sortedByAvailability"
+            v-show="storeGlobals.sortedByAvailability"
             v-bind="tooltipProps"
             color="info"
             size="x-small"
@@ -31,6 +32,6 @@
 </template>
 
 <script setup lang="ts">
-const sortedByAvailability = defineModel<boolean>('sortedByAvailability')
+const storeGlobals = useStoreGlobals()
 const { t } = useI18n()
 </script>

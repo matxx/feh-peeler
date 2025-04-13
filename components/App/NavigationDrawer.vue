@@ -18,19 +18,6 @@
         {{ t(`layout.drawer.subheader.parameters`) }}
       </v-list-subheader>
 
-      <v-list-item @click="storeLinks.cycle">
-        <template #prepend>
-          <v-img
-            :src="storeLinks.imageToUse"
-            :width="SIZE"
-            class="mr-8"
-          />
-        </template>
-        <v-list-item-title>
-          {{ t(`layout.header.target.${storeLinks.target}`) }}
-        </v-list-item-title>
-      </v-list-item>
-
       <v-list-item @click="storeTheme.cycle">
         <template #prepend>
           <v-icon :size="SIZE">{{ storeTheme.selectedThemeIcon }}</v-icon>
@@ -92,9 +79,15 @@ const isOpen = defineModel<boolean>('is-open')
 
 const { t } = useI18n()
 const route = useRoute()
+const router = useRouter()
 const { mobile } = useDisplay()
 const { mounted } = useMounted()
-const storeLinks = useStoreLinks()
 const storeTheme = useStoreTheme()
 const storeSearches = useStoreSearches()
+
+router.afterEach(() => {
+  if (!mobile) return
+
+  isOpen.value = false
+})
 </script>

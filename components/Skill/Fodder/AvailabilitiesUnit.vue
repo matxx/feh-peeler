@@ -1,23 +1,28 @@
 <template>
   <tr>
     <td>
-      <div class="d-flex align-center">
-        <CompoUnitThumbnail
-          :unit="unit"
-          :size="tileSize"
-          :size-corner="tileSize / 3"
-        />
-        <div>
-          <NuxtLink
-            :to="storeLinks.unitTo(unit)"
-            :href="storeLinks.unitHref(unit)"
-            :target="storeLinks.htmlTarget"
-            class="text-decoration-none"
-          >
+      <PlusModalLink
+        :to="
+          localePath({
+            name: 'units-name-tab',
+            params: {
+              name: unit.nameForLink,
+              tab: TAB_FODDER,
+            },
+          })
+        "
+      >
+        <div class="d-flex align-center">
+          <CompoUnitThumbnail
+            :unit="unit"
+            :size="tileSize"
+            :size-corner="tileSize / 3"
+          />
+          <div v-show="!mobile">
             {{ unit.full_name }}
-          </NuxtLink>
+          </div>
         </div>
-      </div>
+      </PlusModalLink>
     </td>
     <td>
       <UnitAvailability
@@ -25,14 +30,23 @@
         :tile-size="tileSize"
       />
     </td>
+    <td>
+      <UnitSkillUnlockRarity
+        :unit="unit"
+        :skill="skill"
+        :tile-size="(tileSize * 3) / 4"
+      />
+    </td>
   </tr>
 </template>
 
 <script setup lang="ts">
-import type { IUnit } from '@/utils/types/units'
+import type { ISkill } from '~/utils/types/skills'
+import { TAB_FODDER, type IUnit } from '@/utils/types/units'
 
 withDefaults(
   defineProps<{
+    skill: ISkill
     unit: IUnit
     tileSize: number
     size?: number
@@ -40,5 +54,7 @@ withDefaults(
   }>(),
   { size: 80, sizeCorner: 30 },
 )
-const storeLinks = useStoreLinks()
+
+const { mobile } = useDisplay()
+const localePath = useLocalePath()
 </script>

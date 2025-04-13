@@ -27,22 +27,35 @@
     v-bind="$attrs"
     @update:model-value="$emit('update:model-value', $event ? $event.id : null)"
   >
-    <template #prepend-inner>
+    <template
+      v-if="skillCategory"
+      #prepend-inner
+    >
       <SkillImgCategory
         :category="skillCategory"
         :size="18"
       />
     </template>
-    <template #append>
+
+    <template
+      v-if="appendLink"
+      #append
+    >
       <v-btn
         :disabled="!skill"
-        :to="storeLinks.skillTo(skill)"
-        :href="storeLinks.skillHref(skill)"
-        target="_blank"
-        icon="mdi-open-in-new"
+        :to="
+          localePath({
+            name: 'skills-name',
+            params: {
+              name: skill?.nameForLink,
+            },
+          })
+        "
+        icon="mdi-card-bulleted"
         size="x-small"
       />
     </template>
+
     <template
       v-if="shouldDisplayIconInSelection"
       #selection="{ item }"
@@ -54,6 +67,7 @@
       />
       {{ item.raw.name }}
     </template>
+
     <template #item="{ props: slotProps, item }">
       <v-list-item
         v-bind="slotProps"
@@ -92,7 +106,7 @@ import {
 } from '~/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
-const storeLinks = useStoreLinks()
+const localePath = useLocalePath()
 const storeDataSkills = useStoreDataSkills()
 
 defineEmits(['update:model-value'])
@@ -104,6 +118,7 @@ const props = withDefaults(
     showIconInSelection?: boolean
     showIconInList?: boolean
     size?: number
+    hideLink?: boolean
   }>(),
   {
     skillCategory: undefined,
@@ -111,8 +126,11 @@ const props = withDefaults(
     showIconInSelection: undefined,
     showIconInList: undefined,
     size: 20,
+    hideLink: false,
   },
 )
+
+const appendLink = computed(() => !props.hideLink)
 
 const skill = ref<ISkill>()
 const isInitialized = ref(false)
@@ -166,7 +184,7 @@ const getSkillsFiltered = () =>
   regexp.value && searchIsActive.value
     ? filter(
         skills.value,
-        (skill) => !!skill.filterableName.match(regexp.value!),
+        (skill) => !!skill.nameForFilters.match(regexp.value!),
       )
     : []
 const updateSkillsFiltered = () => {

@@ -1,14 +1,18 @@
 import keyBy from 'lodash-es/keyBy'
 import sumBy from 'lodash-es/sumBy'
 import sortBy from 'lodash-es/sortBy'
+import filter from 'lodash-es/filter'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
 import { getSortableName } from '@/utils/functions/skillSortingVector'
 import type {
+  SkillId,
   ISkillData,
   ISkill,
+  ISkillTree,
   ISkillById,
+  ISkillByName,
   ISkillsByCategory,
 } from '@/utils/types/skills'
 import type { IUnitInstance } from '~/utils/types/units'
@@ -27,20 +31,55 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
 
   const skillsData = ref<ISkillData[]>([])
 
+  const getNameForLink = (skill: ISkillData) => {
+    if (!skill.refine) return skill.name
+
+    return `${skill.name} (${skill.refine})`
+  }
+
   const skills = computed<ISkill[]>(() =>
     storeDataAccents.isLoaded
       ? skillsData.value.map((skill) => ({
           ...skill,
-          filterableName: storeDataAccents.transliterate(skill.name),
-          sortableName: getSortableName(skill.name),
+          nameForLink: escapeName(getNameForLink(skill)),
+          nameForFilters: storeDataAccents.transliterate(skill.name),
+          nameForSorting: getSortableName(skill.name),
         }))
       : [],
   )
+  const allSkillIds = computed<SkillId[]>(() => skills.value.map((s) => s.id))
+
+  const skillsTree = computed<ISkillTree[]>(() =>
+    compact(
+      filter(skills.value, (skill) => !skill.downgrade_ids).map((skill) =>
+        recTree(skill),
+      ),
+    ),
+  )
+  function recTree(skill?: ISkill): ISkillTree | undefined {
+    if (!skill) return
+
+    return {
+      id: skill.id,
+      title: skill.name,
+      skill,
+      children: skill.upgrade_ids
+        ? compact(
+            skill.upgrade_ids.map((skillId) =>
+              recTree(skillsById.value[skillId]),
+            ),
+          )
+        : undefined,
+    }
+  }
 
   const skillsById = computed<ISkillById>(() => keyBy(skills.value, 'id'))
+  const skillsByNameForLink = computed<ISkillByName>(() =>
+    keyBy(skills.value, 'nameForLink'),
+  )
 
   const sortedSkills = computed<ISkill[]>(() =>
-    sortBy(skills.value, 'sortableName'),
+    sortBy(skills.value, 'nameForSorting'),
   )
   // @ts-expect-error groupBy is not type safe
   const sortedSkillsByCategory = computed<ISkillsByCategory>(() =>
@@ -62,6 +101,10 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     skillsData,
     skills,
     skillsById,
+    skillsByNameForLink,
+    skillsTree,
+
+    allSkillIds,
 
     sortedSkills,
     sortedSkillsByCategory,

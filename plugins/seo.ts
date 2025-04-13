@@ -6,8 +6,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const route = useRoute()
   const baseUrl = getBaseUrl()
+  const getRouteBaseName = useRouteBaseName()
   const url = computed(() => `${baseUrl}${route.path}`)
-  const title = computed(() => t(`home.title.${route.path}`))
+  const title = computed(() =>
+    t(`home.title.${getRouteBaseName(route)}`, route.params),
+  )
 
   useHead({
     title: () => title.value,

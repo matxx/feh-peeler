@@ -1,3 +1,30 @@
+import hasOwnProp from '~/utils/functions/hasOwnProp'
+
+// TODO: make return type safe...
+export function nestedKeyBy<
+  T extends Record<PropertyKey, PropertyKey>,
+  Key extends Filter<T>,
+>(arr: T[], keys: Key[]) {
+  const res = {}
+  const length = keys.length
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const reducer = ([acc, el]: [any, T], key: Key, index: number) => {
+    const isLast = index === length - 1
+    const value = el[key]
+    if (isLast) {
+      acc[value] = el
+      return acc
+    } else {
+      if (!hasOwnProp(acc, value)) acc[value] = {}
+      return [acc[value], el]
+    }
+  }
+  arr.forEach((el) => {
+    keys.reduce(reducer, [res, el])
+  })
+  return res
+}
+
 // https://stackoverflow.com/a/75337277/5032734
 
 type ValueOf<T> = T[keyof T]

@@ -1,5 +1,26 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
+    <div class="mb-3">
+      {{ t('global.inpiredBy') }}
+      <!-- eslint-disable vue/html-closing-bracket-newline -->
+      <a
+        href="https://www.reddit.com/user/JabPerson/"
+        target="_blank"
+        class="text-decoration-none"
+      >
+        @JabPerson</a
+      >
+      Reddit
+      <!-- eslint-enable vue/html-closing-bracket-newline -->
+      <a
+        href="https://www.reddit.com/r/FireEmblemHeroes/comments/1gumcdt/can_you_inherit_all_their_fodder_in_one_go/"
+        target="_blank"
+        class="text-decoration-none"
+      >
+        {{ t('global.post') }}
+      </a>
+    </div>
+
     <v-table class="text-no-wrap">
       <UnitFodderThead :size="size" />
 
@@ -22,10 +43,16 @@
               />
             </th>
             <th>
-              <NuxtLink
-                :to="storeLinks.skillTo(skill)"
-                :href="storeLinks.skillHref(skill)"
-                :target="storeLinks.htmlTarget"
+              <PlusModalLink
+                :to="
+                  localePath({
+                    name: 'skills-name-tab',
+                    params: {
+                      name: skill.nameForLink,
+                      tab: TAB_FODDERS,
+                    },
+                  })
+                "
                 class="d-flex align-center"
               >
                 <SkillImg
@@ -35,7 +62,7 @@
                   class="mr-2"
                 />
                 {{ skill.name }}
-              </NuxtLink>
+              </PlusModalLink>
             </th>
             <td
               v-for="avail in AVAILABILITIES"
@@ -168,6 +195,7 @@ import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
   SKILL_SPECIAL,
+  TAB_FODDERS,
   type ISkill,
   type ISkillsByCategory,
 } from '~/utils/types/skills'
@@ -183,9 +211,11 @@ const props = defineProps<{
   unit: IUnit
   size: number
 }>()
+
 const { t } = useI18n()
+const localePath = useLocalePath()
+
 const storeDataSkills = useStoreDataSkills()
-const storeLinks = useStoreLinks()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 

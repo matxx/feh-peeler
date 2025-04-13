@@ -14,11 +14,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   promises.push(useStoreDataAccents().load())
 
-  const storeLinks = useStoreLinks()
-  if (hasOwnProp(session.data, 'linksTarget')) {
-    promises.push(storeLinks.asyncSetTarget(session.data.linksTarget))
-  }
-
   const storeSearches = useStoreSearches()
   if (hasOwnProp(session.data, 'useRegExp')) {
     promises.push(storeSearches.asyncSetUseRegExp(session.data.useRegExp))

@@ -1,10 +1,13 @@
 <template>
   <thead>
     <tr>
-      <th colspan="2" />
       <th
-        :colspan="AVAILABILITIES.length"
-        class="text-center"
+        v-show="!mobile"
+        colspan="2"
+      />
+      <th
+        :colspan="mobile ? AVAILABILITIES.length + 2 : AVAILABILITIES.length"
+        :class="{ 'text-center': !mobile }"
       >
         {{ t('unitsFodder.numberOfSlotsRequiredToInherit') }}
       </th>
@@ -73,4 +76,5 @@ defineProps<{
 }>()
 
 const { t } = useI18n()
+const { mobile } = useDisplay()
 </script>

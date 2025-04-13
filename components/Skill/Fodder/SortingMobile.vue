@@ -16,16 +16,17 @@
       <div class="pa-5 pt-2">
         <div class="mb-5">
           <v-switch
-            v-model="sortedByAvailability"
             density="compact"
             color="primary"
             hide-details
+            :model-value="storeGlobals.sortedByAvailability"
+            @update:model-value="storeGlobals.setSortedByAvailability(!!$event)"
           >
             <template #label>
               {{
-                sortedByAvailability
-                  ? t('skillsFodders.foddersSortByAvailability')
-                  : t('skillsFodders.foddersSortByName')
+                storeGlobals.sortedByAvailability
+                  ? t('skills.show.fodders.sortByAvailability')
+                  : t('skills.show.fodders.sortByName')
               }}
             </template>
           </v-switch>
@@ -39,16 +40,15 @@
 </template>
 
 <script setup lang="ts">
-const sortedByAvailability = defineModel<boolean>('sortedByAvailability')
-
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const { mounted } = useMounted()
+const storeGlobals = useStoreGlobals()
 
 const isOpen = ref(false)
 
 const icon = computed(() =>
-  sortedByAvailability.value
+  storeGlobals.sortedByAvailability
     ? 'mdi-sort-bool-ascending-variant'
     : 'mdi-sort-alphabetical-ascending',
 )

@@ -9,13 +9,18 @@ import type { ISkillIdByCategory } from '@/utils/types/skills'
 
 export type UnitId = string
 
+export const TAB_FODDER = 'fodder'
+export const TAB_STATS = 'stats'
+export const SHOW_TABS = [TAB_STATS, TAB_FODDER]
+export const SHOW_DEFAULT_TAB = TAB_STATS
+
 export interface IUnitThumbnail {
   id: UnitId
   full_name: string
 
   image_url_for_portrait: string
-  image_url_for_icon_legendary: string | null
-  image_url_for_icon_mythic: string | null
+  image_url_for_icon_legendary?: string
+  image_url_for_icon_mythic?: string
 
   move_type: MoveType
   weapon_type: WeaponType
@@ -32,15 +37,15 @@ export interface IUnitThumbnail {
 
 export interface IUnitData {
   id: UnitId
-  game8_id: Game8Id | null
+  game8_id?: Game8Id
 
   name: string
   title: string
   full_name: string
 
   image_url_for_portrait: string
-  image_url_for_icon_legendary: string | null
-  image_url_for_icon_mythic: string | null
+  image_url_for_icon_legendary?: string
+  image_url_for_icon_mythic?: string
 
   move_type: MoveType
   weapon_type: WeaponType
@@ -73,8 +78,9 @@ export interface IUnitData {
 }
 
 export interface IUnit extends IUnitData {
-  filterableName: string
-  sortableName: string
+  nameForLink: string
+  nameForFilters: string
+  nameForSorting: string
 }
 
 export interface IUnitInstance {

@@ -136,12 +136,12 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const storeUnits = useStoreUnits()
+const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
 const storeDataSkills = useStoreDataSkills()
 
 const unitDetails = computed(() =>
-  props.unit.id ? storeUnits.unitsById[props.unit.id] : undefined,
+  props.unit.id ? storeDataUnits.unitsById[props.unit.id] : undefined,
 )
 const ratings = computed(() =>
   props.unit.id

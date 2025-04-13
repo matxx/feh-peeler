@@ -8,22 +8,20 @@
     >
       <thead>
         <tr>
-          <th>
-            {{ t('pages.units.stats.headers.stat') }}
-          </th>
+          <th />
           <th>
             <div class="d-flex align-center justify-space-between">
               <div>
-                {{ t('pages.units.stats.headers.unit') }}
+                {{ t('units.show.stats.headers.unit') }}
               </div>
               <div>-</div>
               <div>
-                {{ t('pages.units.stats.headers.max') }}
+                {{ t('units.show.stats.headers.max') }}
               </div>
             </div>
           </th>
           <th class="text-end">
-            {{ t('pages.units.stats.headers.rank') }}
+            {{ t('units.show.stats.headers.rank') }}
           </th>
         </tr>
       </thead>
@@ -56,7 +54,7 @@
                 min="0"
                 :max="storeDataConstants.constants[`units_max_${stat}`]"
                 rounded
-                class="mx-3"
+                class="mx-3 min-width-100px"
               />
               <div>
                 {{ storeDataConstants.constants[`units_max_${stat}`] }}
@@ -74,9 +72,7 @@
       <tfoot>
         <tr>
           <th>
-            {{ t('pages.units.stats.headers.total') }} ({{
-              t('pages.units.stats.headers.bst')
-            }})
+            {{ t('units.show.stats.headers.bst') }}
           </th>
           <td>
             <div class="d-flex align-center">
@@ -146,3 +142,9 @@ const statsColors = {
 }
 const barBgColor = 'gray'
 </script>
+
+<style lang="scss" scoped>
+.min-width-100px {
+  min-width: 100px;
+}
+</style>

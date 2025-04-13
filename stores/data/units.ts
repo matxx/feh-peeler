@@ -3,7 +3,7 @@ import sortBy from 'lodash-es/sortBy'
 
 import type { IUnitData, IUnit } from '@/utils/types/units'
 
-export const useStoreUnits = defineStore('data/units', () => {
+export const useStoreDataUnits = defineStore('data/units', () => {
   const { isLoading, isLoaded, load } = useData(
     'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units.json',
     'stores/data/units/load',
@@ -21,8 +21,9 @@ export const useStoreUnits = defineStore('data/units', () => {
     storeDataAccents.isLoaded
       ? unitsData.value.map((unit) => ({
           ...unit,
-          filterableName: storeDataAccents.transliterate(unit.full_name),
-          sortableName: unit.full_name,
+          nameForLink: escapeName(unit.full_name),
+          nameForFilters: storeDataAccents.transliterate(unit.full_name),
+          nameForSorting: unit.full_name,
         }))
       : [],
   )
@@ -30,12 +31,12 @@ export const useStoreUnits = defineStore('data/units', () => {
   const unitsById = computed<{ [index: string]: IUnit }>(() =>
     keyBy(units.value, 'id'),
   )
-  const unitsByFullName = computed<{ [index: string]: IUnit }>(() =>
-    keyBy(units.value, 'full_name'),
+  const unitsByNameForLink = computed<{ [index: string]: IUnit }>(() =>
+    keyBy(units.value, 'nameForLink'),
   )
 
   const sortedUnits = computed<IUnit[]>(() =>
-    sortBy(units.value, 'sortableName'),
+    sortBy(units.value, 'nameForSorting'),
   )
 
   return {
@@ -46,11 +47,11 @@ export const useStoreUnits = defineStore('data/units', () => {
     unitsData,
     units,
     unitsById,
-    unitsByFullName,
+    unitsByNameForLink,
     sortedUnits,
   }
 })
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useStoreUnits, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useStoreDataUnits, import.meta.hot))
 }

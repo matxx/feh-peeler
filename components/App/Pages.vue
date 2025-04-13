@@ -6,7 +6,12 @@
       </v-list-subheader>
       <v-list-item :to="localePath('/assets')">
         <v-list-item-title class="pl-5 text-primary">
-          {{ t('home.title./assets') }}
+          {{ t('home.title.assets') }}
+        </v-list-item-title>
+      </v-list-item>
+      <v-list-item :to="localePath('/skills-tree')">
+        <v-list-item-title class="pl-5 text-primary">
+          {{ t('home.title.skills-tree') }}
         </v-list-item-title>
       </v-list-item>
     </DevOnly>
@@ -51,12 +56,13 @@ const localePath = useLocalePath()
 
 const ITEMS = [
   { subheader: true, text: t('home.subheader.unitsAndSkills') },
-  { item: true, link: '/units-maximum-scores' },
-  { item: true, link: '/units' },
-  { item: true, link: '/skills-fodders' },
-  { item: true, link: '/skills-lists' },
+  { item: true, link: 'units' },
+  { item: true, link: 'units-maximum-scores' },
+  { item: true, link: 'skills' },
+  { item: true, link: 'skills-fodders' },
+  { item: true, link: 'skills-lists' },
   { subheader: true, text: t('home.subheader.events') },
-  { item: true, link: '/events/hall-of-forms' },
-  { item: true, link: '/events/binding-worlds' },
+  { item: true, link: 'events-hall-of-forms' },
+  { item: true, link: 'events-binding-worlds' },
 ]
 </script>

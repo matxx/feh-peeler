@@ -90,16 +90,17 @@ import type { UnitInBindingWorlds } from '~/utils/events/binding-worlds'
 
 const { t } = useI18n()
 
-onMounted(() => {
-  useStoreUnits().load()
-  useStoreDataUnitsRatingsGame8().load()
-  useStoreDataSkills().load()
-  useStoreDataSkillsRatingsGame8().load()
-})
+const { isLoading: isLoadingData } = useDataStores([
+  useStoreDataUnits(),
+  useStoreDataUnitsRatingsGame8(),
+  useStoreDataSkills(),
+  useStoreDataSkillsRatingsGame8(),
+])
 
 const showAll = ref(false)
 const openedPanel = ref<null | number | string>(null)
-const isLoading = ref(false)
+const isLoadingStorage = ref(false)
+const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
 
 const units = ref<UnitInBindingWorlds[]>([])
 
@@ -123,6 +124,8 @@ function addUnit(unit: UnitInBindingWorlds) {
   openedPanel.value = null
 }
 
+// local storage
+
 const LOCAL_STORAGE_KEY = 'feh-peeler:binding-worlds'
 const CURRENT_PAYLOAD_VERSION = 1
 const { storeOnUpdate, updateOnMounted } = useLocalStorage(LOCAL_STORAGE_KEY)
@@ -145,12 +148,12 @@ function updateData(data: IPayloadToSaveV1) {
   if (data.version !== CURRENT_PAYLOAD_VERSION)
     throw new Error('unknown version')
 
-  // console.log('isLoading - 1')
-  isLoading.value = true
+  // console.log('isLoadingStorage - 1')
+  isLoadingStorage.value = true
   setTimeout(() => {
-    // console.log('isLoading - 2')
+    // console.log('isLoadingStorage - 2')
     // nextTick(() => {
-    // console.log('isLoading - 22')
+    // console.log('isLoadingStorage - 22')
     units.value = data.units
     showAll.value = data.showAll
 
@@ -165,8 +168,8 @@ function updateData(data: IPayloadToSaveV1) {
     // })
 
     nextTick(() => {
-      // console.log('isLoading - 3')
-      isLoading.value = false
+      // console.log('isLoadingStorage - 3')
+      isLoadingStorage.value = false
     })
     // })
   }, 100)

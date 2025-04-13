@@ -4,7 +4,7 @@
     v-model:search="searchText"
     autocomplete="off"
     return-object
-    :loading="storeUnits.isLoading || isUpdating"
+    :loading="storeDataUnits.isLoading || isUpdating"
     :items="unitsFiltered"
     item-title="full_name"
     item-value="id"
@@ -37,10 +37,13 @@
       />
     </template>
 
-    <template #append>
+    <template
+      v-if="appendThumbnail || appendLink"
+      #append
+    >
       <CompoUnitThumbnail
-        v-if="thumbnailAtEnd && unit"
-        :unit="unit"
+        v-if="appendThumbnail"
+        :unit="unit!"
         :size="25"
         :size-corner="10"
         :margin="5"
@@ -51,14 +54,21 @@
       />
 
       <v-btn
+        v-if="appendLink"
         :disabled="!unit"
-        :to="storeLinks.unitTo(unit)"
-        :href="storeLinks.unitHref(unit)"
-        target="_blank"
-        icon="mdi-open-in-new"
+        :to="
+          localePath({
+            name: 'units-name',
+            params: {
+              name: unit?.nameForLink,
+            },
+          })
+        "
+        icon="mdi-card-bulleted"
         size="x-small"
       />
     </template>
+
     <template #item="{ props: slotProps, item }">
       <v-list-item
         v-bind="slotProps"
@@ -91,32 +101,38 @@ import filter from 'lodash-es/filter'
 import type { UnitId, IUnit } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
-const storeUnits = useStoreUnits()
-const storeLinks = useStoreLinks()
+const localePath = useLocalePath()
+const storeDataUnits = useStoreDataUnits()
 
 defineEmits(['update:model-value', 'click:thumbnail'])
 const unitId = defineModel<null | UnitId>()
-withDefaults(
+const props = withDefaults(
   defineProps<{
     thumbnailAtEnd?: boolean
     thumbnailClickable?: boolean
     clearable?: boolean
+    hideLink?: boolean
   }>(),
   {
     thumbnailAtEnd: false,
     thumbnailClickable: false,
     clearable: false,
+    hideLink: false,
   },
 )
+
+const appendThumbnail = computed(() => props.thumbnailAtEnd && unit.value)
+const appendLink = computed(() => !props.hideLink)
 
 const unit = ref<IUnit>()
 const isInitialized = ref(false)
 function updateUnit() {
-  unit.value = (unitId.value && storeUnits.unitsById[unitId.value]) || undefined
+  unit.value =
+    (unitId.value && storeDataUnits.unitsById[unitId.value]) || undefined
 }
 watch(unitId, updateUnit, { immediate: true })
 watch(
-  () => storeUnits.isLoaded,
+  () => storeDataUnits.isLoaded,
   () => {
     if (isInitialized.value) return
 
@@ -132,12 +148,12 @@ const searchIsActive = computed(
 )
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
-const units = computed(() => storeUnits.sortedUnits)
+const units = computed(() => storeDataUnits.sortedUnits)
 
 const unitsFiltered = ref<IUnit[]>([])
 const getUnitsFiltered = () =>
   regexp.value && searchIsActive.value
-    ? filter(units.value, (unit) => !!unit.filterableName.match(regexp.value!))
+    ? filter(units.value, (unit) => !!unit.nameForFilters.match(regexp.value!))
     : []
 const updateUnitsFiltered = () => {
   unitsFiltered.value = getUnitsFiltered()

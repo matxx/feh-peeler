@@ -5,6 +5,11 @@
     :height="size"
     :width="size"
   />
+  <AppIconWeaponType
+    v-else-if="skill.weapon_type"
+    :weapon-type="skill.weapon_type"
+    :size="size"
+  />
   <SkillImgCategory
     v-else
     :category="skill.category"

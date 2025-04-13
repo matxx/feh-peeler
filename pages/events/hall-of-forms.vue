@@ -110,15 +110,15 @@ import type { FiltersBySkillCategory } from '~/utils/functions/skillLists'
 const goTo = useGoTo()
 const { t } = useI18n()
 const { mobile } = useDisplay()
-const storeUnits = useStoreUnits()
+const storeDataUnits = useStoreDataUnits()
 
-onMounted(() => {
-  storeUnits.load()
-  useStoreDataUnitsRatingsGame8().load()
-  useStoreDataSkills().load()
-  useStoreDataSkillsDescriptions().load()
-  useStoreDataSkillsRatingsGame8().load()
-})
+const { isLoading: isLoadingData } = useDataStores([
+  storeDataUnits,
+  useStoreDataUnitsRatingsGame8(),
+  useStoreDataSkills(),
+  useStoreDataSkillsDescriptions(),
+  useStoreDataSkillsRatingsGame8(),
+])
 
 const list = ref<InstanceType<typeof HallOfFormsSkillsLists>>()
 
@@ -175,12 +175,17 @@ function confirmReset() {
   units.value = getEmptyTeamInHallOfForms()
 }
 
+const isLoading = computed(() => isLoadingStorage.value || isLoadingData.value)
+
 // local storage
 
 const LOCAL_STORAGE_KEY = 'feh-peeler:hall-of-forms'
 const CURRENT_PAYLOAD_VERSION = 1
-const { isLoading, storeOnUpdate, updateOnMounted } =
-  useLocalStorage(LOCAL_STORAGE_KEY)
+const {
+  isLoading: isLoadingStorage,
+  storeOnUpdate,
+  updateOnMounted,
+} = useLocalStorage(LOCAL_STORAGE_KEY)
 
 interface IPayloadToSaveV1 {
   version: 1

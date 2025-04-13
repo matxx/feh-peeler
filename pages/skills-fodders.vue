@@ -6,9 +6,7 @@
           v-show="mobile"
           class="mr-3"
         >
-          <SkillFodderSortingMobile
-            v-model:sorted-by-availability="sortedByAvailability"
-          />
+          <SkillFodderSortingMobile />
         </div>
         <div>
           {{ t('global.inpiredBy') }}
@@ -22,9 +20,7 @@
         </div>
       </v-col>
       <v-col v-show="!mobile">
-        <SkillFodderSortingDesktop
-          v-model:sorted-by-availability="sortedByAvailability"
-        />
+        <SkillFodderSortingDesktop />
       </v-col>
     </v-row>
 
@@ -32,7 +28,7 @@
       <v-col>
         <v-text-field
           v-model="search"
-          label="Name"
+          :label="t('skillsFodders.labels.name')"
           clearable
           density="compact"
           :counter="counter"
@@ -49,13 +45,7 @@
             v-model:items-per-page="itemsPerPage"
             :headers="headers"
             :items="skills"
-            :loading="
-              storeUnits.isLoading ||
-              storeDataUnitsAvailabilities.isLoading ||
-              storeDataSkills.isLoading ||
-              storeDataSkillsAvailabilities.isLoading ||
-              isUpdating
-            "
+            :loading="isLoading || isUpdating"
             class="text-no-wrap"
           >
             <template #[`item.image`]="{ item }">
@@ -67,20 +57,25 @@
               </div>
             </template>
             <template #[`item.name`]="{ item }">
-              <NuxtLink
-                :to="storeLinks.skillTo(item)"
-                :href="storeLinks.skillHref(item)"
-                :target="storeLinks.htmlTarget"
+              <PlusModalLink
+                :to="
+                  localePath({
+                    name: 'skills-name-tab',
+                    params: {
+                      name: item.nameForLink,
+                      tab: TAB_FODDERS,
+                    },
+                  })
+                "
               >
                 {{ item.name }}
-              </NuxtLink>
+              </PlusModalLink>
             </template>
             <template #[`item.availability`]="{ item }">
               <SkillFodderAvailabilities
                 :skill="item"
                 :tile-size="size"
                 :skill-icon-size="iconSize"
-                :sorted-by-availability="sortedByAvailability"
               />
             </template>
             <template #[`item.pre-inheritance`]="{ item }">
@@ -88,7 +83,6 @@
                 :skill="item"
                 :tile-size="size"
                 :skill-icon-size="iconSize"
-                :sorted-by-availability="sortedByAvailability"
               />
             </template>
           </v-data-table>
@@ -101,27 +95,21 @@
 <script setup lang="ts">
 import filter from 'lodash-es/filter'
 
-import type { ISkill } from '@/utils/types/skills'
+import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const { mobile } = useDisplay()
-const storeLinks = useStoreLinks()
 const localePath = useLocalePath()
 
-const storeUnits = useStoreUnits()
-const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 const storeDataSkills = useStoreDataSkills()
-const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
-onMounted(() => {
-  storeUnits.load()
-  storeDataUnitsAvailabilities.load()
-  storeDataSkills.load()
-  storeDataSkillsAvailabilities.load()
-})
+const { isLoading } = useDataStores([
+  storeDataSkills,
+  useStoreDataSkillsAvailabilities(),
+])
 
 const keys = ['image', 'name', 'availability', 'pre-inheritance']
 const headers = computed(() =>
@@ -140,7 +128,7 @@ const search = ref<string>()
 watch(search, updateRouteWithSearch)
 function updateRouteWithSearch() {
   router.replace({
-    path: localePath('/skills-fodders'),
+    ...route,
     query: search.value ? { name: search.value } : undefined,
   })
 }
@@ -161,8 +149,6 @@ const searchIsActive = computed(
 )
 const { regexp, errorMessages } = useSearch(search)
 
-const sortedByAvailability = ref(true)
-
 const skills = ref<ISkill[]>([])
 const updateSkillsFiltered = () => {
   if (
@@ -174,7 +160,7 @@ const updateSkillsFiltered = () => {
   } else {
     skills.value = filter(
       storeDataSkills.skills,
-      (s) => !!s.filterableName.match(regexp.value!),
+      (s) => !!s.nameForFilters.match(regexp.value!),
     )
   }
 }

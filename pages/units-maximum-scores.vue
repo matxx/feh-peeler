@@ -78,7 +78,7 @@
       >
         <v-overlay
           contained
-          :model-value="storeUnits.isLoading"
+          :model-value="storeDataUnits.isLoading"
           class="d-flex justify-space-around align-center"
         >
           <v-progress-circular
@@ -115,17 +115,22 @@
                   key-field="id"
                   direction="horizontal"
                 >
-                  <NuxtLink
-                    :to="storeLinks.unitTo(item)"
-                    :href="storeLinks.unitHref(item)"
-                    :target="storeLinks.htmlTarget"
+                  <PlusModalLink
+                    :to="
+                      localePath({
+                        name: 'units-name',
+                        params: {
+                          name: item.nameForLink,
+                        },
+                      })
+                    "
                   >
                     <CompoUnitThumbnail
                       :unit="item"
                       :size="size"
                       :size-corner="sizeCorner"
                     />
-                  </NuxtLink>
+                  </PlusModalLink>
                 </RecycleScroller>
               </client-only>
             </div>
@@ -308,13 +313,13 @@ import { createFilters, createSorters, sort } from '@/utils/types/scores'
 const { l } = useFandom()
 const { t } = useI18n()
 const { mobile } = useDisplay()
-const storeLinks = useStoreLinks()
+const localePath = useLocalePath()
 
-const storeUnits = useStoreUnits()
+const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 
 onMounted(() => {
-  storeUnits.load()
+  storeDataUnits.load()
   storeDataUnitsAvailabilities.load()
 })
 
@@ -361,7 +366,7 @@ function filterName(u: IUnit) {
   if (!regexp.value) return true
   if (!searchIsActive.value) return true
 
-  return u.filterableName.match(regexp.value)
+  return u.nameForFilters.match(regexp.value)
 }
 
 function filterMoveType(filters: IFilters, u: IUnit) {
@@ -465,7 +470,7 @@ const getUnitsFiltered = () =>
         if (u[trait]) return true
       })
     }),
-  )(storeUnits.units)
+  )(storeDataUnits.units)
 
 const updateUnitsFiltered = () => {
   unitsFiltered.value = getUnitsFiltered()
@@ -473,7 +478,7 @@ const updateUnitsFiltered = () => {
 const { isUpdating } = useDebounce(updateUnitsFiltered, [
   [regexp],
   [filters, { deep: true }],
-  [() => storeUnits.units],
+  [() => storeDataUnits.units],
 ])
 
 const unitsFiltered = ref<IUnit[]>([])

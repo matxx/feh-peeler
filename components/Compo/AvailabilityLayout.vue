@@ -53,6 +53,10 @@ const starSizePercent = computed(() => `${100 * ratio}%`)
 
   width: v-bind('starSizePercent');
   height: v-bind('starSizePercent');
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .availability__kind {
   z-index: 1;

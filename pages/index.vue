@@ -3,3 +3,8 @@
     <AppPages show-subtitles />
   </div>
 </template>
+
+<script setup lang="ts">
+// preload some data stores for other pages
+useDataStores([useStoreDataSkills(), useStoreDataUnits()])
+</script>

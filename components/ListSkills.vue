@@ -1,7 +1,7 @@
 <template>
   <v-data-table-virtual
     v-if="model"
-    :headers="headersAndActionsNotSortable"
+    :headers="displayedHeadersNotSortable"
     :items="skillsDisplayed"
     :row-props="rowProps"
     class="text-no-wrap"
@@ -32,13 +32,18 @@
     </template>
 
     <template #[`item.name`]="{ item }">
-      <NuxtLink
-        :to="storeLinks.skillTo(item)"
-        :href="storeLinks.skillHref(item)"
-        :target="storeLinks.htmlTarget"
+      <PlusModalLink
+        :to="
+          localePath({
+            name: 'skills-name',
+            params: {
+              name: item.nameForLink,
+            },
+          })
+        "
       >
         {{ item.name }}
-      </NuxtLink>
+      </PlusModalLink>
     </template>
 
     <template #[`item.game8_rating`]="{ item }">
@@ -151,8 +156,8 @@ const SKILL_ICON_SIZE = 30
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
+const localePath = useLocalePath()
 const storeTheme = useStoreTheme()
-const storeLinks = useStoreLinks()
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
@@ -184,6 +189,8 @@ const props = withDefaults(
     filtersOnNewLines: false,
   },
 )
+
+const shouldDisplayActions = computed(() => props.canEquipSkill)
 
 function clearAll() {
   model.value = Array.from({ length: props.filtersCount }, () => '')
@@ -224,8 +231,11 @@ const headersAndActions = computed(() =>
     },
   ].concat(headers.value),
 )
-const headersAndActionsNotSortable = computed(() =>
-  headersAndActions.value.map((header) => ({ ...header, sortable: false })),
+const displayedHeaders = computed(() =>
+  shouldDisplayActions.value ? headersAndActions.value : headers.value,
+)
+const displayedHeadersNotSortable = computed(() =>
+  displayedHeaders.value.map((header) => ({ ...header, sortable: false })),
 )
 
 const lastFocusedInput = ref<number | null>(null)
@@ -258,7 +268,7 @@ const getSkillsMatchedWithIndex: () => SkillMatchedWithIndex[] = () => {
       skill,
       findIndex(
         compact(regexpsFromFilters.value),
-        (regexp) => !!skill.filterableName.match(regexp),
+        (regexp) => !!skill.nameForFilters.match(regexp),
       ),
     ]
   })
@@ -301,7 +311,7 @@ function rowProps(
   if (!regexpsFromFilters.value) return
 
   return some(props.highlightedFiltersIndexes, (i) =>
-    data.item.filterableName.match(regexpsFromFilters.value![i - 1]),
+    data.item.nameForFilters.match(regexpsFromFilters.value![i - 1]),
   )
     ? storeTheme.highlightRowProps
     : undefined

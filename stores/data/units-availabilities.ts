@@ -6,7 +6,8 @@ import type { IUnit, UnitId } from '@/utils/types/units'
 import {
   AV_SCORE_GENERIC_POOL_3_4,
   AV_SCORE_HEROIC_GRAILS,
-  AV_SCORE_NORMAL_DIVINE_CODES,
+  // AV_SCORE_NORMAL_DIVINE_CODES,
+  // AV_SCORE_LIMITED_DIVINE_CODES,
   AV_SCORE_SPECIAL_POOL_4,
   AV_SCORE_GENERIC_POOL_45,
   AV_SCORE_SPECIAL_POOL_45,
@@ -21,7 +22,7 @@ import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
   HEROIC_GRAILS,
-  NORMAL_DIVINE_CODES,
+  // NORMAL_DIVINE_CODES,
   // LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
@@ -70,9 +71,9 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       // if (availability.is_in[LIMITED_DIVINE_CODES]) {
       //   availabilities.push(AV_SCORE_LIMITED_DIVINE_CODES)
       // }
-      if (availability.is_in[NORMAL_DIVINE_CODES]) {
-        availabilities.push(AV_SCORE_NORMAL_DIVINE_CODES)
-      }
+      // if (availability.is_in[NORMAL_DIVINE_CODES]) {
+      //   availabilities.push(AV_SCORE_NORMAL_DIVINE_CODES)
+      // }
       if (availability.is_in[FOCUS_ONLY]) {
         availabilities.push(AV_SCORE_LIMITED_HEROES)
       }

@@ -48,6 +48,17 @@ export const SKILL_CATEGORIES_WITH_ICON: SkillCategory[] = [
   SKILL_PASSIVE_X,
 ]
 
+export const SKILL_CATEGORIES_FOR_SKILLS_LISTS: SkillCategory[] = [
+  SKILL_WEAPON,
+  SKILL_ASSIST,
+  SKILL_SPECIAL,
+  SKILL_PASSIVE_A,
+  SKILL_PASSIVE_B,
+  SKILL_PASSIVE_C,
+  // SKILL_PASSIVE_S, // TODO: handle seals
+  SKILL_PASSIVE_X,
+]
+
 export const SKILL_CATEGORIES_FOR_HALL_OF_FORMS: SkillCategory[] = [
   SKILL_WEAPON,
   SKILL_ASSIST,
@@ -69,6 +80,11 @@ export const SKILL_CATEGORIES_FOR_BINDING_WORLDS: SkillCategory[] = [
 
 export const DEFAULT_SELECTED_TAB = SKILL_WEAPON
 
+export const TAB_DETAILS = 'details'
+export const TAB_FODDERS = 'fodders'
+export const SHOW_TABS = [TAB_DETAILS, TAB_FODDERS]
+export const SHOW_DEFAULT_TAB = TAB_DETAILS
+
 export type SkillId = string
 
 export interface ISkillRestrictions<T> {
@@ -79,13 +95,15 @@ export interface ISkillRestrictions<T> {
 
 export interface ISkillData {
   id: SkillId
-  game8_id: Game8Id | null
+  game8_id?: Game8Id
 
   name: string
   group_name: string
   category: SkillCategory
+  weapon_type?: ExtendedWeaponType
+  refine?: string
 
-  image_url: string | null
+  image_url?: string
 
   is_prf: boolean
   sp: number
@@ -101,12 +119,23 @@ export interface ISkillData {
 }
 
 export interface ISkill extends ISkillData {
-  filterableName: string
-  sortableName: string
+  nameForLink: string
+  nameForFilters: string
+  nameForSorting: string
+}
+
+export interface ISkillTree {
+  id: SkillId
+  title: string
+  skill: ISkill
+  children?: ISkillTree[]
 }
 
 export type ISkillById = {
   [index: SkillId]: ISkill
+}
+export type ISkillByName = {
+  [index: string]: ISkill
 }
 export type ISkillIdByCategory = {
   [key in SkillCategory]: SkillId | null

@@ -1,20 +1,21 @@
 import * as availability from '~/utils/types/units-availabilities'
 import * as grades from '~/utils/types/grades'
 import { IVS_HASH } from '~/utils/types/IVs'
-import * as skillTypes from '~/utils/types/skills'
+import * as skills from '~/utils/types/skills'
+import * as units from '~/utils/types/units'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
-import * as links from '~/utils/types/links'
 import * as themes from '~/utils/types/themes'
-
-export const TAB_FODDER = 'fodder'
-export const TAB_STATS = 'stats'
 
 export default {
   global: {
     inpiredBy: 'Inspired by',
     post: 'post | post | posts',
     video: 'video',
+
+    availability: 'Availability',
+    skillName: 'Skill Name',
+    unitName: 'Unit Name',
 
     noSkillIsMatchingYourRequest: 'No skill is matching your request',
     noUnitIsMatchingYourRequest: 'No unit is matching your request',
@@ -66,14 +67,14 @@ export default {
             '4.5': 'Rarity 4.5 stars',
           },
           skills: {
-            [skillTypes.SKILL_WEAPON]: 'Icon Weapon',
-            [skillTypes.SKILL_ASSIST]: 'Icon Assist',
-            [skillTypes.SKILL_SPECIAL]: 'Icon Special',
-            [skillTypes.SKILL_PASSIVE_A]: 'Icon A Passive',
-            [skillTypes.SKILL_PASSIVE_B]: 'Icon B Passive',
-            [skillTypes.SKILL_PASSIVE_C]: 'Icon C Passive',
-            [skillTypes.SKILL_PASSIVE_S]: 'Icon S Passive',
-            [skillTypes.SKILL_PASSIVE_X]: 'Icon X Passive',
+            [skills.SKILL_WEAPON]: 'Icon Weapon',
+            [skills.SKILL_ASSIST]: 'Icon Assist',
+            [skills.SKILL_SPECIAL]: 'Icon Special',
+            [skills.SKILL_PASSIVE_A]: 'Icon A Passive',
+            [skills.SKILL_PASSIVE_B]: 'Icon B Passive',
+            [skills.SKILL_PASSIVE_C]: 'Icon C Passive',
+            [skills.SKILL_PASSIVE_S]: 'Icon S Passive',
+            [skills.SKILL_PASSIVE_X]: 'Icon X Passive',
           },
           grades: {
             [grades.GRADE_SS]: 'Icon Grade SS',
@@ -114,21 +115,27 @@ export default {
   },
 
   skillsFodders: {
-    foddersSortByAvailability: 'Fodders sorted by Availability',
-    foddersSortByName: 'Fodders sorted by Name',
+    labels: {
+      name: 'Name',
+    },
     order: {
       title: 'Availability order',
 
-      [availability.AV_SCORE_GENERIC_POOL_3_4]: '3★/4★ Generic Summon Pool',
-      [availability.AV_SCORE_GENERIC_POOL_45]: '4★ SR Generic Summon Pool',
-      [availability.AV_SCORE_GENERIC_POOL_5]: '5★ Generic Summon Pool',
+      [availability.AV_SCORE_GENERIC_POOL_3_4]: '3★ / 4★',
+      [availability.AV_SCORE_GENERIC_POOL_45]: '4★ SR',
+      [availability.AV_SCORE_GENERIC_POOL_5]: '5★',
       [availability.AV_SCORE_HEROIC_GRAILS]: 'Heroic Grails',
       // [availability.AV_SCORE_LIMITED_DIVINE_CODES]: 'Limited Divine Codes',
-      [availability.AV_SCORE_NORMAL_DIVINE_CODES]: 'Divine Codes',
-      [availability.AV_SCORE_SPECIAL_POOL_4]: '4★ Sperial Heroes',
+      // [availability.AV_SCORE_NORMAL_DIVINE_CODES]: 'Divine Codes',
+      [availability.AV_SCORE_SPECIAL_POOL_4]: '4★ SH',
       [availability.AV_SCORE_SPECIAL_POOL_45]: '4★ SHSR',
-      [availability.AV_SCORE_SPECIAL_POOL_5]: '5★ Sperial Heroes',
-      [availability.AV_SCORE_LIMITED_HEROES]: 'Limited Heroes',
+      [availability.AV_SCORE_SPECIAL_POOL_5]: '5★ SH',
+      [availability.AV_SCORE_LIMITED_HEROES]: '5★ Limited Heroes',
+
+      legends: {
+        sh: 'SH: Special Heroes',
+        sr: 'SR: Special Rate',
+      },
     },
     columns: {
       image: 'Image',
@@ -150,6 +157,11 @@ export default {
 
       limitedDivineCode: 'Limited Divine Code',
     },
+    fodders: {
+      unitName: 'Unit Name',
+      availability: 'Availability',
+      unlockAt: 'Unlock at',
+    },
   },
 
   skillsList: {
@@ -164,14 +176,14 @@ export default {
       emptyFilters: 'empty filters',
     },
     tabs: {
-      [skillTypes.SKILL_WEAPON]: 'Weapon',
-      [skillTypes.SKILL_ASSIST]: 'Assist',
-      [skillTypes.SKILL_SPECIAL]: 'Special',
-      [skillTypes.SKILL_PASSIVE_A]: 'A Passive',
-      [skillTypes.SKILL_PASSIVE_B]: 'B Passive',
-      [skillTypes.SKILL_PASSIVE_C]: 'C Passive',
-      [skillTypes.SKILL_PASSIVE_S]: 'S Passive',
-      [skillTypes.SKILL_PASSIVE_X]: 'X Passive',
+      [skills.SKILL_WEAPON]: 'Weapon',
+      [skills.SKILL_ASSIST]: 'Assist',
+      [skills.SKILL_SPECIAL]: 'Special',
+      [skills.SKILL_PASSIVE_A]: 'A Passive',
+      [skills.SKILL_PASSIVE_B]: 'B Passive',
+      [skills.SKILL_PASSIVE_C]: 'C Passive',
+      [skills.SKILL_PASSIVE_S]: 'S Passive',
+      [skills.SKILL_PASSIVE_X]: 'X Passive',
     },
     columns: {
       actions: '',
@@ -270,41 +282,46 @@ export default {
       events: 'Events',
     },
     title: {
-      '/': 'Home',
-      '/assets': 'Assets',
-      '/units-maximum-scores': 'Units Maximum Scores',
-      '/units': 'Units Details',
-      '/skills-fodders': 'Skills Fodder Details',
-      '/skills-lists': 'Skills & Ratings',
-      '/events/hall-of-forms': 'Hall of Forms',
-      '/events/binding-worlds': 'Binding Worlds',
+      index: 'Home',
+      assets: 'Assets',
+      'skills-tree': 'Skills Tree',
+
+      units: 'Units Details',
+      'units-name': 'Units Details',
+      'units-name-tab': 'Units Details',
+      'units-maximum-scores': 'Units Maximum Scores',
+
+      skills: 'Skills Details',
+      'skills-name': 'Skills - Details',
+      'skills-name-tab': 'Skills Details',
+      'skills-fodders': 'Skills Fodders',
+      'skills-lists': 'Skills Ratings',
+
+      'events-hall-of-forms': 'Hall of Forms',
+      'events-binding-worlds': 'Binding Worlds',
     },
     subtitle: {
-      '/units-maximum-scores':
-        'compare units scores (for arena and other modes)',
-      '/units':
+      units:
         "availability, stats, fodder (can I inherit all unit's skills in one go ?)",
-      '/skills-fodders':
+      'units-maximum-scores':
+        'compare units scores (for arena and other modes)',
+
+      skills: 'availability, effects, restrictions, fodders',
+      'skills-fodders':
         'check if a skill is available in the 3★/4★ pool, grails shop, divine codes, ...',
-      '/skills-lists':
-        'search for skills, check their ratings, restrictions, effects',
-      '/events/hall-of-forms': 'keep track of your progress',
-      '/events/binding-worlds': 'compare units you can redeem',
+      'skills-lists': 'compare skills ratings, restrictions, effects',
+
+      'events-hall-of-forms': 'keep track of your progress',
+      'events-binding-worlds': 'compare units you can redeem',
     },
   },
 
   layout: {
-    target: 'Links point to {website}',
     header: {
       theme: {
         [themes.DEVICE]: 'Use device theme',
         [themes.DARK]: 'Dark theme',
         [themes.LIGHT]: 'Light theme',
-      },
-      target: {
-        [links.TARGET_FEH_PEELER]: 'Links point here',
-        [links.TARGET_FANDOM]: 'Links point to Fandom',
-        [links.TARGET_GAME8]: 'Links point to Game8',
       },
     },
     drawer: {
@@ -320,7 +337,6 @@ export default {
   },
 
   unitsFodder: {
-    availability: 'Availability',
     numberOfSlotsRequiredToInherit: 'Number of slots required to inherit',
     skillKind: 'Skill kind',
     skillName: 'Skill name',
@@ -343,11 +359,11 @@ export default {
     },
   },
 
-  pages: {
-    units: {
+  units: {
+    show: {
       tabs: {
-        [TAB_FODDER]: 'Fodder',
-        [TAB_STATS]: 'Stats',
+        [units.TAB_FODDER]: 'Fodder',
+        [units.TAB_STATS]: 'Stats',
       },
       stats: {
         headers: {
@@ -358,6 +374,22 @@ export default {
           total: 'Total',
           bst: 'BST',
         },
+      },
+    },
+  },
+
+  skills: {
+    show: {
+      tabs: {
+        [skills.TAB_DETAILS]: 'Details',
+        [skills.TAB_FODDERS]: 'Fodders',
+      },
+      sp: 'SP',
+      canUse: 'Can use',
+      effect: 'Effect',
+      fodders: {
+        sortByAvailability: 'Fodders sorted by Availability',
+        sortByName: 'Fodders sorted by Name',
       },
     },
   },

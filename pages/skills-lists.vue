@@ -99,9 +99,10 @@
 </template>
 
 <script setup lang="ts">
-import { every } from 'lodash-es'
-
-import { SKILL_CATEGORIES, DEFAULT_SELECTED_TAB } from '~/utils/types/skills'
+import {
+  SKILL_CATEGORIES_FOR_SKILLS_LISTS,
+  DEFAULT_SELECTED_TAB,
+} from '~/utils/types/skills'
 import {
   type FiltersBySkillCategory,
   getEmptyFilters,
@@ -110,20 +111,18 @@ import {
 const { t } = useI18n()
 const display = useDisplay()
 const { mobile, sm, md, lgAndUp } = useDisplay()
+
 const storeDataSkills = useStoreDataSkills()
 const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
 const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
+const { isLoaded } = useDataStores([
+  storeDataSkills,
+  storeDataSkillsDescriptions,
+  storeDataSkillsRatingsGame8,
+])
 
 const MAX_FILTERS_COUNT_MOBILE = 1
 const MAX_FILTERS_COUNT_DESKTOP = 6
-
-onMounted(() => {
-  storeDataSkills.load()
-  storeDataSkillsDescriptions.load()
-  storeDataSkillsRatingsGame8.load()
-
-  boot()
-})
 
 function boot() {
   updateMaxFiltersCount()
@@ -139,24 +138,14 @@ function boot() {
     showDescriptions.value = data.showDescriptions
   })
 }
+watch(display.mobile, boot)
+onMounted(boot)
 
 function updateMaxFiltersCount() {
   maxFiltersCount.value = display.mobile.value
     ? MAX_FILTERS_COUNT_MOBILE
     : MAX_FILTERS_COUNT_DESKTOP
 }
-
-watch(display.mobile, () => {
-  boot()
-})
-
-const isLoaded = computed(() =>
-  every([
-    storeDataSkills.isLoaded,
-    storeDataSkillsDescriptions.isLoaded,
-    storeDataSkillsRatingsGame8.isLoaded,
-  ]),
-)
 
 const maxFiltersCount = ref(MAX_FILTERS_COUNT_MOBILE)
 const filtersCount = ref(MAX_FILTERS_COUNT_MOBILE)
@@ -169,7 +158,7 @@ const filtersIndexes = computed(() =>
 )
 
 const tabSelected = ref(DEFAULT_SELECTED_TAB)
-const tabs = SKILL_CATEGORIES
+const tabs = SKILL_CATEGORIES_FOR_SKILLS_LISTS
 
 const filters = ref<FiltersBySkillCategory>(getEmptyFilters(filtersCount.value))
 const { regexps, errorMessages } = useSearchesBySkillCategory(filters)
@@ -179,6 +168,8 @@ watch(filtersCount, () => {
     (arr) => (arr.length = filtersCount.value),
   )
 })
+
+// local storage
 
 const LOCAL_STORAGE_KEY = 'skills-lists'
 const CURRENT_PAYLOAD_VERSION = 1

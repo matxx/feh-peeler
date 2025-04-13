@@ -1,4 +1,5 @@
 import { fromPairs } from 'lodash-es'
+
 import { env, ENV_PRODUCTION } from './utils/env'
 import {
   SITE_TITLE,
@@ -8,6 +9,8 @@ import {
 } from './utils/constants'
 import { dsn } from './utils/sentry'
 import { DEFAULT_THEME } from './utils/types/themes'
+
+const DEFAULT_LOCALE = 'en'
 
 const publicEnvVariablesToPass = fromPairs(
   [
@@ -47,6 +50,9 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      htmlAttrs: {
+        lang: DEFAULT_LOCALE,
+      },
       title: SITE_TITLE,
       meta: [
         { name: 'description', content: SITE_DESCRIPTION },
@@ -119,8 +125,7 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxt/eslint',
     '@sentry/nuxt/module',
-    // error ExperimentalWarning comming from here
-    // https://github.com/userquin/vuetify-nuxt-module/issues/177
+    'nuxt-pages-plus',
     'vuetify-nuxt-module',
   ],
 
@@ -154,6 +159,7 @@ export default defineNuxtConfig({
       // },
     },
     vuetifyOptions: {
+      labComponents: ['VTreeview'],
       display: {
         mobileBreakpoint: 'sm',
       },
@@ -199,28 +205,51 @@ export default defineNuxtConfig({
     ],
     lazy: true,
     langDir: 'lang',
-    defaultLocale: 'en',
+    defaultLocale: DEFAULT_LOCALE,
     customRoutes: 'config',
     pages: {
       assets: {
         // fr: '/assets',
         en: '/assets',
       },
-      'skills-lists': {
-        // fr: '/listes-de-competences',
-        en: '/skills-lists',
-      },
+
       units: {
         // fr: '/unites',
         en: '/units',
+      },
+      'units/[name]': {
+        // fr: '/unites/[name]',
+        en: '/units/[name]',
+      },
+      'units/[name]/[tab]': {
+        // fr: '/unites/[name]/[tab]',
+        en: '/units/[name]/[tab]',
+      },
+      'units-maximum-scores': {
+        // fr: '/scores-maximum-en-arene',
+        en: '/units-maximum-scores',
+      },
+
+      'skills-lists': {
+        // fr: '/listes-de-competences',
+        en: '/skills-lists',
       },
       'skills-fodders': {
         // fr: '/listes-des-possesseurs-de-competences',
         en: '/skills-fodders',
       },
-      'units-maximum-scores': {
-        // fr: '/scores-maximum-en-arene',
-        en: '/units-maximum-scores',
+
+      skills: {
+        // fr: '/competences',
+        en: '/skills',
+      },
+      'skills/[name]': {
+        // fr: '/competences/[name]',
+        en: '/skills/[name]',
+      },
+      'skills/[name]/[tab]': {
+        // fr: '/competences/[name]/[tab]',
+        en: '/skills/[name]/[tab]',
       },
 
       'events/hall-of-forms': {
