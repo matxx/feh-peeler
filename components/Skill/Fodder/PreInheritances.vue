@@ -31,10 +31,12 @@ const props = defineProps<{
 }>()
 
 const bridges = computed(() =>
-  compact(
-    props.skill.bridge_ids.map(
-      (bridgeId) => storeDataSkills.skillsById[bridgeId],
-    ),
-  ),
+  props.skill.downgrade_ids
+    ? compact(
+        props.skill.downgrade_ids.map(
+          (bridgeId) => storeDataSkills.skillsById[bridgeId],
+        ),
+      )
+    : [],
 )
 </script>
