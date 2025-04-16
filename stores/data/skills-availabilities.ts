@@ -13,16 +13,13 @@ import { FODDER_LOWEST_RARITY_WHEN_OBTAINED } from '~/utils/types/obfuscated-key
 export const useStoreDataSkillsAvailabilities = defineStore(
   'data/skills-availabilities',
   () => {
-    const { isLoading, isLoaded, load } = useData(
-      'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills-availabilities.json',
-      'stores/data/skills-availabilities/load',
-      (result) => {
-        availabilities.value = JSON.parse(result as string)
-        // availabilities.value = result
-      },
-    )
-
     const availabilities = ref<ISkillAvailability[]>([])
+
+    const { isLoading, isLoaded, load } = useData(
+      'skills-availabilities.json',
+      'stores/data/skills-availabilities/load',
+      availabilities,
+    )
 
     const availabilitiesById = computed<ISkillAvailabilityById>(() =>
       keyBy(availabilities.value, 'id'),

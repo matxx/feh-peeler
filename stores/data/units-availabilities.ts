@@ -30,16 +30,13 @@ import {
 export const useStoreDataUnitsAvailabilities = defineStore(
   'data/units-availabilities',
   () => {
-    const { isLoading, isLoaded, load } = useData(
-      'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units-availabilities.json',
-      'stores/data/units-availabilities/load',
-      (result) => {
-        availabilities.value = JSON.parse(result as string)
-        // availabilities.value = result
-      },
-    )
-
     const availabilities = ref<IUnitAvailability[]>([])
+
+    const { isLoading, isLoaded, load } = useData(
+      'units-availabilities.json',
+      'stores/data/units-availabilities/load',
+      availabilities,
+    )
 
     const availabilitiesById = computed<IUnitAvailabilityById>(() =>
       keyBy(availabilities.value, 'id'),

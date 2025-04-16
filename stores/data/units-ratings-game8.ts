@@ -5,16 +5,13 @@ import type { UnitId, IUnitRatingsGame8 } from '@/utils/types/units'
 export const useStoreDataUnitsRatingsGame8 = defineStore(
   'data/units-ratings-game8',
   () => {
-    const { isLoading, isLoaded, load } = useData(
-      'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units-ratings-game8.json',
-      'stores/data/units-ratings-game8/load',
-      (result) => {
-        unitsRatingsGame8.value = JSON.parse(result as string)
-        // unitsRatingsGame8.value = result
-      },
-    )
-
     const unitsRatingsGame8 = ref<IUnitRatingsGame8[]>([])
+
+    const { isLoading, isLoaded, load } = useData(
+      'units-ratings-game8.json',
+      'stores/data/units-ratings-game8/load',
+      unitsRatingsGame8,
+    )
 
     const unitsRatingsGame8ById = computed<{
       [index: UnitId]: IUnitRatingsGame8

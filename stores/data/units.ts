@@ -4,18 +4,15 @@ import sortBy from 'lodash-es/sortBy'
 import type { IUnitData, IUnit } from '@/utils/types/units'
 
 export const useStoreDataUnits = defineStore('data/units', () => {
+  const unitsData = ref<IUnitData[]>([])
+
   const { isLoading, isLoaded, load } = useData(
-    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units.json',
+    'units.json',
     'stores/data/units/load',
-    (result) => {
-      unitsData.value = JSON.parse(result as string)
-      // unitsData.value = result
-    },
+    unitsData,
   )
 
   const storeDataAccents = useStoreDataAccents()
-
-  const unitsData = ref<IUnitData[]>([])
 
   const units = computed<IUnit[]>(() =>
     storeDataAccents.isLoaded

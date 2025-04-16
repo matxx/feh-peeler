@@ -1,14 +1,13 @@
-export const useStoreDataAccents = defineStore('data/accents', () => {
-  const { isLoading, isLoaded, load } = useData(
-    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/accents.json',
-    'stores/data/accents/load',
-    (result) => {
-      accents.value = JSON.parse(result as string)
-      // accents.value = result
-    },
-  )
+type Accents = { [key: string]: string }
 
-  const accents = ref<{ [key: string]: string }>({})
+export const useStoreDataAccents = defineStore('data/accents', () => {
+  const accents = ref<Accents>({})
+
+  const { isLoading, isLoaded, load } = useData(
+    'accents.json',
+    'stores/data/accents/load',
+    accents,
+  )
 
   const regexp = computed(
     () => new RegExp(`[${Object.keys(accents.value).join()}]`, 'g'),
