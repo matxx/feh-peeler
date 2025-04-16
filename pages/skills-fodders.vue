@@ -92,7 +92,6 @@ import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
-const { mobile } = useDisplay()
 const localePath = useLocalePath()
 
 const storeDataSkills = useStoreDataSkills()
