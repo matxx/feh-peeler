@@ -10,16 +10,13 @@ import type {
 import { nestedKeyBy } from '~/utils/functions/typeSafe'
 
 export const useStoreDataSkillsUnits = defineStore('data/skillsUnits', () => {
-  const { isLoading, isLoaded, load } = useData(
-    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills_units.json',
-    'stores/data/skillsUnits/load',
-    (result) => {
-      skillsUnits.value = JSON.parse(result as string)
-      // skillsUnits.value = result
-    },
-  )
-
   const skillsUnits = ref<ISkillUnit[]>([])
+
+  const { isLoading, isLoaded, load } = useData(
+    'skills_units.json',
+    'stores/data/skillsUnits/load',
+    skillsUnits,
+  )
 
   const skillsUnitsBySkillId = computed<ISkillUnitBySkillId>(() =>
     keyBy(skillsUnits.value, 'skill_id'),

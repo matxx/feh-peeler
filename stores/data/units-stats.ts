@@ -3,16 +3,14 @@ import keyBy from 'lodash-es/keyBy'
 import type { IUnitStat, IUnitStatById } from '@/utils/types/units-stats'
 
 export const useStoreDataUnitsStats = defineStore('data/units-stats', () => {
+  const stats = ref<IUnitStat[]>([])
+
   const { isLoading, isLoaded, load } = useData(
-    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/units-stats.json',
+    'units-stats.json',
     'stores/data/units-stats/load',
-    (result) => {
-      stats.value = JSON.parse(result as string)
-      // stats.value = result
-    },
+    stats,
   )
 
-  const stats = ref<IUnitStat[]>([])
   const statsById = computed<IUnitStatById>(() => keyBy(stats.value, 'id'))
 
   return {

@@ -5,16 +5,13 @@ import type { SkillId, ISkillDescription } from '@/utils/types/skills'
 export const useStoreDataSkillsDescriptions = defineStore(
   'data/skills-descriptions',
   () => {
-    const { isLoading, isLoaded, load } = useData(
-      'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills-descriptions.json',
-      'stores/data/skills-descriptions/load',
-      (result) => {
-        skillsDescriptions.value = JSON.parse(result as string)
-        // skillsDescriptions.value = result
-      },
-    )
-
     const skillsDescriptions = ref<ISkillDescription[]>([])
+
+    const { isLoading, isLoaded, load } = useData(
+      'skills-descriptions.json',
+      'stores/data/skills-descriptions/load',
+      skillsDescriptions,
+    )
 
     const skillsDescriptionsById = computed<{
       [index: SkillId]: ISkillDescription

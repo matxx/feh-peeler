@@ -18,18 +18,15 @@ import type {
 import type { IUnitInstance } from '~/utils/types/units'
 
 export const useStoreDataSkills = defineStore('data/skills', () => {
+  const skillsData = ref<ISkillData[]>([])
+
   const { isLoading, isLoaded, load } = useData(
-    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/skills.json',
+    'skills.json',
     'stores/data/skills/load',
-    (result) => {
-      skillsData.value = JSON.parse(result as string)
-      // skillsData.value = result
-    },
+    skillsData,
   )
 
   const storeDataAccents = useStoreDataAccents()
-
-  const skillsData = ref<ISkillData[]>([])
 
   const getNameForLink = (skill: ISkillData) => {
     if (!skill.refine) return skill.name

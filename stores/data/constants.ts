@@ -17,16 +17,13 @@ interface IConstants {
 }
 
 export const useStoreDataConstants = defineStore('data/constants', () => {
-  const { isLoading, isLoaded, load } = useData(
-    'https://raw.githubusercontent.com/matxx/feh-data/refs/heads/main/constants.json',
-    'stores/data/constants/load',
-    (result) => {
-      constants.value = JSON.parse(result as string)
-      // constants.value = result
-    },
-  )
-
   const constants = ref<IConstants>()
+
+  const { isLoading, isLoaded, load } = useData(
+    'constants.json',
+    'stores/data/constants/load',
+    constants,
+  )
 
   return {
     isLoading,
