@@ -4,6 +4,9 @@
 
 ### Features
 
+1. modal unit : tab "skills" with all skills and default / unlock
+1. modal skill : display slot of skill
+1. modal skill : tab "bridge fodders" avec N colonnes (for N possible downgrades) and lists fodders in it like tab "fodder"
 1. list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
 1. event "see's snare" (skill pool, recommendations, ...)
 1. complex pre-inheritance planner helper

@@ -53,20 +53,25 @@
         @click="$emit('click:thumbnail')"
       />
 
-      <v-btn
+      <PlusModalLink
         v-if="appendLink"
-        :disabled="!unit"
         :to="
-          localePath({
-            name: 'units-name',
-            params: {
-              name: unit?.nameForLink,
-            },
-          })
+          unit
+            ? localePath({
+                name: 'units-name',
+                params: {
+                  name: unit.nameForLink,
+                },
+              })
+            : undefined
         "
-        icon="mdi-card-bulleted"
-        size="x-small"
-      />
+      >
+        <v-btn
+          :disabled="!unit"
+          icon="mdi-card-bulleted"
+          size="x-small"
+        />
+      </PlusModalLink>
     </template>
 
     <template #item="{ props: slotProps, item }">
@@ -101,6 +106,7 @@ import filter from 'lodash-es/filter'
 import type { UnitId, IUnit } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
+import { VBtn } from 'vuetify/components'
 const localePath = useLocalePath()
 const storeDataUnits = useStoreDataUnits()
 

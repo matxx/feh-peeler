@@ -41,19 +41,24 @@
       v-if="appendLink"
       #append
     >
-      <v-btn
-        :disabled="!skill"
+      <PlusModalLink
         :to="
-          localePath({
-            name: 'skills-name',
-            params: {
-              name: skill?.nameForLink,
-            },
-          })
+          skill
+            ? localePath({
+                name: 'skills-name',
+                params: {
+                  name: skill.nameForLink,
+                },
+              })
+            : undefined
         "
-        icon="mdi-card-bulleted"
-        size="x-small"
-      />
+      >
+        <v-btn
+          :disabled="!skill"
+          icon="mdi-card-bulleted"
+          size="x-small"
+        />
+      </PlusModalLink>
     </template>
 
     <template
