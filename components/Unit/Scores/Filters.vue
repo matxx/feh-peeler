@@ -247,9 +247,7 @@
     </div>
 
     <div class="mt-1">
-      <v-btn-toggle
-        v-model="filters.moves"
-        multiple
+      <v-btn-group
         color="primary"
         density="compact"
         variant="outlined"
@@ -257,15 +255,17 @@
         <v-btn
           v-for="moveType in SORTED_MOVE_TYPES"
           :key="moveType"
-          :value="moveType"
           size="small"
+          class="text-primary"
+          :active="filters.moves.has(moveType)"
+          @click="toggleMove(moveType)"
         >
           <AppIconMoveType
             :move-type="moveType"
             :size="size"
           />
         </v-btn>
-      </v-btn-toggle>
+      </v-btn-group>
     </div>
 
     <div class="mt-1">
@@ -372,8 +372,8 @@ import difference from 'lodash-es/difference'
 import * as a from '@/utils/types/units-availabilities'
 import * as scores from '@/utils/types/scores'
 import type { IFilters, Trait } from '@/utils/types/scores'
-import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
-import { SORTED_MOVE_TYPES } from '@/utils/types/moves'
+import { objectEntries, objectFromEntries } from '@/utils/functions/typeSafe'
+import { SORTED_MOVE_TYPES, type MoveType } from '@/utils/types/moves'
 import {
   WEAPON_C_ST,
   SORTED_WEAPONS_MATRIX_FOR_FILTERS,
@@ -437,6 +437,15 @@ function toggleTrait(trait: Trait) {
     filters.value.traits.delete(trait)
   } else {
     filters.value.traits.add(trait)
+  }
+}
+function toggleMove(moveType: MoveType) {
+  if (!filters.value) return
+
+  if (filters.value.moves.has(moveType)) {
+    filters.value.moves.delete(moveType)
+  } else {
+    filters.value.moves.add(moveType)
   }
 }
 function toggleWeapon(weaponType: WeaponType) {
