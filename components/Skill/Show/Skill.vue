@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-space-between">
+    <div class="d-flex justify-space-between mb-3">
       <PlusModalLink
         :to="
           localePath({

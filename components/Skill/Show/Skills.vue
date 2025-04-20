@@ -1,24 +1,23 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col>
-        <SkillFodderSorting />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col
-        v-for="skill in skills"
-        :key="skill.id"
-        :cols="colsSpan"
-      >
-        <SkillShowSkill
-          :skill="skill"
-          :tile-size="tileSize"
-          :always-open="skillsCount === 1"
-        />
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <SkillFodderSorting class="ml-3 mb-3" />
+
+    <v-container fluid>
+      <v-row>
+        <v-col
+          v-for="skill in skills"
+          :key="skill.id"
+          :cols="colsSpan"
+        >
+          <SkillShowSkill
+            :skill="skill"
+            :tile-size="tileSize"
+            :always-open="skillsCount === 1"
+          />
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
