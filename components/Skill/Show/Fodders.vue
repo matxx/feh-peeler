@@ -1,7 +1,7 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataSkillsAvailabilities.isLoaded">
     <SkillFodderSorting
-      v-if="sortedFodders.length > 1"
+      v-if="!hideSorting && sortedFodders.length > 1"
       class="ml-3 mb-3"
     />
 
@@ -9,7 +9,9 @@
       <thead>
         <tr>
           <th>
-            {{ t('skillsFodders.fodders.unitName') }}
+            <span v-show="!mobile">
+              {{ t('skillsFodders.fodders.unitName') }}
+            </span>
           </th>
           <th>
             {{ t('skillsFodders.fodders.availability') }}
@@ -39,15 +41,22 @@ import compact from 'lodash-es/compact'
 import type { ISkill } from '@/utils/types/skills'
 
 const { t } = useI18n()
+const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
-const props = defineProps<{
-  skill: ISkill
-  tileSize: number
-}>()
+const props = withDefaults(
+  defineProps<{
+    skill: ISkill
+    tileSize: number
+    hideSorting?: boolean
+  }>(),
+  {
+    hideSorting: false,
+  },
+)
 
 const availability = computed(
   () => storeDataSkillsAvailabilities.availabilitiesById[props.skill.id],

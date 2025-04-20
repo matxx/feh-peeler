@@ -82,7 +82,14 @@ export const DEFAULT_SELECTED_TAB = SKILL_WEAPON
 
 export const TAB_DETAILS = 'details'
 export const TAB_FODDERS = 'fodders'
-export const SHOW_TABS = [TAB_DETAILS, TAB_FODDERS]
+export const TAB_DOWNGRADES = 'downgrades'
+export const TAB_UPGRADES = 'upgrades'
+export const SHOW_TABS = [
+  TAB_DETAILS,
+  TAB_FODDERS,
+  TAB_DOWNGRADES,
+  TAB_UPGRADES,
+]
 export const SHOW_DEFAULT_TAB = TAB_DETAILS
 
 export type SkillId = string

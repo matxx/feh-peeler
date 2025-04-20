@@ -118,13 +118,3 @@ const divineCodesLimited = computed(() =>
     : [],
 )
 </script>
-
-<style scoped>
-.chevron {
-  color: inherit;
-  transition: transform 0.2s ease-in-out;
-}
-.chevron--opened {
-  transform: rotate(90deg);
-}
-</style>

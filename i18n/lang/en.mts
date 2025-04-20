@@ -383,6 +383,8 @@ export default {
       tabs: {
         [skills.TAB_DETAILS]: 'Details',
         [skills.TAB_FODDERS]: 'Fodders',
+        [skills.TAB_DOWNGRADES]: 'Downgrades',
+        [skills.TAB_UPGRADES]: 'Upgrades',
       },
       sp: 'SP',
       canUse: 'Can use',

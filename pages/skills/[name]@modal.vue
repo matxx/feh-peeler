@@ -120,7 +120,7 @@
               bg-color="primary"
             >
               <v-tab
-                v-for="tab in SHOW_TABS"
+                v-for="tab in tabsDisplayed"
                 :key="tab"
                 :value="tab"
                 :loading="isLoading"
@@ -141,6 +141,18 @@
                   :tile-size="FODDERS_TILE_SIZE"
                 />
               </v-tabs-window-item>
+              <v-tabs-window-item :value="TAB_DOWNGRADES">
+                <SkillShowDowngrades
+                  :skill="skill"
+                  :tile-size="FODDERS_TILE_SIZE"
+                />
+              </v-tabs-window-item>
+              <v-tabs-window-item :value="TAB_UPGRADES">
+                <SkillShowUpgrades
+                  :skill="skill"
+                  :tile-size="FODDERS_TILE_SIZE"
+                />
+              </v-tabs-window-item>
             </v-tabs-window>
           </v-card-text>
         </template>
@@ -151,9 +163,10 @@
 
 <script setup lang="ts">
 import {
-  SHOW_TABS,
   TAB_DETAILS,
   TAB_FODDERS,
+  TAB_DOWNGRADES,
+  TAB_UPGRADES,
   SHOW_DEFAULT_TAB,
 } from '~/utils/types/skills'
 
@@ -196,6 +209,13 @@ const skill = computed(() => {
   if (parentRoute.params.name instanceof Array) return
 
   return storeDataSkills.skillsByNameForLink[parentRoute.params.name]
+})
+
+const tabsDisplayed = computed(() => {
+  const res = [TAB_DETAILS, TAB_FODDERS]
+  if (skill.value?.downgrade_ids?.length) res.push(TAB_DOWNGRADES)
+  if (skill.value?.upgrade_ids?.length) res.push(TAB_UPGRADES)
+  return res
 })
 
 const storeDataSkills = useStoreDataSkills()

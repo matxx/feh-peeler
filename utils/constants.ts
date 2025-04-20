@@ -1,3 +1,5 @@
+export const GRID_COLUMNS_COUNT = 12
+
 export const ACCEPTED_FILE_TYPES = [
   'image/jpg',
   'image/jpeg',
