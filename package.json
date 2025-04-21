@@ -47,7 +47,7 @@
     "axios": "^1.8.4",
     "bignumber.js": "^9.2.0",
     "file-saver": "^2.0.5",
-    "jsdom": "^26.0.0",
+    "jsdom": "^26.1.0",
     "lodash-es": "^4.17.21",
     "luxon": "^3.5.0",
     "maska": "^3.1.1",
