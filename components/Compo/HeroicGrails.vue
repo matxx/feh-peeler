@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Anchor } from '~/utils/types/vendor'
+import type { Anchor } from 'vuetify'
 const { t } = useI18n()
 withDefaults(
   defineProps<{

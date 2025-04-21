@@ -27,11 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Anchor } from 'vuetify'
+
 import ImgOrb from '~/assets/icons/fodder/orb.png'
 import ImgSpecialHeroes from '~/assets/icons/summoning/Icon_Summoning_Special_Heroes.png'
 import ImgFehPass from '~/assets/icons/fodder/fehpass.png'
-
-import type { Anchor } from '~/utils/types/vendor'
 
 const { t } = useI18n()
 const props = withDefaults(
