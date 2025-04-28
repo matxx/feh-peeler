@@ -28,7 +28,7 @@
     "eslint": "^9.25.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-vue": "^10.0.0",
-    "nuxt": "^3.16.2",
+    "nuxt": "^3.17.0",
     "nuxt-pages-plus": "^0.8.0-beta.1",
     "prettier": "3.5.3",
     "sass": "^1.86.3",
