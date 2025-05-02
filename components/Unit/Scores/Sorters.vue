@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ISorters } from '@/utils/types/scores'
+import type { ISorters } from '@/utils/types/units-filters'
 defineProps<{
   sorters: ISorters
   size: number

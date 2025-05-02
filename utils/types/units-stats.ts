@@ -2,11 +2,42 @@ import type { UnitId } from '@/utils/types/units'
 
 export const BANE = 'bane'
 export const BOON = 'boon'
-type IV = typeof BANE | typeof BANE
+export type IV = typeof BANE | typeof BANE
 
-type Stat = 'hp' | 'atk' | 'spd' | 'def' | 'res'
+export const HP = 'hp'
+export const ATK = 'atk'
+export const SPD = 'spd'
+export const DEF = 'def'
+export const RES = 'res'
 
-export const STATS: Stat[] = ['hp', 'atk', 'spd', 'def', 'res']
+export const BST = 'bst'
+
+export type Stat = typeof HP | typeof ATK | typeof SPD | typeof DEF | typeof RES
+export type StatOrBST = Stat | typeof BST
+
+export const STATS: Stat[] = [HP, ATK, SPD, DEF, RES]
+export const STATS_AND_BST: StatOrBST[] = [HP, ATK, SPD, DEF, RES, BST]
+
+export const STATS_IVS_COLORS = {
+  [BANE]: 'text-red',
+  [BOON]: 'text-blue',
+  null: undefined,
+}
+
+export const STATS_NAMES = {
+  [HP]: 'HP',
+  [ATK]: 'Atk',
+  [SPD]: 'Spd',
+  [DEF]: 'Def',
+  [RES]: 'Res',
+}
+export const STATS_COLORS = {
+  [HP]: 'pink-accent-2',
+  [ATK]: 'red-darken-4',
+  [SPD]: 'green-darken-4',
+  [DEF]: 'yellow-darken-1',
+  [RES]: 'blue-darken-4',
+}
 
 export interface IUnitStat {
   id: UnitId

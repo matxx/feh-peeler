@@ -13,6 +13,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const promises = []
 
   promises.push(useStoreDataAccents().load())
+  promises.push(useStoreDataConstants().load())
 
   const storeSearches = useStoreSearches()
   if (hasOwnProp(session.data, 'useRegExp')) {

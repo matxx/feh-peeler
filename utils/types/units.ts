@@ -35,6 +35,18 @@ export interface IUnitThumbnail {
   is_rearmed: boolean
 }
 
+type Gender =
+  | 'Male'
+  | 'Female'
+  | 'MF'
+  | 'FF'
+  | 'N'
+  | 'MM'
+  | 'F'
+  | 'M'
+  | 'FM'
+  | 'NF'
+
 export interface IUnitData {
   id: UnitId
   game8_id?: Game8Id
@@ -42,6 +54,7 @@ export interface IUnitData {
   name: string
   title: string
   full_name: string
+  game8_name?: string
 
   image_url_for_portrait: string
   image_url_for_icon_legendary?: string
@@ -50,13 +63,18 @@ export interface IUnitData {
   move_type: MoveType
   weapon_type: WeaponType
 
+  book: number
+  origin: string
+  gender: Gender
+  has_respl: boolean // has resplendent attire
+
   is_brave: boolean
-  is_fallen: boolean
-  is_story: boolean
-  is_tt: boolean
-  is_ghb: boolean
-  is_special: boolean
-  is_generic_pool: boolean
+  // is_fallen: boolean
+  // is_story: boolean
+  // is_tt: boolean
+  // is_ghb: boolean
+  // is_special: boolean
+  // is_generic_pool: boolean
 
   is_legendary: boolean
   is_mythic: boolean
@@ -73,7 +91,8 @@ export interface IUnitData {
   is_aided: boolean
 
   bst: number
-  visible_bst: number
+  // duel_score: number
+  // visible_bst: number
   max_score: number
 }
 
@@ -81,6 +100,7 @@ export interface IUnit extends IUnitData {
   nameForLink: string
   nameForFilters: string
   nameForSorting: string
+  nameForDisplay: string
 }
 
 export interface IUnitInstance {
@@ -102,3 +122,91 @@ export interface IUnitRatingsGame8 {
   recommended_bane: IV
   recommended_plus10: IV
 }
+
+export const COLUMN_THUMBNAIL = 'thumbnail'
+
+export const COLUMN_NAME = 'name'
+export const COLUMN_GENDER = 'gender'
+export const COLUMN_HAS_RESPLENDENT = 'has_respl'
+export const COLUMN_AVAILABILITY = 'availability'
+export const COLUMN_WEAPON = 'weapon'
+export const COLUMN_MOVE = 'move'
+export const COLUMN_VERSION = 'version'
+export const COLUMN_GENERATION = 'generation'
+export const COLUMN_BOOK = 'book'
+export const COLUMN_RELEASE_DATE = 'release-date'
+export const COLUMN_GAME = 'game'
+export const COLUMN_IV_HP = 'HP'
+export const COLUMN_IV_ATK = 'Atk'
+export const COLUMN_IV_SPD = 'Spd'
+export const COLUMN_IV_DEF = 'Def'
+export const COLUMN_IV_RES = 'Res'
+export const COLUMN_BST = 'bst'
+export const COLUMN_ELEMENT = 'element'
+export const COLUMN_ARTIST = 'artist'
+export const COLUMN_VA = 'VA'
+export const COLUMN_DRAGONFLOWERS = 'dragonflowers'
+export const COLUMN_MAX_SCORE = 'max_score'
+
+export const DEFAULT_COLUMNS = [
+  COLUMN_NAME,
+  COLUMN_AVAILABILITY,
+  COLUMN_WEAPON,
+  COLUMN_MOVE,
+  COLUMN_VERSION,
+  COLUMN_IV_HP,
+  COLUMN_IV_ATK,
+  COLUMN_IV_SPD,
+  COLUMN_IV_DEF,
+  COLUMN_IV_RES,
+  COLUMN_BST,
+]
+
+export const ALL_COLUMNS = [
+  COLUMN_THUMBNAIL,
+  COLUMN_NAME,
+  COLUMN_GENDER,
+  COLUMN_HAS_RESPLENDENT,
+  COLUMN_AVAILABILITY,
+  COLUMN_WEAPON,
+  COLUMN_MOVE,
+  // COLUMN_VERSION,
+  // COLUMN_GENERATION,
+  COLUMN_BOOK,
+  // COLUMN_RELEASE_DATE,
+  // COLUMN_GAME,
+  COLUMN_IV_HP,
+  COLUMN_IV_ATK,
+  COLUMN_IV_SPD,
+  COLUMN_IV_DEF,
+  COLUMN_IV_RES,
+  COLUMN_BST,
+  // COLUMN_ELEMENT,
+  // COLUMN_ARTIST,
+  // COLUMN_VA,
+  // COLUMN_DRAGONFLOWERS,
+]
+
+export const COLUMNS_IN_FILTERS = [
+  COLUMN_NAME,
+  COLUMN_GENDER,
+  COLUMN_HAS_RESPLENDENT,
+  COLUMN_AVAILABILITY,
+  COLUMN_WEAPON,
+  COLUMN_MOVE,
+  // COLUMN_VERSION,
+  // COLUMN_GENERATION,
+  COLUMN_BOOK,
+  // COLUMN_RELEASE_DATE,
+  // COLUMN_GAME,
+  COLUMN_IV_HP,
+  COLUMN_IV_ATK,
+  COLUMN_IV_SPD,
+  COLUMN_IV_DEF,
+  COLUMN_IV_RES,
+  COLUMN_BST,
+  // COLUMN_ELEMENT,
+  // COLUMN_ARTIST,
+  // COLUMN_VA,
+  // COLUMN_DRAGONFLOWERS,
+]

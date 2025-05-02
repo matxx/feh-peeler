@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ISorter } from '@/utils/types/scores'
-import { ASC, DESC, NAME, MOVE, WEAP } from '@/utils/types/scores'
+import type { ISorter } from '@/utils/types/units-filters'
+import { ASC, DESC, NAME, MOVE, WEAP } from '@/utils/types/units-filters'
 defineProps<{
   size: number
 }>()

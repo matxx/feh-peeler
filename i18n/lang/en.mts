@@ -6,6 +6,7 @@ import * as units from '~/utils/types/units'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
+import * as UnitsStats from '~/utils/types/units-stats'
 
 export default {
   global: {
@@ -286,10 +287,10 @@ export default {
       assets: 'Assets',
       'skills-tree': 'Skills Tree',
 
-      units: 'Units Details',
+      units: 'Units',
       'units-name': 'Units Details',
       'units-name-tab': 'Units Details',
-      'units-maximum-scores': 'Units Maximum Scores',
+      'units-maximum-scores': 'Units By Max Scores',
 
       skills: 'Skills Details',
       'skills-name': 'Skills - Details',
@@ -301,8 +302,7 @@ export default {
       'events-binding-worlds': 'Binding Worlds',
     },
     subtitle: {
-      units:
-        "availability, stats, fodder (can I inherit all unit's skills in one go ?)",
+      units: 'compare/filter/sort units by name, stats and more',
       'units-maximum-scores':
         'compare units scores (for arena and other modes)',
 
@@ -360,6 +360,32 @@ export default {
   },
 
   units: {
+    index: {
+      columnsDisplayed: 'Displayed columns',
+      headers: {
+        [units.COLUMN_NAME]: 'Name',
+        [units.COLUMN_GENDER]: 'Gender',
+        [units.COLUMN_HAS_RESPLENDENT]: 'Resplendent',
+        [units.COLUMN_AVAILABILITY]: 'Availability',
+        [units.COLUMN_WEAPON]: 'Weapon',
+        [units.COLUMN_MOVE]: 'Move',
+        [units.COLUMN_VERSION]: 'Version',
+        [units.COLUMN_GENERATION]: 'Generation',
+        [units.COLUMN_BOOK]: 'Book',
+        [units.COLUMN_RELEASE_DATE]: 'Release Date',
+        [units.COLUMN_GAME]: 'Game',
+        [units.COLUMN_IV_HP]: 'HP',
+        [units.COLUMN_IV_ATK]: 'Atk',
+        [units.COLUMN_IV_SPD]: 'Spd',
+        [units.COLUMN_IV_DEF]: 'Def',
+        [units.COLUMN_IV_RES]: 'Res',
+        [units.COLUMN_BST]: 'BST',
+        [units.COLUMN_ELEMENT]: 'Element',
+        [units.COLUMN_ARTIST]: 'Artist',
+        [units.COLUMN_VA]: 'VA',
+        [units.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
+      },
+    },
     show: {
       tabs: {
         [units.TAB_FODDER]: 'Fodder',
@@ -374,6 +400,19 @@ export default {
           total: 'Total',
           bst: 'BST',
         },
+      },
+    },
+    filters: {
+      headers: {
+        stats: 'Stats',
+      },
+      stats: {
+        [UnitsStats.HP]: 'HP',
+        [UnitsStats.ATK]: 'Atk',
+        [UnitsStats.SPD]: 'Spd',
+        [UnitsStats.DEF]: 'Def',
+        [UnitsStats.RES]: 'Res',
+        [UnitsStats.BST]: 'BST',
       },
     },
   },

@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import type { SortingField, Order } from '@/utils/types/scores'
-import { ASC, NAME, MOVE, WEAP } from '@/utils/types/scores'
+import type { SortingField, Order } from '@/utils/types/units-filters'
+import { ASC, NAME, MOVE, WEAP } from '@/utils/types/units-filters'
 defineProps<{
   field: SortingField
   order: Order

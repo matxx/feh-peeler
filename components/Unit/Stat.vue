@@ -34,11 +34,11 @@
           <th
             :class="
               stats[`iv_${stat}`]
-                ? statsIVsColors[stats[`iv_${stat}`]!]
+                ? STATS_IVS_COLORS[stats[`iv_${stat}`]!]
                 : undefined
             "
           >
-            {{ statsNames[stat] }}
+            {{ STATS_NAMES[stat] }}
           </th>
           <td>
             <div class="d-flex align-center">
@@ -48,7 +48,7 @@
               <v-progress-linear
                 :location="null"
                 :bg-color="barBgColor"
-                :color="statsColors[stat]"
+                :color="STATS_COLORS[stat]"
                 height="12"
                 :model-value="stats[`level40_${stat}`]"
                 min="0"
@@ -107,7 +107,12 @@
 </template>
 
 <script setup lang="ts">
-import { STATS, BANE, BOON } from '~/utils/types/units-stats'
+import {
+  STATS,
+  STATS_NAMES,
+  STATS_COLORS,
+  STATS_IVS_COLORS,
+} from '~/utils/types/units-stats'
 
 import type { IUnit } from '~/utils/types/units'
 
@@ -121,25 +126,6 @@ const storeDataUnitsStats = useStoreDataUnitsStats()
 
 const stats = computed(() => storeDataUnitsStats.statsById[props.unit.id])
 
-const statsNames = {
-  hp: 'HP',
-  atk: 'Atk',
-  spd: 'Spd',
-  def: 'Def',
-  res: 'Res',
-}
-const statsIVsColors = {
-  [BANE]: 'text-red',
-  [BOON]: 'text-blue',
-  null: undefined,
-}
-const statsColors = {
-  hp: 'pink-accent-2',
-  atk: 'red-darken-4',
-  spd: 'green-darken-4',
-  def: 'yellow-darken-1',
-  res: 'blue-darken-4',
-}
 const barBgColor = 'gray'
 </script>
 

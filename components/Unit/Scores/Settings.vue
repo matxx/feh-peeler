@@ -1,16 +1,5 @@
 <template>
-  <div class="position-relative">
-    <v-overlay
-      contained
-      :model-value="storeDataUnitsAvailabilities.isLoading"
-      class="d-flex justify-space-around align-center"
-    >
-      <v-progress-circular
-        indeterminate
-        color="primary"
-      />
-    </v-overlay>
-
+  <div>
     <div class="mb-3">
       <h5>
         {{ t('scores.headers.sort') }}
@@ -41,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IFilters, ISorters } from '@/utils/types/scores'
+import type { IFilters, ISorters } from '@/utils/types/units-filters'
 
 const filters = defineModel<IFilters>('filters')
 defineProps<{
@@ -54,5 +43,4 @@ defineProps<{
 defineEmits(['update:sorters'])
 
 const { t } = useI18n()
-const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 </script>

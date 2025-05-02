@@ -6,6 +6,8 @@ import type { IUnit } from '@/utils/types/units'
 import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import type { AV_Availability } from '@/utils/types/units-availabilities'
+import { BST, HP, ATK, SPD, DEF, RES } from '@/utils/types/units-stats'
+import type { IConstants } from '~/utils/types/constants'
 
 export const TRAIT_AIDED = 'is_aided'
 export const TRAIT_ASCENDED = 'is_ascended'
@@ -39,19 +41,42 @@ export interface IFilters {
   // (currently using `~/utils/types/units-availabilities.ts`)
   availabilities: Set<AV_Availability>
 
-  isRefresher: boolean
+  isRefresher: boolean | null
+  hasResplendent: boolean | null
+  isBrave: boolean
+
+  stats: {
+    [HP]: [number, number]
+    [ATK]: [number, number]
+    [SPD]: [number, number]
+    [DEF]: [number, number]
+    [RES]: [number, number]
+    [BST]: [number, number]
+  }
 }
 
-export const createFilters: () => IFilters = () => ({
-  name: null,
+export const createFilters = (constants?: IConstants) =>
+  ({
+    name: null,
 
-  weapons: new Set(),
-  moves: new Set(),
-  traits: new Set(),
-  availabilities: new Set(),
+    weapons: new Set(),
+    moves: new Set(),
+    traits: new Set(),
+    availabilities: new Set(),
 
-  isRefresher: false,
-})
+    isRefresher: null,
+    hasResplendent: null,
+    isBrave: false,
+
+    stats: {
+      [HP]: [0, constants ? constants.units_max_hp : 60],
+      [ATK]: [0, constants ? constants.units_max_atk : 50],
+      [SPD]: [0, constants ? constants.units_max_spd : 48],
+      [DEF]: [0, constants ? constants.units_max_def : 50],
+      [RES]: [0, constants ? constants.units_max_res : 50],
+      [BST]: [0, constants ? constants.units_max_bst : 212],
+    },
+  }) as IFilters
 
 export const ASC = 'asc'
 export const DESC = 'desc'

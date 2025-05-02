@@ -4,7 +4,7 @@ export default function (search: Ref<string | undefined | null>) {
   const { t } = useI18n()
   const storeSearches = useStoreSearches()
 
-  const regexp = ref<RegExp | null>(null)
+  const regexp = ref<RegExp>()
   const hasError = ref(false)
   const errorMessages = computed(() =>
     hasError.value ? [t('global.invalidRegExp')] : [],
@@ -13,7 +13,7 @@ export default function (search: Ref<string | undefined | null>) {
   function updateRegExp() {
     hasError.value = false
     if (!search.value) {
-      regexp.value = null
+      regexp.value = undefined
       return
     }
 

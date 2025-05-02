@@ -1,3 +1,7 @@
+<!-- examples: -->
+<!-- https://www.arcticsilverfox.com/unit_chart/ -->
+<!-- https://kannadb.up.railway.app/feh/heroes/ -->
+<!-- TODO: games / book / genders / blessings -->
 <template>
   <div v-if="filters">
     <div v-show="!mobile">
@@ -98,8 +102,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_REARMED)"
-            @click="toggleTrait(scores.TRAIT_REARMED)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_REARMED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_REARMED)"
           >
             <img
               src="assets/icons/unit_types/rearmed.png"
@@ -110,8 +114,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_ATTUNED)"
-            @click="toggleTrait(scores.TRAIT_ATTUNED)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_ATTUNED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_ATTUNED)"
           >
             <img
               src="assets/icons/unit_types/attuned.png"
@@ -122,8 +126,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_ASCENDED)"
-            @click="toggleTrait(scores.TRAIT_ASCENDED)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_ASCENDED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_ASCENDED)"
           >
             <img
               src="assets/icons/unit_types/ascended.png"
@@ -134,8 +138,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_EMBLEM)"
-            @click="toggleTrait(scores.TRAIT_EMBLEM)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_EMBLEM)"
+            @click="toggleTrait(UnitsFilters.TRAIT_EMBLEM)"
           >
             <img
               src="assets/icons/unit_types/emblem.png"
@@ -146,8 +150,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_AIDED)"
-            @click="toggleTrait(scores.TRAIT_AIDED)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_AIDED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_AIDED)"
           >
             <img
               src="assets/icons/unit_types/aided.png"
@@ -168,8 +172,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_DUO)"
-            @click="toggleTrait(scores.TRAIT_DUO)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_DUO)"
+            @click="toggleTrait(UnitsFilters.TRAIT_DUO)"
           >
             <img
               src="assets/icons/unit_types/duo.png"
@@ -180,8 +184,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_HARMONIZED)"
-            @click="toggleTrait(scores.TRAIT_HARMONIZED)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_HARMONIZED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_HARMONIZED)"
           >
             <img
               src="assets/icons/unit_types/harmonized.png"
@@ -200,8 +204,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_LEGENDARY)"
-            @click="toggleTrait(scores.TRAIT_LEGENDARY)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_LEGENDARY)"
+            @click="toggleTrait(UnitsFilters.TRAIT_LEGENDARY)"
           >
             <img
               src="assets/icons/unit_types/legendary.png"
@@ -212,8 +216,8 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="filters.traits.has(scores.TRAIT_MYTHIC)"
-            @click="toggleTrait(scores.TRAIT_MYTHIC)"
+            :active="filters.traits.has(UnitsFilters.TRAIT_MYTHIC)"
+            @click="toggleTrait(UnitsFilters.TRAIT_MYTHIC)"
           >
             <img
               src="assets/icons/unit_types/mythic.png"
@@ -234,14 +238,56 @@
         <v-btn
           size="small"
           class="text-primary"
-          :active="filters.isRefresher"
-          @click="filters.isRefresher = !filters.isRefresher"
+          :active="filters.isRefresher !== null"
+          @click="cycleRefresher"
         >
           <img
             src="assets/icons/unit_types/dancer.png"
             :width="size"
             :height="size"
           />
+          <v-icon right>
+            {{ iconFor(filters.isRefresher) }}
+          </v-icon>
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.hasResplendent !== null"
+          @click="cycleResplendent"
+        >
+          <img
+            src="assets/icons/resplendent.png"
+            :width="size"
+            :height="size"
+          />
+          <v-icon right>
+            {{ iconFor(filters.hasResplendent) }}
+          </v-icon>
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.isBrave"
+          @click="filters.isBrave = !filters.isBrave"
+        >
+          CYL
         </v-btn>
       </v-btn-group>
     </div>
@@ -363,17 +409,79 @@
         </v-btn-group>
       </div>
     </div>
+
+    <div class="mt-1">
+      <h4>
+        {{ t('units.filters.headers.stats') }}
+      </h4>
+      <div
+        v-for="stat in STATS_AND_BST"
+        :key="stat"
+        class="d-flex align-center"
+      >
+        <div class="width-stat-headers">
+          {{ t(`units.filters.stats.${stat}`) }}
+        </div>
+        <v-range-slider
+          v-model="filters.stats[stat]"
+          :max="
+            storeDataConstants.constants &&
+            storeDataConstants.constants[`units_max_${stat}`]
+          "
+          :min="0"
+          :step="1"
+          class="align-center"
+          hide-details
+          :thumb-label="false"
+        >
+          <template #prepend>
+            <v-text-field
+              v-model="filters.stats[stat][0]"
+              density="compact"
+              :style="`width: ${stat === BST ? 80 : 70}px`"
+              type="number"
+              :max="
+                storeDataConstants.constants &&
+                storeDataConstants.constants[`units_max_${stat}`]
+              "
+              :min="0"
+              :step="1"
+              variant="outlined"
+              hide-details
+              single-line
+            />
+          </template>
+          <template #append>
+            <v-text-field
+              v-model="filters.stats[stat][1]"
+              density="compact"
+              :style="`width: ${stat === BST ? 80 : 70}px`"
+              type="number"
+              :max="
+                storeDataConstants.constants &&
+                storeDataConstants.constants[`units_max_${stat}`]
+              "
+              :min="0"
+              :step="1"
+              variant="outlined"
+              hide-details
+              single-line
+            />
+          </template>
+        </v-range-slider>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import difference from 'lodash-es/difference'
 
-import * as a from '@/utils/types/units-availabilities'
-import * as scores from '@/utils/types/scores'
-import type { IFilters, Trait } from '@/utils/types/scores'
-import { objectEntries, objectFromEntries } from '@/utils/functions/typeSafe'
-import { SORTED_MOVE_TYPES, type MoveType } from '@/utils/types/moves'
+import * as a from '~/utils/types/units-availabilities'
+import * as UnitsFilters from '~/utils/types/units-filters'
+import type { IFilters, Trait } from '~/utils/types/units-filters'
+import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
+import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
 import {
   WEAPON_C_ST,
   SORTED_WEAPONS_MATRIX_FOR_FILTERS,
@@ -385,6 +493,7 @@ import {
   type FamilyWeaponType,
   type AggregatedWeaponType,
 } from '@/utils/types/weapons'
+import { STATS_AND_BST, BST } from '~/utils/types/units-stats'
 
 const SIZE = 24
 
@@ -396,6 +505,7 @@ defineProps<{
 }>()
 const { t } = useI18n()
 const { mobile } = useDisplay()
+const storeDataConstants = useStoreDataConstants()
 
 const searchLength = computed(() =>
   filters.value && filters.value.name ? filters.value.name.length : 0,
@@ -474,4 +584,42 @@ function toggleWeaponAggregate(aggregate: AggregatedWeaponType) {
     types.forEach((type) => filters.value!.weapons.add(type))
   }
 }
+
+function cycleState(state: boolean | null) {
+  switch (state) {
+    case true:
+      return false
+    case false:
+      return null
+    case null:
+      return true
+  }
+}
+function cycleRefresher() {
+  if (!filters.value) return
+
+  filters.value.isRefresher = cycleState(filters.value.isRefresher)
+}
+function cycleResplendent() {
+  if (!filters.value) return
+
+  filters.value.hasResplendent = cycleState(filters.value.hasResplendent)
+}
+
+function iconFor(state: boolean | null) {
+  switch (state) {
+    case true:
+      return 'mdi-checkbox-outline'
+    case false:
+      return 'mdi-close-box-outline'
+    case null:
+      return 'mdi-checkbox-blank-outline'
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+.width-stat-headers {
+  flex: 0 0 30px;
+}
+</style>
