@@ -17,6 +17,7 @@ export const SHOW_DEFAULT_TAB = TAB_STATS
 export interface IUnitThumbnail {
   id: UnitId
   full_name: string
+  nameForDisplay: string
 
   image_url_for_portrait: string
   image_url_for_icon_legendary?: string
@@ -49,6 +50,7 @@ type Gender =
 
 export interface IUnitData {
   id: UnitId
+  id_int: number
   game8_id?: Game8Id
 
   name: string

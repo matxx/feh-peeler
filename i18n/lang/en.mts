@@ -291,6 +291,7 @@ export default {
       'units-name': 'Units Details',
       'units-name-tab': 'Units Details',
       'units-maximum-scores': 'Units By Max Scores',
+      'catalog-of-heroes': 'FEHdex / Catalog of Heroes',
 
       skills: 'Skills Details',
       'skills-name': 'Skills - Details',
@@ -305,6 +306,7 @@ export default {
       units: 'compare/filter/sort units by name, stats and more',
       'units-maximum-scores':
         'compare units scores (for arena and other modes)',
+      'catalog-of-heroes': 'check which heroes you are missing',
 
       skills: 'availability, effects, restrictions, fodders',
       'skills-fodders':

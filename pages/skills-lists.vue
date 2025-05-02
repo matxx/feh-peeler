@@ -1,5 +1,6 @@
 <template>
   <div class="ma-3">
+    <TheWarningAboutLocalStorage class="mb-3" />
     <TheInfoAboutGame8Ratings class="mb-3" />
 
     <v-progress-linear
@@ -171,7 +172,7 @@ watch(filtersCount, () => {
 
 // local storage
 
-const LOCAL_STORAGE_KEY = 'skills-lists'
+const LOCAL_STORAGE_KEY = 'feh-peeler:skills-lists'
 const CURRENT_PAYLOAD_VERSION = 1
 
 const { storeOnUpdate, update } = useLocalStorage(LOCAL_STORAGE_KEY)

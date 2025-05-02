@@ -58,6 +58,7 @@ const ITEMS = [
   { subheader: true, text: t('home.subheader.unitsAndSkills') },
   { item: true, link: 'units' },
   { item: true, link: 'units-maximum-scores' },
+  { item: true, link: 'catalog-of-heroes' },
   { item: true, link: 'skills' },
   { item: true, link: 'skills-fodders' },
   { item: true, link: 'skills-lists' },

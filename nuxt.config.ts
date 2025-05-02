@@ -229,6 +229,10 @@ export default defineNuxtConfig({
         // fr: '/scores-maximum-en-arene',
         en: '/units-maximum-scores',
       },
+      'catalog-of-heroes': {
+        // fr: '/catalog-of-heroes',
+        en: '/catalog-of-heroes',
+      },
 
       'skills-lists': {
         // fr: '/listes-de-competences',
