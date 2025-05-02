@@ -1,6 +1,6 @@
 <!-- https://feheroes.fandom.com/wiki/Catalog_of_Heroes -->
 <template>
-  <div class="ma-3">
+  <div class="pa-3 fill-height d-flex flex-column">
     <v-overlay
       :model-value="isLoadingStores || isLoadingStorage"
       class="d-flex justify-space-around align-center"
@@ -11,57 +11,69 @@
       />
     </v-overlay>
 
-    <TheWarningAboutLocalStorage class="mb-3" />
+    <div>
+      <TheWarningAboutLocalStorage class="mb-3" />
 
-    <div class="d-flex align-center mb-3">
-      <v-btn
-        v-tooltip="t('global.reset')"
-        icon
-        size="x-small"
-        class="mr-3"
-        @click="confirmReset"
-      >
-        <v-icon>mdi-restart</v-icon>
-      </v-btn>
+      <div class="d-flex align-center mb-3">
+        <v-btn
+          v-tooltip="t('global.reset')"
+          icon
+          size="x-small"
+          class="mr-3"
+          @click="confirmReset"
+        >
+          <v-icon>mdi-restart</v-icon>
+        </v-btn>
 
-      <v-spacer />
+        <v-spacer />
 
-      <AppDownloadUpload
-        :payload="payloadToSave"
-        file-name="FEHdex.json"
-        @uploaded="updateData"
-      />
+        <AppDownloadUpload
+          :payload="payloadToSave"
+          file-name="FEHdex.json"
+          @uploaded="updateData"
+        />
 
-      <AppLocalstorageSaveStates
-        :local-storage-key="LOCAL_STORAGE_KEY"
-        :payload="payloadToSave"
-        @loaded="updateData"
-      />
-    </div>
-
-    <RecycleScroller
-      v-slot="{ item }"
-      class="scroller"
-      :items="catalogLines"
-      :item-size="frameSize"
-    >
-      <div class="d-flex">
-        <CompoUnitThumbnailCatalog
-          v-for="unit in item.units as IUnit[]"
-          :key="unit.id"
-          :unit="unit"
-          :frame-size="frameSize"
-          :thumbnail-size="thumbnailSize"
-          :checked="ownedUnitIds.has(unit.id)"
-          class="cursor-pointer"
-          @click="
-            ownedUnitIds.has(unit.id)
-              ? ownedUnitIds.delete(unit.id)
-              : ownedUnitIds.add(unit.id)
-          "
+        <AppLocalstorageSaveStates
+          :local-storage-key="LOCAL_STORAGE_KEY"
+          :payload="payloadToSave"
+          @loaded="updateData"
         />
       </div>
-    </RecycleScroller>
+    </div>
+
+    <v-container
+      fluid
+      class="flex-grow-1 pa-0"
+    >
+      <v-row class="fill-height">
+        <v-col class="fill-height">
+          <RecycleScroller
+            v-slot="{ item }"
+            class="scroller"
+            :items="catalogLines"
+            :item-size="frameSize"
+          >
+            <div class="d-flex">
+              <CompoUnitThumbnailCatalog
+                v-for="unit in item.units as IUnit[]"
+                :key="unit.id"
+                :unit="unit"
+                :frame-size="frameSize"
+                :thumbnail-size="thumbnailSize"
+                :checked="ownedUnitIds.has(unit.id)"
+                class="cursor-pointer"
+                @click="
+                  ownedUnitIds.has(unit.id)
+                    ? ownedUnitIds.delete(unit.id)
+                    : ownedUnitIds.add(unit.id)
+                "
+              />
+            </div>
+          </RecycleScroller>
+        </v-col>
+        <v-col> Heroes : {{ ownedCount }} / {{ sortedUnits.length }} </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -99,6 +111,7 @@ const catalogLines = computed(() =>
 )
 
 const ownedUnitIds = ref(new Set())
+const ownedCount = computed(() => ownedUnitIds.value.size)
 
 function confirmReset() {
   if (!confirm(t('global.confirmReset'))) return
@@ -135,3 +148,9 @@ function updateData(data: IPayloadToSaveV1) {
   ownedUnitIds.value = new Set(data.ownedUnitIds)
 }
 </script>
+
+<style lang="scss" scoped>
+.scroller {
+  height: 400px;
+}
+</style>
