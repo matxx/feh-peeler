@@ -2,7 +2,6 @@
 <template>
   <div class="ma-3">
     <v-overlay
-      contained
       :model-value="isLoadingStores || isLoadingStorage"
       class="d-flex justify-space-around align-center"
     >
@@ -13,6 +12,32 @@
     </v-overlay>
 
     <TheWarningAboutLocalStorage class="mb-3" />
+
+    <div class="d-flex align-center mb-3">
+      <v-btn
+        v-tooltip="t('global.reset')"
+        icon
+        size="x-small"
+        class="mr-3"
+        @click="confirmReset"
+      >
+        <v-icon>mdi-restart</v-icon>
+      </v-btn>
+
+      <v-spacer />
+
+      <AppDownloadUpload
+        :payload="payloadToSave"
+        file-name="FEHdex.json"
+        @uploaded="updateData"
+      />
+
+      <AppLocalstorageSaveStates
+        :local-storage-key="LOCAL_STORAGE_KEY"
+        :payload="payloadToSave"
+        @loaded="updateData"
+      />
+    </div>
 
     <RecycleScroller
       v-slot="{ item }"
@@ -45,6 +70,8 @@ import sortBy from 'lodash-es/sortBy'
 
 import type { IUnit, UnitId } from '~/utils/types/units'
 
+const { t } = useI18n()
+
 const frameSize = 90
 const thumbnailSize = 80
 
@@ -72,6 +99,12 @@ const catalogLines = computed(() =>
 )
 
 const ownedUnitIds = ref(new Set())
+
+function confirmReset() {
+  if (!confirm(t('global.confirmReset'))) return
+
+  ownedUnitIds.value = new Set()
+}
 
 // local storage
 

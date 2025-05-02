@@ -1,3 +1,4 @@
+import { SITE_TITLE } from '~/utils/constants'
 import getBaseUrl from '~/utils/runtime/base-url'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -11,12 +12,13 @@ export default defineNuxtPlugin((nuxtApp) => {
   const title = computed(() =>
     t(`home.title.${getRouteBaseName(route)}`, route.params),
   )
+  const titleComplete = computed(() => `${title.value} - ${SITE_TITLE}`)
 
   useHead({
-    title: () => title.value,
+    title: () => titleComplete.value,
   })
   useSeoMeta({
-    title: () => title.value,
+    title: () => titleComplete.value,
     ogUrl: url,
   })
 })
