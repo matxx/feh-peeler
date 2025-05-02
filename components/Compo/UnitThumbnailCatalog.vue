@@ -3,12 +3,12 @@
     :key="`thumbnail-unit-catalog-${unit.id}`"
     class="img-unit d-inline-block position-relative"
   >
-    <img
+    <!-- <img
       v-show="checked"
       src="assets/icons/check.png"
       :height="frameSize / 4"
       class="img-unit__icon img-unit__icon--bottom-right z-index-4"
-    />
+    /> -->
 
     <img
       src="assets/icons/catalog/frame.png"
@@ -22,6 +22,7 @@
       :width="thumbnailSize"
       :height="thumbnailSize"
       class="img-unit__icon img-unit__icon--thumbnail z-index-2"
+      :class="{ 'filter-brightness-0': !checked }"
     />
     <img
       src="assets/icons/catalog/pane.png"
@@ -69,15 +70,14 @@ const marginPx = computed(
   top: 0;
   left: 0;
 }
+// .img-unit__icon--bottom-right {
+//   bottom: v-bind('marginPx');
+//   right: v-bind('marginPx');
+// }
 
-.img-unit__icon--bottom-right {
-  bottom: v-bind('marginPx');
-  right: v-bind('marginPx');
-}
-
-.z-index-4 {
-  z-index: 4;
-}
+// .z-index-4 {
+//   z-index: 4;
+// }
 .z-index-3 {
   z-index: 3;
 }
