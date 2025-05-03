@@ -1,10 +1,13 @@
 <template>
-  <div class="fill-height d-flex flex-column justify-space-around align-center">
-    <AppPages show-subtitles />
+  <div>
+    <h4>Page "index"</h4>
+
+    <p>
+      <NuxtLink to="/other"> Go to "other" </NuxtLink>
+    </p>
+
+    <p>
+      <PlusModalLink to="/modal"> Open modal </PlusModalLink>
+    </p>
   </div>
 </template>
-
-<script setup lang="ts">
-// preload some data stores for other pages
-useDataStores([useStoreDataSkills(), useStoreDataUnits()])
-</script>

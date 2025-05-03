@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <h2>Layout "default"</h2>
+      <h2>Layout "other"</h2>
       <slot />
     </v-main>
   </v-app>
