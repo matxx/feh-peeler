@@ -333,7 +333,7 @@
           variant="outlined"
         >
           <v-btn
-            v-for="weaponType in WEAPON_COLORS_FOR_FILTERS"
+            v-for="weaponType in SORTED_WEAPON_COLORS"
             :key="weaponType"
             size="small"
             class="text-primary"
@@ -485,12 +485,12 @@ import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
 import {
   WEAPON_C_ST,
   SORTED_WEAPONS_MATRIX_FOR_FILTERS,
-  WEAPON_COLORS_FOR_FILTERS,
+  SORTED_WEAPON_COLORS,
   WEAPON_FAMILY_TYPES_FOR_FILTERS,
   WEAPON_AGGREGATIONS_FOR_FILTERS,
   type WeaponType,
-  type ColorWeaponType,
-  type FamilyWeaponType,
+  type WeaponColor,
+  type WeaponFamily,
   type AggregatedWeaponType,
 } from '@/utils/types/weapons'
 import { STATS_AND_BST, BST } from '~/utils/types/units-stats'
@@ -568,10 +568,10 @@ function toggleWeapon(weaponType: WeaponType) {
   }
 }
 
-function toggleWeaponColor(weaponType: ColorWeaponType) {
+function toggleWeaponColor(weaponType: WeaponColor) {
   toggleWeaponAggregate(weaponType)
 }
-function toggleWeaponFamily(weaponType: FamilyWeaponType) {
+function toggleWeaponFamily(weaponType: WeaponFamily) {
   toggleWeaponAggregate(weaponType)
 }
 function toggleWeaponAggregate(aggregate: AggregatedWeaponType) {

@@ -10,6 +10,9 @@ import * as UnitsStats from '~/utils/types/units-stats'
 
 export default {
   global: {
+    NA: 'N/A',
+    total: 'Total',
+
     inpiredBy: 'Inspired by',
     post: 'post | post | posts',
     video: 'video',
@@ -435,5 +438,9 @@ export default {
         sortByName: 'Sorted by Name',
       },
     },
+  },
+
+  catalogOfHeroes: {
+    other: 'Askr Trio & New Heroes not yet in generic summon pool',
   },
 }

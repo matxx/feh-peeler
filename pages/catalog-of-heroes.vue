@@ -71,21 +71,131 @@
             </div>
           </RecycleScroller>
         </v-col>
-        <v-col> Heroes : {{ ownedCount }} / {{ sortedUnits.length }} </v-col>
+        <v-col>
+          <h4>Heroes : {{ ownedCount }} / {{ sortedUnits.length }}</h4>
+          <v-table class="table-counts">
+            <thead>
+              <tr>
+                <th />
+                <th
+                  v-for="color in SORTED_WEAPON_COLORS"
+                  class="text-end"
+                >
+                  <AppIconWeaponType
+                    :weapon-type="color"
+                    :size="tileSize"
+                  />
+                </th>
+                <th class="text-end">
+                  {{ t('global.total') }}
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr v-for="availability in SORTED_AVAILABILITIES_AND_UNDEFINED">
+                <th>
+                  <div v-if="availability === UNDEFINED">
+                    Other
+                    <v-icon
+                      v-tooltip="t('catalogOfHeroes.other')"
+                      color="info"
+                    >
+                      mdi-information-outline
+                    </v-icon>
+                  </div>
+                  <UnitSource
+                    v-else
+                    :tile-size="tileSize"
+                    :availability="availability"
+                  />
+                </th>
+                <td
+                  v-for="color in SORTED_WEAPON_COLORS"
+                  class="text-end"
+                >
+                  {{
+                    (ownedUnitsCountByWeaponColorByAvailability[availability] &&
+                      ownedUnitsCountByWeaponColorByAvailability[availability][
+                        color
+                      ]) ??
+                    t('global.NA')
+                  }}
+                  /
+                  {{
+                    (allUnitsCountByWeaponColorByAvailability[availability] &&
+                      allUnitsCountByWeaponColorByAvailability[availability][
+                        color
+                      ]) ??
+                    t('global.NA')
+                  }}
+                </td>
+                <th class="text-end">
+                  {{
+                    ownedUnitsCountByAvailability
+                      ? ownedUnitsCountByAvailability[availability]
+                      : t('global.NA')
+                  }}
+                  /
+                  {{
+                    allUnitsCountByAvailability
+                      ? allUnitsCountByAvailability[availability]
+                      : t('global.NA')
+                  }}
+                </th>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <th>
+                  {{ t('global.total') }}
+                </th>
+                <th
+                  v-for="color in SORTED_WEAPON_COLORS"
+                  class="text-end"
+                >
+                  {{ ownedUnitsCountByWeaponColor[color] ?? t('global.NA') }}
+                  /
+                  {{ allUnitsCountByWeaponColor[color] ?? t('global.NA') }}
+                </th>
+                <th class="text-end">
+                  {{ ownedCount }}
+                  /
+                  {{ sortedUnits.length }}
+                </th>
+              </tr>
+            </tfoot>
+          </v-table>
+        </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
 
 <script setup lang="ts">
+import sum from 'lodash-es/sum'
 import sortBy from 'lodash-es/sortBy'
+import mapValues from 'lodash-es/mapValues'
 
-import type { IUnit, UnitId } from '~/utils/types/units'
+import type {
+  IUnit,
+  UnitId,
+  UnitsCountByWeaponColor,
+  TrueUnitsCountByWeaponColorByAvailability,
+  TrueUnitsCountByAvailability,
+} from '~/utils/types/units'
+import {
+  SORTED_AVAILABILITIES_AND_UNDEFINED,
+  UNDEFINED,
+} from '~/utils/types/units-availabilities'
+import { SORTED_WEAPON_COLORS } from '@/utils/types/weapons'
 
 const { t } = useI18n()
 
 const frameSize = 90
 const thumbnailSize = 80
+const tileSize = 30
 
 // inspired by https://stackoverflow.com/a/51968729/5032734
 function chunkMaxLength<T>(arr: T[], chunkSize: number) {
@@ -96,7 +206,10 @@ function chunkMaxLength<T>(arr: T[], chunkSize: number) {
 }
 
 const storeDataUnits = useStoreDataUnits()
-const { isLoading: isLoadingStores } = useDataStores([storeDataUnits])
+const { isLoading: isLoadingStores } = useDataStores([
+  storeDataUnits,
+  useStoreDataUnitsAvailabilities(),
+])
 
 const columnsCount = ref(5)
 
@@ -118,6 +231,59 @@ function confirmReset() {
 
   ownedUnitIds.value = new Set()
 }
+
+const allUnitsCountByWeaponColorByAvailability =
+  computed<TrueUnitsCountByWeaponColorByAvailability>(() =>
+    mapValues(
+      storeDataUnits.unitsByWeaponColorByAvailability,
+      (allUnitsByWeaponColor) =>
+        mapValues(allUnitsByWeaponColor, (units) => units.length),
+    ),
+  )
+const allUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(() =>
+  mapValues(
+    allUnitsCountByWeaponColorByAvailability.value,
+    (allUnitsCountByWeaponColor) =>
+      sum(Object.values(allUnitsCountByWeaponColor)),
+  ),
+)
+const ownedUnitsCountByWeaponColorByAvailability =
+  computed<TrueUnitsCountByWeaponColorByAvailability>(() => {
+    const res: any = {}
+    storeDataUnits.units.forEach((unit) => {
+      if (!ownedUnitIds.value.has(unit.id)) return
+
+      const { weaponColor, availability } = unit
+      const av = availability === undefined ? UNDEFINED : availability
+      if (!res[av]) res[av] = {}
+      if (!res[av][weaponColor]) res[av][weaponColor] = 0
+      res[av][weaponColor] += 1
+    })
+    return res
+  })
+const ownedUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(
+  () =>
+    mapValues(
+      ownedUnitsCountByWeaponColorByAvailability.value,
+      (ownedUnitsCountByWeaponColor) =>
+        sum(Object.values(ownedUnitsCountByWeaponColor)),
+    ),
+)
+
+const allUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() =>
+  mapValues(storeDataUnits.unitsByWeaponColor, (units) => units.length),
+)
+const ownedUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() => {
+  const res: any = {}
+  storeDataUnits.units.forEach((unit) => {
+    if (!ownedUnitIds.value.has(unit.id)) return
+
+    const { weaponColor } = unit
+    if (!res[weaponColor]) res[weaponColor] = 0
+    res[weaponColor] += 1
+  })
+  return res
+})
 
 // local storage
 

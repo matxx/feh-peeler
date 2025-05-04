@@ -1,11 +1,16 @@
-import { objectFromEntries } from '@/utils/functions/typeSafe'
+import { objectFromEntries } from '~/utils/functions/typeSafe'
 
-import type { MoveType } from '@/utils/types/moves'
-import type { WeaponType } from '@/utils/types/weapons'
-import type { IV } from '@/utils/types/IVs'
-import type { Game8Id } from '@/utils/types/game8'
-import { SKILL_CATEGORIES } from '@/utils/types/skills'
-import type { ISkillIdByCategory } from '@/utils/types/skills'
+import type { MoveType } from '~/utils/types/moves'
+import type {
+  WeaponType,
+  WeaponFamily,
+  WeaponColor,
+} from '~/utils/types/weapons'
+import type { IV } from '~/utils/types/IVs'
+import type { Game8Id } from '~/utils/types/game8'
+import { SKILL_CATEGORIES } from '~/utils/types/skills'
+import type { ISkillIdByCategory } from '~/utils/types/skills'
+import type { Availability } from '~/utils/types/units-availabilities'
 
 export type UnitId = string
 
@@ -13,6 +18,11 @@ export const TAB_FODDER = 'fodder'
 export const TAB_STATS = 'stats'
 export const SHOW_TABS = [TAB_STATS, TAB_FODDER]
 export const SHOW_DEFAULT_TAB = TAB_STATS
+
+export const ALFONSE_ID = 'PID_アルフォンス'
+export const SHARENA_ID = 'PID_シャロン'
+export const ANNA_ID = 'PID_アンナ'
+export const ASKR_TRIO_IDS = [ALFONSE_ID, SHARENA_ID, ANNA_ID]
 
 export interface IUnitThumbnail {
   id: UnitId
@@ -99,6 +109,9 @@ export interface IUnitData {
 }
 
 export interface IUnit extends IUnitData {
+  weaponFamily: WeaponFamily
+  weaponColor: WeaponColor
+  availability?: Availability
   nameForLink: string
   nameForFilters: string
   nameForSorting: string
@@ -212,3 +225,36 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_VA,
   // COLUMN_DRAGONFLOWERS,
 ]
+
+export type UnitsByWeaponColor = {
+  [key in WeaponColor]: IUnit[]
+}
+export type UnitsCountByWeaponColor = {
+  [key in WeaponColor]: number
+}
+
+export type UnitsByWeaponColorByAvailability = {
+  [key in Availability]: UnitsByWeaponColor
+}
+export interface TrueUnitsByWeaponColorByAvailability
+  extends UnitsByWeaponColorByAvailability {
+  undefined: UnitsByWeaponColor
+}
+export interface TrueUnitsCountByWeaponColor extends UnitsCountByWeaponColor {
+  undefined: number
+}
+
+export type UnitsCountByWeaponColorByAvailability = {
+  [key in Availability]: UnitsCountByWeaponColor
+}
+export interface TrueUnitsCountByWeaponColorByAvailability
+  extends UnitsCountByWeaponColorByAvailability {
+  undefined: UnitsCountByWeaponColor
+}
+
+export type UnitsCountByAvailability = {
+  [key in Availability]: number
+}
+export interface TrueUnitsCountByAvailability extends UnitsCountByAvailability {
+  undefined: number
+}

@@ -2,7 +2,7 @@ import hasOwnProp from '~/utils/functions/hasOwnProp'
 
 // TODO: make return type safe...
 export function nestedKeyBy<
-  T extends Record<PropertyKey, PropertyKey>,
+  T extends Record<PropertyKey, any>,
   Key extends Filter<T>,
 >(arr: T[], keys: Key[]) {
   const res = {}
@@ -13,6 +13,32 @@ export function nestedKeyBy<
     const value = el[key]
     if (isLast) {
       acc[value] = el
+      return acc
+    } else {
+      if (!hasOwnProp(acc, value)) acc[value] = {}
+      return [acc[value], el]
+    }
+  }
+  arr.forEach((el) => {
+    keys.reduce(reducer, [res, el])
+  })
+  return res
+}
+
+// TODO: make return type safe...
+export function nestedGroupBy<
+  T extends Record<PropertyKey, any>,
+  Key extends Filter<T>,
+>(arr: T[], keys: Key[]) {
+  const res = {}
+  const length = keys.length
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const reducer = ([acc, el]: [any, T], key: Key, index: number) => {
+    const isLast = index === length - 1
+    const value = el[key]
+    if (isLast) {
+      if (!hasOwnProp(acc, value)) acc[value] = []
+      acc[value].push(el)
       return acc
     } else {
       if (!hasOwnProp(acc, value)) acc[value] = {}

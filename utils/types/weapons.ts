@@ -111,7 +111,7 @@ export const WEAPON_A_TO = 'All Tome'
 export const WEAPON_A_BR = 'All Breath'
 export const WEAPON_A_BE = 'All Beast'
 
-export type FamilyWeaponType =
+export type WeaponFamily =
   | typeof WEAPON_A_ME
   //
   | typeof WEAPON_A_SW
@@ -129,13 +129,13 @@ export const WEAPON_B = 'Blue'
 export const WEAPON_G = 'Green'
 export const WEAPON_C = 'Colorless'
 
-export type ColorWeaponType =
+export type WeaponColor =
   | typeof WEAPON_R
   | typeof WEAPON_B
   | typeof WEAPON_G
   | typeof WEAPON_C
 
-export type AggregatedWeaponType = FamilyWeaponType | ColorWeaponType
+export type AggregatedWeaponType = WeaponFamily | WeaponColor
 
 export type ExtendedWeaponType = WeaponType | AggregatedWeaponType
 
@@ -205,6 +205,72 @@ export const WEAPON_AGGREGATIONS_FOR_FILTERS: {
   ],
 }
 
+export const WEAPON_FAMILY_FOR_TYPE: {
+  [key in WeaponType]: WeaponFamily
+} = {
+  [WEAPON_R_SW]: WEAPON_A_ME,
+  [WEAPON_B_LA]: WEAPON_A_ME,
+  [WEAPON_G_AX]: WEAPON_A_ME,
+  [WEAPON_C_ST]: WEAPON_A_ST,
+
+  [WEAPON_R_BO]: WEAPON_A_BO,
+  [WEAPON_B_BO]: WEAPON_A_BO,
+  [WEAPON_G_BO]: WEAPON_A_BO,
+  [WEAPON_C_BO]: WEAPON_A_BO,
+
+  [WEAPON_R_DA]: WEAPON_A_DA,
+  [WEAPON_B_DA]: WEAPON_A_DA,
+  [WEAPON_G_DA]: WEAPON_A_DA,
+  [WEAPON_C_DA]: WEAPON_A_DA,
+
+  [WEAPON_R_TO]: WEAPON_A_TO,
+  [WEAPON_B_TO]: WEAPON_A_TO,
+  [WEAPON_G_TO]: WEAPON_A_TO,
+  [WEAPON_C_TO]: WEAPON_A_TO,
+
+  [WEAPON_R_BR]: WEAPON_A_BR,
+  [WEAPON_B_BR]: WEAPON_A_BR,
+  [WEAPON_G_BR]: WEAPON_A_BR,
+  [WEAPON_C_BR]: WEAPON_A_BR,
+
+  [WEAPON_R_BE]: WEAPON_A_BE,
+  [WEAPON_B_BE]: WEAPON_A_BE,
+  [WEAPON_G_BE]: WEAPON_A_BE,
+  [WEAPON_C_BE]: WEAPON_A_BE,
+}
+
+export const WEAPON_COLOR_FOR_TYPE: {
+  [key in WeaponType]: WeaponColor
+} = {
+  [WEAPON_R_SW]: WEAPON_R,
+  [WEAPON_R_BO]: WEAPON_R,
+  [WEAPON_R_DA]: WEAPON_R,
+  [WEAPON_R_TO]: WEAPON_R,
+  [WEAPON_R_BR]: WEAPON_R,
+  [WEAPON_R_BE]: WEAPON_R,
+
+  [WEAPON_B_LA]: WEAPON_B,
+  [WEAPON_B_BO]: WEAPON_B,
+  [WEAPON_B_DA]: WEAPON_B,
+  [WEAPON_B_TO]: WEAPON_B,
+  [WEAPON_B_BR]: WEAPON_B,
+  [WEAPON_B_BE]: WEAPON_B,
+
+  [WEAPON_G_AX]: WEAPON_G,
+  [WEAPON_G_BO]: WEAPON_G,
+  [WEAPON_G_DA]: WEAPON_G,
+  [WEAPON_G_TO]: WEAPON_G,
+  [WEAPON_G_BR]: WEAPON_G,
+  [WEAPON_G_BE]: WEAPON_G,
+
+  [WEAPON_C_ST]: WEAPON_C,
+  [WEAPON_C_BO]: WEAPON_C,
+  [WEAPON_C_DA]: WEAPON_C,
+  [WEAPON_C_TO]: WEAPON_C,
+  [WEAPON_C_BR]: WEAPON_C,
+  [WEAPON_C_BE]: WEAPON_C,
+}
+
 export const SORTED_WEAPONS_MATRIX_FOR_FILTERS: WeaponType[][] = [
   [WEAPON_R_SW, WEAPON_B_LA, WEAPON_G_AX],
   [WEAPON_R_BO, WEAPON_B_BO, WEAPON_G_BO, WEAPON_C_BO],
@@ -214,7 +280,7 @@ export const SORTED_WEAPONS_MATRIX_FOR_FILTERS: WeaponType[][] = [
   [WEAPON_R_BE, WEAPON_B_BE, WEAPON_G_BE, WEAPON_C_BE],
 ]
 
-export const WEAPON_FAMILY_TYPES_FOR_FILTERS: FamilyWeaponType[] = [
+export const WEAPON_FAMILY_TYPES_FOR_FILTERS: WeaponFamily[] = [
   WEAPON_A_SW,
   WEAPON_A_BO,
   WEAPON_A_DA,
@@ -223,7 +289,7 @@ export const WEAPON_FAMILY_TYPES_FOR_FILTERS: FamilyWeaponType[] = [
   WEAPON_A_BE,
 ]
 
-export const WEAPON_COLORS_FOR_FILTERS: ColorWeaponType[] = [
+export const SORTED_WEAPON_COLORS: WeaponColor[] = [
   WEAPON_R,
   WEAPON_B,
   WEAPON_G,
