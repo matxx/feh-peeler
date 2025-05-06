@@ -48,19 +48,12 @@
               </div>
             </template>
             <template #[`item.name`]="{ item }">
-              <PlusModalLink
-                :to="
-                  localePath({
-                    name: 'skills-name-tab',
-                    params: {
-                      name: item.nameForLink,
-                      tab: TAB_FODDERS,
-                    },
-                  })
-                "
+              <NuxtLink
+                href="#"
+                @click.prevent="storeGlobals.showSkill(item.id, TAB_FODDERS)"
               >
                 {{ item.name }}
-              </PlusModalLink>
+              </NuxtLink>
             </template>
             <template #[`item.availability`]="{ item }">
               <SkillFodderAvailabilities
@@ -92,7 +85,7 @@ import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 
 const storeDataSkills = useStoreDataSkills()
 

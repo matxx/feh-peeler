@@ -41,24 +41,12 @@
       v-if="appendLink"
       #append
     >
-      <PlusModalLink
-        :to="
-          skill
-            ? localePath({
-                name: 'skills-name',
-                params: {
-                  name: skill.nameForLink,
-                },
-              })
-            : undefined
-        "
-      >
-        <v-btn
-          :disabled="!skill"
-          icon="mdi-card-bulleted"
-          size="x-small"
-        />
-      </PlusModalLink>
+      <v-btn
+        :disabled="!skill"
+        icon="mdi-card-bulleted"
+        size="x-small"
+        @click.prevent="storeGlobals.showSkill(skill?.id)"
+      />
     </template>
 
     <template
@@ -111,7 +99,7 @@ import {
 } from '~/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 const storeDataSkills = useStoreDataSkills()
 
 defineEmits(['update:model-value'])

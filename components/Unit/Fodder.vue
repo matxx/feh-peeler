@@ -43,17 +43,10 @@
               />
             </th>
             <th>
-              <PlusModalLink
-                :to="
-                  localePath({
-                    name: 'skills-name-tab',
-                    params: {
-                      name: skill.nameForLink,
-                      tab: TAB_FODDERS,
-                    },
-                  })
-                "
+              <NuxtLink
                 class="d-flex align-center"
+                href="#"
+                @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
               >
                 <SkillImg
                   v-show="SKILL_CATEGORIES_WITH_ICON.includes(category)"
@@ -62,7 +55,7 @@
                   class="mr-2"
                 />
                 {{ skill.name }}
-              </PlusModalLink>
+              </NuxtLink>
             </th>
             <td
               v-for="avail in AVAILABILITIES"
@@ -213,7 +206,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()

@@ -50,22 +50,16 @@
             key-field="id"
             direction="horizontal"
           >
-            <PlusModalLink
-              :to="
-                localePath({
-                  name: 'units-name',
-                  params: {
-                    name: item.nameForLink,
-                  },
-                })
-              "
+            <NuxtLink
+              href="#"
+              @click.prevent="storeGlobals.showUnit(item.id)"
             >
               <CompoUnitThumbnail
                 :unit="item"
                 :size="size"
                 :size-corner="sizeCorner"
               />
-            </PlusModalLink>
+            </NuxtLink>
           </RecycleScroller>
         </client-only>
       </div>
@@ -229,7 +223,7 @@ definePageMeta({
 
 const { l } = useFandom()
 const { t } = useI18n()
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()

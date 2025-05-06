@@ -1,16 +1,9 @@
 <template>
   <tr>
     <td>
-      <PlusModalLink
-        :to="
-          localePath({
-            name: 'units-name-tab',
-            params: {
-              name: unit.nameForLink,
-              tab: TAB_FODDER,
-            },
-          })
-        "
+      <NuxtLink
+        href="#"
+        @click.prevent="storeGlobals.showUnit(unit.id, TAB_FODDER)"
       >
         <div class="d-flex align-center">
           <CompoUnitThumbnail
@@ -22,7 +15,7 @@
             {{ unit.full_name }}
           </div>
         </div>
-      </PlusModalLink>
+      </NuxtLink>
     </td>
     <td>
       <UnitAvailability
@@ -56,5 +49,5 @@ withDefaults(
 )
 
 const { mobile } = useDisplay()
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 </script>

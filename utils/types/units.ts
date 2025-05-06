@@ -16,8 +16,9 @@ export type UnitId = string
 
 export const TAB_FODDER = 'fodder'
 export const TAB_STATS = 'stats'
-export const SHOW_TABS = [TAB_STATS, TAB_FODDER]
-export const SHOW_DEFAULT_TAB = TAB_STATS
+export type UnitTab = typeof TAB_FODDER | typeof TAB_STATS
+export const UNIT_TABS: UnitTab[] = [TAB_STATS, TAB_FODDER]
+export const UNIT_DEFAULT_TAB = TAB_STATS
 
 export const ALFONSE_ID = 'PID_アルフォンス'
 export const SHARENA_ID = 'PID_シャロン'

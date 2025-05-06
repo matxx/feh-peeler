@@ -1,6 +1,6 @@
 import sortBy from 'lodash-es/sortBy'
 
-import { ASKR_TRIO_IDS, type UnitId } from '@/utils/types/units'
+import type { UnitId } from '@/utils/types/units'
 import type {
   IDivineCodeNormal,
   IDivineCodeLimited,
@@ -10,8 +10,8 @@ import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
   HEROIC_GRAILS,
-  NORMAL_DIVINE_CODES,
-  LIMITED_DIVINE_CODES,
+  type NORMAL_DIVINE_CODES,
+  type LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
 

@@ -1,16 +1,9 @@
 <template>
   <div>
     <div class="d-flex justify-space-between mb-3">
-      <PlusModalLink
-        :to="
-          localePath({
-            name: 'skills-name-tab',
-            params: {
-              name: skill.nameForLink,
-              tab: TAB_FODDERS,
-            },
-          })
-        "
+      <NuxtLink
+        href="#"
+        @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
       >
         <div class="d-flex align-center">
           <SkillImg
@@ -22,7 +15,7 @@
             {{ skill.name }}
           </div>
         </div>
-      </PlusModalLink>
+      </NuxtLink>
 
       <v-btn
         v-show="!alwaysOpen && mobile"
@@ -54,7 +47,7 @@
 import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
 
 const { mobile } = useDisplay()
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 
 withDefaults(
   defineProps<{

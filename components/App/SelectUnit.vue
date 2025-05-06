@@ -53,25 +53,13 @@
         @click="$emit('click:thumbnail')"
       />
 
-      <PlusModalLink
+      <v-btn
         v-if="appendLink"
-        :to="
-          unit
-            ? localePath({
-                name: 'units-name',
-                params: {
-                  name: unit.nameForLink,
-                },
-              })
-            : undefined
-        "
-      >
-        <v-btn
-          :disabled="!unit"
-          icon="mdi-card-bulleted"
-          size="x-small"
-        />
-      </PlusModalLink>
+        :disabled="!unit"
+        icon="mdi-card-bulleted"
+        size="x-small"
+        @click.prevent="storeGlobals.showUnit(unit?.id)"
+      />
     </template>
 
     <template #item="{ props: slotProps, item }">
@@ -106,8 +94,7 @@ import filter from 'lodash-es/filter'
 import type { UnitId, IUnit } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
-import { VBtn } from 'vuetify/components'
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
 
 defineEmits(['update:model-value', 'click:thumbnail'])

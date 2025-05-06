@@ -84,13 +84,18 @@ export const TAB_DETAILS = 'details'
 export const TAB_FODDERS = 'fodders'
 export const TAB_DOWNGRADES = 'downgrades'
 export const TAB_UPGRADES = 'upgrades'
-export const SHOW_TABS = [
+export type SkillTab =
+  | typeof TAB_DETAILS
+  | typeof TAB_FODDERS
+  | typeof TAB_DOWNGRADES
+  | typeof TAB_UPGRADES
+export const SKILL_TABS: SkillTab[] = [
   TAB_DETAILS,
   TAB_FODDERS,
   TAB_DOWNGRADES,
   TAB_UPGRADES,
 ]
-export const SHOW_DEFAULT_TAB = TAB_DETAILS
+export const SKILL_DEFAULT_TAB = TAB_DETAILS
 
 export type SkillId = string
 

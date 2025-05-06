@@ -68,38 +68,26 @@
       </template>
 
       <template #[`item.${COLUMN_THUMBNAIL}`]="{ item }">
-        <PlusModalLink
-          :to="
-            localePath({
-              name: 'units-name',
-              params: {
-                name: item.nameForLink,
-              },
-            })
-          "
+        <NuxtLink
           class="text-no-wrap"
+          href="#"
+          @click.prevent="storeGlobals.showUnit(item.id)"
         >
           <CompoUnitThumbnail
             :unit="item"
             :size="size"
             :size-corner="sizeCorner"
           />
-        </PlusModalLink>
+        </NuxtLink>
       </template>
       <template #[`item.${COLUMN_NAME}`]="{ item }">
-        <PlusModalLink
-          :to="
-            localePath({
-              name: 'units-name',
-              params: {
-                name: item.nameForLink,
-              },
-            })
-          "
+        <NuxtLink
           class="text-no-wrap"
+          href="#"
+          @click.prevent="storeGlobals.showUnit(item.id)"
         >
           {{ item.full_name }}
-        </PlusModalLink>
+        </NuxtLink>
       </template>
       <template #[`item.${COLUMN_HAS_RESPLENDENT}`]="{ item }">
         <v-icon :color="item.has_respl ? 'green' : 'red'">
@@ -225,7 +213,7 @@ definePageMeta({
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 
 const storeDataUnitsStats = useStoreDataUnitsStats()
 

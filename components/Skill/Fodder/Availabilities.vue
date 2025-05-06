@@ -1,17 +1,10 @@
 <template>
   <div>
     <div class="d-flex align-center my-1">
-      <PlusModalLink
-        :to="
-          localePath({
-            name: 'skills-name-tab',
-            params: {
-              name: skill.nameForLink,
-              tab: TAB_FODDERS,
-            },
-          })
-        "
+      <NuxtLink
         class="d-flex mr-5"
+        href="#"
+        @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
       >
         <SkillImg
           v-show="withIcon"
@@ -19,7 +12,7 @@
           :skill="skill"
           :size="skillIconSize"
         />
-      </PlusModalLink>
+      </NuxtLink>
 
       <SkillAvailability
         :skill="skill"
@@ -54,7 +47,7 @@
 <script setup lang="ts">
 import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
 
-const localePath = useLocalePath()
+const storeGlobals = useStoreGlobals()
 
 withDefaults(
   defineProps<{

@@ -32,18 +32,12 @@
     </template>
 
     <template #[`item.name`]="{ item }">
-      <PlusModalLink
-        :to="
-          localePath({
-            name: 'skills-name',
-            params: {
-              name: item.nameForLink,
-            },
-          })
-        "
+      <NuxtLink
+        href="#"
+        @click.prevent="storeGlobals.showSkill(item.id)"
       >
         {{ item.name }}
-      </PlusModalLink>
+      </NuxtLink>
     </template>
 
     <template #[`item.game8_rating`]="{ item }">
@@ -156,8 +150,8 @@ const SKILL_ICON_SIZE = 30
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
-const localePath = useLocalePath()
 const storeTheme = useStoreTheme()
+const storeGlobals = useStoreGlobals()
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()

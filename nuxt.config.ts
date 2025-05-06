@@ -125,7 +125,6 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxt/eslint',
     '@sentry/nuxt/module',
-    'nuxt-pages-plus',
     'vuetify-nuxt-module',
   ],
 

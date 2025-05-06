@@ -8,6 +8,8 @@
     </v-main>
 
     <TheSnackbar />
+    <TheModalForSkill />
+    <TheModalForUnit />
   </v-app>
 </template>
 
