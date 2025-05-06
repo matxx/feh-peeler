@@ -20,6 +20,8 @@
 
 ### Fixes
 
+1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
+
 ## Setup
 
 Make sure to install the dependencies:

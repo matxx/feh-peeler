@@ -47,6 +47,10 @@
     >
       <v-row class="fill-height">
         <v-col class="fill-height">
+          <h4>
+            {{ t('catalogOfHeroes.titles.catalog') }}
+          </h4>
+
           <RecycleScroller
             v-slot="{ item }"
             class="scroller"
@@ -72,13 +76,18 @@
           </RecycleScroller>
         </v-col>
         <v-col>
-          <h4>Heroes : {{ ownedCount }} / {{ sortedUnits.length }}</h4>
+          <h4>
+            {{ t('catalogOfHeroes.titles.recap') }} : {{ ownedCount }} /
+            {{ sortedUnits.length }}
+          </h4>
+
           <v-table class="table-counts">
             <thead>
               <tr>
                 <th />
                 <th
                   v-for="color in SORTED_WEAPON_COLORS"
+                  :key="color"
                   class="text-end"
                 >
                   <AppIconWeaponType
@@ -93,7 +102,10 @@
             </thead>
 
             <tbody>
-              <tr v-for="availability in SORTED_AVAILABILITIES_AND_UNDEFINED">
+              <tr
+                v-for="availability in SORTED_AVAILABILITIES_AND_UNDEFINED"
+                :key="availability"
+              >
                 <th>
                   <div v-if="availability === UNDEFINED">
                     Other
@@ -112,6 +124,7 @@
                 </th>
                 <td
                   v-for="color in SORTED_WEAPON_COLORS"
+                  :key="color"
                   class="text-end"
                 >
                   {{
@@ -153,6 +166,7 @@
                 </th>
                 <th
                   v-for="color in SORTED_WEAPON_COLORS"
+                  :key="color"
                   class="text-end"
                 >
                   {{ ownedUnitsCountByWeaponColor[color] ?? t('global.NA') }}
@@ -227,7 +241,7 @@ const ownedUnitIds = ref(new Set())
 const ownedCount = computed(() => ownedUnitIds.value.size)
 
 function confirmReset() {
-  if (!confirm(t('global.confirmReset'))) return
+  if (!confirm(t('catalogOfHeroes.confirmReset'))) return
 
   ownedUnitIds.value = new Set()
 }
@@ -249,6 +263,7 @@ const allUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(() =>
 )
 const ownedUnitsCountByWeaponColorByAvailability =
   computed<TrueUnitsCountByWeaponColorByAvailability>(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res: any = {}
     storeDataUnits.units.forEach((unit) => {
       if (!ownedUnitIds.value.has(unit.id)) return
@@ -274,6 +289,7 @@ const allUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() =>
   mapValues(storeDataUnits.unitsByWeaponColor, (units) => units.length),
 )
 const ownedUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const res: any = {}
   storeDataUnits.units.forEach((unit) => {
     if (!ownedUnitIds.value.has(unit.id)) return

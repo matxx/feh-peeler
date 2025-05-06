@@ -2,6 +2,7 @@ import hasOwnProp from '~/utils/functions/hasOwnProp'
 
 // TODO: make return type safe...
 export function nestedKeyBy<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends Record<PropertyKey, any>,
   Key extends Filter<T>,
 >(arr: T[], keys: Key[]) {
@@ -27,6 +28,7 @@ export function nestedKeyBy<
 
 // TODO: make return type safe...
 export function nestedGroupBy<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends Record<PropertyKey, any>,
   Key extends Filter<T>,
 >(arr: T[], keys: Key[]) {

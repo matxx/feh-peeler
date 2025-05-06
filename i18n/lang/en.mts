@@ -441,6 +441,11 @@ export default {
   },
 
   catalogOfHeroes: {
+    confirmReset: 'Owned units will be lost, are you sure ?',
+    titles: {
+      catalog: 'Click on heroes you own',
+      recap: 'Heroes',
+    },
     other: 'Askr Trio & New Heroes not yet in generic summon pool',
   },
 }
