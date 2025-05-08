@@ -444,7 +444,7 @@ export default {
   catalogOfHeroes: {
     confirmReset: 'Owned units will be lost, are you sure ?',
     headers: {
-      catalog: 'Click on heroes you own',
+      catalog: 'Catalog Of Heroes (click on heroes you own)',
       recap: 'Heroes',
       banners: 'Banners',
       heroicGrailsShop: 'Heroic Grails Shop',
