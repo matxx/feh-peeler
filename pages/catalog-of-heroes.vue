@@ -2,7 +2,7 @@
 <template>
   <div class="pa-3 fill-height d-flex flex-column">
     <v-overlay
-      :model-value="isLoadingStores || isLoadingStorage"
+      :model-value="isLoading"
       class="d-flex justify-space-around align-center"
     >
       <v-progress-circular
@@ -90,7 +90,7 @@
                   :key="color"
                   class="text-end"
                 >
-                  <AppIconWeaponType
+                  <AppIconOrb
                     :weapon-type="color"
                     :size="tileSize"
                   />
@@ -128,32 +128,32 @@
                   class="text-end"
                 >
                   {{
-                    (ownedUnitsCountByWeaponColorByAvailability[availability] &&
-                      ownedUnitsCountByWeaponColorByAvailability[availability][
-                        color
-                      ]) ??
-                    t('global.NA')
+                    isLoading
+                      ? t('global.NA')
+                      : ownedUnitsCountByWeaponColorByAvailability[
+                          availability
+                        ][color]
                   }}
                   /
                   {{
-                    (allUnitsCountByWeaponColorByAvailability[availability] &&
-                      allUnitsCountByWeaponColorByAvailability[availability][
-                        color
-                      ]) ??
-                    t('global.NA')
+                    isLoading
+                      ? t('global.NA')
+                      : allUnitsCountByWeaponColorByAvailability[availability][
+                          color
+                        ]
                   }}
                 </td>
                 <th class="text-end">
                   {{
-                    ownedUnitsCountByAvailability
-                      ? ownedUnitsCountByAvailability[availability]
-                      : t('global.NA')
+                    isLoading
+                      ? t('global.NA')
+                      : ownedUnitsCountByAvailability[availability]
                   }}
                   /
                   {{
-                    allUnitsCountByAvailability
-                      ? allUnitsCountByAvailability[availability]
-                      : t('global.NA')
+                    isLoading
+                      ? t('global.NA')
+                      : allUnitsCountByAvailability[availability]
                   }}
                 </th>
               </tr>
@@ -169,14 +169,22 @@
                   :key="color"
                   class="text-end"
                 >
-                  {{ ownedUnitsCountByWeaponColor[color] ?? t('global.NA') }}
+                  {{
+                    isLoading
+                      ? t('global.NA')
+                      : ownedUnitsCountByWeaponColor[color]
+                  }}
                   /
-                  {{ allUnitsCountByWeaponColor[color] ?? t('global.NA') }}
+                  {{
+                    isLoading
+                      ? t('global.NA')
+                      : allUnitsCountByWeaponColor[color]
+                  }}
                 </th>
                 <th class="text-end">
-                  {{ ownedCount }}
+                  {{ isLoading ? t('global.NA') : ownedCount }}
                   /
-                  {{ sortedUnits.length }}
+                  {{ isLoading ? t('global.NA') : sortedUnits.length }}
                 </th>
               </tr>
             </tfoot>
@@ -192,18 +200,20 @@ import sum from 'lodash-es/sum'
 import sortBy from 'lodash-es/sortBy'
 import mapValues from 'lodash-es/mapValues'
 
-import type {
-  IUnit,
-  UnitId,
-  UnitsCountByWeaponColor,
-  TrueUnitsCountByWeaponColorByAvailability,
-  TrueUnitsCountByAvailability,
+import {
+  type IUnit,
+  type UnitId,
+  type UnitsCountByWeaponColor,
+  type TrueUnitsCountByWeaponColorByAvailability,
+  type TrueUnitsCountByAvailability,
+  getEmptyUnitsCountByWeaponColor,
+  getEmptyTrueUnitsCountByWeaponColorByAvailability,
 } from '~/utils/types/units'
 import {
   SORTED_AVAILABILITIES_AND_UNDEFINED,
   UNDEFINED,
 } from '~/utils/types/units-availabilities'
-import { SORTED_WEAPON_COLORS } from '@/utils/types/weapons'
+import { SORTED_WEAPON_COLORS } from '~/utils/types/weapons'
 
 const { t } = useI18n()
 
@@ -224,6 +234,10 @@ const { isLoading: isLoadingStores } = useDataStores([
   storeDataUnits,
   useStoreDataUnitsAvailabilities(),
 ])
+
+const isLoading = computed(
+  () => isLoadingStores.value || isLoadingStorage.value,
+)
 
 const columnsCount = ref(5)
 
@@ -261,21 +275,16 @@ const allUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(() =>
       sum(Object.values(allUnitsCountByWeaponColor)),
   ),
 )
-const ownedUnitsCountByWeaponColorByAvailability =
-  computed<TrueUnitsCountByWeaponColorByAvailability>(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const res: any = {}
-    storeDataUnits.units.forEach((unit) => {
-      if (!ownedUnitIds.value.has(unit.id)) return
+const ownedUnitsCountByWeaponColorByAvailability = computed(() => {
+  const res = getEmptyTrueUnitsCountByWeaponColorByAvailability()
+  storeDataUnits.units.forEach((unit) => {
+    if (!ownedUnitIds.value.has(unit.id)) return
 
-      const { weaponColor, availability } = unit
-      const av = availability === undefined ? UNDEFINED : availability
-      if (!res[av]) res[av] = {}
-      if (!res[av][weaponColor]) res[av][weaponColor] = 0
-      res[av][weaponColor] += 1
-    })
-    return res
+    const av = unit.availability === undefined ? UNDEFINED : unit.availability
+    res[av][unit.weaponColor] += 1
   })
+  return res
+})
 const ownedUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(
   () =>
     mapValues(
@@ -288,15 +297,12 @@ const ownedUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(
 const allUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() =>
   mapValues(storeDataUnits.unitsByWeaponColor, (units) => units.length),
 )
-const ownedUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const res: any = {}
+const ownedUnitsCountByWeaponColor = computed(() => {
+  const res = getEmptyUnitsCountByWeaponColor()
   storeDataUnits.units.forEach((unit) => {
     if (!ownedUnitIds.value.has(unit.id)) return
 
-    const { weaponColor } = unit
-    if (!res[weaponColor]) res[weaponColor] = 0
-    res[weaponColor] += 1
+    res[unit.weaponColor] += 1
   })
   return res
 })

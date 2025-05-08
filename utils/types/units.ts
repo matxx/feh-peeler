@@ -10,7 +10,12 @@ import type { IV } from '~/utils/types/IVs'
 import type { Game8Id } from '~/utils/types/game8'
 import { SKILL_CATEGORIES } from '~/utils/types/skills'
 import type { ISkillIdByCategory } from '~/utils/types/skills'
-import type { Availability } from '~/utils/types/units-availabilities'
+import {
+  UNDEFINED,
+  SORTED_AVAILABILITIES,
+  type Availability,
+} from '~/utils/types/units-availabilities'
+import { SORTED_WEAPON_COLORS } from '~/utils/types/weapons'
 
 export type UnitId = string
 
@@ -239,10 +244,10 @@ export type UnitsByWeaponColorByAvailability = {
 }
 export interface TrueUnitsByWeaponColorByAvailability
   extends UnitsByWeaponColorByAvailability {
-  undefined: UnitsByWeaponColor
+  [UNDEFINED]: UnitsByWeaponColor
 }
 export interface TrueUnitsCountByWeaponColor extends UnitsCountByWeaponColor {
-  undefined: number
+  [UNDEFINED]: number
 }
 
 export type UnitsCountByWeaponColorByAvailability = {
@@ -250,12 +255,32 @@ export type UnitsCountByWeaponColorByAvailability = {
 }
 export interface TrueUnitsCountByWeaponColorByAvailability
   extends UnitsCountByWeaponColorByAvailability {
-  undefined: UnitsCountByWeaponColor
+  [UNDEFINED]: UnitsCountByWeaponColor
 }
 
 export type UnitsCountByAvailability = {
   [key in Availability]: number
 }
 export interface TrueUnitsCountByAvailability extends UnitsCountByAvailability {
-  undefined: number
+  [UNDEFINED]: number
+}
+
+export function getEmptyUnitsCountByWeaponColor(): UnitsCountByWeaponColor {
+  return objectFromEntries(SORTED_WEAPON_COLORS.map((color) => [color, 0]))
+}
+
+export function getEmptyUnitsCountByWeaponColorByAvailability(): UnitsCountByWeaponColorByAvailability {
+  return objectFromEntries(
+    SORTED_AVAILABILITIES.map((availability) => [
+      availability,
+      getEmptyUnitsCountByWeaponColor(),
+    ]),
+  )
+}
+
+export function getEmptyTrueUnitsCountByWeaponColorByAvailability(): TrueUnitsCountByWeaponColorByAvailability {
+  return {
+    ...getEmptyUnitsCountByWeaponColorByAvailability(),
+    [UNDEFINED]: getEmptyUnitsCountByWeaponColor(),
+  }
 }
