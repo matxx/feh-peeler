@@ -1,4 +1,5 @@
 import { objectFromEntries } from '~/utils/functions/typeSafe'
+import type { IUnitData } from '~/utils/types/units'
 
 export const WEAPON_R_SW = 'Red Sword'
 export const WEAPON_R_BO = 'Red Bow'
@@ -295,3 +296,131 @@ export const SORTED_WEAPON_COLORS: WeaponColor[] = [
   WEAPON_G,
   WEAPON_C,
 ]
+
+export function getSortableWeaponColor(color: WeaponColor) {
+  switch (color) {
+    case WEAPON_R:
+      return 0
+    case WEAPON_B:
+      return 1
+    case WEAPON_G:
+      return 2
+    case WEAPON_C:
+      return 3
+  }
+}
+
+export function getSortableType(unit: IUnitData) {
+  switch (unit.weapon_type) {
+    case WEAPON_R_SW:
+      return 0
+    case WEAPON_R_BE:
+      return 1
+    case WEAPON_R_BR:
+      return 2
+    case WEAPON_R_BO:
+      return 3
+    case WEAPON_R_DA:
+      return 4
+    case WEAPON_R_TO:
+      return 5
+
+    case WEAPON_B_LA:
+      return 10
+    case WEAPON_B_BE:
+      return 11
+    case WEAPON_B_BR:
+      return 12
+    case WEAPON_B_BO:
+      return 13
+    case WEAPON_B_DA:
+      return 14
+    case WEAPON_B_TO:
+      return 15
+
+    case WEAPON_G_AX:
+      return 20
+    case WEAPON_G_BE:
+      return 21
+    case WEAPON_G_BR:
+      return 22
+    case WEAPON_G_BO:
+      return 23
+    case WEAPON_G_DA:
+      return 24
+    case WEAPON_G_TO:
+      return 25
+
+    case WEAPON_C_BE:
+      return 30
+    case WEAPON_C_BR:
+      return 31
+    case WEAPON_C_BO:
+      return 32
+    case WEAPON_C_DA:
+      return 33
+    case WEAPON_C_TO:
+      return 34
+    case WEAPON_C_ST:
+      return 35
+  }
+}
+
+export function getSortableWeaponType(unit: IUnitData) {
+  switch (unit.weapon_type) {
+    case WEAPON_R_SW:
+      return 0
+    case WEAPON_B_LA:
+      return 1
+    case WEAPON_G_AX:
+      return 2
+
+    case WEAPON_R_BO:
+      return 10
+    case WEAPON_B_BO:
+      return 11
+    case WEAPON_G_BO:
+      return 12
+    case WEAPON_C_BO:
+      return 13
+
+    case WEAPON_R_DA:
+      return 20
+    case WEAPON_B_DA:
+      return 21
+    case WEAPON_G_DA:
+      return 22
+    case WEAPON_C_DA:
+      return 23
+
+    case WEAPON_R_TO:
+      return 30
+    case WEAPON_B_TO:
+      return 31
+    case WEAPON_G_TO:
+      return 32
+    case WEAPON_C_TO:
+      return 33
+
+    case WEAPON_C_ST:
+      return 40
+
+    case WEAPON_R_BR:
+      return 50
+    case WEAPON_B_BR:
+      return 51
+    case WEAPON_G_BR:
+      return 52
+    case WEAPON_C_BR:
+      return 53
+
+    case WEAPON_R_BE:
+      return 54
+    case WEAPON_B_BE:
+      return 55
+    case WEAPON_G_BE:
+      return 56
+    case WEAPON_C_BE:
+      return 57
+  }
+}

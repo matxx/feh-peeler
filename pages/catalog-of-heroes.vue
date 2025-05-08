@@ -1,6 +1,6 @@
 <!-- https://feheroes.fandom.com/wiki/Catalog_of_Heroes -->
 <template>
-  <div class="pa-3 fill-height d-flex flex-column">
+  <div class="pa-3 d-flex flex-column">
     <v-overlay
       :model-value="isLoading"
       class="d-flex justify-space-around align-center"
@@ -45,10 +45,10 @@
       fluid
       class="flex-grow-1 pa-0"
     >
-      <v-row class="fill-height">
-        <v-col class="fill-height">
+      <v-row>
+        <v-col>
           <h4>
-            {{ t('catalogOfHeroes.titles.catalog') }}
+            {{ t('catalogOfHeroes.headers.catalog') }}
           </h4>
 
           <RecycleScroller
@@ -58,13 +58,14 @@
             :item-size="frameSize"
           >
             <div class="d-flex">
+              <!-- prettier-ignore -->
               <CompoUnitThumbnailCatalog
-                v-for="unit in item.units as IUnit[]"
+                v-for="unit in (item.units as IUnit[])"
                 :key="unit.id"
                 :unit="unit"
                 :frame-size="frameSize"
                 :thumbnail-size="thumbnailSize"
-                :checked="ownedUnitIds.has(unit.id)"
+                :blackened="!ownedUnitIds.has(unit.id)"
                 class="cursor-pointer"
                 @click="
                   ownedUnitIds.has(unit.id)
@@ -77,8 +78,8 @@
         </v-col>
         <v-col>
           <h4>
-            {{ t('catalogOfHeroes.titles.recap') }} : {{ ownedCount }} /
-            {{ sortedUnits.length }}
+            {{ t('catalogOfHeroes.headers.recap') }} : {{ ownedCount }} /
+            {{ storeDataUnits.unitsCount }}
           </h4>
 
           <v-table class="table-counts">
@@ -103,11 +104,11 @@
 
             <tbody>
               <tr
-                v-for="availability in SORTED_AVAILABILITIES_AND_UNDEFINED"
+                v-for="availability in SORTED_AVAILABILITIES"
                 :key="availability"
               >
                 <th>
-                  <div v-if="availability === UNDEFINED">
+                  <div v-if="availability === AV_OTHER">
                     Other
                     <v-icon
                       v-tooltip="t('catalogOfHeroes.other')"
@@ -127,34 +128,44 @@
                   :key="color"
                   class="text-end"
                 >
-                  {{
-                    isLoading
-                      ? t('global.NA')
-                      : ownedUnitsCountByWeaponColorByAvailability[
-                          availability
-                        ][color]
-                  }}
-                  /
-                  {{
-                    isLoading
-                      ? t('global.NA')
-                      : allUnitsCountByWeaponColorByAvailability[availability][
-                          color
-                        ]
-                  }}
+                  <NuxtLink
+                    href="#"
+                    @click.prevent="show(availability, color)"
+                  >
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : ownedUnitsCountByWeaponColorByAvailability[
+                            availability
+                          ][color]
+                    }}
+                    /
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : allUnitsCountByWeaponColorByAvailability[
+                            availability
+                          ][color]
+                    }}
+                  </NuxtLink>
                 </td>
                 <th class="text-end">
-                  {{
-                    isLoading
-                      ? t('global.NA')
-                      : ownedUnitsCountByAvailability[availability]
-                  }}
-                  /
-                  {{
-                    isLoading
-                      ? t('global.NA')
-                      : allUnitsCountByAvailability[availability]
-                  }}
+                  <NuxtLink
+                    href="#"
+                    @click.prevent="show(availability, undefined)"
+                  >
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : ownedUnitsCountByAvailability[availability]
+                    }}
+                    /
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : allUnitsCountByAvailability[availability]
+                    }}
+                  </NuxtLink>
                 </th>
               </tr>
             </tbody>
@@ -169,29 +180,140 @@
                   :key="color"
                   class="text-end"
                 >
-                  {{
-                    isLoading
-                      ? t('global.NA')
-                      : ownedUnitsCountByWeaponColor[color]
-                  }}
-                  /
-                  {{
-                    isLoading
-                      ? t('global.NA')
-                      : allUnitsCountByWeaponColor[color]
-                  }}
+                  <NuxtLink
+                    href="#"
+                    @click.prevent="show(undefined, color)"
+                  >
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : ownedUnitsCountByWeaponColor[color]
+                    }}
+                    /
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : allUnitsCountByWeaponColor[color]
+                    }}
+                  </NuxtLink>
                 </th>
                 <th class="text-end">
-                  {{ isLoading ? t('global.NA') : ownedCount }}
-                  /
-                  {{ isLoading ? t('global.NA') : sortedUnits.length }}
+                  <NuxtLink
+                    href="#"
+                    @click.prevent="show(undefined, undefined)"
+                  >
+                    {{ isLoading ? t('global.NA') : ownedCount }}
+                    /
+                    {{ isLoading ? t('global.NA') : storeDataUnits.unitsCount }}
+                  </NuxtLink>
                 </th>
               </tr>
             </tfoot>
           </v-table>
         </v-col>
       </v-row>
+
+      <v-row>
+        <v-col>
+          <h4>{{ t('catalogOfHeroes.headers.banners') }}</h4>
+
+          <v-autocomplete
+            v-model="storeDataBanners.selectedBanner"
+            :loading="storeDataBanners.isLoading"
+            :items="storeDataBanners.banners"
+            item-title="name"
+            item-value="name"
+            return-object
+            clearable
+            autocomplete="off"
+          />
+
+          <div v-if="storeDataBanners.selectedBanner">
+            <div
+              v-for="line in storeDataBanners.selectedBannerUnitsLines"
+              :key="line.id"
+              class="d-flex"
+            >
+              <CompoUnitThumbnailCatalog
+                v-for="unit in line.units"
+                :key="unit.id"
+                :unit="unit"
+                :frame-size="frameSize"
+                :thumbnail-size="thumbnailSize"
+                :checked="ownedUnitIds.has(unit.id)"
+                :crossed="!ownedUnitIds.has(unit.id)"
+                show-weapon
+              />
+            </div>
+          </div>
+        </v-col>
+        <v-col>
+          <h4>{{ t('catalogOfHeroes.headers.heroicGrailsShop') }}</h4>
+
+          <v-select
+            v-model="storeDataUnitsHeroicGrails.order"
+            :items="sortOrders"
+          />
+
+          <RecycleScroller
+            v-slot="{ item }"
+            class="scroller"
+            :items="storeDataUnitsHeroicGrails.heroicGrailsUnitsLines"
+            :item-size="frameSize"
+          >
+            <div class="d-flex">
+              <!-- prettier-ignore -->
+              <CompoUnitThumbnailCatalog
+                v-for="unit in (item.units as IUnit[])"
+                :key="unit.id"
+                :unit="unit"
+                :frame-size="frameSize"
+                :thumbnail-size="thumbnailSize"
+                :checked="ownedUnitIds.has(unit.id)"
+                :crossed="!ownedUnitIds.has(unit.id)"
+                show-weapon
+                :show-move="
+                  storeDataUnitsHeroicGrails.order === SORT_BY_MOVE_TYPE
+                "
+              />
+            </div>
+          </RecycleScroller>
+        </v-col>
+      </v-row>
     </v-container>
+
+    <v-dialog
+      v-model="isModalOpen"
+      width="auto"
+    >
+      <v-card>
+        <v-card-text
+          class="ma-3 pa-0"
+          :style="{ width: `${frameSize * columnsCount}px` }"
+        >
+          <RecycleScroller
+            v-slot="{ item }"
+            class="scroller"
+            :items="shownUnitsByLines"
+            :item-size="frameSize"
+          >
+            <div class="d-flex">
+              <!-- prettier-ignore -->
+              <CompoUnitThumbnailCatalog
+              v-for="unit in (item.units as IUnit[])"
+              :key="unit.id"
+              :unit="unit"
+              :frame-size="frameSize"
+              :thumbnail-size="thumbnailSize"
+              :checked="ownedUnitIds.has(unit.id)"
+              :crossed="!ownedUnitIds.has(unit.id)"
+              show-weapon
+            />
+            </div>
+          </RecycleScroller>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -204,16 +326,22 @@ import {
   type IUnit,
   type UnitId,
   type UnitsCountByWeaponColor,
-  type TrueUnitsCountByWeaponColorByAvailability,
-  type TrueUnitsCountByAvailability,
+  type UnitsCountByWeaponColorByAvailability,
+  type UnitsCountByAvailability,
   getEmptyUnitsCountByWeaponColor,
-  getEmptyTrueUnitsCountByWeaponColorByAvailability,
+  getEmptyUnitsCountByWeaponColorByAvailability,
 } from '~/utils/types/units'
 import {
-  SORTED_AVAILABILITIES_AND_UNDEFINED,
-  UNDEFINED,
+  SORTED_AVAILABILITIES,
+  AV_OTHER,
+  type Availability,
 } from '~/utils/types/units-availabilities'
-import { SORTED_WEAPON_COLORS } from '~/utils/types/weapons'
+import { SORTED_WEAPON_COLORS, type WeaponColor } from '~/utils/types/weapons'
+import { chunkMaxLength } from '~/utils/functions/typeSafe'
+import {
+  SORT_ORDERS,
+  SORT_BY_MOVE_TYPE,
+} from '~/utils/types/units-heroicGrails'
 
 const { t } = useI18n()
 
@@ -221,19 +349,24 @@ const frameSize = 90
 const thumbnailSize = 80
 const tileSize = 30
 
-// inspired by https://stackoverflow.com/a/51968729/5032734
-function chunkMaxLength<T>(arr: T[], chunkSize: number) {
-  const maxLength = Math.ceil(arr.length / chunkSize)
-  return Array.from({ length: maxLength }, (_, index) =>
-    arr.slice(index * chunkSize, (index + 1) * chunkSize),
-  )
-}
+const widthPx = computed(() => `${frameSize * 5}px`)
 
 const storeDataUnits = useStoreDataUnits()
+const storeDataBanners = useStoreDataBanners()
+const storeDataUnitsHeroicGrails = useStoreDataUnitsHeroicGrails()
 const { isLoading: isLoadingStores } = useDataStores([
   storeDataUnits,
+  storeDataBanners,
+  storeDataUnitsHeroicGrails,
   useStoreDataUnitsAvailabilities(),
 ])
+
+const sortOrders = computed(() =>
+  SORT_ORDERS.map((order) => ({
+    value: order,
+    title: t(`catalogOfHeroes.order.${order}`),
+  })),
+)
 
 const isLoading = computed(
   () => isLoadingStores.value || isLoadingStorage.value,
@@ -261,14 +394,14 @@ function confirmReset() {
 }
 
 const allUnitsCountByWeaponColorByAvailability =
-  computed<TrueUnitsCountByWeaponColorByAvailability>(() =>
+  computed<UnitsCountByWeaponColorByAvailability>(() =>
     mapValues(
       storeDataUnits.unitsByWeaponColorByAvailability,
       (allUnitsByWeaponColor) =>
         mapValues(allUnitsByWeaponColor, (units) => units.length),
     ),
   )
-const allUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(() =>
+const allUnitsCountByAvailability = computed<UnitsCountByAvailability>(() =>
   mapValues(
     allUnitsCountByWeaponColorByAvailability.value,
     (allUnitsCountByWeaponColor) =>
@@ -276,22 +409,20 @@ const allUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(() =>
   ),
 )
 const ownedUnitsCountByWeaponColorByAvailability = computed(() => {
-  const res = getEmptyTrueUnitsCountByWeaponColorByAvailability()
-  storeDataUnits.units.forEach((unit) => {
+  const res = getEmptyUnitsCountByWeaponColorByAvailability()
+  storeDataUnits.unitsWithAvailability.forEach((unit) => {
     if (!ownedUnitIds.value.has(unit.id)) return
 
-    const av = unit.availability === undefined ? UNDEFINED : unit.availability
-    res[av][unit.weaponColor] += 1
+    res[unit.availability][unit.weaponColor] += 1
   })
   return res
 })
-const ownedUnitsCountByAvailability = computed<TrueUnitsCountByAvailability>(
-  () =>
-    mapValues(
-      ownedUnitsCountByWeaponColorByAvailability.value,
-      (ownedUnitsCountByWeaponColor) =>
-        sum(Object.values(ownedUnitsCountByWeaponColor)),
-    ),
+const ownedUnitsCountByAvailability = computed<UnitsCountByAvailability>(() =>
+  mapValues(
+    ownedUnitsCountByWeaponColorByAvailability.value,
+    (ownedUnitsCountByWeaponColor) =>
+      sum(Object.values(ownedUnitsCountByWeaponColor)),
+  ),
 )
 
 const allUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() =>
@@ -306,6 +437,38 @@ const ownedUnitsCountByWeaponColor = computed(() => {
   })
   return res
 })
+
+const isModalOpen = ref(false)
+const shownAvailability = ref<Availability>()
+const shownWeaponColor = ref<WeaponColor>()
+function show(availability?: Availability, color?: WeaponColor) {
+  shownAvailability.value = availability
+  shownWeaponColor.value = color
+  isModalOpen.value = true
+}
+
+const shownUnits = computed(() => {
+  if (shownAvailability.value && shownWeaponColor.value) {
+    return storeDataUnits.unitsByWeaponColorByAvailability[
+      shownAvailability.value
+    ][shownWeaponColor.value]
+  } else if (shownAvailability.value) {
+    return storeDataUnits.unitsByAvailability[shownAvailability.value]
+  } else if (shownWeaponColor.value) {
+    return storeDataUnits.unitsByWeaponColor[shownWeaponColor.value]
+  } else {
+    return storeDataUnits.units
+  }
+})
+const shownUnitsByLines = computed(() =>
+  chunkMaxLength(
+    sortBy(shownUnits.value, ['origin', 'id_int']),
+    columnsCount.value,
+  ).map((line, index) => ({
+    id: index,
+    units: line,
+  })),
+)
 
 // local storage
 
@@ -338,7 +501,14 @@ function updateData(data: IPayloadToSaveV1) {
 </script>
 
 <style lang="scss" scoped>
+.dialog__card {
+  width: v-bind('widthPx');
+}
 .scroller {
   height: 400px;
+}
+.h-scroller {
+  width: 500px;
+  overflow-x: scroll;
 }
 </style>

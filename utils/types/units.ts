@@ -1,21 +1,20 @@
 import { objectFromEntries } from '~/utils/functions/typeSafe'
 
 import type { MoveType } from '~/utils/types/moves'
-import type {
-  WeaponType,
-  WeaponFamily,
-  WeaponColor,
+import {
+  SORTED_WEAPON_COLORS,
+  type WeaponType,
+  type WeaponFamily,
+  type WeaponColor,
 } from '~/utils/types/weapons'
 import type { IV } from '~/utils/types/IVs'
 import type { Game8Id } from '~/utils/types/game8'
 import { SKILL_CATEGORIES } from '~/utils/types/skills'
 import type { ISkillIdByCategory } from '~/utils/types/skills'
 import {
-  UNDEFINED,
   SORTED_AVAILABILITIES,
   type Availability,
 } from '~/utils/types/units-availabilities'
-import { SORTED_WEAPON_COLORS } from '~/utils/types/weapons'
 
 export type UnitId = string
 
@@ -117,11 +116,18 @@ export interface IUnitData {
 export interface IUnit extends IUnitData {
   weaponFamily: WeaponFamily
   weaponColor: WeaponColor
-  availability?: Availability
   nameForLink: string
   nameForFilters: string
   nameForSorting: string
   nameForDisplay: string
+  sortableType: number
+  sortableWeaponColor: number
+  sortableWeaponType: number
+  sortableMoveType: number
+}
+
+export interface IUnitWithAvailability extends IUnit {
+  availability: Availability
 }
 
 export interface IUnitInstance {
@@ -232,37 +238,23 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_DRAGONFLOWERS,
 ]
 
+export type UnitsByAvailability = {
+  [key in Availability]: IUnit[]
+}
 export type UnitsByWeaponColor = {
   [key in WeaponColor]: IUnit[]
+}
+export type UnitsCountByAvailability = {
+  [key in Availability]: number
 }
 export type UnitsCountByWeaponColor = {
   [key in WeaponColor]: number
 }
-
 export type UnitsByWeaponColorByAvailability = {
   [key in Availability]: UnitsByWeaponColor
 }
-export interface TrueUnitsByWeaponColorByAvailability
-  extends UnitsByWeaponColorByAvailability {
-  [UNDEFINED]: UnitsByWeaponColor
-}
-export interface TrueUnitsCountByWeaponColor extends UnitsCountByWeaponColor {
-  [UNDEFINED]: number
-}
-
 export type UnitsCountByWeaponColorByAvailability = {
   [key in Availability]: UnitsCountByWeaponColor
-}
-export interface TrueUnitsCountByWeaponColorByAvailability
-  extends UnitsCountByWeaponColorByAvailability {
-  [UNDEFINED]: UnitsCountByWeaponColor
-}
-
-export type UnitsCountByAvailability = {
-  [key in Availability]: number
-}
-export interface TrueUnitsCountByAvailability extends UnitsCountByAvailability {
-  [UNDEFINED]: number
 }
 
 export function getEmptyUnitsCountByWeaponColor(): UnitsCountByWeaponColor {
@@ -276,11 +268,4 @@ export function getEmptyUnitsCountByWeaponColorByAvailability(): UnitsCountByWea
       getEmptyUnitsCountByWeaponColor(),
     ]),
   )
-}
-
-export function getEmptyTrueUnitsCountByWeaponColorByAvailability(): TrueUnitsCountByWeaponColorByAvailability {
-  return {
-    ...getEmptyUnitsCountByWeaponColorByAvailability(),
-    [UNDEFINED]: getEmptyUnitsCountByWeaponColor(),
-  }
 }

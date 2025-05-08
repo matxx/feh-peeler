@@ -1,6 +1,7 @@
 <template>
   <div
     :key="`thumbnail-unit-${unit.id}`"
+    v-tooltip:top="mobile ? unit.full_name : unit.nameForDisplay"
     class="img-unit d-inline-block position-relative"
   >
     <v-sheet
@@ -121,7 +122,6 @@
     </v-sheet>
 
     <img
-      v-tooltip:top="unit.full_name"
       :src="unit.image_url_for_portrait"
       :width="size"
       :height="size"
@@ -132,6 +132,8 @@
 
 <script setup lang="ts">
 import type { IUnitThumbnail } from '@/utils/types/units.ts'
+
+const { mobile } = useDisplay()
 
 const props = withDefaults(
   defineProps<{

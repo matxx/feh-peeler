@@ -7,6 +7,7 @@ import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
 import * as UnitsStats from '~/utils/types/units-stats'
+import * as hgs from '~/utils/types/units-heroicGrails'
 
 export default {
   global: {
@@ -442,9 +443,19 @@ export default {
 
   catalogOfHeroes: {
     confirmReset: 'Owned units will be lost, are you sure ?',
-    titles: {
+    headers: {
       catalog: 'Click on heroes you own',
       recap: 'Heroes',
+      banners: 'Banners',
+      heroicGrailsShop: 'Heroic Grails Shop',
+    },
+    order: {
+      [hgs.SORT_BY_NEWEST]: 'Newest',
+      [hgs.SORT_BY_ADDED]: 'Added',
+      [hgs.SORT_BY_ORIGIN]: 'Origin',
+      [hgs.SORT_BY_TYPE]: 'Type',
+      [hgs.SORT_BY_WEAPON_TYPE]: 'Weapon Type',
+      [hgs.SORT_BY_MOVE_TYPE]: 'Move Type',
     },
     other: 'Askr Trio & New Heroes not yet in generic summon pool',
   },

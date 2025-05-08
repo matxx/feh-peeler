@@ -6,13 +6,19 @@ import type {
   IUnitData,
   IUnit,
   UnitsByWeaponColor,
-  TrueUnitsByWeaponColorByAvailability,
+  UnitsByAvailability,
+  UnitsByWeaponColorByAvailability,
+  IUnitWithAvailability,
 } from '~/utils/types/units'
 import {
   WEAPON_FAMILY_FOR_TYPE,
   WEAPON_COLOR_FOR_TYPE,
+  getSortableType,
+  getSortableWeaponColor,
+  getSortableWeaponType,
 } from '~/utils/types/weapons'
 import { getAvailability } from '~/utils/types/units-availabilities'
+import { getSortableMoveType } from '~/utils/types/moves'
 
 export const useStoreDataUnits = defineStore('data/units', () => {
   const unitsData = ref<IUnitData[]>([])
@@ -26,13 +32,11 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   const storeDataAccents = useStoreDataAccents()
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 
+  const unitsCount = computed(() => unitsData.value.length)
   const units = computed<IUnit[]>(() =>
     storeDataAccents.isLoaded
       ? unitsData.value.map((unit) => ({
           ...unit,
-          availability: getAvailability(
-            storeDataUnitsAvailabilities.availabilitiesById[unit.id],
-          ),
           weaponFamily: WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
           weaponColor: WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
           nameForLink: escapeName(unit.full_name),
@@ -42,6 +46,22 @@ export const useStoreDataUnits = defineStore('data/units', () => {
             unit.game8_name && unit.game8_name !== unit.title
               ? `${unit.full_name} (${unit.game8_name})`
               : unit.full_name,
+          sortableType: getSortableType(unit),
+          sortableWeaponColor: getSortableWeaponColor(
+            WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
+          ),
+          sortableWeaponType: getSortableWeaponType(unit),
+          sortableMoveType: getSortableMoveType(unit),
+        }))
+      : [],
+  )
+  const unitsWithAvailability = computed<IUnitWithAvailability[]>(() =>
+    storeDataUnitsAvailabilities.isLoaded
+      ? units.value.map((unit) => ({
+          ...unit,
+          availability: getAvailability(
+            storeDataUnitsAvailabilities.availabilitiesById[unit.id],
+          ),
         }))
       : [],
   )
@@ -49,18 +69,24 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   const unitsById = computed<{ [index: string]: IUnit }>(() =>
     keyBy(units.value, 'id'),
   )
-  const unitsByNameForLink = computed<{ [index: string]: IUnit }>(() =>
-    keyBy(units.value, 'nameForLink'),
-  )
+  // to put name in URL
+  // const unitsByNameForLink = computed<{ [index: string]: IUnit }>(() =>
+  //   keyBy(units.value, 'nameForLink'),
+  // )
 
+  const unitsByAvailability = computed<UnitsByAvailability>(() =>
+    groupBy(unitsWithAvailability.value, 'availability'),
+  )
   const unitsByWeaponColor = computed<UnitsByWeaponColor>(() =>
     groupBy(units.value, 'weaponColor'),
   )
   const unitsByWeaponColorByAvailability =
     // @ts-expect-error unsafe typing :/
-    computed<TrueUnitsByWeaponColorByAvailability>(() =>
-      // @ts-expect-error unsafe typing :/
-      nestedGroupBy(units.value, ['availability', 'weaponColor']),
+    computed<UnitsByWeaponColorByAvailability>(() =>
+      nestedGroupBy(unitsWithAvailability.value, [
+        'availability',
+        'weaponColor',
+      ]),
     )
 
   const sortedUnits = computed<IUnit[]>(() =>
@@ -74,10 +100,16 @@ export const useStoreDataUnits = defineStore('data/units', () => {
 
     unitsData,
     units,
+    unitsCount,
+    unitsWithAvailability,
+
     unitsById,
-    unitsByNameForLink,
+    // unitsByNameForLink,
+
+    unitsByAvailability,
     unitsByWeaponColor,
     unitsByWeaponColorByAvailability,
+
     sortedUnits,
   }
 })

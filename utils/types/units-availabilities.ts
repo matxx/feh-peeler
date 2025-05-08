@@ -108,8 +108,7 @@ export const AV_LIMITED_HEROES = 'LIMITED_HEROES'
 export const AV_HEROIC_GRAILS = 'HEROIC_GRAILS'
 export const AV_LIMITED_DIVINE_CODES = 'LIMITED_DIVINE_CODES'
 export const AV_NORMAL_DIVINE_CODES = 'NORMAL_DIVINE_CODES'
-
-export const UNDEFINED = 'undefined'
+export const AV_OTHER = 'OTHER'
 
 export type Availability =
   | typeof AV_GENERIC_POOL_3_4
@@ -120,8 +119,7 @@ export type Availability =
   | typeof AV_SPECIAL_POOL_5
   | typeof AV_LIMITED_HEROES
   | typeof AV_HEROIC_GRAILS
-
-export type AvailabilityOrUndefined = Availability | typeof UNDEFINED
+  | typeof AV_OTHER
 
 export type AvailabilityExtended =
   | Availability
@@ -137,24 +135,10 @@ export const SORTED_AVAILABILITIES: Availability[] = [
   AV_SPECIAL_POOL_5,
   AV_LIMITED_HEROES,
   AV_HEROIC_GRAILS,
-]
-export const SORTED_AVAILABILITIES_AND_UNDEFINED: AvailabilityOrUndefined[] = [
-  AV_GENERIC_POOL_3_4,
-  AV_GENERIC_POOL_45,
-  AV_GENERIC_POOL_5,
-  AV_SPECIAL_POOL_4,
-  AV_SPECIAL_POOL_45,
-  AV_SPECIAL_POOL_5,
-  AV_HEROIC_GRAILS,
-  AV_LIMITED_HEROES,
-  UNDEFINED,
+  AV_OTHER,
 ]
 
-export function getAvailability(
-  availability?: IUnitAvailability,
-): Availability | undefined {
-  if (!availability) return
-
+export function getAvailability(availability: IUnitAvailability): Availability {
   if (availability.is_in[GENERIC_SUMMON_POOL]) {
     switch (availability.lowest_rarity[GENERIC_SUMMON_POOL]) {
       case 3:
@@ -193,4 +177,6 @@ export function getAvailability(
   // if (ASKR_TRIO_IDS.includes(availability.id)) return
   // + new heroes not yet in the generic pool
   // throw new Error(`unknown availability for unit ID: ${availability.id}`)
+
+  return AV_OTHER
 }

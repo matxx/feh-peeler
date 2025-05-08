@@ -113,3 +113,11 @@ export function groupByFunc<
     {} as Record<RetType, T[]>,
   )
 }
+
+// inspired by https://stackoverflow.com/a/51968729/5032734
+export function chunkMaxLength<T>(arr: T[], chunkSize: number) {
+  const maxLength = Math.ceil(arr.length / chunkSize)
+  return Array.from({ length: maxLength }, (_, index) =>
+    arr.slice(index * chunkSize, (index + 1) * chunkSize),
+  )
+}
