@@ -30,8 +30,11 @@ export const WEBSITE_NAME_GAME8 = 'Game8'
 
 export const INHERIT_SLOTS = 5
 export const HALL_OF_FORMS_RESOURCES = {
-  PM1: null, // 'https://www.youtube.com/watch?v=sjWbHsDwykw',
+  PM1: null,
+  // PM1: 'https://www.youtube.com/watch?v=sjWbHsDwykw',
+  // FEHOLOGY: null,
   FEHOLOGY: 'https://www.youtube.com/watch?v=jYMpcNy9kTY',
-  COOLEST_MAGICAL_CAT: null,
-  // 'https://www.reddit.com/r/FireEmblemHeroes/comments/1k4ireg/recommended_forma_skills_infographic_hall_of/',
+  // COOLEST_MAGICAL_CAT: null,
+  COOLEST_MAGICAL_CAT:
+    'https://www.reddit.com/r/FireEmblemHeroes/comments/1kig3zd/recommended_forma_skills_infographic_hall_of/',
 }
