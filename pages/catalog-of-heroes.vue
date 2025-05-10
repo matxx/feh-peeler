@@ -82,7 +82,7 @@
             {{ storeDataUnits.unitsCount }}
           </h4>
 
-          <v-table class="table-counts">
+          <v-table class="text-no-wrap">
             <thead>
               <tr>
                 <th />
@@ -287,28 +287,31 @@
       width="auto"
     >
       <v-card>
-        <v-card-text
-          class="ma-3 pa-0"
-          :style="{ width: `${frameSize * columnsCount}px` }"
-        >
+        <v-card-text class="ma-3 pa-0">
+          <!-- "scroller" class does not have any effect here -->
+          <!-- because "v-dialog" gets teleported in body -->
+          <!-- where the CSS variable for "v-bind('widthPx')" is not defined -->
           <RecycleScroller
             v-slot="{ item }"
-            class="scroller"
             :items="shownUnitsByLines"
             :item-size="frameSize"
+            :style="{
+              width: shownUnitsWidthPx,
+              height: shownUnitsHeightPx,
+            }"
           >
             <div class="d-flex">
               <!-- prettier-ignore -->
               <CompoUnitThumbnailCatalog
-              v-for="unit in (item.units as IUnit[])"
-              :key="unit.id"
-              :unit="unit"
-              :frame-size="frameSize"
-              :thumbnail-size="thumbnailSize"
-              :checked="ownedUnitIds.has(unit.id)"
-              :crossed="!ownedUnitIds.has(unit.id)"
-              show-weapon
-            />
+                v-for="unit in (item.units as IUnit[])"
+                :key="unit.id"
+                :unit="unit"
+                :frame-size="frameSize"
+                :thumbnail-size="thumbnailSize"
+                :checked="ownedUnitIds.has(unit.id)"
+                :crossed="!ownedUnitIds.has(unit.id)"
+                show-weapon
+              />
             </div>
           </RecycleScroller>
         </v-card-text>
@@ -344,12 +347,13 @@ import {
 } from '~/utils/types/units-heroicGrails'
 
 const { t } = useI18n()
+const { mobile } = useDisplay()
 
-const frameSize = 90
-const thumbnailSize = 80
+const frameSize = computed(() => (mobile.value ? 60 : 90))
+const thumbnailSize = computed(() => (mobile.value ? 50 : 80))
 const tileSize = 30
 
-const widthPx = computed(() => `${frameSize * 5}px`)
+const widthPx = computed(() => `${frameSize.value * columnsCount.value}px`)
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataBanners = useStoreDataBanners()
@@ -469,6 +473,18 @@ const shownUnitsByLines = computed(() =>
     units: line,
   })),
 )
+const shownUnitsColumnsShown = computed(() =>
+  Math.min(columnsCount.value, shownUnits.value.length),
+)
+const shownUnitsWidthPx = computed(
+  () => `${frameSize.value * shownUnitsColumnsShown.value}px`,
+)
+const shownUnitsLinesShown = computed(() =>
+  Math.min(shownUnitsByLines.value.length, columnsCount.value),
+)
+const shownUnitsHeightPx = computed(
+  () => `${frameSize.value * shownUnitsLinesShown.value}px`,
+)
 
 // local storage
 
@@ -501,14 +517,8 @@ function updateData(data: IPayloadToSaveV1) {
 </script>
 
 <style lang="scss" scoped>
-.dialog__card {
-  width: v-bind('widthPx');
-}
 .scroller {
-  height: 400px;
-}
-.h-scroller {
-  width: 500px;
-  overflow-x: scroll;
+  height: v-bind('widthPx');
+  width: v-bind('widthPx');
 }
 </style>

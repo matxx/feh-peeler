@@ -5,22 +5,12 @@
       :size="tileSize"
     />
 
-    <div
+    <CompoAvailability
       v-if="availability === AV_GENERIC_POOL_3_4"
-      class="d-flex align-center"
-    >
-      <CompoAvailability
-        :size="tileSize"
-        :rarity="3"
-        is-generic-pool
-      />
-      <CompoAvailability
-        :size="tileSize"
-        :rarity="4"
-        is-generic-pool
-      />
-    </div>
-
+      :size="tileSize"
+      :rarity="3"
+      is-generic-pool
+    />
     <CompoAvailability
       v-if="availability === AV_GENERIC_POOL_45"
       :size="tileSize"
