@@ -38,6 +38,7 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     storeDataAccents.isLoaded
       ? skillsData.value.map((skill) => ({
           ...skill,
+          baseId: skill.base_id || skill.id,
           nameForLink: escapeName(getNameForLink(skill)),
           nameForFilters: storeDataAccents.transliterate(skill.name),
           nameForSorting: getSortableName(skill.name),

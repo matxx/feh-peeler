@@ -107,6 +107,7 @@ export interface ISkillRestrictions<T> {
 
 export interface ISkillData {
   id: SkillId
+  base_id?: SkillId
   game8_id?: Game8Id
 
   name: string
@@ -131,6 +132,7 @@ export interface ISkillData {
 }
 
 export interface ISkill extends ISkillData {
+  baseId: SkillId
   nameForLink: string
   nameForFilters: string
   nameForSorting: string

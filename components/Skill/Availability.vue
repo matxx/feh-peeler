@@ -90,7 +90,7 @@ const props = defineProps<{
 }>()
 
 const availability = computed(
-  () => storeDataSkillsAvailabilities.availabilitiesById[props.skill.id],
+  () => storeDataSkillsAvailabilities.availabilitiesById[props.skill.baseId],
 )
 
 const isNormalDivineCodeDisabled = computed(
