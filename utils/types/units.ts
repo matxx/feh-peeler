@@ -71,7 +71,8 @@ export interface IUnitData {
   name: string
   title: string
   full_name: string
-  game8_name?: string
+  // game8_name?: string
+  abbreviated_name: string
 
   image_url_for_portrait: string
   image_url_for_icon_legendary?: string
@@ -138,7 +139,9 @@ export interface IUnitInstance {
 export function getEmptyUnitInstance(): IUnitInstance {
   return {
     id: null,
-    skillIds: objectFromEntries(SKILL_CATEGORIES.map((cat) => [cat, null])),
+    skillIds: objectFromEntries(
+      SKILL_CATEGORIES.map((cat) => [cat, undefined]),
+    ),
   }
 }
 
