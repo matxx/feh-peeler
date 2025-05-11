@@ -16,7 +16,7 @@
           />
 
           <v-toolbar-title class="ml-0">
-            {{ unit.full_name }}
+            {{ mobile ? unit.abbreviated_name : unit.nameForDisplay }}
           </v-toolbar-title>
 
           <template v-if="!mobile">
