@@ -38,27 +38,17 @@
     </template>
 
     <template
-      v-if="appendThumbnail || appendLink"
+      v-if="unit"
       #append
     >
       <CompoUnitThumbnail
-        v-if="appendThumbnail"
-        :unit="unit!"
+        :unit="unit"
         :size="25"
         :size-corner="10"
         :margin="5"
         :margin-icon="-5"
-        class="mr-5"
-        :class="{ 'cursor-pointer': thumbnailClickable }"
-        @click="$emit('click:thumbnail')"
-      />
-
-      <v-btn
-        v-if="appendLink"
-        :disabled="!unit"
-        icon="mdi-card-bulleted"
-        size="x-small"
-        @click.prevent="storeGlobals.showUnit(unit?.id)"
+        class="cursor-pointer"
+        @click="storeGlobals.showUnit(unit.id)"
       />
     </template>
 
@@ -99,23 +89,16 @@ const storeDataUnits = useStoreDataUnits()
 
 defineEmits(['update:model-value', 'click:thumbnail'])
 const unitId = defineModel<null | UnitId>()
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    thumbnailAtEnd?: boolean
     thumbnailClickable?: boolean
     clearable?: boolean
-    hideLink?: boolean
   }>(),
   {
-    thumbnailAtEnd: false,
     thumbnailClickable: false,
     clearable: false,
-    hideLink: false,
   },
 )
-
-const appendThumbnail = computed(() => props.thumbnailAtEnd && unit.value)
-const appendLink = computed(() => !props.hideLink)
 
 const unit = ref<IUnit>()
 const isInitialized = ref(false)

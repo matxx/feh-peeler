@@ -22,7 +22,7 @@ const SIZE = '18px'
 
 const props = defineProps<{
   category: SkillCategory
-  skillId: SkillId | null
+  skillId?: SkillId
 }>()
 
 const storeDataSkills = useStoreDataSkills()

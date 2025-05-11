@@ -24,18 +24,24 @@
           :model-value="unitInstance.id"
           required
           class="mb-2"
-          thumbnail-at-end
-          thumbnail-clickable
           :error-messages="errors"
           :label="t('hallOfForms.unitName')"
-          @click:thumbnail="$emit('select')"
           @update:model-value="
             ($event) => {
               $emit('input', $event)
               handleChange($event)
             }
           "
-        />
+        >
+          <template #prepend>
+            <v-btn
+              v-tooltip="t('hallOfForms.selectUnit')"
+              icon="mdi-select"
+              size="x-small"
+              @click="$emit('select')"
+            />
+          </template>
+        </AppSelectUnit>
       </VeeField>
 
       <HallOfFormsUnitCardBody

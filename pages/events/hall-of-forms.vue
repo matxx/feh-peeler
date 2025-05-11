@@ -141,7 +141,7 @@ function updateUnitId(unit: IUnitInstance, id: UnitId) {
 }
 
 function unequipSkill(unit: IUnitInstance, category: SkillCategory) {
-  unit.skillIds[category] = null
+  unit.skillIds[category] = undefined
 }
 
 function equipSkill({

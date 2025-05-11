@@ -8,6 +8,7 @@ import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
 import * as UnitsStats from '~/utils/types/units-stats'
 import * as hgs from '~/utils/types/units-heroicGrails'
+import * as moves from '~/utils/types/moves'
 
 export default {
   global: {
@@ -89,10 +90,10 @@ export default {
             [grades.GRADE_C]: 'Icon Grade C',
           },
           dragonflowers: {
-            A: 'Icon dragonflowers green (armored)',
-            C: 'Icon dragonflowers yellow (cavalry)',
-            F: 'Icon dragonflowers blue (flying)',
-            I: 'Icon dragonflowers red (infantry)',
+            [moves.MOVE_I]: 'Icon dragonflowers green (armored)',
+            [moves.MOVE_A]: 'Icon dragonflowers yellow (cavalry)',
+            [moves.MOVE_C]: 'Icon dragonflowers blue (flying)',
+            [moves.MOVE_F]: 'Icon dragonflowers red (infantry)',
           },
         },
       },
@@ -196,10 +197,10 @@ export default {
       name: 'Name',
       image: 'Image',
       title: 'Title',
-      game8_id: 'Game8 ID',
+      // game8_id: 'Game8 ID',
       game8_grade: 'Grade',
-      game8_link: 'Game8 Link',
-      game8_name: 'Game8 Name',
+      // game8_link: 'Game8 Link',
+      // game8_name: 'Game8 Name',
       game8_rating: 'Rating',
       restrictions: 'Restrictions',
       kind: 'Type',

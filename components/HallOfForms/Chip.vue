@@ -40,12 +40,13 @@ defineEmits(['unequip'])
 const props = withDefaults(
   defineProps<{
     category: SkillCategory
-    skillId: SkillId | null
+    skillId?: SkillId
     withSkillS?: boolean
     withSkillX?: boolean
     showSp?: boolean
   }>(),
   {
+    skillId: undefined,
     withSkillS: false,
     withSkillX: false,
     showSp: false,

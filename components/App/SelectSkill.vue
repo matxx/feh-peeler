@@ -34,31 +34,20 @@
       <SkillImgCategory
         :category="skillCategory"
         :size="18"
+        class="mr-1"
       />
     </template>
 
     <template
-      v-if="appendLink"
+      v-if="skill"
       #append
     >
-      <v-btn
-        :disabled="!skill"
-        icon="mdi-card-bulleted"
-        size="x-small"
-        @click.prevent="storeGlobals.showSkill(skill?.id)"
-      />
-    </template>
-
-    <template
-      v-if="shouldDisplayIconInSelection"
-      #selection="{ item }"
-    >
       <SkillImg
-        :skill="item.raw"
+        :skill="skill"
         :size="size"
-        class="mx-2"
+        class="mx-2 cursor-pointer"
+        @click.prevent="storeGlobals.showSkill(skill.id)"
       />
-      {{ item.raw.name }}
     </template>
 
     <template #item="{ props: slotProps, item }">
@@ -103,27 +92,19 @@ const storeGlobals = useStoreGlobals()
 const storeDataSkills = useStoreDataSkills()
 
 defineEmits(['update:model-value'])
-const skillId = defineModel<null | SkillId>()
+const skillId = defineModel<SkillId>()
 const props = withDefaults(
   defineProps<{
     skillCategory?: SkillCategory
     clearable?: boolean
-    showIconInSelection?: boolean
-    showIconInList?: boolean
     size?: number
-    hideLink?: boolean
   }>(),
   {
     skillCategory: undefined,
     clearable: false,
-    showIconInSelection: undefined,
-    showIconInList: undefined,
     size: 20,
-    hideLink: false,
   },
 )
-
-const appendLink = computed(() => !props.hideLink)
 
 const skill = ref<ISkill>()
 const isInitialized = ref(false)
@@ -142,17 +123,7 @@ watch(
   },
 )
 
-const shouldDisplayIconInSelection = computed(() => {
-  if (props.showIconInSelection !== undefined) return props.showIconInSelection
-
-  return props.skillCategory
-    ? SKILL_CATEGORIES_WITH_ICON.includes(props.skillCategory)
-    : true
-})
-
 const shouldDisplayIconInList = computed(() => {
-  if (props.showIconInList !== undefined) return props.showIconInList
-
   return props.skillCategory
     ? SKILL_CATEGORIES_WITH_ICON.includes(props.skillCategory)
     : true

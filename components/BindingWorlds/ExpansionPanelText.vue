@@ -57,7 +57,6 @@
               class="mb-2"
               :error-messages="errors"
               :label="t('bindingWorlds.labels.unitName')"
-              thumbnail-at-end
               @update:model-value="handleChange"
             />
           </VeeField>
@@ -165,8 +164,6 @@
             v-model="localUnit.skillIds[category]"
             :skill-category="category"
             :disabled="disabled"
-            :show-icon-in-list="!mobile"
-            :show-icon-in-selection="!mobile"
             clearable
             class="mb-2"
           />

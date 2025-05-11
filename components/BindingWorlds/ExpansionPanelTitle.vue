@@ -2,7 +2,10 @@
   <div class="flex-grow-1 d-flex align-center">
     <AppRenderOncePresent :item="unitDetails">
       <template #default="{ item }">
-        <div class="width-400px d-flex justify-space-between align-center mr-5">
+        <div
+          class="d-flex justify-space-between align-center mr-5"
+          :class="{ 'width-400px': !mobile }"
+        >
           <div class="d-flex align-center">
             <div class="width-40px">
               {{ unit.enclosure }}
@@ -14,6 +17,7 @@
               :size-corner="15"
               :margin="10"
               :margin-icon="-5"
+              @click.stop="storeGlobals.showUnit(item.id)"
             />
             <div>
               <div>
@@ -87,7 +91,7 @@
             variant="outlined"
             :model-value="true"
             color="red-accent-3"
-            class="px-2"
+            class="px-2 hidden-xs"
           >
             <v-icon color="red-accent-3">mdi-fire</v-icon>
             <span class="width-20px mx-1">{{ unit.rating }}</span>
@@ -96,7 +100,7 @@
       </template>
     </AppRenderOncePresent>
 
-    <div class="d-flex flex-nowrap flex-grow-1">
+    <div class="d-none d-sm-flex flex-nowrap flex-grow-1">
       <v-chip-group
         variant="outlined"
         divided
@@ -109,6 +113,7 @@
           :category="category"
           :skill-id="skillId"
           class="px-2"
+          @click.stop="storeGlobals.showSkill(skillId || undefined)"
         />
       </v-chip-group>
 
@@ -136,6 +141,8 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const { mobile } = useDisplay()
+const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
 const storeDataSkills = useStoreDataSkills()

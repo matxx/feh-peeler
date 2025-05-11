@@ -150,7 +150,7 @@ export type ISkillByName = {
   [index: string]: ISkill
 }
 export type ISkillIdByCategory = {
-  [key in SkillCategory]: SkillId | null
+  [key in SkillCategory]: SkillId | undefined
 }
 
 export type ISkillsByCategory = {
