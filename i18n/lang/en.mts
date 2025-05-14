@@ -166,6 +166,7 @@ export default {
     fodders: {
       unitName: 'Unit Name',
       availability: 'Availability',
+      equippedAt: 'Equipped at',
       unlockAt: 'Unlock at',
     },
   },
@@ -395,8 +396,9 @@ export default {
     },
     show: {
       tabs: {
-        [units.TAB_FODDER]: 'Fodder',
         [units.TAB_STATS]: 'Stats',
+        [units.TAB_SKILLS]: 'Skills',
+        [units.TAB_FODDER]: 'Fodder',
       },
       stats: {
         headers: {

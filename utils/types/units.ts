@@ -18,10 +18,11 @@ import {
 
 export type UnitId = string
 
-export const TAB_FODDER = 'fodder'
 export const TAB_STATS = 'stats'
-export type UnitTab = typeof TAB_FODDER | typeof TAB_STATS
-export const UNIT_TABS: UnitTab[] = [TAB_STATS, TAB_FODDER]
+export const TAB_SKILLS = 'skills'
+export const TAB_FODDER = 'fodder'
+export type UnitTab = typeof TAB_FODDER | typeof TAB_STATS | typeof TAB_SKILLS
+export const UNIT_TABS: UnitTab[] = [TAB_STATS, TAB_SKILLS, TAB_FODDER]
 export const UNIT_DEFAULT_TAB = TAB_STATS
 
 export const ALFONSE_ID = 'PID_アルフォンス'

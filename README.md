@@ -20,6 +20,7 @@
 
 ### Fixes
 
+1. handle "can use all" (ex: `Chill Atk/Res 3`)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 
 ## Setup

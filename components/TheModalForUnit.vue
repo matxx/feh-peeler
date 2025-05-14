@@ -134,14 +134,20 @@
 
         <v-card-text class="pa-3">
           <v-tabs-window v-model="storeGlobals.shownUnitTab">
+            <v-tabs-window-item :value="TAB_STATS">
+              <UnitStat :unit="unit" />
+            </v-tabs-window-item>
+            <v-tabs-window-item :value="TAB_SKILLS">
+              <UnitSkills
+                :unit="unit"
+                :size="FODDERS_TILE_SIZE"
+              />
+            </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_FODDER">
               <UnitFodder
                 :unit="unit"
                 :size="FODDERS_TILE_SIZE"
               />
-            </v-tabs-window-item>
-            <v-tabs-window-item :value="TAB_STATS">
-              <UnitStat :unit="unit" />
             </v-tabs-window-item>
           </v-tabs-window>
         </v-card-text>
@@ -151,7 +157,12 @@
 </template>
 
 <script setup lang="ts">
-import { TAB_STATS, TAB_FODDER, UNIT_TABS } from '~/utils/types/units'
+import {
+  TAB_STATS,
+  TAB_SKILLS,
+  TAB_FODDER,
+  UNIT_TABS,
+} from '~/utils/types/units'
 
 const TOOLBAR_ICON_SIZE = 20
 const TOOLBAR_FODDER_SIZE = 30
@@ -171,6 +182,7 @@ const { isLoading } = useDataStores([
   useStoreDataUnitsAvailabilities(),
   useStoreDataSkills(),
   useStoreDataSkillsAvailabilities(),
+  useStoreDataSkillsUnits(),
 ])
 
 const unit = computed(() =>
