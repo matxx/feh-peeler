@@ -5,7 +5,7 @@ import filter from 'lodash-es/filter'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
-import { getSortableName } from '@/utils/functions/skillSortingVector'
+import { getSortableName } from '~/utils/functions/skillSortingVector'
 import type {
   SkillId,
   ISkillData,
@@ -13,8 +13,8 @@ import type {
   ISkillTree,
   ISkillById,
   ISkillByName,
-  ISkillsByCategory,
-} from '@/utils/types/skills'
+  TBySkillCategory,
+} from '~/utils/types/skills'
 import type { IUnitInstance } from '~/utils/types/units'
 
 export const useStoreDataSkills = defineStore('data/skills', () => {
@@ -80,7 +80,7 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     sortBy(skills.value, 'nameForSorting'),
   )
   // @ts-expect-error groupBy is not type safe
-  const sortedSkillsByCategory = computed<ISkillsByCategory>(() =>
+  const sortedSkillsByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
     groupBy(sortedSkills.value, 'category'),
   )
 

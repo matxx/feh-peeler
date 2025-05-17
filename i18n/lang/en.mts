@@ -350,9 +350,9 @@ export default {
     skillName: 'Skill name',
     totals: 'Totals',
     explanationOnSpecial:
-      'Not counted in totals (as this Special is not 5★ locked)',
+      'Not counted in totals : this Special is not 5★ locked',
     explanationOnMultipleSkills:
-      'Not counted in totals. For skills in the same slot, only the skill with highest tier and number of required inherit slot is used.',
+      'Not counted in totals : for skills in the same slot, only the skill with highest tier and number of required inherit slot is used',
     allSkillsCanBeInheritedInOneGo: 'All skills can be inherited in one go',
     notAllSkillsCanBeInheritedInOneGo:
       'Not all skills can be inherited in one go',
@@ -434,6 +434,7 @@ export default {
         [skills.TAB_DOWNGRADES]: 'Downgrades',
         [skills.TAB_UPGRADES]: 'Upgrades',
       },
+      tier: 'Tier',
       cd: 'CD',
       effectiveness: 'Effectiveness',
       sp: 'SP',

@@ -177,12 +177,8 @@ export type ISkillById = {
 export type ISkillByName = {
   [index: string]: ISkill
 }
-export type ISkillIdByCategory = {
-  [key in SkillCategory]: SkillId | undefined
-}
-
-export type ISkillsByCategory = {
-  [key in SkillCategory]: ISkill[]
+export type TBySkillCategory<T> = {
+  [key in SkillCategory]: T
 }
 
 export interface ISkillDescription {

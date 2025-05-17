@@ -1,3 +1,15 @@
+<!-- when updating this component -->
+<!-- make sure those units appear correct -->
+
+<!-- Jesse: Blithe Mercenary - trash unit with trash special to inherit => no note -->
+<!-- Cordelia: Knight Paragon (Cordelia) - trash unit with good special to inherit => no note -->
+<!-- Heiðrún: Sisters of Healing (NY!Heiðrún) - premium unit with trash special => note on special -->
+
+<!-- Micaiah: Radiant Queen (L!Micaiah) - double C skill => note on always the same C skill -->
+<!-- Xander: Gallant King (L!Xander) - double A skill => note on always the same A skill -->
+
+<!-- Sakura: In Full Bloom (L!Sakura) - special with both notes -->
+
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
     <div class="mb-3">
@@ -69,31 +81,22 @@
                 "
               >
                 <template #default="{ item }">
-                  <span
-                    v-if="
+                  <UnitFodderCellText
+                    v-if="item"
+                    :number="item.fodder[avail]"
+                    :has-ref-special="
                       isUnitFiveStarLocked &&
                       !storeDataSkillsAvailabilities.isFiveStarLocked(item) &&
                       category === SKILL_SPECIAL
                     "
-                  >
-                    ({{ item && item.fodder[avail] }}){{
-                      refsStars[REF_SPECIAL]
-                    }}
-                  </span>
-                  <span
-                    v-else-if="
-                      relevantSkillsMaxTierByCategoryByAv[avail][category] &&
-                      relevantSkillsMaxTierByCategoryByAv[avail][category]
-                        .id !== skill.id
+                    :ref-special-stars="refsStars[REF_SPECIAL]"
+                    :has-ref-multiple-skills="
+                      relevantSkillIdByCategory[category]
+                        ? relevantSkillIdByCategory[category] !== skill.id
+                        : false
                     "
-                  >
-                    ({{ item && item.fodder[avail] }}){{
-                      refsStars[REF_MULTIPLE_SKILL]
-                    }}
-                  </span>
-                  <span v-else>
-                    {{ item && item.fodder[avail] }}
-                  </span>
+                    :ref-multiple-skills-stars="refsStars[REF_MULTIPLE_SKILLS]"
+                  />
                 </template>
               </AppRenderOncePresent>
             </td>
@@ -181,6 +184,7 @@ import values from 'lodash-es/values'
 import compact from 'lodash-es/compact'
 import isEmpty from 'lodash-es/isEmpty'
 import orderBy from 'lodash-es/orderBy'
+import mapValues from 'lodash-es/mapValues'
 import intersection from 'lodash-es/intersection'
 
 import { INHERIT_SLOTS } from '~/utils/constants'
@@ -190,7 +194,8 @@ import {
   SKILL_SPECIAL,
   TAB_FODDERS,
   type ISkill,
-  type ISkillsByCategory,
+  type TBySkillCategory,
+  type SkillId,
 } from '~/utils/types/skills'
 import { AVAILABILITIES } from '~/utils/types/skills-availabilities'
 import type { IUnit } from '~/utils/types/units'
@@ -237,7 +242,7 @@ const skillsMaxTier = computed<ISkill[]>(() =>
       isEmpty(intersection(skill.upgrade_ids, availability.value.skill_ids)),
   ),
 )
-const skillsMaxTierByCategory = computed<ISkillsByCategory>(() =>
+const skillsMaxTierByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
   groupBy(skillsMaxTier.value, 'category'),
 )
 
@@ -255,29 +260,37 @@ const hasMultipleSkillsInSameSlots = computed(() =>
   ),
 )
 
-const relevantSkillsMaxTierByCategoryByAv = computed(() =>
+const relevantSkillIdByCategory = computed<
+  TBySkillCategory<SkillId | undefined>
+>(() =>
+  objectFromEntries(
+    objectEntries(skillsMaxTierByCategory.value).map(([category, skills]) => {
+      const skils = orderBy(
+        skills,
+        [
+          'tier',
+          (skill) =>
+            sumBy(AVAILABILITIES, (avail) =>
+              storeDataSkillsAvailabilities.requiredInheritSlotsCount(
+                skill,
+                isUnitFiveStarLocked.value,
+                avail,
+              ),
+            ),
+        ],
+        ['desc', 'desc'],
+      )
+      return [category, skils[0].id]
+    }),
+  ),
+)
+
+const relevantSkillByCategoryByAv = computed(() =>
   objectFromEntries(
     AVAILABILITIES.map((avail) => [
       avail,
-      objectFromEntries(
-        objectEntries(skillsMaxTierByCategory.value).map(
-          ([category, skills]) => {
-            const skils = orderBy(
-              skills,
-              [
-                'tier',
-                (skill) =>
-                  storeDataSkillsAvailabilities.requiredInheritSlotsCount(
-                    skill,
-                    isUnitFiveStarLocked.value,
-                    avail,
-                  ),
-              ],
-              ['desc', 'desc'],
-            )
-            return [category, skils[0]]
-          },
-        ),
+      mapValues(relevantSkillIdByCategory.value, (skillId) =>
+        skillId ? storeDataSkills.skillsById[skillId] : undefined,
       ),
     ]),
   ),
@@ -287,37 +300,35 @@ const totals = computed(() =>
   objectFromEntries(
     AVAILABILITIES.map((avail) => [
       avail,
-      sumBy(
-        values(relevantSkillsMaxTierByCategoryByAv.value[avail]),
-        (skill) =>
-          skill
-            ? storeDataSkillsAvailabilities.requiredInheritSlotsCount(
-                skill,
-                isUnitFiveStarLocked.value,
-                avail,
-              )
-            : 0,
+      sumBy(values(relevantSkillByCategoryByAv.value[avail]), (skill) =>
+        skill
+          ? storeDataSkillsAvailabilities.requiredInheritSlotsCount(
+              skill,
+              isUnitFiveStarLocked.value,
+              avail,
+            )
+          : 0,
       ),
     ]),
   ),
 )
 
-type Ref = typeof REF_SPECIAL | typeof REF_MULTIPLE_SKILL
+type Ref = typeof REF_SPECIAL | typeof REF_MULTIPLE_SKILLS
 type HasRefs = { [key in Ref]: boolean }
 
 const REF_SPECIAL = 'SPECIAL'
-const REF_MULTIPLE_SKILL = 'MULTIPLE_SKILL'
-const SORTED_REFS: Ref[] = [REF_SPECIAL, REF_MULTIPLE_SKILL]
+const REF_MULTIPLE_SKILLS = 'MULTIPLE_SKILL'
+const SORTED_REFS: Ref[] = [REF_SPECIAL, REF_MULTIPLE_SKILLS]
 
 const refsText = {
   [REF_SPECIAL]: t('unitsFodder.explanationOnSpecial'),
-  [REF_MULTIPLE_SKILL]: t('unitsFodder.explanationOnMultipleSkills'),
+  [REF_MULTIPLE_SKILLS]: t('unitsFodder.explanationOnMultipleSkills'),
 }
 
 const hasRefs = computed<HasRefs>(() => ({
   [REF_SPECIAL]:
     isUnitFiveStarLocked.value && hasSpecialNotFiveStarLocked.value,
-  [REF_MULTIPLE_SKILL]: hasMultipleSkillsInSameSlots.value,
+  [REF_MULTIPLE_SKILLS]: hasMultipleSkillsInSameSlots.value,
 }))
 const refsList = computed(() =>
   filter(SORTED_REFS, (ref) => hasRefs.value[ref]),

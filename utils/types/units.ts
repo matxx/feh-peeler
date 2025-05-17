@@ -10,7 +10,7 @@ import {
 import type { IV } from '~/utils/types/IVs'
 import type { Game8Id } from '~/utils/types/game8'
 import { SKILL_CATEGORIES } from '~/utils/types/skills'
-import type { ISkillIdByCategory } from '~/utils/types/skills'
+import type { TBySkillCategory, SkillId } from '~/utils/types/skills'
 import {
   SORTED_AVAILABILITIES,
   type Availability,
@@ -134,7 +134,7 @@ export interface IUnitWithAvailability extends IUnit {
 
 export interface IUnitInstance {
   id: UnitId | null
-  skillIds: ISkillIdByCategory
+  skillIds: TBySkillCategory<SkillId | undefined>
 }
 
 export function getEmptyUnitInstance(): IUnitInstance {

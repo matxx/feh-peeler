@@ -78,7 +78,8 @@ import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
   TAB_FODDERS,
-  type ISkillsByCategory,
+  type ISkill,
+  type TBySkillCategory,
 } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
 import { groupBy } from '~/utils/functions/typeSafe'
@@ -110,7 +111,7 @@ const skillsSorted = computed(() =>
       : 0,
   ),
 )
-const skillsByCategory = computed<ISkillsByCategory>(() =>
+const skillsByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
   groupBy(skillsSorted.value, 'category'),
 )
 </script>

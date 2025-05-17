@@ -1,9 +1,9 @@
 import type {
   IDivineCodeNormal,
   IDivineCodeLimited,
-} from '@/utils/types/divine-codes'
-import type { SkillId } from '@/utils/types/skills'
-import type { UnitId } from '@/utils/types/units'
+} from '~/utils/types/divine-codes'
+import type { SkillId } from '~/utils/types/skills'
+import type { UnitId } from '~/utils/types/units'
 
 import {
   type FODDER_LOWEST_RARITY_WHEN_OBTAINED,
@@ -20,7 +20,7 @@ import {
   AV_SPECIAL_POOL_4,
   AV_GENERIC_POOL_45,
   AV_SPECIAL_POOL_45,
-} from '@/utils/types/obfuscated-keys'
+} from '~/utils/types/obfuscated-keys'
 
 export type Availability =
   | typeof AV_GENERIC_POOL_34
