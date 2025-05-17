@@ -434,6 +434,8 @@ export default {
         [skills.TAB_DOWNGRADES]: 'Downgrades',
         [skills.TAB_UPGRADES]: 'Upgrades',
       },
+      cd: 'CD',
+      effectiveness: 'Effectiveness',
       sp: 'SP',
       canUse: 'Can use',
       effect: 'Effect',

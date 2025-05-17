@@ -97,6 +97,30 @@ export const SKILL_TABS: SkillTab[] = [
 ]
 export const SKILL_DEFAULT_TAB = TAB_DETAILS
 
+export const EFF_INFANTRY = 'infantry'
+export const EFF_ARMORED = 'armored'
+export const EFF_CAVALRY = 'cavalry'
+export const EFF_FLYING = 'flying'
+
+export const EFF_MELEE = 'melee'
+export const EFF_C_BOW = 'colorless bow'
+export const EFF_MAGIC = 'magic'
+export const EFF_BEAST = 'beast'
+export const EFF_DRAGON = 'dragon'
+export const EFF_DRAGONSTONE = 'dragonstone'
+
+export type Effectiveness =
+  | typeof EFF_INFANTRY
+  | typeof EFF_ARMORED
+  | typeof EFF_CAVALRY
+  | typeof EFF_FLYING
+  | typeof EFF_MELEE
+  | typeof EFF_C_BOW
+  | typeof EFF_MAGIC
+  | typeof EFF_BEAST
+  | typeof EFF_DRAGON
+  | typeof EFF_DRAGONSTONE
+
 export type SkillId = string
 
 export interface ISkillRestrictions<T> {
@@ -120,6 +144,8 @@ export interface ISkillData {
 
   is_prf: boolean
   sp: number
+  cd?: number
+  eff?: Effectiveness[]
   tier: number
 
   downgrade_ids?: SkillId[]
