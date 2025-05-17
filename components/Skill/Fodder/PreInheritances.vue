@@ -28,10 +28,11 @@ const props = defineProps<{
   skillIconSize: number
 }>()
 
+const baseSkill = computed(() => storeDataSkills.skillsById[props.skill.baseId])
 const downgrades = computed(() =>
-  props.skill.downgrade_ids
+  baseSkill.value?.downgrade_ids
     ? compact(
-        props.skill.downgrade_ids.map(
+        baseSkill.value.downgrade_ids.map(
           (downgradeId) => storeDataSkills.skillsById[downgradeId],
         ),
       )
