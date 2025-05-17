@@ -1,6 +1,6 @@
 <template>
   <div v-if="skill.eff && skill.eff.includes(EFF_ALL)">
-    {{ t('skills.show.effectivenessAll') }}
+    {{ t('global.all') }}
   </div>
   <div
     v-else-if="skill.eff"

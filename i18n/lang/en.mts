@@ -39,6 +39,7 @@ export default {
     details: 'Details',
     sp: 'SP',
     exclusiveSkill: 'Exclusive Skill',
+    all: 'All',
 
     reset: 'Reset',
     confirmReset: 'Units and skills will be lost, are you sure ?',
@@ -437,7 +438,6 @@ export default {
       tier: 'Tier',
       cd: 'CD',
       effectiveness: 'Effectiveness',
-      effectivenessAll: 'All',
       sp: 'SP',
       canUse: 'Can use',
       effect: 'Effect',

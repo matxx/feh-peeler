@@ -9,6 +9,11 @@
     </v-icon>
   </div>
   <div
+    v-else-if="skill.restrictions.moves.none && skill.restrictions.weapons.none"
+  >
+    {{ t('global.all') }}
+  </div>
+  <div
     v-else
     class="d-flex"
   >
