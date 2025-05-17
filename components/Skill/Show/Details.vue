@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="mb-2 d-flex align-center">
+      <h4 class="mr-3">{{ t('skills.show.tier') }}:</h4>
+      <div>
+        {{ skill.tier }}
+      </div>
+    </div>
+
     <div
       :class="skill.eff ? 'd-flex' : 'd-none'"
       class="mb-2 align-center"
