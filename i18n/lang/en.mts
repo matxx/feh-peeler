@@ -437,6 +437,7 @@ export default {
       tier: 'Tier',
       cd: 'CD',
       effectiveness: 'Effectiveness',
+      effectivenessAll: 'All',
       sp: 'SP',
       canUse: 'Can use',
       effect: 'Effect',

@@ -39,12 +39,12 @@ import IconBeasts from '~/assets/icons/weapon_types/all_beast.png'
 import IconDragons from '~/assets/icons/weapon_types/all_breath.png'
 
 const props = defineProps<{
-  effectiveness: Effectiveness
+  eff: Effectiveness
   size: number
 }>()
 
 const icons = computed(() => {
-  switch (props.effectiveness) {
+  switch (props.eff) {
     case EFF_INFANTRY:
       return [IconI]
     case EFF_ARMORED:

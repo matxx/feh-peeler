@@ -109,6 +109,8 @@ export const EFF_BEAST = 'beast'
 export const EFF_DRAGON = 'dragon'
 export const EFF_DRAGONSTONE = 'dragonstone'
 
+export const EFF_ALL = 'all'
+
 export type Effectiveness =
   | typeof EFF_INFANTRY
   | typeof EFF_ARMORED
@@ -120,6 +122,7 @@ export type Effectiveness =
   | typeof EFF_BEAST
   | typeof EFF_DRAGON
   | typeof EFF_DRAGONSTONE
+  | typeof EFF_ALL
 
 export type SkillId = string
 
