@@ -23,6 +23,14 @@
           @Fehology Youtube {{ t('global.video') }}
         </a>
       </li>
+      <li v-if="HALL_OF_FORMS_RESOURCES.SATACHI">
+        <a
+          :href="HALL_OF_FORMS_RESOURCES.SATACHI"
+          target="_blank"
+        >
+          @SatachiFEH Youtube {{ t('global.video') }}
+        </a>
+      </li>
       <li v-if="HALL_OF_FORMS_RESOURCES.COOLEST_MAGICAL_CAT">
         <a
           :href="HALL_OF_FORMS_RESOURCES.COOLEST_MAGICAL_CAT"
