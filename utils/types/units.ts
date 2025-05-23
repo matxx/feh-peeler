@@ -178,9 +178,10 @@ export const COLUMN_ARTIST = 'artist'
 export const COLUMN_VA = 'VA'
 export const COLUMN_DRAGONFLOWERS = 'dragonflowers'
 export const COLUMN_MAX_SCORE = 'max_score'
+export const COLUMN_RATING = 'game8_rating'
 
 export const DEFAULT_COLUMNS = [
-  COLUMN_NAME,
+  // COLUMN_NAME,
   COLUMN_AVAILABILITY,
   COLUMN_WEAPON,
   COLUMN_MOVE,
@@ -216,6 +217,7 @@ export const ALL_COLUMNS = [
   // COLUMN_ARTIST,
   // COLUMN_VA,
   // COLUMN_DRAGONFLOWERS,
+  COLUMN_RATING,
 ]
 
 export const COLUMNS_IN_FILTERS = [
@@ -240,6 +242,7 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_ARTIST,
   // COLUMN_VA,
   // COLUMN_DRAGONFLOWERS,
+  COLUMN_RATING,
 ]
 
 export type UnitsByAvailability = {

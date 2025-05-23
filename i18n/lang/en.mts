@@ -393,6 +393,7 @@ export default {
         [units.COLUMN_ARTIST]: 'Artist',
         [units.COLUMN_VA]: 'VA',
         [units.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
+        [units.COLUMN_RATING]: 'Rating',
       },
     },
     show: {

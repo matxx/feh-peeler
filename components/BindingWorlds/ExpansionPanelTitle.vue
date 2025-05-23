@@ -151,9 +151,7 @@ const unitDetails = computed(() =>
   props.unit.id ? storeDataUnits.unitsById[props.unit.id] : undefined,
 )
 const ratings = computed(() =>
-  props.unit.id
-    ? storeDataUnitsRatingsGame8.unitsRatingsGame8ById[props.unit.id]
-    : undefined,
+  props.unit.id ? storeDataUnitsRatingsGame8.byId[props.unit.id] : undefined,
 )
 
 const totalSP = computed(() => storeDataSkills.sumSP(props.unit))

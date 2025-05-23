@@ -1,5 +1,18 @@
 <template>
   <div>
+    <v-overlay
+      :model-value="isLoading"
+      contained
+      class="align-center justify-center"
+    >
+      <v-progress-circular
+        color="primary"
+        indeterminate
+      />
+    </v-overlay>
+
+    <TheInfoAboutGame8Ratings class="mb-3" />
+
     <div class="mb-3">
       <v-select
         v-show="mobile"
@@ -178,6 +191,10 @@
           {{ item.bst }}
         </strong>
       </template>
+
+      <template #[`item.${COLUMN_RATING}`]="{ item }">
+        {{ storeDataUnitsRatingsGame8.byId[item.id]?.game8_rating }}
+      </template>
     </v-data-table-server>
 
     <!-- TODO: version / generation / release date / game / element / artist / VA / dragonflowers -->
@@ -204,6 +221,7 @@ import {
   COLUMN_IV_RES,
   COLUMN_BST,
   COLUMN_HAS_RESPLENDENT,
+  COLUMN_RATING,
 } from '~/utils/types/units'
 import { STATS_IVS_COLORS } from '~/utils/types/units-stats'
 
@@ -216,6 +234,11 @@ const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
 
 const storeDataUnitsStats = useStoreDataUnitsStats()
+const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
+const { isLoading } = useDataStores([
+  storeDataUnitsStats,
+  storeDataUnitsRatingsGame8,
+])
 
 const size = 40
 const sizeCorner = 15

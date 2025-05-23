@@ -4,18 +4,18 @@
 
 ### Features
 
-1. display ratings/grades in units lists
 1. list skills in table (like units)
 1. complex filters for skills related pages (skills table / skills fodders)
 1. modal skill : display slot of skill
-1. list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
-1. event "see's snare" (skill pool, recommendations, ...)
-1. complex pre-inheritance planner helper
+1. (PAGE) list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
+1. (PAGE) event "see's snare" (skill pool, recommendations, ...)
+1. (PAGE) complex pre-inheritance planner helper
 
 ### QoL
 
 1. units filter on "has prf weap", "has prf skill" (triple way)
 1. units filter on ratings/grades
+1. page /units : complex sorting
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)
 1. replace all assets with spritesheets
