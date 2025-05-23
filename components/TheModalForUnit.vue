@@ -5,28 +5,27 @@
         <v-toolbar
           color="primary"
           density="compact"
+          class="v-toolbar--justify-space-between"
         >
-          <CompoUnitThumbnail
-            :unit="unit"
-            :size="25"
-            :size-corner="10"
-            :margin="5"
-            :margin-icon="-5"
-            class="mx-4"
-          />
+          <h3 class="d-flex align-center">
+            <CompoUnitThumbnail
+              :unit="unit"
+              :size="25"
+              :size-corner="10"
+              :margin="5"
+              :margin-icon="-5"
+              class="mx-4"
+            />
 
-          <v-toolbar-title class="ml-0">
             {{ mobile ? unit.abbreviated_name : unit.nameForDisplay }}
-          </v-toolbar-title>
+          </h3>
 
           <template v-if="!mobile">
-            <v-spacer />
             <UnitAvailability
               :unit="unit"
               :tile-size="TOOLBAR_FODDER_SIZE"
               show-all
             />
-            <v-spacer />
           </template>
 
           <v-toolbar-items>
@@ -191,3 +190,9 @@ const unit = computed(() =>
     : undefined,
 )
 </script>
+
+<style lang="scss" scoped>
+.v-toolbar--justify-space-between :deep(.v-toolbar__content) {
+  justify-content: space-between;
+}
+</style>

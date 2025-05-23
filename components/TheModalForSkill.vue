@@ -5,24 +5,26 @@
         <v-toolbar
           color="primary"
           density="compact"
+          class="v-toolbar--justify-space-between"
         >
-          <SkillImg
-            :skill="skill"
-            :size="TOOLBAR_ICON_SIZE"
-            class="mx-4"
-          />
-
-          <v-toolbar-title class="ml-0">
+          <h3 class="d-flex align-center ml-4">
+            <SkillImgCategory
+              :category="skill.category"
+              :size="TOOLBAR_ICON_SIZE"
+            />
+            <SkillImg
+              :skill="skill"
+              :size="TOOLBAR_ICON_SIZE"
+              class="mx-4"
+            />
             {{ skill.name }}
-          </v-toolbar-title>
+          </h3>
 
           <template v-if="!mobile">
-            <v-spacer />
             <SkillAvailability
               :skill="skill"
               :tile-size="TOOLBAR_FODDER_SIZE"
             />
-            <v-spacer />
           </template>
 
           <v-toolbar-items>
@@ -198,3 +200,9 @@ const tabsDisplayed = computed(() => {
   return res
 })
 </script>
+
+<style lang="scss" scoped>
+.v-toolbar--justify-space-between :deep(.v-toolbar__content) {
+  justify-content: space-between;
+}
+</style>

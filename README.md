@@ -6,7 +6,6 @@
 
 1. list skills in table (like units)
 1. complex filters for skills related pages (skills table / skills fodders)
-1. modal skill : display slot of skill
 1. (PAGE) list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
 1. (PAGE) event "see's snare" (skill pool, recommendations, ...)
 1. (PAGE) complex pre-inheritance planner helper
