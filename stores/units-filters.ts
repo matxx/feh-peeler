@@ -156,7 +156,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
   function $reset() {
     filters.value = createFilters(storeDataConstants.constants)
-    filters.sorters = createSorters()
+    sorters.value = createSorters()
   }
 
   const anyFilterActive = computed(
