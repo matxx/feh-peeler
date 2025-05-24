@@ -239,7 +239,7 @@
           size="small"
           class="text-primary"
           :active="filters.isRefresher !== null"
-          @click="cycleRefresher"
+          @click="cycleFilter('isRefresher')"
         >
           <v-icon start>
             {{ iconFor(filters.isRefresher) }}
@@ -262,7 +262,7 @@
           size="small"
           class="text-primary"
           :active="filters.hasResplendent !== null"
-          @click="cycleResplendent"
+          @click="cycleFilter('hasResplendent')"
         >
           <v-icon start>
             {{ iconFor(filters.hasResplendent) }}
@@ -285,7 +285,7 @@
           size="small"
           class="text-primary"
           :active="filters.isBrave !== null"
-          @click="cycleBrave"
+          @click="cycleFilter('isBrave')"
         >
           <v-icon start>
             {{ iconFor(filters.isBrave) }}
@@ -553,6 +553,11 @@ function toggleWeaponAggregate(aggregate: AggregatedWeaponType) {
   }
 }
 
+function cycleFilter(key: 'isRefresher' | 'hasResplendent' | 'isBrave') {
+  if (!filters.value) return
+
+  filters.value[key] = cycleState(filters.value[key])
+}
 function cycleState(state: boolean | null) {
   switch (state) {
     case true:
@@ -563,22 +568,6 @@ function cycleState(state: boolean | null) {
       return true
   }
 }
-function cycleRefresher() {
-  if (!filters.value) return
-
-  filters.value.isRefresher = cycleState(filters.value.isRefresher)
-}
-function cycleResplendent() {
-  if (!filters.value) return
-
-  filters.value.hasResplendent = cycleState(filters.value.hasResplendent)
-}
-function cycleBrave() {
-  if (!filters.value) return
-
-  filters.value.isBrave = cycleState(filters.value.isBrave)
-}
-
 function iconFor(state: boolean | null) {
   switch (state) {
     case true:

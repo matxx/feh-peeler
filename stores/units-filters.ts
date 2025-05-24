@@ -167,7 +167,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.availabilities.size > 0 ||
       filters.value.isRefresher !== null ||
       filters.value.hasResplendent !== null ||
-      filters.value.isBrave ||
+      filters.value.isBrave !== null ||
       // @ts-expect-error unsafe typings
       some(
         filters.value.stats,
