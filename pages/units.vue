@@ -67,6 +67,7 @@
           ? undefined
           : storeUnitsFilters.filters.name
       "
+      multi-sort
       @update:options="updateUnits"
     >
       <template #[`header.${COLUMN_HAS_RESPLENDENT}`]>
@@ -263,7 +264,7 @@ const headers = computed(() =>
         : t(`units.index.headers.${column}`),
     key: column,
     align: COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
-    sortable: column !== COLUMN_THUMBNAIL,
+    sortable: false,
   })),
 )
 
