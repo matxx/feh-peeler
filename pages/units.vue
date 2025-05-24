@@ -21,6 +21,7 @@
         :label="t('units.index.columnsDisplayed')"
         variant="solo"
         multiple
+        hide-details
       >
         <template #selection="{ item, index }">
           <v-chip
@@ -37,18 +38,12 @@
         </template>
       </v-select>
 
-      <v-btn-group
-        v-show="!mobile"
-        divided
-        color="primary"
-        density="compact"
-        variant="outlined"
-      >
+      <div v-show="!mobile">
         <v-btn
           v-for="column in COLUMNS_IN_FILTERS"
           :key="column"
-          size="small"
-          class="text-primary"
+          size="x-small"
+          class="text-primary mr-1 mb-1"
           :active="columns.has(column)"
           @click="
             columns.has(column) ? columns.delete(column) : columns.add(column)
@@ -56,7 +51,7 @@
         >
           {{ t(`units.index.headers.${column}`) }}
         </v-btn>
-      </v-btn-group>
+      </div>
     </div>
 
     <v-data-table-server

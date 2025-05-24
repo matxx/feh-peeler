@@ -113,6 +113,9 @@ export interface IUnitData {
   // duel_score: number
   // visible_bst: number
   max_score: number
+
+  addition_date: string
+  release_date: string
 }
 
 export interface IUnit extends IUnitData {
@@ -165,7 +168,7 @@ export const COLUMN_MOVE = 'move'
 export const COLUMN_VERSION = 'version'
 export const COLUMN_GENERATION = 'generation'
 export const COLUMN_BOOK = 'book'
-export const COLUMN_RELEASE_DATE = 'release-date'
+export const COLUMN_RELEASE_DATE = 'release_date'
 export const COLUMN_GAME = 'game'
 export const COLUMN_IV_HP = 'HP'
 export const COLUMN_IV_ATK = 'Atk'
@@ -179,9 +182,9 @@ export const COLUMN_VA = 'VA'
 export const COLUMN_DRAGONFLOWERS = 'dragonflowers'
 export const COLUMN_MAX_SCORE = 'max_score'
 export const COLUMN_RATING = 'game8_rating'
+export const COLUMN_ORIGIN = 'origin'
 
 export const DEFAULT_COLUMNS = [
-  // COLUMN_NAME,
   COLUMN_AVAILABILITY,
   COLUMN_WEAPON,
   COLUMN_MOVE,
@@ -197,6 +200,7 @@ export const DEFAULT_COLUMNS = [
 export const ALL_COLUMNS = [
   COLUMN_THUMBNAIL,
   COLUMN_NAME,
+  COLUMN_ORIGIN,
   COLUMN_GENDER,
   COLUMN_HAS_RESPLENDENT,
   COLUMN_AVAILABILITY,
@@ -205,7 +209,7 @@ export const ALL_COLUMNS = [
   // COLUMN_VERSION,
   // COLUMN_GENERATION,
   COLUMN_BOOK,
-  // COLUMN_RELEASE_DATE,
+  COLUMN_RELEASE_DATE,
   // COLUMN_GAME,
   COLUMN_IV_HP,
   COLUMN_IV_ATK,
@@ -222,6 +226,7 @@ export const ALL_COLUMNS = [
 
 export const COLUMNS_IN_FILTERS = [
   COLUMN_NAME,
+  COLUMN_ORIGIN,
   COLUMN_GENDER,
   COLUMN_HAS_RESPLENDENT,
   COLUMN_AVAILABILITY,
@@ -230,7 +235,7 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_VERSION,
   // COLUMN_GENERATION,
   COLUMN_BOOK,
-  // COLUMN_RELEASE_DATE,
+  COLUMN_RELEASE_DATE,
   // COLUMN_GAME,
   COLUMN_IV_HP,
   COLUMN_IV_ATK,

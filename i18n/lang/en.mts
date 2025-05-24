@@ -394,6 +394,7 @@ export default {
         [units.COLUMN_VA]: 'VA',
         [units.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
         [units.COLUMN_RATING]: 'Rating',
+        [units.COLUMN_ORIGIN]: 'Origin',
       },
     },
     show: {
