@@ -8,10 +8,10 @@
         {{ t('scores.headers.sort') }}
       </h5>
       <div>
-        <UnitScoresSorters
+        <UnitDrawerSorters
           :sorters="sorters"
           :size="sizeSorters"
-          @update="$emit('update:sorters', $event)"
+          @update="$emit('update:sorter', $event)"
         />
       </div>
     </div>
@@ -21,7 +21,7 @@
         {{ t('scores.headers.filters') }}
       </h5>
       <div>
-        <UnitScoresFilters
+        <UnitDrawerFilters
           v-model:filters="filters"
           :size="sizeFilters"
           :filter-name-loading="filterNameLoading"
@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import type { IFilters } from '@/utils/types/units-filters'
-import type { ISorters } from '@/utils/types/units-sorters'
+import type { IFilters } from '~/utils/types/units-filters'
+import type { ISorters } from '~/utils/types/units-sorters'
 
 const filters = defineModel<IFilters>('filters')
 withDefaults(
@@ -50,7 +50,7 @@ withDefaults(
     showSorters: false,
   },
 )
-defineEmits(['update:sorters'])
+defineEmits(['update:sorter'])
 
 const { t } = useI18n()
 </script>

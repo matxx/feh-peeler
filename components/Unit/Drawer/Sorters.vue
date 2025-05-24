@@ -9,14 +9,14 @@
       location="bottom"
     >
       <template #activator="{ props }">
-        <UnitScoresSortersBtn
+        <UnitDrawerSortersBtn
           v-bind="props"
           :field="sorters.fields[i - 1]"
           :order="sorters.orders[i - 1]"
           :size="size"
         />
       </template>
-      <UnitScoresSortersListBtn
+      <UnitDrawerSortersListBtn
         :size="size"
         @update="$emit('update', [i - 1, $event])"
       />

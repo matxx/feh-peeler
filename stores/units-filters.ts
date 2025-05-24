@@ -202,7 +202,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       false,
   )
 
-  function updateSorters([index, sorter]: [number, ISorter]) {
+  function updateSorter([index, sorter]: [number, ISorter]) {
     if (!sorters.value) return
 
     sorters.value.fields[index] = sorter.field
@@ -328,7 +328,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     counter,
     errorMessages,
 
-    updateSorters,
+    updateSorter,
     updateUnits,
 
     unitsFilteredSorted,

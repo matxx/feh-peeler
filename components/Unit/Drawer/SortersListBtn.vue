@@ -4,7 +4,7 @@
       variant="outlined"
       divided
     >
-      <UnitScoresSortersBtn
+      <UnitDrawerSortersBtn
         v-for="(desc, index) in descs"
         :key="index"
         :field="desc.field"

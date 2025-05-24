@@ -18,16 +18,16 @@
         />
       </v-overlay>
 
-      <UnitScoresSettings
+      <UnitDrawerAll
         v-model:filters="filters"
-        v-model:sorters="sorters"
+        :sorters="sorters"
         :show-sorters="showSorters"
         :size-sorters="sizeSorters"
         :size-filters="sizeFilters"
         :filter-name-loading="storeUnitsFilters.isUpdating"
         :filter-name-error-messages="storeUnitsFilters.errorMessages"
         class="pa-3"
-        @update:sorters="storeUnitsFilters.updateSorters"
+        @update:sorter="storeUnitsFilters.updateSorter"
       />
     </v-navigation-drawer>
 
