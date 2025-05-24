@@ -42,7 +42,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
           nameForLink: escapeName(unit.full_name),
           nameForFilters: storeDataAccents.transliterate(unit.full_name),
           nameForSorting: unit.full_name,
-          nameForDisplay: `${unit.full_name} - ${unit.abbreviated_name}`,
+          nameForDisplay: `${unit.full_name} [${unit.abbreviated_name}]`,
           sortableType: getSortableType(unit),
           sortableWeaponColor: getSortableWeaponColor(
             WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
