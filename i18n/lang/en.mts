@@ -26,6 +26,7 @@ export default {
 
     noSkillIsMatchingYourRequest: 'No skill is matching your request',
     noUnitIsMatchingYourRequest: 'No unit is matching your request',
+    nothingIsMatchingYourRequest: 'Nothing is matching your request',
     invalidRegExp: 'Invalid regular expression',
 
     useRegexInSearches: 'Use RegExp in searches',

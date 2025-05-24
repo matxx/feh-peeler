@@ -217,15 +217,14 @@
         <v-col>
           <h4>{{ t('catalogOfHeroes.headers.banners') }}</h4>
 
-          <v-autocomplete
+          <AppAutocomplete
+            v-if="storeDataBanners.banners"
             v-model="storeDataBanners.selectedBanner"
             :loading="storeDataBanners.isLoading"
             :items="storeDataBanners.banners"
             item-title="name"
             item-value="name"
-            return-object
             clearable
-            autocomplete="off"
           />
 
           <div v-if="storeDataBanners.selectedBanner">
