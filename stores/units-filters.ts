@@ -42,29 +42,22 @@ function filterWeaponType(filters: IFilters, u: IUnit) {
   return filters.weapons.has(u.weapon_type)
 }
 
-function filterRefresher(filters: IFilters, u: IUnit) {
-  switch (filters.isRefresher) {
+function filterBoolean(condition: boolean | null, bool: boolean) {
+  switch (condition) {
     case true:
-      return u.is_refresher
+      return bool
     case false:
-      return !u.is_refresher
+      return !bool
     default:
       return true
   }
 }
-function filterResplendent(filters: IFilters, u: IUnit) {
-  switch (filters.hasResplendent) {
-    case true:
-      return u.has_respl
-    case false:
-      return !u.has_respl
-    default:
-      return true
-  }
-}
-function filterBrave(filters: IFilters, u: IUnit) {
-  return filters.isBrave ? u.is_brave : true
-}
+const filterRefresher = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.isRefresher, u.is_refresher)
+const filterResplendent = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.hasResplendent, u.has_respl)
+const filterBrave = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.isBrave, u.is_brave)
 
 function filterStats(filters: IFilters, u: IUnit, statById: IUnitStatById) {
   if (u.bst < filters.stats.bst[0]) return false

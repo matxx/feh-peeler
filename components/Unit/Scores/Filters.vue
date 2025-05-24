@@ -241,14 +241,14 @@
           :active="filters.isRefresher !== null"
           @click="cycleRefresher"
         >
+          <v-icon start>
+            {{ iconFor(filters.isRefresher) }}
+          </v-icon>
           <img
             src="assets/icons/unit_types/dancer.png"
             :width="size"
             :height="size"
           />
-          <v-icon right>
-            {{ iconFor(filters.isRefresher) }}
-          </v-icon>
         </v-btn>
       </v-btn-group>
 
@@ -264,14 +264,14 @@
           :active="filters.hasResplendent !== null"
           @click="cycleResplendent"
         >
+          <v-icon start>
+            {{ iconFor(filters.hasResplendent) }}
+          </v-icon>
           <img
             src="assets/icons/resplendent.png"
             :width="size"
             :height="size"
           />
-          <v-icon right>
-            {{ iconFor(filters.hasResplendent) }}
-          </v-icon>
         </v-btn>
       </v-btn-group>
 
@@ -284,9 +284,12 @@
         <v-btn
           size="small"
           class="text-primary"
-          :active="filters.isBrave"
-          @click="filters.isBrave = !filters.isBrave"
+          :active="filters.isBrave !== null"
+          @click="cycleBrave"
         >
+          <v-icon start>
+            {{ iconFor(filters.isBrave) }}
+          </v-icon>
           CYL
         </v-btn>
       </v-btn-group>
@@ -430,45 +433,10 @@
           "
           :min="0"
           :step="1"
-          class="align-center"
+          class="align-center mx-5"
           hide-details
-          :thumb-label="false"
-        >
-          <template #prepend>
-            <v-text-field
-              v-model="filters.stats[stat][0]"
-              density="compact"
-              :style="`width: ${stat === BST ? 80 : 70}px`"
-              type="number"
-              :max="
-                storeDataConstants.constants &&
-                storeDataConstants.constants[`units_max_${stat}`]
-              "
-              :min="0"
-              :step="1"
-              variant="outlined"
-              hide-details
-              single-line
-            />
-          </template>
-          <template #append>
-            <v-text-field
-              v-model="filters.stats[stat][1]"
-              density="compact"
-              :style="`width: ${stat === BST ? 80 : 70}px`"
-              type="number"
-              :max="
-                storeDataConstants.constants &&
-                storeDataConstants.constants[`units_max_${stat}`]
-              "
-              :min="0"
-              :step="1"
-              variant="outlined"
-              hide-details
-              single-line
-            />
-          </template>
-        </v-range-slider>
+          thumb-label
+        />
       </div>
     </div>
   </div>
@@ -493,7 +461,7 @@ import {
   type WeaponFamily,
   type AggregatedWeaponType,
 } from '@/utils/types/weapons'
-import { STATS_AND_BST, BST } from '~/utils/types/units-stats'
+import { STATS_AND_BST } from '~/utils/types/units-stats'
 
 const SIZE = 24
 
@@ -604,6 +572,11 @@ function cycleResplendent() {
   if (!filters.value) return
 
   filters.value.hasResplendent = cycleState(filters.value.hasResplendent)
+}
+function cycleBrave() {
+  if (!filters.value) return
+
+  filters.value.isBrave = cycleState(filters.value.isBrave)
 }
 
 function iconFor(state: boolean | null) {

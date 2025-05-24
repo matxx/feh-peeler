@@ -43,7 +43,7 @@ export interface IFilters {
 
   isRefresher: boolean | null
   hasResplendent: boolean | null
-  isBrave: boolean
+  isBrave: boolean | null
 
   stats: {
     [HP]: [number, number]
@@ -66,7 +66,7 @@ export const createFilters = (constants?: IConstants) =>
 
     isRefresher: null,
     hasResplendent: null,
-    isBrave: false,
+    isBrave: null,
 
     stats: {
       [HP]: [0, constants ? constants.units_max_hp : 60],
