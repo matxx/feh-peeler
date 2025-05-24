@@ -5,7 +5,6 @@
       v-model="isDrawerOpen"
       :location="mobile ? 'bottom' : 'left'"
       :permanent="!mobile"
-      class="pa-3"
       width="275"
     >
       <v-overlay
@@ -27,6 +26,7 @@
         :size-filters="sizeFilters"
         :filter-name-loading="storeUnitsFilters.isUpdating"
         :filter-name-error-messages="storeUnitsFilters.errorMessages"
+        class="pa-3"
         @update:sorters="storeUnitsFilters.updateSorters"
       />
     </v-navigation-drawer>
