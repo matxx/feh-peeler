@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-none d-sm-flex align-center mb-3">
+    <div class="d-flex align-center mb-3">
       <div>
         {{ t('global.inpiredBy') }}
         <!-- eslint-disable vue/html-closing-bracket-newline -->
@@ -22,6 +22,8 @@
         </a>
       </div>
     </div>
+
+    <div id="mobile-units-filter-name" />
 
     <div class="scores__line">
       <h4 class="scores__score">

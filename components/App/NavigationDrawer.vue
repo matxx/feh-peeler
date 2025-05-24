@@ -4,6 +4,7 @@
     disable-resize-watcher
     disable-route-watcher
     :model-value="route.path === '/' ? mobile && isOpen : isOpen"
+    :temporary="!mobile"
     @update:model-value="isOpen = $event"
   >
     <AppPages v-show="route.path !== '/'" />

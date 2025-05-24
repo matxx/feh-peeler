@@ -54,6 +54,8 @@
       </div>
     </div>
 
+    <div id="mobile-units-filter-name" />
+
     <v-data-table-server
       v-model:items-per-page="itemsPerPage"
       :headers="headers"

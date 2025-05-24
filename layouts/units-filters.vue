@@ -1,89 +1,80 @@
 <template>
   <LayoutDefault>
-    <v-container fluid>
-      <v-row>
-        <v-col
-          :cols="mobile ? 12 : 3"
-          class="position-relative"
-        >
-          <v-overlay
-            contained
-            :model-value="isLoading"
-            class="d-flex justify-space-around align-center"
-          >
-            <v-progress-circular
-              indeterminate
-              color="primary"
-            />
-          </v-overlay>
+    <v-navigation-drawer
+      v-if="mounted"
+      v-model="isDrawerOpen"
+      :location="mobile ? 'bottom' : 'left'"
+      :permanent="!mobile"
+      class="pa-3"
+      width="275"
+    >
+      <v-overlay
+        contained
+        :model-value="isLoading"
+        class="d-flex justify-space-around align-center"
+      >
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
+      </v-overlay>
 
-          <div v-show="mobile">
-            <v-text-field
-              v-model="filters.name"
-              :loading="storeUnitsFilters.isUpdating"
-              :color="storeUnitsFilters.searchIsActive ? 'success' : 'primary'"
-              :counter="storeUnitsFilters.counter"
-              density="compact"
-              clearable
-              class="mt-5"
-              :label="t('scores.labels.unitName')"
-              :error-messages="storeUnitsFilters.errorMessages"
+      <UnitScoresSettings
+        v-model:filters="filters"
+        v-model:sorters="sorters"
+        :size-sorters="sizeSorters"
+        :size-filters="sizeFilters"
+        :filter-name-loading="storeUnitsFilters.isUpdating"
+        :filter-name-error-messages="storeUnitsFilters.errorMessages"
+        @update:sorters="storeUnitsFilters.updateSorters"
+      />
+    </v-navigation-drawer>
+
+    <Teleport
+      v-if="mobile"
+      to="#mobile-units-filter-name"
+    >
+      <v-text-field
+        v-model="filters.name"
+        :loading="storeUnitsFilters.isUpdating"
+        :color="storeUnitsFilters.searchIsActive ? 'success' : 'primary'"
+        :counter="storeUnitsFilters.counter"
+        density="compact"
+        clearable
+        class="mt-5"
+        :label="t('scores.labels.unitName')"
+        :error-messages="storeUnitsFilters.errorMessages"
+      >
+        <template #prepend>
+          <v-btn
+            icon
+            size="x-small"
+            @click="isDrawerOpen = true"
+          >
+            <v-icon
+              :color="storeUnitsFilters.anyFilterActive ? 'primary' : undefined"
             >
-              <template #prepend>
-                <UnitScoresSettingsMobile
-                  :active="storeUnitsFilters.anyFilterActive"
-                >
-                  <template #drawer>
-                    <div class="pa-5 pt-2">
-                      <UnitScoresSettings
-                        v-model:filters="filters"
-                        v-model:sorters="sorters"
-                        :size-sorters="sizeSorters"
-                        :size-filters="sizeFilters"
-                        :filter-name-loading="storeUnitsFilters.isUpdating"
-                        :filter-name-error-messages="
-                          storeUnitsFilters.errorMessages
-                        "
-                        @update:sorters="storeUnitsFilters.updateSorters"
-                      />
-                    </div>
-                  </template>
-                </UnitScoresSettingsMobile>
-              </template>
-            </v-text-field>
-          </div>
+              mdi-filter
+            </v-icon>
+          </v-btn>
+        </template>
+      </v-text-field>
+    </Teleport>
 
-          <UnitScoresSettings
-            v-show="!mobile"
-            v-model:filters="filters"
-            v-model:sorters="sorters"
-            :size-sorters="sizeSorters"
-            :size-filters="sizeFilters"
-            :filter-name-loading="storeUnitsFilters.isUpdating"
-            :filter-name-error-messages="storeUnitsFilters.errorMessages"
-            @update:sorters="storeUnitsFilters.updateSorters"
-          />
-        </v-col>
+    <div class="fill-height position-relative pa-3">
+      <v-overlay
+        contained
+        :model-value="isLoading"
+        class="d-flex justify-space-around align-center"
+      >
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        />
+      </v-overlay>
 
-        <v-col
-          :cols="mobile ? 12 : 9"
-          class="position-relative"
-        >
-          <v-overlay
-            contained
-            :model-value="isLoading"
-            class="d-flex justify-space-around align-center"
-          >
-            <v-progress-circular
-              indeterminate
-              color="primary"
-            />
-          </v-overlay>
-
-          <slot />
-        </v-col>
-      </v-row>
-    </v-container>
+      <slot />
+    </div>
   </LayoutDefault>
 </template>
 
@@ -92,6 +83,19 @@ import LayoutDefault from '~/layouts/default.vue'
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
+const { mounted } = useMounted()
+
+const isDrawerOpen = ref(false)
+
+watch(
+  mobile,
+  (val) => {
+    if (val) return
+
+    isDrawerOpen.value = true
+  },
+  { immediate: true },
+)
 
 const { isLoading } = useDataStores([
   useStoreDataUnits(),
