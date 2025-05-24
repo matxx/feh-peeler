@@ -39,6 +39,8 @@ export interface IFilters {
   isRefresher: boolean | null
   hasResplendent: boolean | null
   isBrave: boolean | null
+  hasPrfWeapon: boolean | null
+  hasPrfSkill: boolean | null
 
   stats: {
     [HP]: [number, number]
@@ -62,6 +64,8 @@ export const createFilters = (constants?: IConstants) =>
     isRefresher: null,
     hasResplendent: null,
     isBrave: null,
+    hasPrfWeapon: null,
+    hasPrfSkill: null,
 
     stats: {
       [HP]: [0, constants ? constants.units_max_hp : 60],

@@ -121,14 +121,19 @@ export interface IUnitData {
 export interface IUnit extends IUnitData {
   weaponFamily: WeaponFamily
   weaponColor: WeaponColor
+
   nameForLink: string
   nameForFilters: string
   nameForSorting: string
   nameForDisplay: string
+
   sortableType: number
   sortableWeaponColor: number
   sortableWeaponType: number
   sortableMoveType: number
+
+  hasPrfWeapon: boolean
+  hasPrfSkill: boolean
 }
 
 export interface IUnitWithAvailability extends IUnit {

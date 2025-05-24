@@ -21,31 +21,3 @@ withDefaults(
   },
 )
 </script>
-
-<style lang="scss" scoped>
-.z-index-1 {
-  z-index: 1;
-}
-.crossed {
-  position: relative;
-
-  &::before,
-  &::after {
-    position: absolute;
-    left: 50%;
-    top: -10%;
-    height: 120%;
-    width: 2px;
-    background-color: currentColor;
-    box-shadow: 0px 0px 3px 1px white;
-    z-index: 0;
-  }
-  &::before {
-    content: ' ';
-    transform: rotate(45deg);
-  }
-  &::after {
-    transform: rotate(-45deg);
-  }
-}
-</style>

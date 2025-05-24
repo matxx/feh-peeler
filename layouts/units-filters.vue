@@ -102,6 +102,7 @@ const { isLoading } = useDataStores([
   useStoreDataUnits(),
   useStoreDataUnitsAvailabilities(),
   useStoreDataUnitsStats(),
+  useStoreDataSkills(),
 ])
 
 const sizeSorters = 20

@@ -8,9 +8,12 @@
 .flex-grow-2 {
   flex-grow: 2 !important;
 }
-
 .flex-grow-3 {
   flex-grow: 3 !important;
+}
+
+.z-index-1 {
+  z-index: 1;
 }
 
 .text-no-wrap .text-reset-wrap {
@@ -40,5 +43,28 @@
   }
   div#tarteaucitronServices {
     box-shadow: 0 0px 10px #545454 !important;
+  }
+}
+
+.crossed {
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+    left: 50%;
+    top: -10%;
+    height: 120%;
+    width: 2px;
+    background-color: currentColor;
+    box-shadow: 0px 0px 3px 1px white;
+    z-index: 0;
+  }
+  &::before {
+    content: ' ';
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
   }
 }

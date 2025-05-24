@@ -1,3 +1,4 @@
+import some from 'lodash-es/some'
 import keyBy from 'lodash-es/keyBy'
 import sortBy from 'lodash-es/sortBy'
 
@@ -19,6 +20,7 @@ import {
 } from '~/utils/types/weapons'
 import { getAvailability } from '~/utils/types/units-availabilities'
 import { getSortableMoveType } from '~/utils/types/moves'
+import { SKILL_WEAPON, type SkillId } from '~/utils/types/skills'
 
 export const useStoreDataUnits = defineStore('data/units', () => {
   const unitsData = ref<IUnitData[]>([])
@@ -30,7 +32,33 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   )
 
   const storeDataAccents = useStoreDataAccents()
+  const storeDataSkills = useStoreDataSkills()
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
+
+  function hasPrfWeapon(unit: IUnitData) {
+    if (!storeDataSkills.isLoaded) return false
+    if (!storeDataUnitsAvailabilities.isLoaded) return false
+
+    return some(
+      storeDataUnitsAvailabilities.availabilitiesById[unit.id].skill_ids,
+      (skillId: SkillId) => {
+        const skill = storeDataSkills.skillsById[skillId]
+        return skill.is_prf && skill.category === SKILL_WEAPON
+      },
+    )
+  }
+  function hasPrfSkill(unit: IUnitData) {
+    if (!storeDataSkills.isLoaded) return false
+    if (!storeDataUnitsAvailabilities.isLoaded) return false
+
+    return some(
+      storeDataUnitsAvailabilities.availabilitiesById[unit.id].skill_ids,
+      (skillId: SkillId) => {
+        const skill = storeDataSkills.skillsById[skillId]
+        return skill.is_prf && skill.category !== SKILL_WEAPON
+      },
+    )
+  }
 
   const unitsCount = computed(() => unitsData.value.length)
   const units = computed<IUnit[]>(() =>
@@ -49,6 +77,8 @@ export const useStoreDataUnits = defineStore('data/units', () => {
           ),
           sortableWeaponType: getSortableWeaponType(unit),
           sortableMoveType: getSortableMoveType(unit),
+          hasPrfWeapon: hasPrfWeapon(unit),
+          hasPrfSkill: hasPrfSkill(unit),
         }))
       : [],
   )

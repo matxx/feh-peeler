@@ -19,7 +19,7 @@
 
     <div class="mt-1">
       <div
-        v-for="(array, index) in a.SORTED_AV_SCORES_FOR_FILTERS"
+        v-for="(array, index) in a.AV_SCORES_FOR_FILTERS"
         :key="index"
       >
         <v-btn-group
@@ -302,6 +302,58 @@
         variant="outlined"
       >
         <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.hasPrfWeapon !== null"
+          @click="cycleFilter('hasPrfWeapon')"
+        >
+          <v-icon start>
+            {{ iconFor(filters.hasPrfWeapon) }}
+          </v-icon>
+          PRF
+          <img
+            src="assets/icons/skills/weapon.png"
+            :width="size"
+            :height="size"
+            class="ml-2"
+          />
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.hasPrfSkill !== null"
+          @click="cycleFilter('hasPrfSkill')"
+        >
+          <v-icon start>
+            {{ iconFor(filters.hasPrfSkill) }}
+          </v-icon>
+          PRF
+          <span class="ml-2 crossed text-white">
+            <img
+              src="assets/icons/skills/weapon.png"
+              :width="size"
+              :height="size"
+            />
+          </span>
+        </v-btn>
+      </v-btn-group>
+    </div>
+
+    <div class="mt-1">
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
           v-for="moveType in SORTED_MOVE_TYPES"
           :key="moveType"
           size="small"
@@ -553,7 +605,14 @@ function toggleWeaponAggregate(aggregate: AggregatedWeaponType) {
   }
 }
 
-function cycleFilter(key: 'isRefresher' | 'hasResplendent' | 'isBrave') {
+function cycleFilter(
+  key:
+    | 'isRefresher'
+    | 'hasResplendent'
+    | 'isBrave'
+    | 'hasPrfWeapon'
+    | 'hasPrfSkill',
+) {
   if (!filters.value) return
 
   filters.value[key] = cycleState(filters.value[key])

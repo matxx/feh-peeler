@@ -12,7 +12,6 @@
 
 ### QoL
 
-1. units filter on "has prf weap", "has prf skill" (triple way)
 1. units filter on ratings/grades
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)

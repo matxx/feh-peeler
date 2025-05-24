@@ -74,6 +74,10 @@ const filterResplendent = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.hasResplendent, u.has_respl)
 const filterBrave = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.isBrave, u.is_brave)
+const filterHasPrfWeapon = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.hasPrfWeapon, u.hasPrfWeapon)
+const filterHasPrfSkill = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.hasPrfSkill, u.hasPrfSkill)
 
 function filterStats(filters: IFilters, u: IUnit, statById: IUnitStatById) {
   if (u.bst < filters.stats.bst[0]) return false
@@ -184,6 +188,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.isRefresher !== null ||
       filters.value.hasResplendent !== null ||
       filters.value.isBrave !== null ||
+      filters.value.hasPrfWeapon !== null ||
+      filters.value.hasPrfSkill !== null ||
       // @ts-expect-error unsafe typings
       some(
         filters.value.stats,
@@ -243,6 +249,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       f(filter, (u: IUnit) => filterResplendent(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterBrave(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterHasPrfWeapon(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterHasPrfSkill(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterMoveType(filters.value, u)),
       // @ts-expect-error unsafe typings
