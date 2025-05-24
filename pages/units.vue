@@ -68,8 +68,20 @@
           : storeUnitsFilters.filters.name
       "
       multi-sort
+      :sort-by="sortBy"
       @update:options="updateUnits"
     >
+      <template #[`header.${COLUMN_THUMBNAIL}`]>
+        <v-btn
+          v-tooltip="t('units.index.resetSorting')"
+          icon
+          size="x-small"
+          flat
+          @click="sortBy = []"
+        >
+          <v-icon>mdi-restart</v-icon>
+        </v-btn>
+      </template>
       <template #[`header.${COLUMN_HAS_RESPLENDENT}`]>
         <img
           src="assets/icons/resplendent.png"
@@ -203,6 +215,8 @@
 import type { DataTableSortItem } from 'vuetify'
 import filter from 'lodash-es/filter'
 
+import { STATS_IVS_COLORS } from '~/utils/types/units-stats'
+
 import {
   DEFAULT_COLUMNS,
   ALL_COLUMNS,
@@ -221,8 +235,36 @@ import {
   COLUMN_BST,
   COLUMN_HAS_RESPLENDENT,
   COLUMN_RATING,
-} from '~/utils/types/units'
-import { STATS_IVS_COLORS } from '~/utils/types/units-stats'
+  COLUMN_GENDER,
+  COLUMN_BOOK,
+  COLUMN_RELEASE_DATE,
+  COLUMN_MAX_SCORE,
+  COLUMN_ORIGIN,
+  COLUMN_ID_INT,
+} from '~/utils/types/units-columns'
+import {
+  SORT_NAME,
+  SORT_GENDER,
+  SORT_HAS_RESPLENDENT,
+  SORT_BOOK,
+  SORT_RELEASE_DATE,
+  SORT_BST,
+  SORT_MAX_SCORE,
+  SORT_RATING,
+  SORT_MOVE,
+  SORT_WEAP,
+  SORT_AVAILABILITY,
+  SORT_IV_HP,
+  SORT_IV_ATK,
+  SORT_IV_SPD,
+  SORT_IV_DEF,
+  SORT_IV_RES,
+  SORT_ORIGIN,
+  SORT_ID_INT,
+  SORT_NOTHING,
+  ASC,
+  DESC,
+} from '~/utils/types/units-sorters'
 
 definePageMeta({
   layout: 'units-filters',
@@ -258,22 +300,14 @@ const headers = computed(() =>
     ALL_COLUMNS,
     (column) => column == COLUMN_THUMBNAIL || columns.value.has(column),
   ).map((column) => ({
-    title:
-      column === COLUMN_THUMBNAIL
-        ? undefined
-        : t(`units.index.headers.${column}`),
+    title: t(`units.index.headers.${column}`),
     key: column,
     align: COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
-    sortable: false,
+    sortable: column !== COLUMN_THUMBNAIL,
   })),
 )
 
 interface Options {
-  // page: Ref<number>
-  // itemsPerPage: Ref<number>
-  // sortBy: Ref<readonly DataTableSortItem[]>
-  // groupBy: Ref<readonly DataTableSortItem[]>
-  // search: Ref<string | undefined>
   page: number
   itemsPerPage: number
   sortBy: DataTableSortItem[]
@@ -302,14 +336,74 @@ const items = computed(() =>
   storeUnitsFilters.unitsFilteredSorted.slice(start.value, end.value),
 )
 
+function translate(sortBy: DataTableSortItem[]) {
+  return {
+    fields: sortBy.map((column) => {
+      switch (column.key) {
+        case COLUMN_NAME:
+          return SORT_NAME
+        case COLUMN_GENDER:
+          return SORT_GENDER
+        case COLUMN_HAS_RESPLENDENT:
+          return SORT_HAS_RESPLENDENT
+        case COLUMN_BOOK:
+          return SORT_BOOK
+        case COLUMN_RELEASE_DATE:
+          return SORT_RELEASE_DATE
+        case COLUMN_BST:
+          return SORT_BST
+        case COLUMN_MAX_SCORE:
+          return SORT_MAX_SCORE
+        case COLUMN_RATING:
+          return SORT_RATING
+        // proxy fields
+        case COLUMN_MOVE:
+          return SORT_MOVE
+        case COLUMN_WEAPON:
+          return SORT_WEAP
+        case COLUMN_AVAILABILITY:
+          return SORT_AVAILABILITY
+        case COLUMN_IV_HP:
+          return SORT_IV_HP
+        case COLUMN_IV_ATK:
+          return SORT_IV_ATK
+        case COLUMN_IV_SPD:
+          return SORT_IV_SPD
+        case COLUMN_IV_DEF:
+          return SORT_IV_DEF
+        case COLUMN_IV_RES:
+          return SORT_IV_RES
+        case COLUMN_ORIGIN:
+          return SORT_ORIGIN
+        case COLUMN_ID_INT:
+          return SORT_ID_INT
+        default:
+          console.warn(`unhandled column key: ${column.key}`)
+          return SORT_NOTHING
+      }
+    }),
+    orders: sortBy.map((column) => {
+      switch (column.order) {
+        case 'asc':
+          return ASC
+        case 'desc':
+          return DESC
+        default:
+          console.warn(`unhandled column order: ${column.order}`)
+          return ASC
+      }
+    }),
+  }
+}
+
 function updateUnits(options: Options) {
-  // options { page: 1, itemsPerPage: 10, sortBy: [], groupBy: [], search: undefined }
-  // console.log('options', options, typeof options.sortBy, typeof options.groupBy)
   page.value = options.page
   itemsPerPage.value = options.itemsPerPage
   sortBy.value = options.sortBy
   groupBy.value = options.groupBy
   search.value = options.search
+
+  storeUnitsFilters.sorters = translate(options.sortBy)
 }
 
 const columnsForSelect = computed(() =>

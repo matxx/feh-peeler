@@ -17,20 +17,26 @@
 </template>
 
 <script setup lang="ts">
-import type { ISorter } from '@/utils/types/units-filters'
-import { ASC, DESC, NAME, MOVE, WEAP } from '@/utils/types/units-filters'
+import {
+  ASC,
+  DESC,
+  SORT_NAME,
+  SORT_MOVE,
+  SORT_WEAP,
+  type ISorter,
+} from '@/utils/types/units-sorters'
 defineProps<{
   size: number
 }>()
 defineEmits(['update'])
 
 const descs: ISorter[] = [
-  { field: MOVE, order: ASC },
-  { field: MOVE, order: DESC },
-  { field: WEAP, order: ASC },
-  { field: WEAP, order: DESC },
-  { field: NAME, order: ASC },
-  { field: NAME, order: DESC },
+  { field: SORT_MOVE, order: ASC },
+  { field: SORT_MOVE, order: DESC },
+  { field: SORT_WEAP, order: ASC },
+  { field: SORT_WEAP, order: DESC },
+  { field: SORT_NAME, order: ASC },
+  { field: SORT_NAME, order: DESC },
 ]
 </script>
 

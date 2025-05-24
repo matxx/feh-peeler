@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="mb-3">
-      <h5>
+    <div
+      v-if="showSorters"
+      class="mb-3"
+    >
+      <h5 class="mb-3">
         {{ t('scores.headers.sort') }}
       </h5>
       <div>
@@ -14,7 +17,7 @@
     </div>
 
     <div class="mb-3">
-      <h5>
+      <h5 class="mb-3">
         {{ t('scores.headers.filters') }}
       </h5>
       <div>
@@ -30,16 +33,23 @@
 </template>
 
 <script setup lang="ts">
-import type { IFilters, ISorters } from '@/utils/types/units-filters'
+import type { IFilters } from '@/utils/types/units-filters'
+import type { ISorters } from '@/utils/types/units-sorters'
 
 const filters = defineModel<IFilters>('filters')
-defineProps<{
-  sorters: ISorters
-  sizeFilters: number
-  sizeSorters: number
-  filterNameLoading: boolean
-  filterNameErrorMessages: string[]
-}>()
+withDefaults(
+  defineProps<{
+    sorters: ISorters
+    sizeFilters: number
+    sizeSorters: number
+    filterNameLoading: boolean
+    filterNameErrorMessages: string[]
+    showSorters?: boolean
+  }>(),
+  {
+    showSorters: false,
+  },
+)
 defineEmits(['update:sorters'])
 
 const { t } = useI18n()

@@ -1,0 +1,108 @@
+export const COLUMN_THUMBNAIL = 'thumbnail'
+
+export const COLUMN_NAME = 'name'
+export const COLUMN_GENDER = 'gender'
+export const COLUMN_HAS_RESPLENDENT = 'has_respl'
+export const COLUMN_AVAILABILITY = 'availability'
+export const COLUMN_WEAPON = 'weapon'
+export const COLUMN_MOVE = 'move'
+export const COLUMN_VERSION = 'version'
+export const COLUMN_GENERATION = 'generation'
+export const COLUMN_BOOK = 'book'
+export const COLUMN_RELEASE_DATE = 'release_date'
+export const COLUMN_GAME = 'game'
+export const COLUMN_IV_HP = 'HP'
+export const COLUMN_IV_ATK = 'Atk'
+export const COLUMN_IV_SPD = 'Spd'
+export const COLUMN_IV_DEF = 'Def'
+export const COLUMN_IV_RES = 'Res'
+export const COLUMN_BST = 'bst'
+export const COLUMN_ELEMENT = 'element'
+export const COLUMN_ARTIST = 'artist'
+export const COLUMN_VA = 'VA'
+export const COLUMN_DRAGONFLOWERS = 'dragonflowers'
+export const COLUMN_MAX_SCORE = 'max_score'
+export const COLUMN_RATING = 'game8_rating'
+export const COLUMN_ORIGIN = 'origin'
+export const COLUMN_ID_INT = 'id_int'
+
+export const DEFAULT_COLUMNS = [
+  COLUMN_AVAILABILITY,
+  COLUMN_WEAPON,
+  COLUMN_MOVE,
+  COLUMN_VERSION,
+  COLUMN_IV_HP,
+  COLUMN_IV_ATK,
+  COLUMN_IV_SPD,
+  COLUMN_IV_DEF,
+  COLUMN_IV_RES,
+  COLUMN_BST,
+]
+
+export const ALL_COLUMNS = [
+  COLUMN_THUMBNAIL,
+  COLUMN_NAME,
+  COLUMN_ORIGIN,
+  COLUMN_ID_INT,
+  COLUMN_GENDER,
+  COLUMN_HAS_RESPLENDENT,
+  COLUMN_AVAILABILITY,
+  COLUMN_WEAPON,
+  COLUMN_MOVE,
+  // COLUMN_VERSION,
+  // COLUMN_GENERATION,
+  COLUMN_BOOK,
+  COLUMN_RELEASE_DATE,
+  // COLUMN_GAME,
+  COLUMN_IV_HP,
+  COLUMN_IV_ATK,
+  COLUMN_IV_SPD,
+  COLUMN_IV_DEF,
+  COLUMN_IV_RES,
+  COLUMN_BST,
+  // COLUMN_ELEMENT,
+  // COLUMN_ARTIST,
+  // COLUMN_VA,
+  // COLUMN_DRAGONFLOWERS,
+  COLUMN_MAX_SCORE,
+  COLUMN_RATING,
+]
+
+export const COLUMNS_IN_FILTERS = [
+  COLUMN_NAME,
+  COLUMN_ORIGIN,
+  COLUMN_GENDER,
+  COLUMN_HAS_RESPLENDENT,
+  COLUMN_AVAILABILITY,
+  COLUMN_WEAPON,
+  COLUMN_MOVE,
+  // COLUMN_VERSION,
+  // COLUMN_GENERATION,
+  COLUMN_BOOK,
+  COLUMN_RELEASE_DATE,
+  // COLUMN_GAME,
+  COLUMN_IV_HP,
+  COLUMN_IV_ATK,
+  COLUMN_IV_SPD,
+  COLUMN_IV_DEF,
+  COLUMN_IV_RES,
+  COLUMN_BST,
+  // COLUMN_ELEMENT,
+  // COLUMN_ARTIST,
+  // COLUMN_VA,
+  // COLUMN_DRAGONFLOWERS,
+  COLUMN_MAX_SCORE,
+  COLUMN_RATING,
+]
+
+export const COLUMNS_START_ALIGNED = new Set([
+  COLUMN_NAME,
+  COLUMN_ORIGIN,
+  COLUMN_GENDER,
+  COLUMN_AVAILABILITY,
+  COLUMN_GAME,
+  COLUMN_ARTIST,
+  COLUMN_VA,
+  COLUMN_DRAGONFLOWERS,
+  // COLUMN_RATING,
+])

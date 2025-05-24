@@ -1,8 +1,3 @@
-import orderBy from 'lodash-es/orderBy'
-
-import { SORTED_MOVE_TYPES_INDEXES } from '@/utils/types/moves'
-import { SORTED_WEAPON_TYPES_INDEXES } from '@/utils/types/weapons'
-import type { IUnit } from '@/utils/types/units'
 import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import type { AV_Availability } from '@/utils/types/units-availabilities'
@@ -77,46 +72,3 @@ export const createFilters = (constants?: IConstants) =>
       [BST]: [0, constants ? constants.units_max_bst : 212],
     },
   }) as IFilters
-
-export const ASC = 'asc'
-export const DESC = 'desc'
-
-export type Order = typeof ASC | typeof DESC
-
-export const NAME = 'full_name'
-export const MOVE = 'move_type'
-export const WEAP = 'weapon_type'
-
-export type SortingField = typeof NAME | typeof MOVE | typeof WEAP
-
-export interface ISorter {
-  field: SortingField
-  order: Order
-}
-
-export interface ISorters {
-  fields: SortingField[]
-  orders: Order[]
-}
-
-export const createSorters = () =>
-  ({
-    fields: [MOVE, WEAP, NAME],
-    orders: [ASC, ASC, ASC],
-  }) as ISorters
-
-export function sort(units: IUnit[], sorters: ISorters) {
-  return orderBy(
-    units,
-    sorters.fields.map((field) => {
-      switch (field) {
-        case MOVE:
-          return (unit: IUnit) => SORTED_MOVE_TYPES_INDEXES[unit.move_type]
-        case WEAP:
-          return (unit: IUnit) => SORTED_WEAPON_TYPES_INDEXES[unit.weapon_type]
-      }
-      return field
-    }),
-    sorters.orders,
-  )
-}

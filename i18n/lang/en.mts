@@ -3,6 +3,7 @@ import * as grades from '~/utils/types/grades'
 import { IVS_HASH } from '~/utils/types/IVs'
 import * as skills from '~/utils/types/skills'
 import * as units from '~/utils/types/units'
+import * as columns from '~/utils/types/units-columns'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
@@ -295,14 +296,10 @@ export default {
       'skills-tree': 'Skills Tree',
 
       units: 'Units',
-      'units-name': 'Units Details',
-      'units-name-tab': 'Units Details',
       'units-maximum-scores': 'Units By Max Scores',
       'catalog-of-heroes': 'FEHdex / Catalog of Heroes',
 
       skills: 'Skills Details',
-      'skills-name': 'Skills - Details',
-      'skills-name-tab': 'Skills Details',
       'skills-fodders': 'Skills Fodders',
       'skills-lists': 'Skills Ratings',
 
@@ -371,30 +368,33 @@ export default {
   units: {
     index: {
       columnsDisplayed: 'Displayed columns',
+      resetSorting: 'Reset sorting',
       headers: {
-        [units.COLUMN_NAME]: 'Name',
-        [units.COLUMN_GENDER]: 'Gender',
-        [units.COLUMN_HAS_RESPLENDENT]: 'Resplendent',
-        [units.COLUMN_AVAILABILITY]: 'Availability',
-        [units.COLUMN_WEAPON]: 'Weapon',
-        [units.COLUMN_MOVE]: 'Move',
-        [units.COLUMN_VERSION]: 'Version',
-        [units.COLUMN_GENERATION]: 'Generation',
-        [units.COLUMN_BOOK]: 'Book',
-        [units.COLUMN_RELEASE_DATE]: 'Release Date',
-        [units.COLUMN_GAME]: 'Game',
-        [units.COLUMN_IV_HP]: 'HP',
-        [units.COLUMN_IV_ATK]: 'Atk',
-        [units.COLUMN_IV_SPD]: 'Spd',
-        [units.COLUMN_IV_DEF]: 'Def',
-        [units.COLUMN_IV_RES]: 'Res',
-        [units.COLUMN_BST]: 'BST',
-        [units.COLUMN_ELEMENT]: 'Element',
-        [units.COLUMN_ARTIST]: 'Artist',
-        [units.COLUMN_VA]: 'VA',
-        [units.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
-        [units.COLUMN_RATING]: 'Rating',
-        [units.COLUMN_ORIGIN]: 'Origin',
+        [columns.COLUMN_THUMBNAIL]: 'Thumbnail',
+        [columns.COLUMN_NAME]: 'Name',
+        [columns.COLUMN_GENDER]: 'Gender',
+        [columns.COLUMN_HAS_RESPLENDENT]: 'Resplendent',
+        [columns.COLUMN_AVAILABILITY]: 'Availability',
+        [columns.COLUMN_WEAPON]: 'Weapon',
+        [columns.COLUMN_MOVE]: 'Move',
+        [columns.COLUMN_VERSION]: 'Version',
+        [columns.COLUMN_GENERATION]: 'Generation',
+        [columns.COLUMN_BOOK]: 'Book',
+        [columns.COLUMN_RELEASE_DATE]: 'Release Date',
+        [columns.COLUMN_GAME]: 'Game',
+        [columns.COLUMN_IV_HP]: 'HP',
+        [columns.COLUMN_IV_ATK]: 'Atk',
+        [columns.COLUMN_IV_SPD]: 'Spd',
+        [columns.COLUMN_IV_DEF]: 'Def',
+        [columns.COLUMN_IV_RES]: 'Res',
+        [columns.COLUMN_BST]: 'BST',
+        [columns.COLUMN_ELEMENT]: 'Element',
+        [columns.COLUMN_ARTIST]: 'Artist',
+        [columns.COLUMN_VA]: 'VA',
+        [columns.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
+        [columns.COLUMN_RATING]: 'Rating',
+        [columns.COLUMN_ORIGIN]: 'Origin',
+        [columns.COLUMN_MAX_SCORE]: 'Max Score',
       },
     },
     show: {

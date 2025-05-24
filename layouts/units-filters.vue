@@ -22,6 +22,7 @@
       <UnitScoresSettings
         v-model:filters="filters"
         v-model:sorters="sorters"
+        :show-sorters="showSorters"
         :size-sorters="sizeSorters"
         :size-filters="sizeFilters"
         :filter-name-loading="storeUnitsFilters.isUpdating"
@@ -108,4 +109,10 @@ const sizeFilters = 20
 
 const storeUnitsFilters = useStoreUnitsFilters()
 const { filters, sorters } = storeToRefs(storeUnitsFilters)
+
+const route = useRoute()
+const getRouteBaseName = useRouteBaseName()
+const showSorters = computed(
+  () => getRouteBaseName(route) === 'units-maximum-scores',
+)
 </script>

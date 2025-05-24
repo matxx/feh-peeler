@@ -218,6 +218,7 @@
 import sortBy from 'lodash-es/sortBy'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
+import { createDefaultSortersForUnitsByMaxScore } from '~/utils/types/units-sorters'
 
 definePageMeta({
   layout: 'units-filters',
@@ -242,6 +243,7 @@ const sizeCorner = 15
 
 const storeUnitsFilters = useStoreUnitsFilters()
 storeUnitsFilters.$reset()
+storeUnitsFilters.sorters = createDefaultSortersForUnitsByMaxScore()
 
 const unitsByMaxScore = computed(() =>
   groupBy(storeUnitsFilters.unitsFilteredSorted, 'max_score'),

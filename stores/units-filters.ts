@@ -2,15 +2,16 @@ import flow from 'lodash-es/flow'
 import some from 'lodash-es/some'
 import every from 'lodash-es/every'
 import filter from 'lodash-es/filter'
+import orderBy from 'lodash-es/orderBy'
 
-import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
+import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
-import * as a from '@/utils/types/units-availabilities'
+import * as a from '~/utils/types/units-availabilities'
 import {
   STATS,
   type IUnitStatById,
   type StatOrBST,
-} from '@/utils/types/units-stats'
+} from '~/utils/types/units-stats'
 import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
@@ -18,11 +19,26 @@ import {
   NORMAL_DIVINE_CODES,
   LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
-} from '@/utils/types/obfuscated-keys'
+} from '~/utils/types/obfuscated-keys'
 
-import type { IFilters, ISorter, ISorters } from '@/utils/types/units-filters'
-import { createFilters, createSorters, sort } from '@/utils/types/units-filters'
 import type { IUnit } from '~/utils/types/units'
+import { createFilters, type IFilters } from '~/utils/types/units-filters'
+import {
+  SORT_MOVE,
+  SORT_WEAP,
+  SORT_AVAILABILITY,
+  SORT_IV_HP,
+  SORT_IV_ATK,
+  SORT_IV_SPD,
+  SORT_IV_DEF,
+  SORT_IV_RES,
+  SORT_NOTHING,
+  createEmptySorters,
+  type ISorter,
+  type ISorters,
+} from '~/utils/types/units-sorters'
+import { SORTED_MOVE_TYPES_INDEXES } from '~/utils/types/moves'
+import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
 
 function filterName(u: IUnit, r?: RegExp) {
   if (!r) return true
@@ -152,11 +168,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 
   const filters = ref<IFilters>(createFilters(storeDataConstants.constants))
-  const sorters = ref<ISorters>(createSorters())
+  const sorters = ref<ISorters>(createEmptySorters())
 
   function $reset() {
     filters.value = createFilters(storeDataConstants.constants)
-    sorters.value = createSorters()
+    sorters.value = createEmptySorters()
   }
 
   const anyFilterActive = computed(
@@ -245,6 +261,43 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     [filters, { deep: true }],
     [() => storeDataUnits.units],
   ])
+
+  function sort(units: IUnit[], sorters: ISorters) {
+    return orderBy(
+      units,
+      sorters.fields.map((field) => {
+        switch (field) {
+          case SORT_MOVE:
+            return (unit: IUnit) => SORTED_MOVE_TYPES_INDEXES[unit.move_type]
+          case SORT_WEAP:
+            return (unit: IUnit) =>
+              SORTED_WEAPON_TYPES_INDEXES[unit.weapon_type]
+          case SORT_AVAILABILITY:
+            return (unit: IUnit) =>
+              storeDataUnitsAvailabilities.availabiltySortingVector(unit)
+          case SORT_IV_HP:
+            return (unit: IUnit) =>
+              storeDataUnitsStats.statsById[unit.id].level40_hp
+          case SORT_IV_ATK:
+            return (unit: IUnit) =>
+              storeDataUnitsStats.statsById[unit.id].level40_atk
+          case SORT_IV_SPD:
+            return (unit: IUnit) =>
+              storeDataUnitsStats.statsById[unit.id].level40_spd
+          case SORT_IV_DEF:
+            return (unit: IUnit) =>
+              storeDataUnitsStats.statsById[unit.id].level40_def
+          case SORT_IV_RES:
+            return (unit: IUnit) =>
+              storeDataUnitsStats.statsById[unit.id].level40_res
+          case SORT_NOTHING:
+            return () => 0
+        }
+        return field
+      }),
+      sorters.orders,
+    )
+  }
 
   const unitsFiltered = ref<IUnit[]>([])
   const unitsFilteredSorted = computed(() =>
