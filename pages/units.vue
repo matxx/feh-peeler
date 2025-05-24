@@ -194,7 +194,7 @@
       </template>
     </v-data-table-server>
 
-    <!-- TODO: version / generation / release date / game / element / artist / VA / dragonflowers -->
+    <!-- TODO: version / generation / game / element / artist / VA / dragonflowers -->
   </div>
 </template>
 
@@ -206,6 +206,7 @@ import {
   DEFAULT_COLUMNS,
   ALL_COLUMNS,
   COLUMNS_IN_FILTERS,
+  COLUMNS_START_ALIGNED,
   COLUMN_THUMBNAIL,
   COLUMN_NAME,
   COLUMN_AVAILABILITY,
@@ -261,8 +262,8 @@ const headers = computed(() =>
         ? undefined
         : t(`units.index.headers.${column}`),
     key: column,
-    align: column === COLUMN_HAS_RESPLENDENT ? 'center' : 'start',
-    sortable: false, // TODO
+    align: COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
+    sortable: column !== COLUMN_THUMBNAIL,
   })),
 )
 

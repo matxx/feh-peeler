@@ -250,6 +250,18 @@ export const COLUMNS_IN_FILTERS = [
   COLUMN_RATING,
 ]
 
+export const COLUMNS_START_ALIGNED = new Set([
+  COLUMN_NAME,
+  COLUMN_ORIGIN,
+  COLUMN_GENDER,
+  COLUMN_AVAILABILITY,
+  COLUMN_GAME,
+  COLUMN_ARTIST,
+  COLUMN_VA,
+  COLUMN_DRAGONFLOWERS,
+  // COLUMN_RATING,
+])
+
 export type UnitsByAvailability = {
   [key in Availability]: IUnit[]
 }
