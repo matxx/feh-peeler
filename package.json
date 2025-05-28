@@ -40,7 +40,7 @@
     "@mdi/font": "^7.4.47",
     "@nuxthub/core": "^0.8.27",
     "@pinia/nuxt": "^0.11.0",
-    "@sentry/nuxt": "^9.20.0",
+    "@sentry/nuxt": "^9.22.0",
     "@vee-validate/nuxt": "^4.15.0",
     "@vee-validate/zod": "^4.15.0",
     "axios": "^1.8.4",
