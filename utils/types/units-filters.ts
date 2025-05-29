@@ -1,8 +1,7 @@
 import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import type { AV_Availability } from '@/utils/types/units-availabilities'
-import { BST, HP, ATK, SPD, DEF, RES } from '@/utils/types/units-stats'
-import type { IConstants } from '~/utils/types/constants'
+import type { IUnitStatMinMax } from '@/utils/types/units-stats'
 
 export const TRAIT_AIDED = 'is_aided'
 export const TRAIT_ASCENDED = 'is_ascended'
@@ -32,8 +31,7 @@ export interface IFilters {
   moves: Set<MoveType>
   traits: Set<Trait>
 
-  // TODO: use availabilities from `~/utils/types/skills-availabilities.ts` ?
-  // (currently using `~/utils/types/units-availabilities.ts`)
+  // TODO: use Availability instead of AV_Availability
   availabilities: Set<AV_Availability>
 
   isRefresher: boolean | null
@@ -42,37 +40,22 @@ export interface IFilters {
   hasPrfWeapon: boolean | null
   hasPrfSkill: boolean | null
 
-  stats: {
-    [HP]: [number, number]
-    [ATK]: [number, number]
-    [SPD]: [number, number]
-    [DEF]: [number, number]
-    [RES]: [number, number]
-    [BST]: [number, number]
-  }
+  stats: IUnitStatMinMax
 }
 
-export const createFilters = (constants?: IConstants) =>
-  ({
-    name: null,
+export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
+  name: null,
 
-    weapons: new Set(),
-    moves: new Set(),
-    traits: new Set(),
-    availabilities: new Set(),
+  weapons: new Set(),
+  moves: new Set(),
+  traits: new Set(),
+  availabilities: new Set(),
 
-    isRefresher: null,
-    hasResplendent: null,
-    isBrave: null,
-    hasPrfWeapon: null,
-    hasPrfSkill: null,
+  isRefresher: null,
+  hasResplendent: null,
+  isBrave: null,
+  hasPrfWeapon: null,
+  hasPrfSkill: null,
 
-    stats: {
-      [HP]: [0, constants ? constants.units_max_hp : 60],
-      [ATK]: [0, constants ? constants.units_max_atk : 50],
-      [SPD]: [0, constants ? constants.units_max_spd : 48],
-      [DEF]: [0, constants ? constants.units_max_def : 50],
-      [RES]: [0, constants ? constants.units_max_res : 50],
-      [BST]: [0, constants ? constants.units_max_bst : 212],
-    },
-  }) as IFilters
+  stats,
+})

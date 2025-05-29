@@ -41,16 +41,10 @@
     </template>
 
     <template #[`item.game8_rating`]="{ item }">
-      {{
-        storeDataSkillsRatingsGame8.skillsRatingsGame8ById[item.baseId]
-          ?.game8_rating
-      }}
+      {{ storeDataSkillsRatingsGame8.byId[item.baseId]?.game8_rating }}
     </template>
     <template #[`item.game8_grade`]="{ item }">
-      {{
-        storeDataSkillsRatingsGame8.skillsRatingsGame8ById[item.baseId]
-          ?.game8_grade
-      }}
+      {{ storeDataSkillsRatingsGame8.byId[item.baseId]?.game8_grade }}
     </template>
     <template #[`item.description`]="{ item }">
       <div

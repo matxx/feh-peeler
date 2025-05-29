@@ -157,7 +157,7 @@ export const WEAPON_AGGREGATED_TYPES: AggregatedWeaponType[] = [
   WEAPON_C,
 ]
 
-export const WEAPON_AGGREGATIONS_FOR_FILTERS: {
+export const WEAPON_AGGREGATIONS: {
   [key in AggregatedWeaponType]: WeaponType[]
 } = {
   [WEAPON_A_ME]: [WEAPON_R_SW, WEAPON_B_LA, WEAPON_G_AX],
@@ -272,7 +272,7 @@ export const WEAPON_COLOR_FOR_TYPE: {
   [WEAPON_C_BE]: WEAPON_C,
 }
 
-export const SORTED_WEAPONS_MATRIX_FOR_FILTERS: WeaponType[][] = [
+export const SORTED_WEAPONS_MATRIX_FOR_UNITS_FILTERS: WeaponType[][] = [
   [WEAPON_R_SW, WEAPON_B_LA, WEAPON_G_AX],
   [WEAPON_R_BO, WEAPON_B_BO, WEAPON_G_BO, WEAPON_C_BO],
   [WEAPON_R_DA, WEAPON_B_DA, WEAPON_G_DA, WEAPON_C_DA],
@@ -281,7 +281,7 @@ export const SORTED_WEAPONS_MATRIX_FOR_FILTERS: WeaponType[][] = [
   [WEAPON_R_BE, WEAPON_B_BE, WEAPON_G_BE, WEAPON_C_BE],
 ]
 
-export const WEAPON_FAMILY_TYPES_FOR_FILTERS: WeaponFamily[] = [
+export const SORTED_WEAPON_FAMILY_TYPES: WeaponFamily[] = [
   WEAPON_A_SW,
   WEAPON_A_BO,
   WEAPON_A_DA,
@@ -424,3 +424,9 @@ export function getSortableWeaponType(unit: IUnitData) {
       return 57
   }
 }
+
+export const WEAPONS_FOR_SKILLS_FILTERS: ExtendedWeaponType[][] = [
+  [WEAPON_R_SW, WEAPON_B_LA, WEAPON_G_AX, WEAPON_C_ST],
+  [WEAPON_R_TO, WEAPON_B_TO, WEAPON_G_TO, WEAPON_C_TO],
+  [WEAPON_A_BO, WEAPON_A_DA, WEAPON_A_BR, WEAPON_A_BE],
+]

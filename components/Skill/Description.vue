@@ -14,9 +14,7 @@ import type { ISkill } from '~/utils/types/skills'
 const props = defineProps<{ skill: ISkill }>()
 const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
 const description = computed(
-  () =>
-    storeDataSkillsDescriptions.skillsDescriptionsById[props.skill.id]
-      ?.description,
+  () => storeDataSkillsDescriptions.byId[props.skill.id]?.description,
 )
 const lines = computed(() =>
   description.value ? description.value.split('<br>') : [],

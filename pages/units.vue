@@ -92,7 +92,6 @@
 
       <template #[`item.${COLUMN_THUMBNAIL}`]="{ item }">
         <NuxtLink
-          class="text-no-wrap"
           href="#"
           @click.prevent="storeGlobals.showUnit(item.id)"
         >
@@ -104,13 +103,7 @@
         </NuxtLink>
       </template>
       <template #[`item.${COLUMN_NAME}`]="{ item }">
-        <NuxtLink
-          class="text-no-wrap"
-          href="#"
-          @click.prevent="storeGlobals.showUnit(item.id)"
-        >
-          {{ item.full_name }}
-        </NuxtLink>
+        {{ item.full_name }}
       </template>
       <template #[`item.${COLUMN_HAS_RESPLENDENT}`]="{ item }">
         <v-icon :color="item.has_respl ? 'green' : 'red'">

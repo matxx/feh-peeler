@@ -77,14 +77,12 @@ export interface ISorters {
   orders: Order[]
 }
 
-export const createEmptySorters = () =>
-  ({
-    fields: [],
-    orders: [],
-  }) as ISorters
+export const createEmptySorters = (): ISorters => ({
+  fields: [],
+  orders: [],
+})
 
-export const createDefaultSortersForUnitsByMaxScore = () =>
-  ({
-    fields: [SORT_MOVE, SORT_WEAP, SORT_NAME],
-    orders: [ASC, ASC, ASC],
-  }) as ISorters
+export const createDefaultSortersForUnitsByMaxScore = (): ISorters => ({
+  fields: [SORT_MOVE, SORT_WEAP, SORT_NAME],
+  orders: [ASC, ASC, ASC],
+})

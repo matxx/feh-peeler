@@ -47,8 +47,7 @@ export type IUnitAvailabilityById = {
   [index: SkillId]: IUnitAvailability
 }
 
-// MONKEY PATCH :
-// do not use 0, it causes problems in units scores filters
+// NB : do not use 0, it causes problems in units scores filters
 export const AV_SCORE_GENERIC_POOL_3_4 = 5
 export const AV_SCORE_HEROIC_GRAILS = 10
 export const AV_SCORE_LIMITED_DIVINE_CODES = 20
@@ -136,6 +135,27 @@ export const SORTED_AVAILABILITIES: Availability[] = [
   AV_LIMITED_HEROES,
   AV_HEROIC_GRAILS,
   AV_OTHER,
+]
+
+export const AVAILABILITIES_FOR_FILTERS_LINE_1: Availability[] = [
+  AV_GENERIC_POOL_3_4,
+  AV_HEROIC_GRAILS,
+  // AV_LIMITED_DIVINE_CODES,
+  // AV_NORMAL_DIVINE_CODES,
+  AV_SPECIAL_POOL_4,
+]
+
+export const AVAILABILITIES_FOR_FILTERS_LINE_2: Availability[] = [
+  AV_GENERIC_POOL_45,
+  AV_SPECIAL_POOL_45,
+  AV_GENERIC_POOL_5,
+  AV_SPECIAL_POOL_5,
+  AV_LIMITED_HEROES,
+]
+
+export const AVAILABILITIES_FOR_FILTERS = [
+  AVAILABILITIES_FOR_FILTERS_LINE_1,
+  AVAILABILITIES_FOR_FILTERS_LINE_2,
 ]
 
 export function getAvailability(availability: IUnitAvailability): Availability {

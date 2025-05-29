@@ -42,7 +42,7 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       keyBy(availabilities.value, 'id'),
     )
 
-    function availabiltySortingVector(unit: IUnit) {
+    function availabilitySortingValue(unit: IUnit) {
       const availability = availabilitiesById.value[unit.id]
       if (!availability) return AV_SCORE_INFINITY
 
@@ -107,7 +107,7 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       availabilities,
       availabilitiesById,
 
-      availabiltySortingVector,
+      availabilitySortingValue,
 
       isFiveStarLocked,
       isIdFiveStarLocked,

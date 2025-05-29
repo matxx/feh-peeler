@@ -18,33 +18,33 @@
         />
       </v-overlay>
 
-      <UnitDrawerAll
+      <SkillDrawerAll
         v-model:filters="filters"
         :sorters="sorters"
         :show-sorters="showSorters"
         :size-sorters="sizeSorters"
         :size-filters="sizeFilters"
-        :filter-name-loading="storeUnitsFilters.isUpdating"
-        :filter-name-error-messages="storeUnitsFilters.errorMessages"
+        :filter-name-loading="storeSkillsFilters.isUpdating"
+        :filter-name-error-messages="storeSkillsFilters.errorMessages"
         class="pa-3"
-        @update:sorter="storeUnitsFilters.updateSorter"
+        @update:sorter="storeSkillsFilters.updateSorter"
       />
     </v-navigation-drawer>
 
     <Teleport
       v-if="mobile"
-      to="#mobile-units-filter-name"
+      to="#mobile-skills-filter-name"
     >
       <v-text-field
         v-model="filters.name"
-        :loading="storeUnitsFilters.isUpdating"
-        :color="storeUnitsFilters.searchIsActive ? 'success' : 'primary'"
-        :counter="storeUnitsFilters.counter"
+        :loading="storeSkillsFilters.isUpdating"
+        :color="storeSkillsFilters.searchIsActive ? 'success' : 'primary'"
+        :counter="storeSkillsFilters.counter"
         density="compact"
         clearable
         class="mt-5"
-        :label="t('scores.labels.unitName')"
-        :error-messages="storeUnitsFilters.errorMessages"
+        :label="t('skills.filters.skillName')"
+        :error-messages="storeSkillsFilters.errorMessages"
       >
         <template #prepend>
           <v-btn
@@ -54,7 +54,7 @@
           >
             <v-icon
               :color="
-                storeUnitsFilters.anyFilterActiveExceptName
+                storeSkillsFilters.anyFilterActiveExceptName
                   ? 'primary'
                   : undefined
               "
@@ -103,21 +103,20 @@ watch(
 )
 
 const { isLoading } = useDataStores([
-  useStoreDataUnits(),
-  useStoreDataUnitsAvailabilities(),
-  useStoreDataUnitsStats(),
   useStoreDataSkills(),
+  useStoreDataSkillsAvailabilities(),
 ])
 
 const sizeSorters = 20
 const sizeFilters = 20
 
-const storeUnitsFilters = useStoreUnitsFilters()
-const { filters, sorters } = storeToRefs(storeUnitsFilters)
+const storeSkillsFilters = useStoreSkillsFilters()
+const { filters, sorters } = storeToRefs(storeSkillsFilters)
 
-const route = useRoute()
-const getRouteBaseName = useRouteBaseName()
-const showSorters = computed(
-  () => getRouteBaseName(route) === 'units-maximum-scores',
-)
+const showSorters = false
+// const route = useRoute()
+// const getRouteBaseName = useRouteBaseName()
+// const showSorters = computed(
+//   () => getRouteBaseName(route) !== 'skills',
+// )
 </script>

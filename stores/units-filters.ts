@@ -7,11 +7,7 @@ import orderBy from 'lodash-es/orderBy'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
 import * as a from '~/utils/types/units-availabilities'
-import {
-  STATS,
-  type IUnitStatById,
-  type StatOrBST,
-} from '~/utils/types/units-stats'
+import { STATS, type IUnitStatById } from '~/utils/types/units-stats'
 import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
@@ -39,6 +35,8 @@ import {
 } from '~/utils/types/units-sorters'
 import { SORTED_MOVE_TYPES_INDEXES } from '~/utils/types/moves'
 import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
+import { objectEntries } from '~/utils/functions/typeSafe'
+import { filterBoolean } from '~/utils/functions/filterBoolean'
 
 function filterName(u: IUnit, r?: RegExp) {
   if (!r) return true
@@ -58,16 +56,6 @@ function filterWeaponType(filters: IFilters, u: IUnit) {
   return filters.weapons.has(u.weapon_type)
 }
 
-function filterBoolean(condition: boolean | null, bool: boolean) {
-  switch (condition) {
-    case true:
-      return bool
-    case false:
-      return !bool
-    default:
-      return true
-  }
-}
 const filterRefresher = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.isRefresher, u.is_refresher)
 const filterResplendent = (filters: IFilters, u: IUnit) =>
@@ -171,15 +159,17 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const storeDataUnitsStats = useStoreDataUnitsStats()
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 
-  const filters = ref<IFilters>(createFilters(storeDataConstants.constants))
+  const filters = ref<IFilters>(
+    createFilters(storeDataConstants.defaulUnitStatsMinMax),
+  )
   const sorters = ref<ISorters>(createEmptySorters())
 
   function $reset() {
-    filters.value = createFilters(storeDataConstants.constants)
+    filters.value = createFilters(storeDataConstants.defaulUnitStatsMinMax)
     sorters.value = createEmptySorters()
   }
 
-  const anyFilterActive = computed(
+  const anyFilterActiveExceptName = computed(
     () =>
       filters.value.traits.size > 0 ||
       filters.value.moves.size > 0 ||
@@ -190,14 +180,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.isBrave !== null ||
       filters.value.hasPrfWeapon !== null ||
       filters.value.hasPrfSkill !== null ||
-      // @ts-expect-error unsafe typings
       some(
-        filters.value.stats,
-        ([min, max], stat: StatOrBST) =>
-          min > 0 ||
-          (storeDataConstants.constants
-            ? max < storeDataConstants.constants[`units_max_${stat}`]
-            : false),
+        objectEntries(filters.value.stats),
+        ([stat, [min, max]]) =>
+          min > storeDataConstants.defaulUnitStatsMinMax[stat][0] ||
+          max < storeDataConstants.defaulUnitStatsMinMax[stat][1],
       ) ||
       false,
   )
@@ -284,7 +271,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
               SORTED_WEAPON_TYPES_INDEXES[unit.weapon_type]
           case SORT_AVAILABILITY:
             return (unit: IUnit) =>
-              storeDataUnitsAvailabilities.availabiltySortingVector(unit)
+              storeDataUnitsAvailabilities.availabilitySortingValue(unit)
           case SORT_IV_HP:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_hp
@@ -324,7 +311,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
     isUpdating,
     searchIsActive,
-    anyFilterActive,
+    anyFilterActiveExceptName,
     counter,
     errorMessages,
 

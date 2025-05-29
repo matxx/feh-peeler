@@ -5,25 +5,24 @@ import type { SkillId, ISkillDescription } from '@/utils/types/skills'
 export const useStoreDataSkillsDescriptions = defineStore(
   'data/skills-descriptions',
   () => {
-    const skillsDescriptions = ref<ISkillDescription[]>([])
+    const items = ref<ISkillDescription[]>([])
 
     const { isLoading, isLoaded, load } = useData(
       'skills-descriptions.json',
       'stores/data/skills-descriptions/load',
-      skillsDescriptions,
+      items,
     )
 
-    const skillsDescriptionsById = computed<{
+    const byId = computed<{
       [index: SkillId]: ISkillDescription
-    }>(() => keyBy(skillsDescriptions.value, 'id'))
+    }>(() => keyBy(items.value, 'id'))
 
     return {
       isLoading,
       isLoaded,
       load,
 
-      skillsDescriptions,
-      skillsDescriptionsById,
+      byId,
     }
   },
 )

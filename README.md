@@ -19,6 +19,7 @@
 
 ### Fixes
 
+1. `TODO: use Availability instead of AV_Availability`
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`
 

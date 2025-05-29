@@ -1,4 +1,5 @@
 import type { UnitId } from '@/utils/types/units'
+import type { IConstants } from '@/utils/types/constants'
 
 export const BANE = 'bane'
 export const BOON = 'boon'
@@ -76,4 +77,37 @@ export interface IUnitStat {
 
 export type IUnitStatById = {
   [index: UnitId]: IUnitStat
+}
+
+export type IUnitStatMinMax = {
+  [HP]: [number, number]
+  [ATK]: [number, number]
+  [SPD]: [number, number]
+  [DEF]: [number, number]
+  [RES]: [number, number]
+  [BST]: [number, number]
+}
+
+export const getDefaulUnitStatsMinMax = (
+  constants?: IConstants,
+): IUnitStatMinMax => {
+  if (!constants) {
+    return {
+      [HP]: [0, 60],
+      [ATK]: [0, 50],
+      [SPD]: [0, 48],
+      [DEF]: [0, 50],
+      [RES]: [0, 50],
+      [BST]: [0, 212],
+    }
+  }
+
+  return {
+    [HP]: [0, constants.units_max_hp],
+    [ATK]: [0, constants.units_max_atk],
+    [SPD]: [0, constants.units_max_spd],
+    [DEF]: [0, constants.units_max_def],
+    [RES]: [0, constants.units_max_res],
+    [BST]: [0, constants.units_max_bst],
+  }
 }

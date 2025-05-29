@@ -20,11 +20,11 @@
       v-for="(item, index) in ITEMS"
       :key="index"
     >
-      <v-list-subheader v-if="item.subheader">
+      <v-list-subheader v-if="item.isSubheader">
         {{ item.text }}
       </v-list-subheader>
       <v-list-item
-        v-if="item.item"
+        v-if="item.isItem"
         :to="localePath(item.link)"
       >
         <v-list-item-title class="pl-5 text-primary">
@@ -55,15 +55,15 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 const ITEMS = [
-  { subheader: true, text: t('home.subheader.unitsAndSkills') },
-  { item: true, link: 'units' },
-  { item: true, link: 'units-maximum-scores' },
-  { item: true, link: 'catalog-of-heroes' },
-  // { item: true, link: 'skills' },
-  { item: true, link: 'skills-fodders' },
-  { item: true, link: 'skills-lists' },
-  { subheader: true, text: t('home.subheader.events') },
-  { item: true, link: 'events-hall-of-forms' },
-  { item: true, link: 'events-binding-worlds' },
+  { isSubheader: true, text: t('home.subheader.unitsAndSkills') },
+  { isItem: true, link: 'units' },
+  { isItem: true, link: 'units-maximum-scores' },
+  { isItem: true, link: 'catalog-of-heroes' },
+  { isItem: true, link: 'skills' },
+  { isItem: true, link: 'skills-fodders' },
+  { isItem: true, link: 'skills-lists' },
+  { isSubheader: true, text: t('home.subheader.events') },
+  { isItem: true, link: 'events-hall-of-forms' },
+  { isItem: true, link: 'events-binding-worlds' },
 ]
 </script>

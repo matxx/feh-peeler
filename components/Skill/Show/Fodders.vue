@@ -70,7 +70,7 @@ const sortedFodders = computed(() =>
   sortBy(fodders.value, [
     (unit) =>
       storeGlobals.sortedByAvailability
-        ? storeDataUnitsAvailabilities.availabiltySortingVector(unit)
+        ? storeDataUnitsAvailabilities.availabilitySortingValue(unit)
         : 0,
     'nameForSorting',
   ]),

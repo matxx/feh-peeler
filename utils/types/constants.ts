@@ -14,4 +14,7 @@ export interface IConstants {
   units_max_res_ids: UnitId[]
   units_max_bst: number
   units_max_bst_ids: UnitId[]
+  skills_max_tier: number
+  skills_max_sp: number
+  skills_max_cd: number
 }

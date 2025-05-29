@@ -22,7 +22,6 @@ export const useStoreDataUnitsRatingsGame8 = defineStore(
       isLoaded,
       load,
 
-      items,
       byId,
     }
   },

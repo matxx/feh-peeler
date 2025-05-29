@@ -403,7 +403,7 @@
         </v-btn-group>
       </div>
       <div
-        v-for="(line, index) in SORTED_WEAPONS_MATRIX_FOR_FILTERS"
+        v-for="(line, index) in SORTED_WEAPONS_MATRIX_FOR_UNITS_FILTERS"
         :key="index"
       >
         <v-btn-group
@@ -414,13 +414,11 @@
           <v-btn
             size="small"
             class="text-primary"
-            :active="
-              isWeaponAggregateActive[WEAPON_FAMILY_TYPES_FOR_FILTERS[index]]
-            "
-            @click="toggleWeaponFamily(WEAPON_FAMILY_TYPES_FOR_FILTERS[index])"
+            :active="isWeaponAggregateActive[SORTED_WEAPON_FAMILY_TYPES[index]]"
+            @click="toggleWeaponFamily(SORTED_WEAPON_FAMILY_TYPES[index])"
           >
             <AppIconWeaponType
-              :weapon-type="WEAPON_FAMILY_TYPES_FOR_FILTERS[index]"
+              :weapon-type="SORTED_WEAPON_FAMILY_TYPES[index]"
               :size="size"
             />
           </v-btn>
@@ -504,16 +502,18 @@ import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
 import {
   WEAPON_C_ST,
-  SORTED_WEAPONS_MATRIX_FOR_FILTERS,
+  SORTED_WEAPONS_MATRIX_FOR_UNITS_FILTERS,
   SORTED_WEAPON_COLORS,
-  WEAPON_FAMILY_TYPES_FOR_FILTERS,
-  WEAPON_AGGREGATIONS_FOR_FILTERS,
+  SORTED_WEAPON_FAMILY_TYPES,
+  WEAPON_AGGREGATIONS,
   type WeaponType,
   type WeaponColor,
   type WeaponFamily,
   type AggregatedWeaponType,
 } from '@/utils/types/weapons'
 import { STATS_AND_BST } from '~/utils/types/units-stats'
+import { cycleState } from '~/utils/functions/cycleState'
+import { iconFor } from '~/utils/functions/iconFor'
 
 const SIZE = 24
 
@@ -539,15 +539,13 @@ const searchIsActive = computed(
 
 const isWeaponAggregateActive = computed(() =>
   objectFromEntries(
-    objectEntries(WEAPON_AGGREGATIONS_FOR_FILTERS).map(
-      ([aggregate, weaponTypes]) => [
-        aggregate,
-        filters.value
-          ? difference(weaponTypes, Array.from(filters.value.weapons))
-              .length === 0
-          : false,
-      ],
-    ),
+    objectEntries(WEAPON_AGGREGATIONS).map(([aggregate, weaponTypes]) => [
+      aggregate,
+      filters.value
+        ? difference(weaponTypes, Array.from(filters.value.weapons)).length ===
+          0
+        : false,
+    ]),
   ),
 )
 
@@ -597,7 +595,7 @@ function toggleWeaponFamily(weaponType: WeaponFamily) {
 function toggleWeaponAggregate(aggregate: AggregatedWeaponType) {
   if (!filters.value) return
 
-  const types = WEAPON_AGGREGATIONS_FOR_FILTERS[aggregate]
+  const types = WEAPON_AGGREGATIONS[aggregate]
   if (isWeaponAggregateActive.value[aggregate]) {
     types.forEach((type) => filters.value!.weapons.delete(type))
   } else {
@@ -616,26 +614,6 @@ function cycleFilter(
   if (!filters.value) return
 
   filters.value[key] = cycleState(filters.value[key])
-}
-function cycleState(state: boolean | null) {
-  switch (state) {
-    case true:
-      return false
-    case false:
-      return null
-    case null:
-      return true
-  }
-}
-function iconFor(state: boolean | null) {
-  switch (state) {
-    case true:
-      return 'mdi-checkbox-outline'
-    case false:
-      return 'mdi-close-box-outline'
-    case null:
-      return 'mdi-checkbox-blank-outline'
-  }
 }
 </script>
 

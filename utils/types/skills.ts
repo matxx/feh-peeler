@@ -2,6 +2,7 @@ import type { Grade } from '@/utils/types/grades'
 import type { Game8Id } from '@/utils/types/game8'
 import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
+import { objectFromEntries } from '@/utils/functions/typeSafe'
 
 export const SKILL_WEAPON = 'weapon'
 export const SKILL_ASSIST = 'assist'
@@ -39,6 +40,15 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   SKILL_PASSIVE_S,
   SKILL_PASSIVE_X,
 ]
+
+export const CATEGORIES_FOR_SKILLS_FILTERS: SkillCategory[][] = [
+  [SKILL_ASSIST, SKILL_SPECIAL, SKILL_PASSIVE_X],
+  [SKILL_PASSIVE_A, SKILL_PASSIVE_B, SKILL_PASSIVE_C],
+]
+
+export const SORTED_SKILL_CATEGORIES = SKILL_CATEGORIES
+export const SORTED_SLOT_INDEXES: { [key in SkillCategory]: number } =
+  objectFromEntries(SORTED_SKILL_CATEGORIES.map((type, index) => [type, index]))
 
 export const SKILL_CATEGORIES_WITH_ICON: SkillCategory[] = [
   SKILL_WEAPON,

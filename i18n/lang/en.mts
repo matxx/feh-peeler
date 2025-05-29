@@ -2,8 +2,10 @@ import * as availability from '~/utils/types/units-availabilities'
 import * as grades from '~/utils/types/grades'
 import { IVS_HASH } from '~/utils/types/IVs'
 import * as skills from '~/utils/types/skills'
+import * as skillsColumns from '~/utils/types/skills-columns'
+import * as skillsFilters from '~/utils/types/skills-filters'
 import * as units from '~/utils/types/units'
-import * as columns from '~/utils/types/units-columns'
+import * as unitsColumns from '~/utils/types/units-columns'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
@@ -300,7 +302,7 @@ export default {
       'units-maximum-scores': 'Units By Max Scores',
       'catalog-of-heroes': 'FEHdex / Catalog of Heroes',
 
-      skills: 'Skills Details',
+      skills: 'Skills',
       'skills-fodders': 'Skills Fodders',
       'skills-lists': 'Skills Ratings',
 
@@ -308,12 +310,12 @@ export default {
       'events-binding-worlds': 'Binding Worlds',
     },
     subtitle: {
-      units: 'compare/filter/sort units by name, stats and more',
+      units: 'compare/filter/sort units',
       'units-maximum-scores':
         'compare units scores (for arena and other modes)',
       'catalog-of-heroes': 'check which heroes you are missing',
 
-      skills: 'availability, effects, restrictions, fodders',
+      skills: 'compare/filter/sort skills',
       'skills-fodders':
         'check if a skill is available in the 3★/4★ pool, grails shop, divine codes, ...',
       'skills-lists': 'compare skills ratings, restrictions, effects',
@@ -371,31 +373,31 @@ export default {
       columnsDisplayed: 'Displayed columns',
       resetSorting: 'Reset sorting',
       headers: {
-        [columns.COLUMN_THUMBNAIL]: 'Thumbnail',
-        [columns.COLUMN_NAME]: 'Name',
-        [columns.COLUMN_GENDER]: 'Gender',
-        [columns.COLUMN_HAS_RESPLENDENT]: 'Resplendent',
-        [columns.COLUMN_AVAILABILITY]: 'Availability',
-        [columns.COLUMN_WEAPON]: 'Weapon',
-        [columns.COLUMN_MOVE]: 'Move',
-        [columns.COLUMN_VERSION]: 'Version',
-        [columns.COLUMN_GENERATION]: 'Generation',
-        [columns.COLUMN_BOOK]: 'Book',
-        [columns.COLUMN_RELEASE_DATE]: 'Release Date',
-        [columns.COLUMN_GAME]: 'Game',
-        [columns.COLUMN_IV_HP]: 'HP',
-        [columns.COLUMN_IV_ATK]: 'Atk',
-        [columns.COLUMN_IV_SPD]: 'Spd',
-        [columns.COLUMN_IV_DEF]: 'Def',
-        [columns.COLUMN_IV_RES]: 'Res',
-        [columns.COLUMN_BST]: 'BST',
-        [columns.COLUMN_ELEMENT]: 'Element',
-        [columns.COLUMN_ARTIST]: 'Artist',
-        [columns.COLUMN_VA]: 'VA',
-        [columns.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
-        [columns.COLUMN_RATING]: 'Rating',
-        [columns.COLUMN_ORIGIN]: 'Origin',
-        [columns.COLUMN_MAX_SCORE]: 'Max Score',
+        [unitsColumns.COLUMN_THUMBNAIL]: 'Thumbnail',
+        [unitsColumns.COLUMN_NAME]: 'Name',
+        [unitsColumns.COLUMN_GENDER]: 'Gender',
+        [unitsColumns.COLUMN_HAS_RESPLENDENT]: 'Resplendent',
+        [unitsColumns.COLUMN_AVAILABILITY]: 'Availability',
+        [unitsColumns.COLUMN_WEAPON]: 'Weapon',
+        [unitsColumns.COLUMN_MOVE]: 'Move',
+        [unitsColumns.COLUMN_VERSION]: 'Version',
+        [unitsColumns.COLUMN_GENERATION]: 'Generation',
+        [unitsColumns.COLUMN_BOOK]: 'Book',
+        [unitsColumns.COLUMN_RELEASE_DATE]: 'Release Date',
+        [unitsColumns.COLUMN_GAME]: 'Game',
+        [unitsColumns.COLUMN_IV_HP]: 'HP',
+        [unitsColumns.COLUMN_IV_ATK]: 'Atk',
+        [unitsColumns.COLUMN_IV_SPD]: 'Spd',
+        [unitsColumns.COLUMN_IV_DEF]: 'Def',
+        [unitsColumns.COLUMN_IV_RES]: 'Res',
+        [unitsColumns.COLUMN_BST]: 'BST',
+        [unitsColumns.COLUMN_ELEMENT]: 'Element',
+        [unitsColumns.COLUMN_ARTIST]: 'Artist',
+        [unitsColumns.COLUMN_VA]: 'VA',
+        [unitsColumns.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
+        [unitsColumns.COLUMN_RATING]: 'Rating',
+        [unitsColumns.COLUMN_ORIGIN]: 'Origin',
+        [unitsColumns.COLUMN_MAX_SCORE]: 'Max Score',
       },
     },
     show: {
@@ -431,6 +433,27 @@ export default {
   },
 
   skills: {
+    index: {
+      columnsDisplayed: 'Displayed columns',
+      resetSorting: 'Reset sorting',
+      headers: {
+        [skillsColumns.COLUMN_THUMBNAIL]: 'Thumbnail',
+        [skillsColumns.COLUMN_NAME]: 'Name',
+        [skillsColumns.COLUMN_SLOT]: 'Slot',
+        [skillsColumns.COLUMN_PRF]: 'PRF ?',
+        [skillsColumns.COLUMN_SP]: 'SP',
+        [skillsColumns.COLUMN_CD]: 'CD',
+        [skillsColumns.COLUMN_TIER]: 'Tier',
+        [skillsColumns.COLUMN_EFFECTIVENESS]: 'Effectiveness',
+        [skillsColumns.COLUMN_RATING]: 'Rating',
+        [skillsColumns.COLUMN_GRADE]: 'Grade',
+        [skillsColumns.COLUMN_DESCRIPTION]: 'Description',
+        [skillsColumns.COLUMN_RESTRICTIONS]: 'Restrictions',
+        [skillsColumns.COLUMN_AVAILABILITY]: 'Availability',
+        [skillsColumns.COLUMN_PRE_INHERITANCE]: 'PreInheritance',
+        [skillsColumns.COLUMN_MAX]: 'MAX ?',
+      },
+    },
     show: {
       tabs: {
         [skills.TAB_DETAILS]: 'Details',
@@ -447,6 +470,21 @@ export default {
       fodders: {
         sortByAvailability: 'Sorted by Availability',
         sortByName: 'Sorted by Name',
+      },
+    },
+    filters: {
+      skillName: 'Skill name',
+      isPrf: 'PRF ?',
+      isMax: 'MAX ?',
+      headers: {
+        type: 'Type',
+        whoCanInherit: 'Who can inherit ?',
+        stats: 'Stats',
+      },
+      stats: {
+        [skillsFilters.TIER]: 'Tier',
+        [skillsFilters.SP]: 'SP',
+        [skillsFilters.CD]: 'CD',
       },
     },
   },

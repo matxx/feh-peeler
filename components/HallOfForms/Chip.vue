@@ -62,7 +62,7 @@ const skill = computed(() =>
 )
 const ratings = computed(() =>
   skill.value
-    ? storeDataSkillsRatingsGame8.skillsRatingsGame8ById[skill.value.baseId]
+    ? storeDataSkillsRatingsGame8.byId[skill.value.baseId]
     : undefined,
 )
 </script>
