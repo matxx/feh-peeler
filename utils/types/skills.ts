@@ -41,6 +41,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 ]
 
 export const SKILL_CATEGORIES_WITH_ICON: SkillCategory[] = [
+  SKILL_WEAPON,
   SKILL_PASSIVE_A,
   SKILL_PASSIVE_B,
   SKILL_PASSIVE_C,

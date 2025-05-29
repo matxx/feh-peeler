@@ -7,15 +7,17 @@
           density="compact"
           class="v-toolbar--justify-space-between"
         >
-          <h3 class="d-flex align-center ml-4">
+          <h3 class="d-flex align-center">
             <SkillImgCategory
               :category="skill.category"
               :size="TOOLBAR_ICON_SIZE"
+              class="mx-4"
             />
             <SkillImg
+              v-show="SKILL_CATEGORIES_WITH_ICON.includes(skill.category)"
               :skill="skill"
               :size="TOOLBAR_ICON_SIZE"
-              class="mx-4"
+              class="mr-4"
             />
             {{ skill.name }}
           </h3>
@@ -165,6 +167,7 @@ import {
   TAB_FODDERS,
   TAB_DOWNGRADES,
   TAB_UPGRADES,
+  SKILL_CATEGORIES_WITH_ICON,
 } from '~/utils/types/skills'
 
 const TOOLBAR_ICON_SIZE = 20
