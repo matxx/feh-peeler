@@ -19,7 +19,7 @@
 
     <div class="mt-1">
       <div
-        v-for="(array, index) in a.AV_SCORES_FOR_FILTERS"
+        v-for="(array, index) in a.AVAILABILITIES_FOR_FILTERS"
         :key="index"
       >
         <v-btn-group
@@ -37,55 +37,55 @@
             @click="toggleAvailability(availability)"
           >
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_GENERIC_POOL_3_4"
+              v-if="availability === a.AV_GENERIC_POOL_3_4"
               :size="SIZE"
               :rarity="3"
               is-generic-pool
             />
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_GENERIC_POOL_45"
+              v-if="availability === a.AV_GENERIC_POOL_45"
               :size="SIZE"
               :rarity="4.5"
               is-generic-pool
             />
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_GENERIC_POOL_5"
+              v-if="availability === a.AV_GENERIC_POOL_5"
               :size="SIZE"
               :rarity="5"
               is-generic-pool
             />
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_SPECIAL_POOL_4"
+              v-if="availability === a.AV_SPECIAL_POOL_4"
               :size="SIZE"
               :rarity="4"
               is-special-pool
             />
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_SPECIAL_POOL_45"
+              v-if="availability === a.AV_SPECIAL_POOL_45"
               :size="SIZE"
               :rarity="4.5"
               is-special-pool
             />
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_SPECIAL_POOL_5"
+              v-if="availability === a.AV_SPECIAL_POOL_5"
               :size="SIZE"
               :rarity="5"
               is-special-pool
             />
             <CompoAvailability
-              v-if="availability === a.AV_SCORE_LIMITED_HEROES"
+              v-if="availability === a.AV_LIMITED_HEROES"
               :size="SIZE"
               :rarity="5"
               is-limited-hero
             />
             <CompoHeroicGrails
-              v-if="availability === a.AV_SCORE_HEROIC_GRAILS"
+              v-if="availability === a.AV_HEROIC_GRAILS"
               :size="SIZE"
             />
-            <CompoDivineCodes
-              v-if="availability === a.AV_SCORE_NORMAL_DIVINE_CODES"
+            <!-- <CompoDivineCodes
+              v-if="availability === a.AV_NORMAL_DIVINE_CODES"
               :size="SIZE"
-            />
+            /> -->
           </v-btn>
         </v-btn-group>
       </div>
@@ -549,7 +549,7 @@ const isWeaponAggregateActive = computed(() =>
   ),
 )
 
-function toggleAvailability(availability: a.AV_Availability) {
+function toggleAvailability(availability: a.Availability) {
   if (!filters.value) return
 
   if (filters.value.availabilities.has(availability)) {

@@ -12,8 +12,8 @@ import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
   HEROIC_GRAILS,
-  NORMAL_DIVINE_CODES,
-  LIMITED_DIVINE_CODES,
+  // NORMAL_DIVINE_CODES,
+  // LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
 } from '~/utils/types/obfuscated-keys'
 
@@ -94,25 +94,25 @@ function filterAvailability(
 
   if (
     availability.is_in[HEROIC_GRAILS] &&
-    filters.availabilities.has(a.AV_SCORE_HEROIC_GRAILS)
+    filters.availabilities.has(a.AV_HEROIC_GRAILS)
   ) {
     return true
   }
-  if (
-    availability.is_in[LIMITED_DIVINE_CODES] &&
-    filters.availabilities.has(a.AV_SCORE_LIMITED_DIVINE_CODES)
-  ) {
-    return true
-  }
-  if (
-    availability.is_in[NORMAL_DIVINE_CODES] &&
-    filters.availabilities.has(a.AV_SCORE_NORMAL_DIVINE_CODES)
-  ) {
-    return true
-  }
+  // if (
+  //   availability.is_in[LIMITED_DIVINE_CODES] &&
+  //   filters.availabilities.has(a.AV_LIMITED_DIVINE_CODES)
+  // ) {
+  //   return true
+  // }
+  // if (
+  //   availability.is_in[NORMAL_DIVINE_CODES] &&
+  //   filters.availabilities.has(a.AV_NORMAL_DIVINE_CODES)
+  // ) {
+  //   return true
+  // }
   if (
     availability.is_in[FOCUS_ONLY] &&
-    filters.availabilities.has(a.AV_SCORE_LIMITED_HEROES)
+    filters.availabilities.has(a.AV_LIMITED_HEROES)
   ) {
     return true
   }
@@ -121,26 +121,26 @@ function filterAvailability(
     switch (availability.lowest_rarity[GENERIC_SUMMON_POOL]) {
       case 3:
       case 4:
-        if (filters.availabilities.has(a.AV_SCORE_GENERIC_POOL_3_4)) return true
+        if (filters.availabilities.has(a.AV_GENERIC_POOL_3_4)) return true
         break
       case 4.5:
-        if (filters.availabilities.has(a.AV_SCORE_GENERIC_POOL_45)) return true
+        if (filters.availabilities.has(a.AV_GENERIC_POOL_45)) return true
         break
       case 5:
-        if (filters.availabilities.has(a.AV_SCORE_GENERIC_POOL_5)) return true
+        if (filters.availabilities.has(a.AV_GENERIC_POOL_5)) return true
     }
   }
 
   if (availability.is_in[SPECIAL_SUMMON_POOL]) {
     switch (availability.lowest_rarity[SPECIAL_SUMMON_POOL]) {
       case 4:
-        if (filters.availabilities.has(a.AV_SCORE_SPECIAL_POOL_4)) return true
+        if (filters.availabilities.has(a.AV_SPECIAL_POOL_4)) return true
         break
       case 4.5:
-        if (filters.availabilities.has(a.AV_SCORE_SPECIAL_POOL_45)) return true
+        if (filters.availabilities.has(a.AV_SPECIAL_POOL_45)) return true
         break
       case 5:
-        if (filters.availabilities.has(a.AV_SCORE_SPECIAL_POOL_5)) return true
+        if (filters.availabilities.has(a.AV_SPECIAL_POOL_5)) return true
     }
   }
 

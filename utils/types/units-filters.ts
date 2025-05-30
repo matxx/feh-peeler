@@ -1,6 +1,6 @@
 import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
-import type { AV_Availability } from '@/utils/types/units-availabilities'
+import type { Availability } from '@/utils/types/units-availabilities'
 import type { IUnitStatMinMax } from '@/utils/types/units-stats'
 
 export const TRAIT_AIDED = 'is_aided'
@@ -31,8 +31,7 @@ export interface IFilters {
   moves: Set<MoveType>
   traits: Set<Trait>
 
-  // TODO: use Availability instead of AV_Availability
-  availabilities: Set<AV_Availability>
+  availabilities: Set<Availability>
 
   isRefresher: boolean | null
   hasResplendent: boolean | null
