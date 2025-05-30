@@ -44,118 +44,12 @@ import { SORTED_SLOT_INDEXES, type ISkill } from '~/utils/types/skills'
 import { objectEntries } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
 import { SORTED_GRADE_INDEXES } from '~/utils/types/grades'
-
-function filterName(s: ISkill, r?: RegExp) {
-  if (!r) return true
-
-  return s.nameForFilters.match(r)
-}
-
-function filterCategoryAndWeaponType(filters: IFilters, s: ISkill) {
-  if (filters.categories.size === 0 && filters.weaponTypes.size == 0) {
-    return true
-  }
-  if (filters.categories.has(s.category)) {
-    return true
-  }
-  if (s.weapon_type && filters.weaponTypes.has(s.weapon_type)) {
-    return true
-  }
-
-  return false
-}
-
-function filterCanUseMoveType(filters: IFilters, s: ISkill) {
-  //   if (filters.canUse.moves.size === 0) return true
-  //   if (s.restrictions.moves.none) return false
-  //   SORTED_WEAPON_TYPES
-  //   if (s.restrictions.moves.can_use) {
-  //     return filters.canUse.moves.has(s.restrictions.moves.can_use)
-  //   } else {
-  //     return filters.canUse.moves.has(!s.restrictions.moves.can_not_use)
-  //   }
-  return true
-}
-
-function filterCanUseWeaponType(filters: IFilters, s: ISkill) {
-  //   if (filters.canUse.weapons.size === 0) return true
-  //   return filters.canUse.weapons.has(s.weapon_type)
-  return true
-}
+import * as w from '~/utils/types/weapons'
 
 const filterIsPrf = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isPrf, s.is_prf)
 const filterIsMax = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isMax, !s.upgrade_ids)
-
-function filterAvailability(
-  filters: IFilters,
-  s: ISkill,
-  availabilitiesById: ISkillAvailabilityById,
-) {
-  if (filters.availabilities.size === 0) return true
-
-  const availability = availabilitiesById[s.id]
-  if (!availability) return false
-
-  if (
-    availability.is_in[HEROIC_GRAILS] &&
-    filters.availabilities.has(a.AV_HEROIC_GRAILS)
-  ) {
-    return true
-  }
-  // if (
-  //   availability.is_in[LIMITED_DIVINE_CODES] &&
-  //   filters.availabilities.has(a.AV_LIMITED_DIVINE_CODES)
-  // ) {
-  //   return true
-  // }
-  // if (
-  //   availability.is_in[NORMAL_DIVINE_CODES] &&
-  //   filters.availabilities.has(a.AV_NORMAL_DIVINE_CODES)
-  // ) {
-  //   return true
-  // }
-  if (
-    availability.is_in[FOCUS_ONLY] &&
-    filters.availabilities.has(a.AV_LIMITED_HEROES)
-  ) {
-    return true
-  }
-
-  if (availability.is_in[GENERIC_SUMMON_POOL]) {
-    switch (
-      availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
-    ) {
-      case 3:
-      case 4:
-        if (filters.availabilities.has(a.AV_GENERIC_POOL_3_4)) return true
-        break
-      case 4.5:
-        if (filters.availabilities.has(a.AV_GENERIC_POOL_45)) return true
-        break
-      case 5:
-        if (filters.availabilities.has(a.AV_GENERIC_POOL_5)) return true
-    }
-  }
-
-  if (availability.is_in[SPECIAL_SUMMON_POOL]) {
-    switch (
-      availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
-    ) {
-      case 4:
-        if (filters.availabilities.has(a.AV_SPECIAL_POOL_4)) return true
-        break
-      case 4.5:
-        if (filters.availabilities.has(a.AV_SPECIAL_POOL_45)) return true
-        break
-      case 5:
-        if (filters.availabilities.has(a.AV_SPECIAL_POOL_5)) return true
-    }
-  }
-
-  return false
-}
 
 function filterStats(
   filters: IFilters,
@@ -200,15 +94,34 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     )
     sorters.value = createEmptySorters()
   }
+
+  const isFilterActiveOnCategories = computed(
+    () => filters.value.categories.size > 0,
+  )
+  const isFilterActiveOnWeaponTypes = computed(
+    () => filters.value.weaponTypes.size > 0,
+  )
+  const isFilterActiveOnCanUseMoves = computed(
+    () => filters.value.canUse.moves.size > 0,
+  )
+  const isFilterActiveOnCanUseWeapons = computed(
+    () => filters.value.canUse.weapons.size > 0,
+  )
+  const isFilterActiveOnAvailabilities = computed(
+    () => filters.value.availabilities.size > 0,
+  )
+  const isFilterActiveOnIsPrf = computed(() => filters.value.isPrf !== null)
+  const isFilterActiveOnIsMax = computed(() => filters.value.isMax !== null)
+
   const anyFilterActiveExceptName = computed(
     () =>
-      filters.value.categories.size > 0 ||
-      filters.value.weaponTypes.size > 0 ||
-      filters.value.canUse.moves.size > 0 ||
-      filters.value.canUse.weapons.size > 0 ||
-      filters.value.availabilities.size > 0 ||
-      filters.value.isPrf !== null ||
-      filters.value.isMax !== null ||
+      isFilterActiveOnCategories.value ||
+      isFilterActiveOnWeaponTypes.value ||
+      isFilterActiveOnCanUseMoves.value ||
+      isFilterActiveOnCanUseWeapons.value ||
+      isFilterActiveOnAvailabilities.value ||
+      isFilterActiveOnIsPrf.value ||
+      isFilterActiveOnIsMax.value ||
       some(
         objectEntries(filters.value.stats),
         ([stat, [min, max]]) =>
@@ -217,6 +130,208 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       ) ||
       false,
   )
+
+  function filterName(s: ISkill, r?: RegExp) {
+    if (!r) return true
+
+    return s.nameForFilters.match(r)
+  }
+
+  function filterCategoryAndWeaponType(filters: IFilters, s: ISkill) {
+    if (
+      !isFilterActiveOnCategories.value &&
+      !isFilterActiveOnWeaponTypes.value
+    ) {
+      return true
+    }
+
+    if (filters.categories.has(s.category)) {
+      return true
+    }
+    if (s.weapon_type && filters.weaponTypes.has(s.weapon_type)) {
+      return true
+    }
+
+    return false
+  }
+
+  function filterCanUseMoveType(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnCanUseMoves.value) return true
+
+    if (s.is_prf) return false
+    if (s.restrictions.moves.none) return false
+
+    if (s.restrictions.moves.can_use) {
+      return !new Set(s.restrictions.moves.can_use).isDisjointFrom(
+        filters.canUse.moves,
+      )
+    }
+    if (s.restrictions.moves.can_not_use) {
+      return new Set(s.restrictions.moves.can_not_use).isDisjointFrom(
+        filters.canUse.moves,
+      )
+    }
+
+    return false
+  }
+
+  function filterCanUseWeaponType(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnCanUseWeapons.value) return true
+
+    if (s.is_prf) return false
+    if (s.restrictions.weapons.none) return false
+
+    if (s.restrictions.weapons.can_use) {
+      const canUse = new Set(s.restrictions.weapons.can_use)
+      if (filters.canUse.weapons.has(w.WEAPON_R_SW)) {
+        return canUse.has(w.WEAPON_R_SW) || canUse.has(w.WEAPON_A_ME)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_B_LA)) {
+        return canUse.has(w.WEAPON_B_LA) || canUse.has(w.WEAPON_A_ME)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_G_AX)) {
+        return canUse.has(w.WEAPON_G_AX) || canUse.has(w.WEAPON_A_ME)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_C_ST)) {
+        return canUse.has(w.WEAPON_C_ST)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_R_TO)) {
+        return canUse.has(w.WEAPON_R_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_B_TO)) {
+        return canUse.has(w.WEAPON_B_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_G_TO)) {
+        return canUse.has(w.WEAPON_G_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_C_TO)) {
+        return canUse.has(w.WEAPON_C_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_BO)) {
+        return canUse.has(w.WEAPON_A_BO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_DA)) {
+        return canUse.has(w.WEAPON_A_DA)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_BR)) {
+        return canUse.has(w.WEAPON_A_BR)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_BE)) {
+        return canUse.has(w.WEAPON_A_BE)
+      }
+    }
+
+    if (s.restrictions.weapons.can_not_use) {
+      const canNotUse = new Set(s.restrictions.weapons.can_not_use)
+      if (filters.canUse.weapons.has(w.WEAPON_R_SW)) {
+        return !canNotUse.has(w.WEAPON_R_SW) && !canNotUse.has(w.WEAPON_A_ME)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_B_LA)) {
+        return !canNotUse.has(w.WEAPON_B_LA) && !canNotUse.has(w.WEAPON_A_ME)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_G_AX)) {
+        return !canNotUse.has(w.WEAPON_G_AX) && !canNotUse.has(w.WEAPON_A_ME)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_C_ST)) {
+        return !canNotUse.has(w.WEAPON_C_ST)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_R_TO)) {
+        return !canNotUse.has(w.WEAPON_R_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_B_TO)) {
+        return !canNotUse.has(w.WEAPON_B_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_G_TO)) {
+        return !canNotUse.has(w.WEAPON_G_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_C_TO)) {
+        return !canNotUse.has(w.WEAPON_C_TO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_BO)) {
+        return !canNotUse.has(w.WEAPON_A_BO)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_DA)) {
+        return !canNotUse.has(w.WEAPON_A_DA)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_BR)) {
+        return !canNotUse.has(w.WEAPON_A_BR)
+      }
+      if (filters.canUse.weapons.has(w.WEAPON_A_BE)) {
+        return !canNotUse.has(w.WEAPON_A_BE)
+      }
+    }
+
+    return false
+  }
+
+  function filterAvailability(
+    filters: IFilters,
+    s: ISkill,
+    availabilitiesById: ISkillAvailabilityById,
+  ) {
+    if (!isFilterActiveOnAvailabilities.value) return true
+
+    const availability = availabilitiesById[s.id]
+    if (!availability) return false
+
+    if (
+      availability.is_in[HEROIC_GRAILS] &&
+      filters.availabilities.has(a.AV_HEROIC_GRAILS)
+    ) {
+      return true
+    }
+    // if (
+    //   availability.is_in[LIMITED_DIVINE_CODES] &&
+    //   filters.availabilities.has(a.AV_LIMITED_DIVINE_CODES)
+    // ) {
+    //   return true
+    // }
+    // if (
+    //   availability.is_in[NORMAL_DIVINE_CODES] &&
+    //   filters.availabilities.has(a.AV_NORMAL_DIVINE_CODES)
+    // ) {
+    //   return true
+    // }
+    if (
+      availability.is_in[FOCUS_ONLY] &&
+      filters.availabilities.has(a.AV_LIMITED_HEROES)
+    ) {
+      return true
+    }
+
+    if (availability.is_in[GENERIC_SUMMON_POOL]) {
+      switch (
+        availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+      ) {
+        case 3:
+        case 4:
+          if (filters.availabilities.has(a.AV_GENERIC_POOL_3_4)) return true
+          break
+        case 4.5:
+          if (filters.availabilities.has(a.AV_GENERIC_POOL_45)) return true
+          break
+        case 5:
+          if (filters.availabilities.has(a.AV_GENERIC_POOL_5)) return true
+      }
+    }
+
+    if (availability.is_in[SPECIAL_SUMMON_POOL]) {
+      switch (
+        availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+      ) {
+        case 4:
+          if (filters.availabilities.has(a.AV_SPECIAL_POOL_4)) return true
+          break
+        case 4.5:
+          if (filters.availabilities.has(a.AV_SPECIAL_POOL_45)) return true
+          break
+        case 5:
+          if (filters.availabilities.has(a.AV_SPECIAL_POOL_5)) return true
+      }
+    }
+
+    return false
+  }
 
   function updateSorter([index, sorter]: [number, ISorter]) {
     if (!sorters.value) return

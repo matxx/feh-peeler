@@ -103,7 +103,12 @@
         </NuxtLink>
       </template>
       <template #[`item.${COLUMN_NAME}`]="{ item }">
-        {{ item.full_name }}
+        <NuxtLink
+          href="#"
+          @click.prevent="storeGlobals.showUnit(item.id)"
+        >
+          {{ item.full_name }}
+        </NuxtLink>
       </template>
       <template #[`item.${COLUMN_HAS_RESPLENDENT}`]="{ item }">
         <v-icon :color="item.has_respl ? 'green' : 'red'">

@@ -97,7 +97,12 @@
         </NuxtLink>
       </template>
       <template #[`item.${COLUMN_NAME}`]="{ item }">
-        {{ item.name }}
+        <NuxtLink
+          href="#"
+          @click.prevent="storeGlobals.showSkill(item.id)"
+        >
+          {{ item.name }}
+        </NuxtLink>
       </template>
       <template #[`item.${COLUMN_SLOT}`]="{ item }">
         <div class="d-flex justify-center">

@@ -158,6 +158,10 @@
             />
           </v-btn>
         </v-btn-group>
+      </div>
+    </div>
+    <div class="mt-1">
+      <div>
         <v-btn-group
           v-for="(line, index) in CATEGORIES_FOR_SKILLS_FILTERS"
           :key="index"
