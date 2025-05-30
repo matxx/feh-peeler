@@ -28,6 +28,7 @@ export interface IFilters {
   }
 
   availabilities: Set<Availability>
+  preInheritance: Set<Availability>
 
   isPrf: boolean | null
   isMax: boolean | null
@@ -47,6 +48,7 @@ export const createFilters = (stats: ISkillStatMinMax): IFilters => ({
   },
 
   availabilities: new Set(),
+  preInheritance: new Set(),
 
   isPrf: null,
   isMax: null,

@@ -18,77 +18,11 @@
     </div>
 
     <div class="mt-1">
-      <div
-        v-for="(array, index) in a.AVAILABILITIES_FOR_FILTERS"
-        :key="index"
-      >
-        <v-btn-group
-          divided
-          color="primary"
-          density="compact"
-          variant="outlined"
-        >
-          <v-btn
-            v-for="availability in array"
-            :key="availability"
-            size="small"
-            class="text-primary"
-            :active="filters.availabilities.has(availability)"
-            @click="toggleAvailability(availability)"
-          >
-            <CompoAvailability
-              v-if="availability === a.AV_GENERIC_POOL_3_4"
-              :size="SIZE"
-              :rarity="3"
-              is-generic-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_GENERIC_POOL_45"
-              :size="SIZE"
-              :rarity="4.5"
-              is-generic-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_GENERIC_POOL_5"
-              :size="SIZE"
-              :rarity="5"
-              is-generic-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_SPECIAL_POOL_4"
-              :size="SIZE"
-              :rarity="4"
-              is-special-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_SPECIAL_POOL_45"
-              :size="SIZE"
-              :rarity="4.5"
-              is-special-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_SPECIAL_POOL_5"
-              :size="SIZE"
-              :rarity="5"
-              is-special-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_LIMITED_HEROES"
-              :size="SIZE"
-              :rarity="5"
-              is-limited-hero
-            />
-            <CompoHeroicGrails
-              v-if="availability === a.AV_HEROIC_GRAILS"
-              :size="SIZE"
-            />
-            <!-- <CompoDivineCodes
-              v-if="availability === a.AV_NORMAL_DIVINE_CODES"
-              :size="SIZE"
-            /> -->
-          </v-btn>
-        </v-btn-group>
-      </div>
+      <AppFiltersOnAvailability
+        :size="SIZE"
+        :availabilities="filters.availabilities"
+        @toggle-availability="toggleAvailability"
+      />
     </div>
 
     <div class="mt-1">
@@ -495,7 +429,6 @@
 <script setup lang="ts">
 import difference from 'lodash-es/difference'
 
-import * as a from '~/utils/types/units-availabilities'
 import * as UnitsFilters from '~/utils/types/units-filters'
 import type { IFilters, Trait } from '~/utils/types/units-filters'
 import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
@@ -514,6 +447,7 @@ import {
 import { STATS_AND_BST } from '~/utils/types/units-stats'
 import { cycleState } from '~/utils/functions/cycleState'
 import { iconFor } from '~/utils/functions/iconFor'
+import type { Availability } from '~/utils/types/units-availabilities'
 
 const SIZE = 24
 
@@ -549,7 +483,7 @@ const isWeaponAggregateActive = computed(() =>
   ),
 )
 
-function toggleAvailability(availability: a.Availability) {
+function toggleAvailability(availability: Availability) {
   if (!filters.value) return
 
   if (filters.value.availabilities.has(availability)) {

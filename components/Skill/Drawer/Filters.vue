@@ -16,77 +16,17 @@
     </div>
 
     <div class="mt-1">
-      <div
-        v-for="(array, index) in a.AVAILABILITIES_FOR_FILTERS"
-        :key="index"
-      >
-        <v-btn-group
-          divided
-          color="primary"
-          density="compact"
-          variant="outlined"
-        >
-          <v-btn
-            v-for="availability in array"
-            :key="availability"
-            size="small"
-            class="text-primary"
-            :active="filters.availabilities.has(availability)"
-            @click="toggleAvailability(availability)"
-          >
-            <CompoAvailability
-              v-if="availability === a.AV_GENERIC_POOL_3_4"
-              :size="SIZE"
-              :rarity="3"
-              is-generic-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_GENERIC_POOL_45"
-              :size="SIZE"
-              :rarity="4.5"
-              is-generic-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_GENERIC_POOL_5"
-              :size="SIZE"
-              :rarity="5"
-              is-generic-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_SPECIAL_POOL_4"
-              :size="SIZE"
-              :rarity="4"
-              is-special-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_SPECIAL_POOL_45"
-              :size="SIZE"
-              :rarity="4.5"
-              is-special-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_SPECIAL_POOL_5"
-              :size="SIZE"
-              :rarity="5"
-              is-special-pool
-            />
-            <CompoAvailability
-              v-if="availability === a.AV_LIMITED_HEROES"
-              :size="SIZE"
-              :rarity="5"
-              is-limited-hero
-            />
-            <CompoHeroicGrails
-              v-if="availability === a.AV_HEROIC_GRAILS"
-              :size="SIZE"
-            />
-            <!-- <CompoDivineCodes
-              v-if="availability === a.AV_NORMAL_DIVINE_CODES"
-              :size="SIZE"
-            /> -->
-          </v-btn>
-        </v-btn-group>
-      </div>
+      <h4>
+        {{ t('skills.filters.headers.availability') }}
+      </h4>
+    </div>
+
+    <div class="mt-1">
+      <AppFiltersOnAvailability
+        :size="SIZE"
+        :availabilities="filters.availabilities"
+        @toggle-availability="toggleAvailability"
+      />
     </div>
 
     <div class="mt-1">
@@ -266,11 +206,24 @@
         />
       </div>
     </div>
+
+    <div class="mt-1">
+      <h4>
+        {{ t('skills.filters.headers.preInheritance') }}
+      </h4>
+    </div>
+
+    <div class="mt-1">
+      <AppFiltersOnAvailability
+        :size="SIZE"
+        :availabilities="filters.preInheritance"
+        @toggle-availability="togglePreInheritance"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import * as a from '~/utils/types/units-availabilities'
 import { STATS, type IFilters } from '~/utils/types/skills-filters'
 import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
 import {
@@ -315,6 +268,16 @@ function toggleAvailability(availability: Availability) {
     val.availabilities.delete(availability)
   } else {
     val.availabilities.add(availability)
+  }
+}
+function togglePreInheritance(availability: Availability) {
+  const val = filters.value
+  if (!val) return
+
+  if (val.preInheritance.has(availability)) {
+    val.preInheritance.delete(availability)
+  } else {
+    val.preInheritance.add(availability)
   }
 }
 function toggleWeapon(weaponType: ExtendedWeaponType) {

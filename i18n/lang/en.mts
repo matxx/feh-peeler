@@ -480,6 +480,8 @@ export default {
         type: 'Type',
         whoCanInherit: 'Who can inherit ?',
         stats: 'Stats',
+        availability: 'Availability',
+        preInheritance: 'Pre-Inheritance',
       },
       stats: {
         [skillsFilters.TIER]: 'Tier',

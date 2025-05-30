@@ -7,7 +7,6 @@ import orderBy from 'lodash-es/orderBy'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
-import type { ISkillAvailabilityById } from '~/utils/types/skills-availabilities'
 import * as a from '~/utils/types/units-availabilities'
 import {
   GENERIC_SUMMON_POOL,
@@ -24,7 +23,6 @@ import {
   getDefaulSkillStatsMinMax,
   STATS,
   type IFilters,
-  type ISkillStatMinMax,
 } from '~/utils/types/skills-filters'
 import {
   SORT_SLOT,
@@ -50,25 +48,6 @@ const filterIsPrf = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isPrf, s.is_prf)
 const filterIsMax = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isMax, !s.upgrade_ids)
-
-function filterStats(
-  filters: IFilters,
-  s: ISkill,
-  defaulSkillStatsMinMax: ISkillStatMinMax,
-) {
-  return every(STATS, (stat) => {
-    if (s[stat] === undefined) {
-      return (
-        filters.stats[stat][0] === defaulSkillStatsMinMax[stat][0] &&
-        filters.stats[stat][1] === defaulSkillStatsMinMax[stat][1]
-      )
-    }
-    if (s[stat] < filters.stats[stat][0]) return false
-    if (s[stat] > filters.stats[stat][1]) return false
-
-    return true
-  })
-}
 
 // https://stackoverflow.com/a/78061467/5032734
 const f =
@@ -110,8 +89,21 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   const isFilterActiveOnAvailabilities = computed(
     () => filters.value.availabilities.size > 0,
   )
+  const isFilterActiveOnPreInheritance = computed(
+    () => filters.value.preInheritance.size > 0,
+  )
+
   const isFilterActiveOnIsPrf = computed(() => filters.value.isPrf !== null)
   const isFilterActiveOnIsMax = computed(() => filters.value.isMax !== null)
+
+  const isFilterActiveOnStats = computed(() =>
+    some(
+      objectEntries(filters.value.stats),
+      ([stat, [min, max]]) =>
+        min > storeDataConstants.defaulSkillStatsMinMax[stat][0] ||
+        max < storeDataConstants.defaulSkillStatsMinMax[stat][1],
+    ),
+  )
 
   const anyFilterActiveExceptName = computed(
     () =>
@@ -120,14 +112,10 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       isFilterActiveOnCanUseMoves.value ||
       isFilterActiveOnCanUseWeapons.value ||
       isFilterActiveOnAvailabilities.value ||
+      isFilterActiveOnPreInheritance.value ||
       isFilterActiveOnIsPrf.value ||
       isFilterActiveOnIsMax.value ||
-      some(
-        objectEntries(filters.value.stats),
-        ([stat, [min, max]]) =>
-          min > storeDataConstants.defaulSkillStatsMinMax[stat][0] ||
-          max < storeDataConstants.defaulSkillStatsMinMax[stat][1],
-      ) ||
+      isFilterActiveOnStats.value ||
       false,
   )
 
@@ -264,37 +252,50 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     return false
   }
 
-  function filterAvailability(
-    filters: IFilters,
-    s: ISkill,
-    availabilitiesById: ISkillAvailabilityById,
-  ) {
-    if (!isFilterActiveOnAvailabilities.value) return true
+  function filterStats(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnStats.value) return true
 
-    const availability = availabilitiesById[s.id]
+    return every(STATS, (stat) => {
+      if (s[stat] === undefined) {
+        return (
+          filters.stats[stat][0] ===
+            storeDataConstants.defaulSkillStatsMinMax[stat][0] &&
+          filters.stats[stat][1] ===
+            storeDataConstants.defaulSkillStatsMinMax[stat][1]
+        )
+      }
+      if (s[stat] < filters.stats[stat][0]) return false
+      if (s[stat] > filters.stats[stat][1]) return false
+
+      return true
+    })
+  }
+
+  function isAvailable(availabilities: Set<a.Availability>, s: ISkill) {
+    const availability = storeDataSkillsAvailabilities.availabilitiesById[s.id]
     if (!availability) return false
 
     if (
       availability.is_in[HEROIC_GRAILS] &&
-      filters.availabilities.has(a.AV_HEROIC_GRAILS)
+      availabilities.has(a.AV_HEROIC_GRAILS)
     ) {
       return true
     }
     // if (
     //   availability.is_in[LIMITED_DIVINE_CODES] &&
-    //   filters.availabilities.has(a.AV_LIMITED_DIVINE_CODES)
+    //   availabilities.has(a.AV_LIMITED_DIVINE_CODES)
     // ) {
     //   return true
     // }
     // if (
     //   availability.is_in[NORMAL_DIVINE_CODES] &&
-    //   filters.availabilities.has(a.AV_NORMAL_DIVINE_CODES)
+    //   availabilities.has(a.AV_NORMAL_DIVINE_CODES)
     // ) {
     //   return true
     // }
     if (
       availability.is_in[FOCUS_ONLY] &&
-      filters.availabilities.has(a.AV_LIMITED_HEROES)
+      availabilities.has(a.AV_LIMITED_HEROES)
     ) {
       return true
     }
@@ -305,13 +306,13 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       ) {
         case 3:
         case 4:
-          if (filters.availabilities.has(a.AV_GENERIC_POOL_3_4)) return true
+          if (availabilities.has(a.AV_GENERIC_POOL_3_4)) return true
           break
         case 4.5:
-          if (filters.availabilities.has(a.AV_GENERIC_POOL_45)) return true
+          if (availabilities.has(a.AV_GENERIC_POOL_45)) return true
           break
         case 5:
-          if (filters.availabilities.has(a.AV_GENERIC_POOL_5)) return true
+          if (availabilities.has(a.AV_GENERIC_POOL_5)) return true
       }
     }
 
@@ -320,17 +321,33 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
       ) {
         case 4:
-          if (filters.availabilities.has(a.AV_SPECIAL_POOL_4)) return true
+          if (availabilities.has(a.AV_SPECIAL_POOL_4)) return true
           break
         case 4.5:
-          if (filters.availabilities.has(a.AV_SPECIAL_POOL_45)) return true
+          if (availabilities.has(a.AV_SPECIAL_POOL_45)) return true
           break
         case 5:
-          if (filters.availabilities.has(a.AV_SPECIAL_POOL_5)) return true
+          if (availabilities.has(a.AV_SPECIAL_POOL_5)) return true
       }
     }
 
     return false
+  }
+
+  function filterAvailability(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnAvailabilities.value) return true
+
+    return isAvailable(filters.availabilities, s)
+  }
+
+  function filterPreInheritance(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnPreInheritance.value) return true
+
+    if (!s.downgrade_ids) return false
+
+    return some(s.downgrade_ids, (id) =>
+      isAvailable(filters.preInheritance, storeDataSkills.skillsById[id]),
+    )
   }
 
   function updateSorter([index, sorter]: [number, ISorter]) {
@@ -359,13 +376,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         filterName(s, searchIsActive.value ? regexp.value : undefined),
       ),
       // @ts-expect-error unsafe typings
-      f(filter, (s: ISkill) =>
-        filterAvailability(
-          filters.value,
-          s,
-          storeDataSkillsAvailabilities.availabilitiesById,
-        ),
-      ),
+      f(filter, (s: ISkill) => filterAvailability(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterIsPrf(filters.value, s)),
       // @ts-expect-error unsafe typings
@@ -377,13 +388,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterCanUseWeaponType(filters.value, s)),
       // @ts-expect-error unsafe typings
-      f(filter, (u: IUnit) =>
-        filterStats(
-          filters.value,
-          u,
-          storeDataConstants.defaulSkillStatsMinMax,
-        ),
-      ),
+      f(filter, (s: ISkill) => filterStats(filters.value, s)),
+      // @ts-expect-error unsafe typings
+      f(filter, (s: ISkill) => filterPreInheritance(filters.value, s)),
     )(skills)
 
   const updateSkillsFiltered = () => {
