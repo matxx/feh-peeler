@@ -147,7 +147,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (!isFilterActiveOnCanUseMoves.value) return true
 
     if (s.is_prf) return false
-    if (s.restrictions.moves.none) return false
+    if (s.restrictions.moves.none) return true
 
     if (s.restrictions.moves.can_use) {
       return !new Set(s.restrictions.moves.can_use).isDisjointFrom(
@@ -167,7 +167,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (!isFilterActiveOnCanUseWeapons.value) return true
 
     if (s.is_prf) return false
-    if (s.restrictions.weapons.none) return false
+    if (s.restrictions.weapons.none) return true
 
     if (s.restrictions.weapons.can_use) {
       const canUse = new Set(s.restrictions.weapons.can_use)
