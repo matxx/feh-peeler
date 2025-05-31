@@ -138,7 +138,11 @@ import sortBy from 'lodash-es/sortBy'
 import type { ItemKeySlot } from 'vuetify/components/VDataTable'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
-import type { ISkill, SkillCategory } from '~/utils/types/skills'
+import {
+  filterByName,
+  type ISkill,
+  type SkillCategory,
+} from '~/utils/types/skills'
 
 const IMG_SIZE = 18
 const SKILL_ICON_SIZE = 30
@@ -255,9 +259,8 @@ const getSkillsMatchedWithIndex: () => SkillMatchedWithIndex[] = () => {
 
     return [
       skill,
-      findIndex(
-        compact(regexpsFromFilters.value),
-        (regexp) => !!skill.nameForFilters.match(regexp),
+      findIndex(compact(regexpsFromFilters.value), (regexp) =>
+        filterByName(skill, regexp),
       ),
     ]
   })
@@ -300,7 +303,7 @@ function rowProps(
   if (!regexpsFromFilters.value) return
 
   return some(props.highlightedFiltersIndexes, (i) =>
-    data.item.nameForFilters.match(regexpsFromFilters.value![i - 1]),
+    filterByName(data.item, regexpsFromFilters.value[i - 1]),
   )
     ? storeTheme.highlightRowProps
     : undefined

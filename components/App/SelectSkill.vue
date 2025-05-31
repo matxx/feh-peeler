@@ -85,6 +85,7 @@ import {
   type SkillCategory,
   type SkillId,
   type ISkill,
+  filterByName,
 } from '~/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
@@ -146,10 +147,7 @@ const skills = computed(
 const skillsFiltered = ref<ISkill[]>([])
 const getSkillsFiltered = () =>
   regexp.value && searchIsActive.value
-    ? filter(
-        skills.value,
-        (skill) => !!skill.nameForFilters.match(regexp.value!),
-      )
+    ? filter(skills.value, (skill) => filterByName(skill, regexp.value))
     : []
 const updateSkillsFiltered = () => {
   skillsFiltered.value = getSkillsFiltered()

@@ -22,7 +22,7 @@ import some from 'lodash-es/some'
 import take from 'lodash-es/take'
 import filter from 'lodash-es/filter'
 
-import type { ISkillTree } from '@/utils/types/skills'
+import { filterByName, type ISkillTree } from '@/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const route = useRoute()
@@ -64,7 +64,7 @@ const searchIsActive = computed(
 const { regexp, errorMessages } = useSearch(search)
 
 function isNodeMatching(node: ISkillTree): boolean {
-  if (node.skill.nameForFilters.match(regexp.value!)) return true
+  if (filterByName(node.skill, regexp.value)) return true
   if (!node.children) return false
 
   return some(node.children, (child) => isNodeMatching(child))

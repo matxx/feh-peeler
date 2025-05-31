@@ -79,7 +79,7 @@
 <script setup lang="ts">
 import filter from 'lodash-es/filter'
 
-import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
+import { filterByName, TAB_FODDERS, type ISkill } from '@/utils/types/skills'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const { t } = useI18n()
@@ -141,9 +141,8 @@ const updateSkillsFiltered = () => {
   ) {
     skills.value = storeDataSkills.skills
   } else {
-    skills.value = filter(
-      storeDataSkills.skills,
-      (s) => !!s.nameForFilters.match(regexp.value!),
+    skills.value = filter(storeDataSkills.skills, (s) =>
+      filterByName(s, regexp.value),
     )
   }
 }

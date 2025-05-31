@@ -206,3 +206,16 @@ export function getEmptyUnitsCountByWeaponColorByAvailability(): UnitsCountByWea
     ]),
   )
 }
+
+export function filterByName(
+  unit: IUnit,
+  r: RegExp | null | undefined,
+): boolean {
+  if (!r) return false
+
+  return (
+    !!unit.nameForFilters.match(r) ||
+    !!unit.full_name.match(r) ||
+    !!unit.abbreviated_name.match(r)
+  )
+}

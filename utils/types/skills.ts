@@ -205,3 +205,12 @@ export interface ISkillRatingsGame8 {
   game8_rating: string | null
   game8_grade: Grade | null
 }
+
+export function filterByName(
+  skill: ISkill,
+  r: RegExp | null | undefined,
+): boolean {
+  if (!r) return false
+
+  return !!skill.nameForFilters.match(r) || !!skill.name.match(r)
+}

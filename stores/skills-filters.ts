@@ -38,7 +38,11 @@ import {
   type ISorter,
   type ISorters,
 } from '~/utils/types/skills-sorters'
-import { SORTED_SLOT_INDEXES, type ISkill } from '~/utils/types/skills'
+import {
+  filterByName,
+  SORTED_SLOT_INDEXES,
+  type ISkill,
+} from '~/utils/types/skills'
 import { objectEntries } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
 import { SORTED_GRADE_INDEXES } from '~/utils/types/grades'
@@ -122,7 +126,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   function filterName(s: ISkill, r?: RegExp) {
     if (!r) return true
 
-    return s.nameForFilters.match(r)
+    return filterByName(s, r)
   }
 
   function filterCategoryAndWeaponType(filters: IFilters, s: ISkill) {

@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import filter from 'lodash-es/filter'
 
-import type { UnitId, IUnit } from '~/utils/types/units'
+import { type UnitId, type IUnit, filterByName } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
 const storeGlobals = useStoreGlobals()
@@ -129,7 +129,7 @@ const units = computed(() => storeDataUnits.sortedUnits)
 const unitsFiltered = ref<IUnit[]>([])
 const getUnitsFiltered = () =>
   regexp.value && searchIsActive.value
-    ? filter(units.value, (unit) => !!unit.nameForFilters.match(regexp.value!))
+    ? filter(units.value, (unit) => filterByName(unit, regexp.value))
     : []
 const updateUnitsFiltered = () => {
   unitsFiltered.value = getUnitsFiltered()

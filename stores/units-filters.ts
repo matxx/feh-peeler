@@ -17,7 +17,7 @@ import {
   FOCUS_ONLY,
 } from '~/utils/types/obfuscated-keys'
 
-import type { IUnit } from '~/utils/types/units'
+import { filterByName, type IUnit } from '~/utils/types/units'
 import { createFilters, type IFilters } from '~/utils/types/units-filters'
 import {
   SORT_MOVE,
@@ -41,7 +41,7 @@ import { filterBoolean } from '~/utils/functions/filterBoolean'
 function filterName(u: IUnit, r?: RegExp) {
   if (!r) return true
 
-  return u.nameForFilters.match(r)
+  return filterByName(u, r)
 }
 
 function filterMoveType(filters: IFilters, u: IUnit) {
