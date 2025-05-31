@@ -6,7 +6,7 @@
 
 1. (PAGE) list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
 1. (PAGE) event "see's snare" (skill pool, recommendations, ...)
-1. (PAGE) complex pre-inheritance planner helper
+1. (PAGE) complex pre-inheritance planner/helper
 
 ### QoL
 

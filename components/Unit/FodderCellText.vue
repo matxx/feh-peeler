@@ -7,13 +7,14 @@
 
 <script setup lang="ts">
 import sortBy from 'lodash-es/sortBy'
+import compact from 'lodash-es/compact'
 
 const props = defineProps<{
   number: number
   hasRefSpecial: boolean
   hasRefMultipleSkills: boolean
-  refSpecialStars: string
-  refMultipleSkillsStars: string
+  refSpecialStars?: string
+  refMultipleSkillsStars?: string
 }>()
 
 const suffix = computed(() => {
@@ -24,6 +25,6 @@ const suffix = computed(() => {
   if (props.hasRefMultipleSkills) {
     suffixes.push(props.refMultipleSkillsStars)
   }
-  return sortBy(suffixes, (s) => s.length).join(' ')
+  return sortBy(compact(suffixes), (s) => s.length).join(' ')
 })
 </script>
