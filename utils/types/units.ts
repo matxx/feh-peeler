@@ -21,9 +21,22 @@ export type UnitId = string
 export const TAB_STATS = 'stats'
 export const TAB_SKILLS = 'skills'
 export const TAB_FODDER = 'fodder'
-export type UnitTab = typeof TAB_FODDER | typeof TAB_STATS | typeof TAB_SKILLS
-export const UNIT_TABS: UnitTab[] = [TAB_STATS, TAB_SKILLS, TAB_FODDER]
+export const TAB_FODDER_VALUE = 'fodder-value'
+
 export const UNIT_DEFAULT_TAB = TAB_STATS
+
+export type UnitTab =
+  | typeof TAB_FODDER
+  | typeof TAB_STATS
+  | typeof TAB_SKILLS
+  | typeof TAB_FODDER_VALUE
+export const UNIT_TABS: UnitTab[] = [
+  TAB_STATS,
+  TAB_SKILLS,
+  TAB_FODDER,
+  TAB_FODDER_VALUE,
+]
+export const UNIT_TABS_WITH_TOOLTIP = [TAB_FODDER, TAB_FODDER_VALUE]
 
 export const ALFONSE_ID = 'PID_アルフォンス'
 export const SHARENA_ID = 'PID_シャロン'

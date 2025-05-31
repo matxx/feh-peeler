@@ -1,14 +1,15 @@
 <!-- when updating this component -->
 <!-- make sure those units appear correct -->
 
-<!-- Jesse: Blithe Mercenary - trash unit with trash special to inherit => no note -->
-<!-- Cordelia: Knight Paragon (Cordelia) - trash unit with good special to inherit => no note -->
-<!-- Heiðrún: Sisters of Healing (NY!Heiðrún) - premium unit with trash special => note on special -->
+<!-- Jesse: Blithe Mercenary [Jesse] - trash unit with trash special to inherit => no note -->
+<!-- Cordelia: Knight Paragon [Cordelia] - trash unit with good special to inherit => no note -->
+<!-- Heiðrún: Sisters of Healing [NY!Heiðrún] - premium unit with trash special => note on special -->
 
-<!-- Micaiah: Radiant Queen (L!Micaiah) - double C skill => note on always the same C skill -->
-<!-- Xander: Gallant King (L!Xander) - double A skill => note on always the same A skill -->
+<!-- Micaiah: Radiant Queen [L!Micaiah] - double C skill => note on always the same C skill -->
+<!-- Xander: Gallant King [L!Xander] - double A skill => note on always the same A skill -->
 
-<!-- Sakura: In Full Bloom (L!Sakura) - special with both notes -->
+<!-- Sakura: In Full Bloom [L!Sakura] - special with both notes -->
+<!-- Mikoto: Caring Mother [L!Sakura] - 2 specials with notes & both notes -->
 
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">

@@ -349,6 +349,7 @@ export default {
     numberOfSlotsRequiredToInherit: 'Number of slots required to inherit',
     skillKind: 'Skill kind',
     skillName: 'Skill name',
+    availability: 'Availability',
     totals: 'Totals',
     explanationOnSpecial:
       'Not counted in totals : this Special is not 5★ locked',
@@ -405,6 +406,14 @@ export default {
         [units.TAB_STATS]: 'Stats',
         [units.TAB_SKILLS]: 'Skills',
         [units.TAB_FODDER]: 'Fodder',
+        [units.TAB_FODDER_VALUE]: 'Fodder Value',
+      },
+      tooltips: {
+        [units.TAB_STATS]: 'Stats',
+        [units.TAB_SKILLS]: 'Skills',
+        [units.TAB_FODDER]: 'Can I inherit all skills in one go ?',
+        [units.TAB_FODDER_VALUE]:
+          'Are all skills present in generic summon pool ?',
       },
       stats: {
         headers: {

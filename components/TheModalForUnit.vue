@@ -124,6 +124,10 @@
             <v-tab
               v-for="tab in UNIT_TABS"
               :key="tab"
+              v-tooltip="{
+                disabled: !UNIT_TABS_WITH_TOOLTIP.includes(tab),
+                text: t(`units.show.tooltips.${tab}`),
+              }"
               :value="tab"
             >
               {{ t(`units.show.tabs.${tab}`) }}
@@ -148,6 +152,12 @@
                 :size="FODDERS_TILE_SIZE"
               />
             </v-tabs-window-item>
+            <v-tabs-window-item :value="TAB_FODDER_VALUE">
+              <UnitFodderValue
+                :unit="unit"
+                :size="FODDERS_TILE_SIZE"
+              />
+            </v-tabs-window-item>
           </v-tabs-window>
         </v-card-text>
       </template>
@@ -160,7 +170,9 @@ import {
   TAB_STATS,
   TAB_SKILLS,
   TAB_FODDER,
+  TAB_FODDER_VALUE,
   UNIT_TABS,
+  UNIT_TABS_WITH_TOOLTIP,
 } from '~/utils/types/units'
 
 const TOOLBAR_ICON_SIZE = 20
