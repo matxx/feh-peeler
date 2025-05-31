@@ -61,6 +61,7 @@
       :headers="headers"
       :items="items"
       :items-length="storeUnitsFilters.unitsFilteredCount"
+      :items-per-page-options="ITEMS_PER_PAGE_OPTIONS"
       :loading="storeUnitsFilters.isUpdating"
       :search="
         storeUnitsFilters.filters.name === null

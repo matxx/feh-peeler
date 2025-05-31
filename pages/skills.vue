@@ -61,6 +61,7 @@
       :headers="headers"
       :items="items"
       :items-length="storeSkillsFilters.skillsFilteredCount"
+      :items-per-page-options="ITEMS_PER_PAGE_OPTIONS"
       :loading="storeSkillsFilters.isUpdating"
       :search="
         storeSkillsFilters.filters.name === null

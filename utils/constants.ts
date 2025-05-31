@@ -26,6 +26,13 @@ export const GITHUB_LINK = 'https://github.com/matxx/feh-peeler'
 export const WEBSITE_NAME_FANDOM = 'Fandom'
 export const WEBSITE_NAME_GAME8 = 'Game8'
 
+export const ITEMS_PER_PAGE_OPTIONS = [
+  { value: 10, title: '10' },
+  { value: 25, title: '25' },
+  { value: 50, title: '50' },
+  { value: 100, title: '100' },
+]
+
 // game related
 
 export const INHERIT_SLOTS = 5
