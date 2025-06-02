@@ -10,6 +10,7 @@
 
 ### QoL
 
+1. modal skill : fix when tons of downgrades/upgrades (ex: "Distant Counter" upgrades)
 1. units: filter on ratings/grades
 1. skills: filter on ratings/grades
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
