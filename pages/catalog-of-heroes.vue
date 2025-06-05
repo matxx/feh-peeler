@@ -242,6 +242,8 @@
                 :checked="ownedUnitIds.has(unit.id)"
                 :crossed="!ownedUnitIds.has(unit.id)"
                 show-weapon
+                class="cursor-pointer"
+                @click="storeGlobals.showUnit(unit.id)"
               />
             </div>
           </div>
@@ -274,6 +276,8 @@
                 :show-move="
                   storeDataUnitsHeroicGrails.order === SORT_BY_MOVE_TYPE
                 "
+                class="cursor-pointer"
+                @click="storeGlobals.showUnit(unit.id)"
               />
             </div>
           </RecycleScroller>
@@ -310,6 +314,8 @@
                 :checked="ownedUnitIds.has(unit.id)"
                 :crossed="!ownedUnitIds.has(unit.id)"
                 show-weapon
+                class="cursor-pointer"
+                @click="storeGlobals.showUnit(unit.id)"
               />
             </div>
           </RecycleScroller>
@@ -353,6 +359,8 @@ const thumbnailSize = computed(() => (mobile.value ? 50 : 80))
 const tileSize = 30
 
 const widthPx = computed(() => `${frameSize.value * columnsCount.value}px`)
+
+const storeGlobals = useStoreGlobals()
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataBanners = useStoreDataBanners()
