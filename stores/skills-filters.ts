@@ -188,16 +188,16 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         return canUse.has(w.WEAPON_C_ST)
       }
       if (filters.canUse.weapons.has(w.WEAPON_R_TO)) {
-        return canUse.has(w.WEAPON_R_TO)
+        return canUse.has(w.WEAPON_R_TO) || canUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_B_TO)) {
-        return canUse.has(w.WEAPON_B_TO)
+        return canUse.has(w.WEAPON_B_TO) || canUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_G_TO)) {
-        return canUse.has(w.WEAPON_G_TO)
+        return canUse.has(w.WEAPON_G_TO) || canUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_C_TO)) {
-        return canUse.has(w.WEAPON_C_TO)
+        return canUse.has(w.WEAPON_C_TO) || canUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_A_BO)) {
         return canUse.has(w.WEAPON_A_BO)
@@ -228,16 +228,16 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         return !canNotUse.has(w.WEAPON_C_ST)
       }
       if (filters.canUse.weapons.has(w.WEAPON_R_TO)) {
-        return !canNotUse.has(w.WEAPON_R_TO)
+        return !canNotUse.has(w.WEAPON_R_TO) && !canNotUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_B_TO)) {
-        return !canNotUse.has(w.WEAPON_B_TO)
+        return !canNotUse.has(w.WEAPON_B_TO) && !canNotUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_G_TO)) {
-        return !canNotUse.has(w.WEAPON_G_TO)
+        return !canNotUse.has(w.WEAPON_G_TO) && !canNotUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_C_TO)) {
-        return !canNotUse.has(w.WEAPON_C_TO)
+        return !canNotUse.has(w.WEAPON_C_TO) && !canNotUse.has(w.WEAPON_A_TO)
       }
       if (filters.canUse.weapons.has(w.WEAPON_A_BO)) {
         return !canNotUse.has(w.WEAPON_A_BO)
