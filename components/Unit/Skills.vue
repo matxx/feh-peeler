@@ -1,16 +1,20 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
-    <v-table class="text-no-wrap">
+    <v-table
+      hover
+      density="compact"
+      class="text-no-wrap"
+    >
       <thead>
         <tr>
-          <th />
-          <th>
+          <th class="border-b-lg" />
+          <th class="border-b-lg">
             {{ t('unitsFodder.skillName') }}
           </th>
-          <th>
+          <th class="border-b-lg">
             {{ t('skillsFodders.fodders.equippedAt') }}
           </th>
-          <th>
+          <th class="border-b-lg">
             {{ t('skillsFodders.fodders.unlockAt') }}
           </th>
         </tr>
@@ -21,49 +25,16 @@
           v-for="category in SKILL_CATEGORIES"
           :key="category"
         >
-          <tr
+          <UnitSkillsRow
             v-for="(skill, index) in skillsByCategory[category]"
             :key="skill.id"
-          >
-            <th
-              v-if="index === 0"
-              :rowspan="skillsByCategory[category].length"
-            >
-              <SkillImgCategory
-                :category="category"
-                :size="size / 2"
-              />
-            </th>
-            <th>
-              <NuxtLink
-                class="d-flex align-center"
-                href="#"
-                @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
-              >
-                <SkillImg
-                  v-show="SKILL_CATEGORIES_WITH_ICON.includes(category)"
-                  :skill="skill"
-                  :size="size / 2"
-                  class="mr-2"
-                />
-                {{ skill.name }}
-              </NuxtLink>
-            </th>
-            <td>
-              <UnitSkillEquippedRarity
-                :unit="unit"
-                :skill="skill"
-                :tile-size="(size * 3) / 4"
-              />
-            </td>
-            <td>
-              <UnitSkillUnlockRarity
-                :unit="unit"
-                :skill="skill"
-                :tile-size="(size * 3) / 4"
-              />
-            </td>
-          </tr>
+            :unit="unit"
+            :category="category"
+            :category-skills-count="skillsByCategory[category].length"
+            :skill="skill"
+            :index="index"
+            :size="size"
+          />
         </template>
       </tbody>
     </v-table>
@@ -76,8 +47,6 @@ import orderBy from 'lodash-es/orderBy'
 
 import {
   SKILL_CATEGORIES,
-  SKILL_CATEGORIES_WITH_ICON,
-  TAB_FODDERS,
   type ISkill,
   type TBySkillCategory,
 } from '~/utils/types/skills'
@@ -90,11 +59,10 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const storeGlobals = useStoreGlobals()
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
-const storeDataSkillsUnits = useStoreDataSkillsUnits()
+// const storeDataSkillsUnits = useStoreDataSkillsUnits()
 
 const availability = computed(
   () => storeDataUnitsAvailabilities.availabilitiesById[props.unit.id],
@@ -104,12 +72,13 @@ const skills = computed(() =>
     availability.value.skill_ids.map((id) => storeDataSkills.skillsById[id]),
   ),
 )
-const skillsSorted = computed(() =>
-  orderBy(skills.value, (skill) =>
-    storeDataSkillsUnits.isLoaded
-      ? storeDataSkillsUnits.skillsUnitsBySkillId[skill.id].unlock
-      : 0,
-  ),
+const skillsSorted = computed(
+  () => orderBy(skills.value, 'tier'),
+  // orderBy(skills.value, (skill) =>
+  //   storeDataSkillsUnits.isLoaded
+  //     ? storeDataSkillsUnits.bySkillIdByUnitId[props.unit.id][skill.id].unlock
+  //     : 0,
+  // ),
 )
 const skillsByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
   groupBy(skillsSorted.value, 'category'),

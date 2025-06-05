@@ -1,34 +1,24 @@
-import keyBy from 'lodash-es/keyBy'
-
 import type {
   ISkillUnit,
-  ISkillUnitBySkillId,
-  ISkillUnitByUnitId,
   ISkillUnitBySkillIdByUnitId,
   ISkillUnitByUnitIdBySkillId,
 } from '@/utils/types/skillsUnits'
 import { nestedKeyBy } from '~/utils/functions/typeSafe'
 
 export const useStoreDataSkillsUnits = defineStore('data/skillsUnits', () => {
-  const skillsUnits = ref<ISkillUnit[]>([])
+  const items = ref<ISkillUnit[]>([])
 
   const { isLoading, isLoaded, load } = useData(
     'skills_units.json',
     'stores/data/skillsUnits/load',
-    skillsUnits,
+    items,
   )
 
-  const skillsUnitsBySkillId = computed<ISkillUnitBySkillId>(() =>
-    keyBy(skillsUnits.value, 'skill_id'),
+  const bySkillIdByUnitId = computed<ISkillUnitBySkillIdByUnitId>(() =>
+    nestedKeyBy(items.value, ['unit_id', 'skill_id']),
   )
-  const skillsUnitsByUnitId = computed<ISkillUnitByUnitId>(() =>
-    keyBy(skillsUnits.value, 'unit_id'),
-  )
-  const skillUnitBySkillIdByUnitId = computed<ISkillUnitBySkillIdByUnitId>(() =>
-    nestedKeyBy(skillsUnits.value, ['unit_id', 'skill_id']),
-  )
-  const skillUnitByUnitIdBySkillId = computed<ISkillUnitByUnitIdBySkillId>(() =>
-    nestedKeyBy(skillsUnits.value, ['skill_id', 'unit_id']),
+  const byUnitIdBySkillId = computed<ISkillUnitByUnitIdBySkillId>(() =>
+    nestedKeyBy(items.value, ['skill_id', 'unit_id']),
   )
 
   return {
@@ -36,11 +26,10 @@ export const useStoreDataSkillsUnits = defineStore('data/skillsUnits', () => {
     isLoaded,
     load,
 
-    skillsUnits,
-    skillsUnitsBySkillId,
-    skillsUnitsByUnitId,
-    skillUnitByUnitIdBySkillId,
-    skillUnitBySkillIdByUnitId,
+    items,
+
+    byUnitIdBySkillId,
+    bySkillIdByUnitId,
   }
 })
 

@@ -21,7 +21,7 @@ const storeDataSkillsUnits = useStoreDataSkillsUnits()
 const bySkillId = computed(() => {
   if (!storeDataSkillsUnits.isLoaded) return
 
-  return storeDataSkillsUnits.skillUnitBySkillIdByUnitId[props.unit.id]
+  return storeDataSkillsUnits.bySkillIdByUnitId[props.unit.id]
 })
 const skillUnit = computed(() => {
   if (!bySkillId.value) return
