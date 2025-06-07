@@ -148,7 +148,7 @@
       </template>
 
       <template #[`item.${COLUMN_DESCRIPTION}`]="{ item }">
-        {{ storeDataSkillsDescriptions.byId[item.id]?.description }}
+        <SkillDescription :skill="item" />
       </template>
 
       <template #[`item.${COLUMN_RATING}`]="{ item }">
@@ -222,10 +222,9 @@ const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
 
 const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
-const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
 const { isLoading } = useDataStores([
   storeDataSkillsRatingsGame8,
-  storeDataSkillsDescriptions,
+  useStoreDataSkillsDescriptions(),
 ])
 
 const size = 40

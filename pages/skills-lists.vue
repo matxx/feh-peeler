@@ -113,13 +113,10 @@ const { t } = useI18n()
 const display = useDisplay()
 const { mobile, sm, md, lgAndUp } = useDisplay()
 
-const storeDataSkills = useStoreDataSkills()
-const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
-const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
 const { isLoaded } = useDataStores([
-  storeDataSkills,
-  storeDataSkillsDescriptions,
-  storeDataSkillsRatingsGame8,
+  useStoreDataSkills(),
+  useStoreDataSkillsDescriptions(),
+  useStoreDataSkillsRatingsGame8(),
 ])
 
 const MAX_FILTERS_COUNT_MOBILE = 1

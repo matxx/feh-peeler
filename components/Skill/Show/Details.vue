@@ -45,12 +45,7 @@
 
     <div>
       <h4 class="mt-5 mb-2">{{ t('skills.show.effect') }}</h4>
-      <div
-        v-for="(line, index) in lines"
-        :key="index"
-      >
-        {{ line ? line : '&nbsp;' }}
-      </div>
+      <SkillDescription :skill="skill" />
     </div>
   </div>
 </template>
@@ -63,7 +58,7 @@ const size = 30
 const { t } = useI18n()
 
 defineEmits(['close'])
-const props = withDefaults(
+withDefaults(
   defineProps<{
     skill: ISkill
     showClose?: boolean
@@ -71,13 +66,5 @@ const props = withDefaults(
   {
     showClose: false,
   },
-)
-
-const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
-const description = computed(
-  () => storeDataSkillsDescriptions.byId[props.skill.id]?.description,
-)
-const lines = computed(() =>
-  description.value ? description.value.split('<br>') : [],
 )
 </script>
