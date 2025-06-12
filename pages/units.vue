@@ -232,6 +232,7 @@ import {
   COLUMN_IV_DEF,
   COLUMN_IV_RES,
   COLUMN_BST,
+  COLUMN_MAX_DRAGONFLOWERS,
   COLUMN_HAS_RESPLENDENT,
   COLUMN_RATING,
   COLUMN_GENDER,
@@ -248,6 +249,7 @@ import {
   SORT_BOOK,
   SORT_RELEASE_DATE,
   SORT_BST,
+  SORT_MAX_DRAGONFLOWERS,
   SORT_MAX_SCORE,
   SORT_RATING,
   SORT_MOVE,
@@ -351,6 +353,8 @@ function translate(sortBy: DataTableSortItem[]) {
           return SORT_RELEASE_DATE
         case COLUMN_BST:
           return SORT_BST
+        case COLUMN_MAX_DRAGONFLOWERS:
+          return SORT_MAX_DRAGONFLOWERS
         case COLUMN_MAX_SCORE:
           return SORT_MAX_SCORE
         case COLUMN_RATING:

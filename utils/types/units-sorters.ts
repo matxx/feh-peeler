@@ -14,6 +14,7 @@ export const SORT_BOOK = 'book'
 export const SORT_RELEASE_DATE = 'release_date'
 // export const SORT_GAME = 'game'
 export const SORT_BST = 'bst'
+export const SORT_MAX_DRAGONFLOWERS = 'max_df'
 // export const SORT_ELEMENT = 'element'
 // export const SORT_ARTIST = 'artist'
 // export const SORT_VA = 'VA'
@@ -47,6 +48,7 @@ export type SortingField =
   | typeof SORT_RELEASE_DATE
   // | typeof SORT_GAME
   | typeof SORT_BST
+  | typeof SORT_MAX_DRAGONFLOWERS
   // | typeof SORT_ELEMENT
   // | typeof SORT_ARTIST
   // | typeof SORT_VA

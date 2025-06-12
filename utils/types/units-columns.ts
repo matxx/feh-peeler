@@ -25,6 +25,8 @@ export const COLUMN_MAX_SCORE = 'max_score'
 export const COLUMN_RATING = 'game8_rating'
 export const COLUMN_ORIGIN = 'origin'
 export const COLUMN_ID_INT = 'id_int'
+export const COLUMN_THEME = 'theme'
+export const COLUMN_MAX_DRAGONFLOWERS = 'max_df'
 
 export const DEFAULT_COLUMNS = [
   COLUMN_AVAILABILITY,
@@ -60,12 +62,14 @@ export const ALL_COLUMNS = [
   COLUMN_IV_DEF,
   COLUMN_IV_RES,
   COLUMN_BST,
+  COLUMN_MAX_DRAGONFLOWERS,
   // COLUMN_ELEMENT,
   // COLUMN_ARTIST,
   // COLUMN_VA,
   // COLUMN_DRAGONFLOWERS,
   COLUMN_MAX_SCORE,
   COLUMN_RATING,
+  COLUMN_THEME,
 ]
 
 export const COLUMNS_IN_FILTERS = [
@@ -87,6 +91,7 @@ export const COLUMNS_IN_FILTERS = [
   COLUMN_IV_DEF,
   COLUMN_IV_RES,
   COLUMN_BST,
+  COLUMN_MAX_DRAGONFLOWERS,
   // COLUMN_ELEMENT,
   // COLUMN_ARTIST,
   // COLUMN_VA,

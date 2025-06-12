@@ -391,6 +391,7 @@ export default {
         [unitsColumns.COLUMN_IV_DEF]: 'Def',
         [unitsColumns.COLUMN_IV_RES]: 'Res',
         [unitsColumns.COLUMN_BST]: 'BST',
+        [unitsColumns.COLUMN_MAX_DRAGONFLOWERS]: 'Max DF',
         [unitsColumns.COLUMN_ELEMENT]: 'Element',
         [unitsColumns.COLUMN_ARTIST]: 'Artist',
         [unitsColumns.COLUMN_VA]: 'VA',

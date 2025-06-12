@@ -128,6 +128,8 @@ export interface IUnitData {
   // duel_score: number
   // visible_bst: number
   max_score: number
+  max_df: number
+  theme?: string
 
   addition_date: string
   release_date: string
