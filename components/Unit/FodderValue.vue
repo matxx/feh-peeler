@@ -10,6 +10,9 @@
           <th>
             {{ t('unitsFodder.availability') }}
           </th>
+          <th>
+            {{ t('unitsFodder.preInheritance') }}
+          </th>
         </tr>
       </thead>
 
@@ -51,6 +54,14 @@
                 v-if="!skill.is_prf"
                 :skill="skill"
                 :tile-size="size"
+              />
+            </td>
+            <td>
+              <SkillFodderPreInheritances
+                v-if="!skill.is_prf"
+                :skill="skill"
+                :tile-size="size"
+                :skill-icon-size="size"
               />
             </td>
           </tr>
