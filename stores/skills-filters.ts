@@ -40,12 +40,13 @@ import {
 } from '~/utils/types/skills-sorters'
 import {
   filterByName,
+  RATING_0,
   SORTED_SLOT_INDEXES,
   type ISkill,
 } from '~/utils/types/skills'
 import { objectEntries } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
-import { SORTED_GRADE_INDEXES } from '~/utils/types/grades'
+import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
 import * as w from '~/utils/types/weapons'
 
 const filterIsPrf = (filters: IFilters, s: ISkill) =>
@@ -416,11 +417,13 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
             return (skill: ISkill) => (!skill.upgrade_ids ? 1 : 0)
           case SORT_RATING:
             return (skill: ISkill) =>
-              storeDataSkillsRatingsGame8.byId[skill.id]?.game8_rating
+              storeDataSkillsRatingsGame8.byId[skill.id]?.game8_rating ||
+              RATING_0
           case SORT_GRADE:
             return (skill: ISkill) => {
               const grade =
-                storeDataSkillsRatingsGame8.byId[skill.id]?.game8_grade
+                storeDataSkillsRatingsGame8.byId[skill.id]?.game8_grade ||
+                GRADE_F
               return grade && SORTED_GRADE_INDEXES[grade]
             }
           // case SORT_RESTRICTIONS: // TODO

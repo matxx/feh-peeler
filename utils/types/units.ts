@@ -43,6 +43,9 @@ export const SHARENA_ID = 'PID_シャロン'
 export const ANNA_ID = 'PID_アンナ'
 export const ASKR_TRIO_IDS = [ALFONSE_ID, SHARENA_ID, ANNA_ID]
 
+// only for sorting purposes (when no rating from game8)
+export const RATING_0 = '0'
+
 export interface IUnitThumbnail {
   id: UnitId
   full_name: string
@@ -85,7 +88,6 @@ export interface IUnitData {
   name: string
   title: string
   full_name: string
-  // game8_name?: string
   abbreviated_name: string
 
   image_url_for_portrait: string

@@ -205,8 +205,6 @@ export default {
       title: 'Title',
       // game8_id: 'Game8 ID',
       game8_grade: 'Grade',
-      // game8_link: 'Game8 Link',
-      // game8_name: 'Game8 Name',
       game8_rating: 'Rating',
       restrictions: 'Restrictions',
       kind: 'Type',

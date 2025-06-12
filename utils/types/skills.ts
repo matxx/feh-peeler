@@ -4,6 +4,9 @@ import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import { objectFromEntries } from '@/utils/functions/typeSafe'
 
+// only for sorting purposes (when no rating from game8)
+export const RATING_0 = '0'
+
 export const SKILL_WEAPON = 'weapon'
 export const SKILL_ASSIST = 'assist'
 export const SKILL_SPECIAL = 'special'

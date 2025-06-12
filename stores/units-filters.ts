@@ -17,9 +17,10 @@ import {
   FOCUS_ONLY,
 } from '~/utils/types/obfuscated-keys'
 
-import { filterByName, type IUnit } from '~/utils/types/units'
+import { filterByName, RATING_0, type IUnit } from '~/utils/types/units'
 import { createFilters, type IFilters } from '~/utils/types/units-filters'
 import {
+  SORT_RATING,
   SORT_MOVE,
   SORT_WEAP,
   SORT_AVAILABILITY,
@@ -158,6 +159,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const storeDataUnits = useStoreDataUnits()
   const storeDataUnitsStats = useStoreDataUnitsStats()
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
+  const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
 
   const filters = ref<IFilters>(
     createFilters(storeDataConstants.defaulUnitStatsMinMax),
@@ -264,6 +266,9 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       units,
       sorters.fields.map((field) => {
         switch (field) {
+          case SORT_RATING:
+            return (unit: IUnit) =>
+              storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating || RATING_0
           case SORT_MOVE:
             return (unit: IUnit) => SORTED_MOVE_TYPES_INDEXES[unit.move_type]
           case SORT_WEAP:
