@@ -208,6 +208,47 @@
           />
         </v-btn>
       </v-btn-group>
+    </div>
+
+    <div class="mt-1">
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
+          v-tooltip:bottom="t('units.filters.tooltips.isTT')"
+          size="small"
+          class="text-primary"
+          :active="filters.isTT !== null"
+          @click="cycleFilter('isTT')"
+        >
+          <v-icon start>
+            {{ iconFor(filters.isTT) }}
+          </v-icon>
+          {{ t('units.filters.buttons.isTT') }}
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          v-tooltip:bottom="t('units.filters.tooltips.isGHB')"
+          size="small"
+          class="text-primary"
+          :active="filters.isGHB !== null"
+          @click="cycleFilter('isGHB')"
+        >
+          <v-icon start>
+            {{ iconFor(filters.isGHB) }}
+          </v-icon>
+          {{ t('units.filters.buttons.isGHB') }}
+        </v-btn>
+      </v-btn-group>
 
       <v-btn-group
         color="primary"
@@ -238,6 +279,46 @@
         <v-btn
           size="small"
           class="text-primary"
+          :active="filters.isFallen !== null"
+          @click="cycleFilter('isFallen')"
+        >
+          <v-icon start>
+            {{ iconFor(filters.isFallen) }}
+          </v-icon>
+          Fallen
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.isStory !== null"
+          @click="cycleFilter('isStory')"
+        >
+          <v-icon start>
+            {{ iconFor(filters.isStory) }}
+          </v-icon>
+          Askr Trio
+        </v-btn>
+      </v-btn-group>
+    </div>
+
+    <div class="mt-1">
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
+          v-tooltip:bottom="t('units.filters.tooltips.hasPrfWeapon')"
+          size="small"
+          class="text-primary"
           :active="filters.hasPrfWeapon !== null"
           @click="cycleFilter('hasPrfWeapon')"
         >
@@ -261,6 +342,7 @@
         class="ml-1"
       >
         <v-btn
+          v-tooltip:bottom="t('units.filters.tooltips.hasPrfSkill')"
           size="small"
           class="text-primary"
           :active="filters.hasPrfSkill !== null"
@@ -542,6 +624,10 @@ function cycleFilter(
     | 'isRefresher'
     | 'hasResplendent'
     | 'isBrave'
+    | 'isFallen'
+    | 'isStory'
+    | 'isTT'
+    | 'isGHB'
     | 'hasPrfWeapon'
     | 'hasPrfSkill',
 ) {

@@ -429,6 +429,16 @@ export default {
       headers: {
         stats: 'Stats',
       },
+      buttons: {
+        isGHB: 'GHB',
+        isTT: 'TT',
+      },
+      tooltips: {
+        hasPrfWeapon: 'PRF Weapon',
+        hasPrfSkill: 'PRF Skill',
+        isGHB: 'Grand Hero Battle',
+        isTT: 'Tempest Trial',
+      },
       stats: {
         [UnitsStats.HP]: 'HP',
         [UnitsStats.ATK]: 'Atk',

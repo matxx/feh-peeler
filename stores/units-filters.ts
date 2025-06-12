@@ -63,6 +63,14 @@ const filterResplendent = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.hasResplendent, u.has_respl)
 const filterBrave = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.isBrave, u.is_brave)
+const filterIsFallen = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.isFallen, u.is_fallen)
+const filterIsStory = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.isStory, u.is_story)
+const filterIsTT = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.isTT, u.is_tt)
+const filterIsGHB = (filters: IFilters, u: IUnit) =>
+  filterBoolean(filters.isGHB, u.is_ghb)
 const filterHasPrfWeapon = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.hasPrfWeapon, u.hasPrfWeapon)
 const filterHasPrfSkill = (filters: IFilters, u: IUnit) =>
@@ -180,6 +188,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.isRefresher !== null ||
       filters.value.hasResplendent !== null ||
       filters.value.isBrave !== null ||
+      filters.value.isFallen !== null ||
+      filters.value.isStory !== null ||
+      filters.value.isTT !== null ||
+      filters.value.isGHB !== null ||
       filters.value.hasPrfWeapon !== null ||
       filters.value.hasPrfSkill !== null ||
       some(
@@ -238,6 +250,14 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       f(filter, (u: IUnit) => filterResplendent(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterBrave(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterIsFallen(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterIsStory(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterIsTT(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterIsGHB(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterHasPrfWeapon(filters.value, u)),
       // @ts-expect-error unsafe typings

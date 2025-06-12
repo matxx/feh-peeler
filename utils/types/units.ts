@@ -103,10 +103,10 @@ export interface IUnitData {
   has_respl: boolean // has resplendent attire
 
   is_brave: boolean
-  // is_fallen: boolean
-  // is_story: boolean
-  // is_tt: boolean
-  // is_ghb: boolean
+  is_fallen: boolean
+  is_story: boolean
+  is_tt: boolean
+  is_ghb: boolean
   // is_special: boolean
   // is_generic_pool: boolean
 
