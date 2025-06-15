@@ -3,11 +3,16 @@
     <SkillFodderSorting class="ml-3 mb-3" />
 
     <v-container fluid>
-      <v-row>
+      <v-row
+        :class="{
+          'flex-nowrap': !mobile,
+          'overflow-x-auto': !mobile,
+        }"
+      >
         <v-col
           v-for="skill in skills"
           :key="skill.id"
-          :cols="colsSpan"
+          :cols="colsSpanEffective"
         >
           <SkillShowSkill
             :skill="skill"
@@ -23,7 +28,7 @@
 <script setup lang="ts">
 import type { ISkill } from '@/utils/types/skills'
 
-const { mobile } = useDisplay()
+const { mobile, xs, sm, md, lg, xl, xxl } = useDisplay()
 
 const props = defineProps<{
   skills: ISkill[]
@@ -31,9 +36,7 @@ const props = defineProps<{
 }>()
 
 const skillsCount = computed(() => props.skills.length)
-const colsSpan = computed(() => {
-  if (mobile.value) return GRID_COLUMNS_COUNT
-
+const colsSpanRaw = computed(() => {
   switch (skillsCount.value) {
     case 0:
     case 1:
@@ -50,5 +53,20 @@ const colsSpan = computed(() => {
     default:
       return GRID_COLUMNS_COUNT / GRID_COLUMNS_COUNT
   }
+})
+const colsSpanMin = computed(() => {
+  if (mobile.value) return GRID_COLUMNS_COUNT
+
+  if (xs.value) return GRID_COLUMNS_COUNT
+  if (sm.value) return GRID_COLUMNS_COUNT
+  if (md.value) return GRID_COLUMNS_COUNT / 2
+  if (lg.value) return GRID_COLUMNS_COUNT / 3
+  if (xl.value) return GRID_COLUMNS_COUNT / 4
+  if (xxl.value) return GRID_COLUMNS_COUNT / 6
+
+  return colsSpanRaw.value * 2
+})
+const colsSpanEffective = computed(() => {
+  return Math.max(colsSpanRaw.value, colsSpanMin.value)
 })
 </script>

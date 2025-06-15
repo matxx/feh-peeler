@@ -4,13 +4,14 @@
 
 ### Features
 
+1. (PAGE) add units as "owned" : add skills on owned unit as inherited skills
+1. (PAGE) graph "avg stats" by month
 1. (PAGE) list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
 1. (PAGE) event "see's snare" (skill pool, recommendations, ...)
 1. (PAGE) complex pre-inheritance planner/helper
 
 ### QoL
 
-1. modal skill : fix when tons of downgrades/upgrades (ex: "Distant Counter" upgrades => tons, "glacies" upgrades => 4)
 1. units: filter on ratings/grades
 1. skills: filter on ratings/grades
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page

@@ -17,6 +17,19 @@
         </div>
       </NuxtLink>
 
+      <div
+        v-if="skill.is_prf"
+        v-show="!mobile"
+      >
+        <v-icon
+          v-tooltip="t('global.exclusiveSkill')"
+          :size="tileSize"
+          class="text-error"
+        >
+          mdi-cancel
+        </v-icon>
+      </div>
+
       <v-btn
         v-show="!alwaysOpen && mobile"
         class="ml-3"
@@ -46,6 +59,7 @@
 <script setup lang="ts">
 import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
 
+const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
 

@@ -1,11 +1,12 @@
 <template>
   <SkillShowSkills
-    :skills="upgrades"
+    :skills="upgradesSorted"
     :tile-size="tileSize"
   />
 </template>
 
 <script setup lang="ts">
+import sortBy from 'lodash-es/sortBy'
 import compact from 'lodash-es/compact'
 
 import type { ISkill } from '@/utils/types/skills'
@@ -26,4 +27,5 @@ const upgrades = computed(() =>
       )
     : [],
 )
+const upgradesSorted = computed(() => sortBy(upgrades.value, 'is_prf'))
 </script>

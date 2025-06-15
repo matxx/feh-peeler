@@ -8,15 +8,15 @@
     <v-table>
       <thead>
         <tr>
-          <th>
+          <th class="text-no-wrap">
             <span v-show="!mobile">
               {{ t('skillsFodders.fodders.unitName') }}
             </span>
           </th>
-          <th>
+          <th class="text-no-wrap">
             {{ t('skillsFodders.fodders.availability') }}
           </th>
-          <th>
+          <th class="text-no-wrap">
             {{ t('skillsFodders.fodders.unlockAt') }}
           </th>
         </tr>

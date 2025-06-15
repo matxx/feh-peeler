@@ -12,7 +12,7 @@
             :size-corner="tileSize / 3"
           />
           <div v-show="!mobile">
-            {{ unit.full_name }}
+            {{ unit.abbreviated_name }}
           </div>
         </div>
       </NuxtLink>

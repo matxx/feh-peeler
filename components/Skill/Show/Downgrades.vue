@@ -1,11 +1,12 @@
 <template>
   <SkillShowSkills
-    :skills="downgrades"
+    :skills="downgradesSorted"
     :tile-size="tileSize"
   />
 </template>
 
 <script setup lang="ts">
+import sortBy from 'lodash-es/sortBy'
 import compact from 'lodash-es/compact'
 
 import type { ISkill } from '@/utils/types/skills'
@@ -26,4 +27,5 @@ const downgrades = computed(() =>
       )
     : [],
 )
+const downgradesSorted = computed(() => sortBy(downgrades.value, 'is_prf'))
 </script>
