@@ -10,6 +10,7 @@
 
 <!-- Sakura: In Full Bloom [L!Sakura] - special with both notes -->
 <!-- Mikoto: Caring Mother [L!Sakura] - 2 specials with notes & both notes -->
+<!-- Maria: Ritual Sacrifice [F!Maria] - 2 specials - imbue on top -->
 
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
@@ -235,9 +236,26 @@ const skills = computed(() =>
     availability.value.skill_ids.map((id) => storeDataSkills.skillsById[id]),
   ),
 )
+const skillsSorted = computed(() =>
+  orderBy(
+    skills.value,
+    [
+      'tier',
+      (skill) =>
+        sumBy(AVAILABILITIES, (avail) =>
+          storeDataSkillsAvailabilities.requiredInheritSlotsCount(
+            skill,
+            isUnitFiveStarLocked.value,
+            avail,
+          ),
+        ),
+    ],
+    ['asc', 'asc'],
+  ),
+)
 const skillsMaxTier = computed<ISkill[]>(() =>
   filter(
-    skills.value,
+    skillsSorted.value,
     (skill) =>
       !skill.upgrade_ids ||
       isEmpty(intersection(skill.upgrade_ids, availability.value.skill_ids)),
@@ -265,24 +283,10 @@ const relevantSkillIdByCategory = computed<
   TBySkillCategory<SkillId | undefined>
 >(() =>
   objectFromEntries(
-    objectEntries(skillsMaxTierByCategory.value).map(([category, skills]) => {
-      const skils = orderBy(
-        skills,
-        [
-          'tier',
-          (skill) =>
-            sumBy(AVAILABILITIES, (avail) =>
-              storeDataSkillsAvailabilities.requiredInheritSlotsCount(
-                skill,
-                isUnitFiveStarLocked.value,
-                avail,
-              ),
-            ),
-        ],
-        ['desc', 'desc'],
-      )
-      return [category, skils[0].id]
-    }),
+    objectEntries(skillsMaxTierByCategory.value).map(([category, skills]) => [
+      category,
+      skills.toReversed()[0].id,
+    ]),
   ),
 )
 
