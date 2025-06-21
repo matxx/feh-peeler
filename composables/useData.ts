@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/nuxt'
 
 const DOMAIN = 'data.feh-peeler.com'
-const COMMIT = '3526213707efd47e16cdbfc69d827548703c08c4'
+const COMMIT = 'e896d8e53d11f372299f4b16dda4c697bba01d60'
 
 export default function useData(
   filename: string,
