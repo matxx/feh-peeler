@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "@nuxthub/core": "^0.8.27",
+    "@nuxthub/core": "^0.9.0",
     "@pinia/nuxt": "^0.11.1",
     "@sentry/nuxt": "^9.22.0",
     "@vee-validate/nuxt": "^4.15.1",
