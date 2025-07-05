@@ -1,7 +1,6 @@
 <template>
   <component
     :is="disabled ? 'div' : NuxtLink"
-    v-bind="$attrs"
     class="app-link"
   >
     <slot />

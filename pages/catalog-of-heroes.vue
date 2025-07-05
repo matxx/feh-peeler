@@ -128,7 +128,12 @@
                   :key="color"
                   class="text-end"
                 >
-                  <NuxtLink
+                  <AppLink
+                    :disabled="
+                      !allUnitsCountByWeaponColorByAvailability[availability][
+                        color
+                      ]
+                    "
                     href="#"
                     @click.prevent="show(availability, color)"
                   >
@@ -137,7 +142,7 @@
                         ? t('global.NA')
                         : ownedUnitsCountByWeaponColorByAvailability[
                             availability
-                          ][color]
+                          ][color] || 0
                     }}
                     /
                     {{
@@ -145,27 +150,28 @@
                         ? t('global.NA')
                         : allUnitsCountByWeaponColorByAvailability[
                             availability
-                          ][color]
+                          ][color] || 0
                     }}
-                  </NuxtLink>
+                  </AppLink>
                 </td>
                 <th class="text-end">
-                  <NuxtLink
+                  <AppLink
+                    :disabled="!allUnitsCountByAvailability[availability]"
                     href="#"
                     @click.prevent="show(availability, undefined)"
                   >
                     {{
                       isLoading
                         ? t('global.NA')
-                        : ownedUnitsCountByAvailability[availability]
+                        : ownedUnitsCountByAvailability[availability] || 0
                     }}
                     /
                     {{
                       isLoading
                         ? t('global.NA')
-                        : allUnitsCountByAvailability[availability]
+                        : allUnitsCountByAvailability[availability] || 0
                     }}
-                  </NuxtLink>
+                  </AppLink>
                 </th>
               </tr>
             </tbody>
@@ -180,32 +186,38 @@
                   :key="color"
                   class="text-end"
                 >
-                  <NuxtLink
+                  <AppLink
+                    :disabled="!allUnitsCountByWeaponColor[color]"
                     href="#"
                     @click.prevent="show(undefined, color)"
                   >
                     {{
                       isLoading
                         ? t('global.NA')
-                        : ownedUnitsCountByWeaponColor[color]
+                        : ownedUnitsCountByWeaponColor[color] || 0
                     }}
                     /
                     {{
                       isLoading
                         ? t('global.NA')
-                        : allUnitsCountByWeaponColor[color]
+                        : allUnitsCountByWeaponColor[color] || 0
                     }}
-                  </NuxtLink>
+                  </AppLink>
                 </th>
                 <th class="text-end">
-                  <NuxtLink
+                  <AppLink
+                    :disabled="!storeDataUnits.unitsCount"
                     href="#"
                     @click.prevent="show(undefined, undefined)"
                   >
-                    {{ isLoading ? t('global.NA') : ownedCount }}
+                    {{ isLoading ? t('global.NA') : ownedCount || 0 }}
                     /
-                    {{ isLoading ? t('global.NA') : storeDataUnits.unitsCount }}
-                  </NuxtLink>
+                    {{
+                      isLoading
+                        ? t('global.NA')
+                        : storeDataUnits.unitsCount || 0
+                    }}
+                  </AppLink>
                 </th>
               </tr>
             </tfoot>
