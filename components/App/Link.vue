@@ -2,6 +2,13 @@
   <component
     :is="disabled ? 'div' : NuxtLink"
     class="app-link"
+    @click="
+      ($event) => {
+        if (disabled) return
+
+        $emit('click', $event)
+      }
+    "
   >
     <slot />
   </component>
@@ -10,6 +17,7 @@
 <script setup lang="ts">
 import { NuxtLink } from '#components'
 
+defineEmits(['click'])
 defineProps({
   disabled: {
     type: Boolean,
