@@ -130,6 +130,7 @@
                 >
                   <AppLink
                     :disabled="
+                      isLoading ||
                       !allUnitsCountByWeaponColorByAvailability[availability][
                         color
                       ]
@@ -472,9 +473,9 @@ function show(availability?: Availability, color?: WeaponColor) {
 
 const shownUnits = computed(() => {
   if (shownAvailability.value && shownWeaponColor.value) {
-    return storeDataUnits.unitsByWeaponColorByAvailability[
-      shownAvailability.value
-    ][shownWeaponColor.value]
+    const unitsByWeaponColor =
+      storeDataUnits.unitsByWeaponColorByAvailability[shownAvailability.value]
+    return unitsByWeaponColor ? unitsByWeaponColor[shownWeaponColor.value] : []
   } else if (shownAvailability.value) {
     return storeDataUnits.unitsByAvailability[shownAvailability.value]
   } else if (shownWeaponColor.value) {
