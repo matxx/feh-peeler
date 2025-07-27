@@ -11,6 +11,7 @@ export const SORT_PRF = 'is_prf'
 export const SORT_SP = 'sp'
 export const SORT_CD = 'cd'
 export const SORT_TIER = 'tier'
+export const SORT_RELEASE_DATE = 'release_date'
 
 // keys not on skill data
 
@@ -35,6 +36,7 @@ export type SortingField =
   | typeof SORT_SP
   | typeof SORT_CD
   | typeof SORT_TIER
+  | typeof SORT_RELEASE_DATE
   // not on unit
   | typeof SORT_EFFECTIVENESS
   | typeof SORT_MAX

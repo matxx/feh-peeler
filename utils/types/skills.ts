@@ -172,6 +172,9 @@ export interface ISkillData {
     moves: ISkillRestrictions<MoveType>
     weapons: ISkillRestrictions<ExtendedWeaponType>
   }
+
+  addition_date: string
+  release_date: string
 }
 
 export interface ISkill extends ISkillData {

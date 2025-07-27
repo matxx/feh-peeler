@@ -26,6 +26,7 @@ import {
 } from '~/utils/types/skills-filters'
 import {
   SORT_SLOT,
+  SORT_RELEASE_DATE,
   SORT_MAX,
   SORT_RATING,
   SORT_GRADE,
@@ -413,6 +414,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         switch (field) {
           case SORT_SLOT:
             return (skill: ISkill) => SORTED_SLOT_INDEXES[skill.category]
+          case SORT_RELEASE_DATE:
+            return (skill: ISkill) =>
+              storeDataSkills.skillsById[skill.baseId].release_date
           case SORT_MAX:
             return (skill: ISkill) => (!skill.upgrade_ids ? 1 : 0)
           case SORT_RATING:

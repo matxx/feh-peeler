@@ -471,6 +471,7 @@ export default {
         [skillsColumns.COLUMN_AVAILABILITY]: 'Availability',
         [skillsColumns.COLUMN_PRE_INHERITANCE]: 'PreInheritance',
         [skillsColumns.COLUMN_MAX]: 'MAX ?',
+        [skillsColumns.COLUMN_RELEASE_DATE]: 'Release Date',
       },
     },
     show: {

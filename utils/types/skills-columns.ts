@@ -7,6 +7,7 @@ export const COLUMN_SP = 'sp'
 export const COLUMN_CD = 'cd'
 export const COLUMN_TIER = 'tier'
 export const COLUMN_EFFECTIVENESS = 'eff'
+export const COLUMN_RELEASE_DATE = 'release_date'
 
 export const COLUMN_RATING = 'game8_rating'
 export const COLUMN_GRADE = 'game8_grade'
@@ -28,6 +29,7 @@ export const DEFAULT_COLUMNS = [
 export const ALL_COLUMNS = [
   COLUMN_THUMBNAIL,
   COLUMN_NAME,
+  COLUMN_RELEASE_DATE,
   COLUMN_SLOT,
   COLUMN_PRF,
   COLUMN_MAX,
@@ -46,6 +48,7 @@ export const ALL_COLUMNS = [
 export const COLUMNS_IN_FILTERS = [
   COLUMN_NAME,
   COLUMN_SLOT,
+  COLUMN_RELEASE_DATE,
   COLUMN_PRF,
   COLUMN_MAX,
   COLUMN_SP,

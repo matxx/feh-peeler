@@ -105,6 +105,9 @@
           {{ item.name }}
         </NuxtLink>
       </template>
+      <template #[`item.${COLUMN_RELEASE_DATE}`]="{ item }">
+        {{ storeDataSkills.skillsById[item.baseId].release_date }}
+      </template>
       <template #[`item.${COLUMN_SLOT}`]="{ item }">
         <div class="d-flex justify-center">
           <SkillImgCategory
@@ -179,6 +182,7 @@ import {
   COLUMNS_START_ALIGNED,
   COLUMN_THUMBNAIL,
   COLUMN_NAME,
+  COLUMN_RELEASE_DATE,
   COLUMN_SLOT,
   COLUMN_PRF,
   COLUMN_SP,
@@ -201,6 +205,7 @@ import {
   SORT_CD,
   SORT_TIER,
   SORT_EFFECTIVENESS,
+  SORT_RELEASE_DATE,
   SORT_MAX,
   SORT_RATING,
   SORT_GRADE,
@@ -221,8 +226,10 @@ const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
 
+const storeDataSkills = useStoreDataSkills()
 const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
 const { isLoading } = useDataStores([
+  storeDataSkills,
   storeDataSkillsRatingsGame8,
   useStoreDataSkillsDescriptions(),
 ])
@@ -297,6 +304,8 @@ function translate(sortBy: DataTableSortItem[]) {
           return SORT_CD
         case COLUMN_TIER:
           return SORT_TIER
+        case COLUMN_RELEASE_DATE:
+          return SORT_RELEASE_DATE
         // proxy fields
         case COLUMN_EFFECTIVENESS:
           return SORT_EFFECTIVENESS
