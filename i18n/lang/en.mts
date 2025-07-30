@@ -6,6 +6,7 @@ import * as skillsColumns from '~/utils/types/skills-columns'
 import * as skillsFilters from '~/utils/types/skills-filters'
 import * as units from '~/utils/types/units'
 import * as unitsColumns from '~/utils/types/units-columns'
+import * as unitsFilters from '~/utils/types/units-filters'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
@@ -99,6 +100,16 @@ export default {
             [moves.MOVE_A]: 'Icon dragonflowers yellow (cavalry)',
             [moves.MOVE_C]: 'Icon dragonflowers blue (flying)',
             [moves.MOVE_F]: 'Icon dragonflowers red (infantry)',
+          },
+          element: {
+            [unitsFilters.ELEMENT_FIRE]: 'Icon Fire',
+            [unitsFilters.ELEMENT_WATER]: 'Icon Water',
+            [unitsFilters.ELEMENT_WIND]: 'Icon Wind',
+            [unitsFilters.ELEMENT_EARTH]: 'Icon Earth',
+            [unitsFilters.ELEMENT_LIGHT]: 'Icon Light',
+            [unitsFilters.ELEMENT_DARK]: 'Icon Dark',
+            [unitsFilters.ELEMENT_ASTRA]: 'Icon Astra',
+            [unitsFilters.ELEMENT_ANIMA]: 'Icon Anima',
           },
         },
       },

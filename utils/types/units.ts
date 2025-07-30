@@ -15,6 +15,7 @@ import {
   SORTED_AVAILABILITIES,
   type Availability,
 } from '~/utils/types/units-availabilities'
+import type { Element } from '~/utils/types/units-filters'
 
 export type UnitId = string
 
@@ -112,6 +113,7 @@ export interface IUnitData {
 
   is_legendary: boolean
   is_mythic: boolean
+  element?: Element
 
   is_duo: boolean
   is_harmonized: boolean

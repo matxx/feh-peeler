@@ -63,7 +63,7 @@
           @click="cycleFilter('isMax')"
         >
           <v-icon start>
-            {{ iconFor(filters.isMax) }}
+            {{ iconForBool(filters.isMax) }}
           </v-icon>
           {{ t('skills.filters.isMax') }}
         </v-btn>
@@ -82,7 +82,7 @@
           @click="cycleFilter('isPrf')"
         >
           <v-icon start>
-            {{ iconFor(filters.isPrf) }}
+            {{ iconForBool(filters.isPrf) }}
           </v-icon>
           {{ t('skills.filters.isPrf') }}
         </v-btn>
@@ -251,7 +251,7 @@ import {
   type SkillCategory,
 } from '~/utils/types/skills'
 import { cycleState } from '~/utils/functions/cycleState'
-import { iconFor } from '~/utils/functions/iconFor'
+import { iconForBool } from '~/utils/functions/iconFor'
 
 const SIZE = 24
 

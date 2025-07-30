@@ -3,6 +3,44 @@ import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import type { Availability } from '@/utils/types/units-availabilities'
 import type { IUnitStatMinMax } from '@/utils/types/units-stats'
 
+export const ELEMENT_FIRE = 'Fire'
+export const ELEMENT_WATER = 'Water'
+export const ELEMENT_WIND = 'Wind'
+export const ELEMENT_EARTH = 'Earth'
+export const ELEMENT_LIGHT = 'Light'
+export const ELEMENT_DARK = 'Dark'
+export const ELEMENT_ASTRA = 'Astra'
+export const ELEMENT_ANIMA = 'Anima'
+
+export type Element =
+  | typeof ELEMENT_FIRE
+  | typeof ELEMENT_WATER
+  | typeof ELEMENT_WIND
+  | typeof ELEMENT_EARTH
+  | typeof ELEMENT_LIGHT
+  | typeof ELEMENT_DARK
+  | typeof ELEMENT_ASTRA
+  | typeof ELEMENT_ANIMA
+
+export const SORTED_LEGENDARY_ELEMENTS: Element[] = [
+  ELEMENT_FIRE,
+  ELEMENT_WATER,
+  ELEMENT_WIND,
+  ELEMENT_EARTH,
+]
+
+export const SORTED_MYTHIC_ELEMENTS: Element[] = [
+  ELEMENT_LIGHT,
+  ELEMENT_DARK,
+  ELEMENT_ASTRA,
+  ELEMENT_ANIMA,
+]
+
+export const ELEMENTS_FOR_FILTERS = [
+  SORTED_LEGENDARY_ELEMENTS,
+  SORTED_MYTHIC_ELEMENTS,
+]
+
 export const TRAIT_AIDED = 'is_aided'
 export const TRAIT_ASCENDED = 'is_ascended'
 export const TRAIT_ATTUNED = 'is_attuned'
@@ -30,6 +68,7 @@ export interface IFilters {
   weapons: Set<ExtendedWeaponType>
   moves: Set<MoveType>
   traits: Set<Trait>
+  elements: Set<Element>
 
   availabilities: Set<Availability>
 
@@ -54,6 +93,8 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   weapons: new Set(),
   moves: new Set(),
   traits: new Set(),
+  elements: new Set(),
+
   availabilities: new Set(),
 
   isRefresher: null,

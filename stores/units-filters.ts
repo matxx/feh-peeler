@@ -249,6 +249,15 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
         })
       }),
       // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => {
+        if (filters.value.elements.size === 0) return true
+
+        return some(
+          Array.from(filters.value.elements),
+          (element) => u.element === element,
+        )
+      }),
+      // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterRefresher(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterResplendent(filters.value, u)),

@@ -25,6 +25,7 @@
       />
     </div>
 
+    <!-- kind of hero -->
     <div class="mt-1">
       <div>
         <v-btn-group
@@ -163,6 +164,34 @@
       </div>
     </div>
 
+    <!-- legendary/mythic element -->
+    <div class="mt-1">
+      <div>
+        <v-btn-group
+          v-for="(list, index) in UnitsFilters.ELEMENTS_FOR_FILTERS"
+          :key="index"
+          divided
+          color="primary"
+          density="compact"
+          variant="outlined"
+        >
+          <v-btn
+            v-for="element in list"
+            :key="element"
+            size="small"
+            class="text-primary"
+            :active="filters.elements.has(element)"
+            @click="toggleElement(element)"
+          >
+            <AppIconElement
+              :element="element"
+              :size="size"
+            />
+          </v-btn>
+        </v-btn-group>
+      </div>
+    </div>
+
     <div class="mt-1">
       <v-btn-group
         color="primary"
@@ -176,7 +205,7 @@
           @click="cycleFilter('isRefresher')"
         >
           <v-icon start>
-            {{ iconFor(filters.isRefresher) }}
+            {{ iconForBool(filters.isRefresher) }}
           </v-icon>
           <img
             src="assets/icons/unit_types/dancer.png"
@@ -199,7 +228,7 @@
           @click="cycleFilter('hasResplendent')"
         >
           <v-icon start>
-            {{ iconFor(filters.hasResplendent) }}
+            {{ iconForBool(filters.hasResplendent) }}
           </v-icon>
           <img
             src="assets/icons/resplendent.png"
@@ -224,7 +253,7 @@
           @click="cycleFilter('isTT')"
         >
           <v-icon start>
-            {{ iconFor(filters.isTT) }}
+            {{ iconForBool(filters.isTT) }}
           </v-icon>
           {{ t('units.filters.buttons.isTT') }}
         </v-btn>
@@ -244,7 +273,7 @@
           @click="cycleFilter('isGHB')"
         >
           <v-icon start>
-            {{ iconFor(filters.isGHB) }}
+            {{ iconForBool(filters.isGHB) }}
           </v-icon>
           {{ t('units.filters.buttons.isGHB') }}
         </v-btn>
@@ -263,7 +292,7 @@
           @click="cycleFilter('isBrave')"
         >
           <v-icon start>
-            {{ iconFor(filters.isBrave) }}
+            {{ iconForBool(filters.isBrave) }}
           </v-icon>
           CYL
         </v-btn>
@@ -283,7 +312,7 @@
           @click="cycleFilter('isFallen')"
         >
           <v-icon start>
-            {{ iconFor(filters.isFallen) }}
+            {{ iconForBool(filters.isFallen) }}
           </v-icon>
           Fallen
         </v-btn>
@@ -302,7 +331,7 @@
           @click="cycleFilter('isStory')"
         >
           <v-icon start>
-            {{ iconFor(filters.isStory) }}
+            {{ iconForBool(filters.isStory) }}
           </v-icon>
           Askr Trio
         </v-btn>
@@ -323,7 +352,7 @@
           @click="cycleFilter('hasPrfWeapon')"
         >
           <v-icon start>
-            {{ iconFor(filters.hasPrfWeapon) }}
+            {{ iconForBool(filters.hasPrfWeapon) }}
           </v-icon>
           PRF
           <img
@@ -349,7 +378,7 @@
           @click="cycleFilter('hasPrfSkill')"
         >
           <v-icon start>
-            {{ iconFor(filters.hasPrfSkill) }}
+            {{ iconForBool(filters.hasPrfSkill) }}
           </v-icon>
           PRF
           <span class="ml-2 crossed text-white">
@@ -528,7 +557,7 @@ import {
 } from '@/utils/types/weapons'
 import { STATS_AND_BST } from '~/utils/types/units-stats'
 import { cycleState } from '~/utils/functions/cycleState'
-import { iconFor } from '~/utils/functions/iconFor'
+import { iconForBool } from '~/utils/functions/iconFor'
 import type { Availability } from '~/utils/types/units-availabilities'
 
 const SIZE = 24
@@ -588,6 +617,15 @@ function toggleWeapon(weaponType: WeaponType) {
     filters.value.weapons.delete(weaponType)
   } else {
     filters.value.weapons.add(weaponType)
+  }
+}
+function toggleElement(element: UnitsFilters.Element) {
+  if (!filters.value) return
+
+  if (filters.value.elements.has(element)) {
+    filters.value.elements.delete(element)
+  } else {
+    filters.value.elements.add(element)
   }
 }
 

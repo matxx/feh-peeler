@@ -3,12 +3,14 @@
     type="info"
     border="start"
     variant="tonal"
+    density="compact"
   >
     {{ t('global.game8.allRatingsAreFrom') }}
 
     <nuxt-link
       :href="BASE_URL"
       target="_blank"
+      class="ml-1"
     >
       <TheGame8Logo
         :height="18"

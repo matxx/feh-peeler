@@ -1,4 +1,4 @@
-export function iconFor(state: boolean | null) {
+export function iconForBool(state: boolean | null) {
   switch (state) {
     case true:
       return 'mdi-checkbox-outline'
