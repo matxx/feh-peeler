@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div id="mobile-skills-filter-name" />
+    <div ref="mobile-skills-filter-name" />
 
     <v-data-table-server
       v-model:items-per-page="itemsPerPage"
@@ -225,6 +225,14 @@ definePageMeta({
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
+
+const div = useTemplateRef('mobile-skills-filter-name')
+onMounted(() => {
+  storeGlobals.setMobileSkillFilterElem(div.value)
+})
+onBeforeUnmount(() => {
+  storeGlobals.setMobileSkillFilterElem()
+})
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()

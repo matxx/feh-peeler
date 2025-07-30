@@ -30,8 +30,8 @@
     </v-navigation-drawer>
 
     <Teleport
-      v-if="mobile"
-      to="#mobile-units-filter-name"
+      v-if="mobile && storeGlobals.mobileUnitFilterElem"
+      :to="storeGlobals.mobileUnitFilterElem"
     >
       <v-text-field
         v-model="filters.name"
@@ -40,7 +40,6 @@
         :counter="storeUnitsFilters.searchNameCounter"
         density="compact"
         clearable
-        class="mt-5"
         :label="t('scores.labels.unitName')"
         :error-messages="storeUnitsFilters.searchNameErrorMessages"
       >
@@ -99,6 +98,8 @@ watch(
   },
   { immediate: true },
 )
+
+const storeGlobals = useStoreGlobals()
 
 const { isLoading } = useDataStores([
   useStoreDataUnits(),

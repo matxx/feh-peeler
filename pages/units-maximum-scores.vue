@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div id="mobile-units-filter-name" />
+    <div ref="mobile-units-filter-name" />
 
     <div class="scores__line">
       <h4 class="scores__score">
@@ -227,6 +227,14 @@ definePageMeta({
 const { l } = useFandom()
 const { t } = useI18n()
 const storeGlobals = useStoreGlobals()
+
+const div = useTemplateRef('mobile-units-filter-name')
+onMounted(() => {
+  storeGlobals.setMobileUnitFilterElem(div.value)
+})
+onBeforeUnmount(() => {
+  storeGlobals.setMobileUnitFilterElem()
+})
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()

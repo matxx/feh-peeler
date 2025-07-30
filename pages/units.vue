@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div id="mobile-units-filter-name" />
+    <div ref="mobile-units-filter-name" />
 
     <v-data-table-server
       v-model:items-per-page="itemsPerPage"
@@ -274,6 +274,14 @@ definePageMeta({
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
+
+const div = useTemplateRef('mobile-units-filter-name')
+onMounted(() => {
+  storeGlobals.setMobileUnitFilterElem(div.value)
+})
+onBeforeUnmount(() => {
+  storeGlobals.setMobileUnitFilterElem()
+})
 
 const storeDataUnitsStats = useStoreDataUnitsStats()
 const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()

@@ -30,8 +30,8 @@
     </v-navigation-drawer>
 
     <Teleport
-      v-if="mobile"
-      to="#mobile-skills-filter-name"
+      v-if="mobile && storeGlobals.mobileSkillFilterElem"
+      :to="storeGlobals.mobileSkillFilterElem"
     >
       <v-text-field
         v-model="filters.name"
@@ -40,7 +40,6 @@
         :counter="storeSkillsFilters.searchNameCounter"
         density="compact"
         clearable
-        class="mt-5"
         :label="t('skills.filters.skillName')"
         :error-messages="storeSkillsFilters.searchNameErrorMessages"
       >
@@ -99,6 +98,8 @@ watch(
   },
   { immediate: true },
 )
+
+const storeGlobals = useStoreGlobals()
 
 const { isLoading } = useDataStores([
   useStoreDataSkills(),

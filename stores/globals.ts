@@ -53,6 +53,16 @@ export const useStoreGlobals = defineStore('globals', () => {
     sortedByAvailability.value = !sortedByAvailability.value
   }
 
+  const mobileUnitFilterElem = ref<HTMLElement | null>()
+  function setMobileUnitFilterElem(val?: HTMLElement | null) {
+    mobileUnitFilterElem.value = val
+  }
+
+  const mobileSkillFilterElem = ref<HTMLElement | null>()
+  function setMobileSkillFilterElem(val?: HTMLElement | null) {
+    mobileSkillFilterElem.value = val
+  }
+
   return {
     modalSkillIsOpen,
     shownSkillId,
@@ -68,6 +78,12 @@ export const useStoreGlobals = defineStore('globals', () => {
     sortedByAvailability,
     setSortedByAvailability,
     toggleSortedByAvailability,
+
+    mobileUnitFilterElem,
+    setMobileUnitFilterElem,
+
+    mobileSkillFilterElem,
+    setMobileSkillFilterElem,
   }
 })
 
