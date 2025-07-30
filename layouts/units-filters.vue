@@ -24,8 +24,6 @@
         :show-sorters="showSorters"
         :size-sorters="sizeSorters"
         :size-filters="sizeFilters"
-        :filter-name-loading="storeUnitsFilters.isUpdating"
-        :filter-name-error-messages="storeUnitsFilters.errorMessages"
         class="pa-3"
         @update:sorter="storeUnitsFilters.updateSorter"
       />
@@ -38,13 +36,13 @@
       <v-text-field
         v-model="filters.name"
         :loading="storeUnitsFilters.isUpdating"
-        :color="storeUnitsFilters.searchIsActive ? 'success' : 'primary'"
-        :counter="storeUnitsFilters.counter"
+        :color="storeUnitsFilters.searchNameIsActive ? 'success' : 'primary'"
+        :counter="storeUnitsFilters.searchNameCounter"
         density="compact"
         clearable
         class="mt-5"
         :label="t('scores.labels.unitName')"
-        :error-messages="storeUnitsFilters.errorMessages"
+        :error-messages="storeUnitsFilters.searchNameErrorMessages"
       >
         <template #prepend>
           <v-btn

@@ -7,13 +7,13 @@
     <div v-show="!mobile">
       <v-text-field
         v-model="filters.name"
-        :loading="filterNameLoading"
-        :color="searchIsActive ? 'success' : 'primary'"
-        :counter="counter"
+        :loading="storeUnitsFilters.isUpdating"
+        :color="storeUnitsFilters.searchNameIsActive ? 'success' : 'primary'"
+        :counter="storeUnitsFilters.searchNameCounter"
         density="compact"
         clearable
         :label="t('scores.labels.unitName')"
-        :error-messages="filterNameErrorMessages"
+        :error-messages="storeUnitsFilters.searchNameErrorMessages"
       />
     </div>
 
@@ -536,22 +536,11 @@ const SIZE = 24
 const filters = defineModel<IFilters>('filters')
 defineProps<{
   size: number
-  filterNameLoading: boolean
-  filterNameErrorMessages: string[]
 }>()
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeDataConstants = useStoreDataConstants()
-
-const searchLength = computed(() =>
-  filters.value && filters.value.name ? filters.value.name.length : 0,
-)
-const counter = computed(() =>
-  searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
-)
-const searchIsActive = computed(
-  () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
-)
+const storeUnitsFilters = useStoreUnitsFilters()
 
 const isWeaponAggregateActive = computed(() =>
   objectFromEntries(

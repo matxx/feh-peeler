@@ -210,23 +210,27 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     sorters.value.orders[index] = sorter.order
   }
 
-  const search = computed(() => filters.value.name)
-  const searchLength = computed(() =>
-    filters.value.name ? filters.value.name.length : 0,
+  const searchNameText = computed(() => filters.value.name)
+  const searchNameTextLength = computed(() =>
+    searchNameText.value ? searchNameText.value.length : 0,
   )
-  const counter = computed(() =>
-    searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
+  const searchNameCounter = computed(() =>
+    searchNameTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
   )
-  const searchIsActive = computed(
-    () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
+  const searchNameIsActive = computed(
+    () => searchNameTextLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
   )
-  const { regexp, errorMessages } = useSearch(search)
+  const { regexp: searchNameRegexp, errorMessages: searchNameErrorMessages } =
+    useSearch(searchNameText)
 
   const filterUnits = (units: IUnit[]) =>
     flow(
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
-        filterName(u, searchIsActive.value ? regexp.value : undefined),
+        filterName(
+          u,
+          searchNameIsActive.value ? searchNameRegexp.value : undefined,
+        ),
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
@@ -276,7 +280,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     unitsFiltered.value = filterUnits(storeDataUnits.units)
   }
   const { isUpdating, update: updateUnits } = useDebounce(updateUnitsFiltered, [
-    [regexp],
+    [searchNameRegexp],
     [filters, { deep: true }],
     [() => storeDataUnits.units],
   ])
@@ -335,10 +339,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     sorters,
 
     isUpdating,
-    searchIsActive,
     anyFilterActiveExceptName,
-    counter,
-    errorMessages,
+
+    searchNameIsActive,
+    searchNameCounter,
+    searchNameErrorMessages,
 
     updateSorter,
     updateUnits,

@@ -18,6 +18,7 @@ export type ISkillStatMinMax = {
 
 export interface IFilters {
   name: string | null
+  description: string | null
 
   categories: Set<SkillCategory>
   weaponTypes: Set<ExtendedWeaponType>
@@ -38,6 +39,7 @@ export interface IFilters {
 
 export const createFilters = (stats: ISkillStatMinMax): IFilters => ({
   name: null,
+  description: null,
 
   categories: new Set(),
   weaponTypes: new Set(),

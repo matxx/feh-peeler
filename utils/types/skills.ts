@@ -220,3 +220,13 @@ export function filterByName(
 
   return !!skill.nameForFilters.match(r) || !!skill.name.match(r)
 }
+
+export function filterByDescription(
+  skillDescription: ISkillDescription,
+  r: RegExp | null | undefined,
+): boolean {
+  if (!r) return false
+  if (!skillDescription.description) return false
+
+  return !!skillDescription.description.match(r)
+}

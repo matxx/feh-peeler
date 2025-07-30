@@ -24,8 +24,6 @@
         :show-sorters="showSorters"
         :size-sorters="sizeSorters"
         :size-filters="sizeFilters"
-        :filter-name-loading="storeSkillsFilters.isUpdating"
-        :filter-name-error-messages="storeSkillsFilters.errorMessages"
         class="pa-3"
         @update:sorter="storeSkillsFilters.updateSorter"
       />
@@ -38,13 +36,13 @@
       <v-text-field
         v-model="filters.name"
         :loading="storeSkillsFilters.isUpdating"
-        :color="storeSkillsFilters.searchIsActive ? 'success' : 'primary'"
-        :counter="storeSkillsFilters.counter"
+        :color="storeSkillsFilters.searchNameIsActive ? 'success' : 'primary'"
+        :counter="storeSkillsFilters.searchNameCounter"
         density="compact"
         clearable
         class="mt-5"
         :label="t('skills.filters.skillName')"
-        :error-messages="storeSkillsFilters.errorMessages"
+        :error-messages="storeSkillsFilters.searchNameErrorMessages"
       >
         <template #prepend>
           <v-btn

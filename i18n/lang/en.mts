@@ -494,6 +494,7 @@ export default {
     },
     filters: {
       skillName: 'Skill name',
+      skillDescription: 'Skill description',
       isPrf: 'PRF ?',
       isMax: 'MAX ?',
       headers: {

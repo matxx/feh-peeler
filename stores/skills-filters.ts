@@ -41,6 +41,7 @@ import {
 } from '~/utils/types/skills-sorters'
 import {
   filterByName,
+  filterByDescription,
   RATING_0,
   SORTED_SLOT_INDEXES,
   type ISkill,
@@ -113,6 +114,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
   const anyFilterActiveExceptName = computed(
     () =>
+      searchDescriptionIsActive.value ||
       isFilterActiveOnCategories.value ||
       isFilterActiveOnWeaponTypes.value ||
       isFilterActiveOnCanUseMoves.value ||
@@ -129,6 +131,15 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (!r) return true
 
     return filterByName(s, r)
+  }
+
+  function filterDescription(s: ISkill, r?: RegExp) {
+    if (!r) return true
+
+    const desc = storeDataSkillsDescriptions.byId[s.id]
+    if (!desc) return true
+
+    return filterByDescription(desc, r)
   }
 
   function filterCategoryAndWeaponType(filters: IFilters, s: ISkill) {
@@ -363,23 +374,53 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     sorters.value.orders[index] = sorter.order
   }
 
-  const search = computed(() => filters.value.name)
-  const searchLength = computed(() =>
-    filters.value.name ? filters.value.name.length : 0,
+  const searchNameText = computed(() => filters.value.name)
+  const searchNameTextLength = computed(() =>
+    searchNameText.value ? searchNameText.value.length : 0,
   )
-  const counter = computed(() =>
-    searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
+  const searchNameCounter = computed(() =>
+    searchNameTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
   )
-  const searchIsActive = computed(
-    () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
+  const searchNameIsActive = computed(
+    () => searchNameTextLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
   )
-  const { regexp, errorMessages } = useSearch(search)
+  const { regexp: searchNameRegexp, errorMessages: searchNameErrorMessages } =
+    useSearch(searchNameText)
+
+  const searchDescriptionText = computed(() => filters.value.description)
+  const searchDescriptionTextLength = computed(() =>
+    searchDescriptionText.value ? searchDescriptionText.value.length : 0,
+  )
+  const searchDescriptionCounter = computed(() =>
+    searchDescriptionTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH
+      ? 3
+      : undefined,
+  )
+  const searchDescriptionIsActive = computed(
+    () => searchDescriptionTextLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
+  )
+  const {
+    regexp: searchDescriptionRegexp,
+    errorMessages: searchDescriptionErrorMessages,
+  } = useSearch(searchDescriptionText)
 
   const filterSkills = (skills: ISkill[]) =>
     flow(
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) =>
-        filterName(s, searchIsActive.value ? regexp.value : undefined),
+        filterName(
+          s,
+          searchNameIsActive.value ? searchNameRegexp.value : undefined,
+        ),
+      ),
+      // @ts-expect-error unsafe typings
+      f(filter, (s: ISkill) =>
+        filterDescription(
+          s,
+          searchDescriptionIsActive.value
+            ? searchDescriptionRegexp.value
+            : undefined,
+        ),
       ),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterAvailability(filters.value, s)),
@@ -404,7 +445,12 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   }
   const { isUpdating, update: updateSkills } = useDebounce(
     updateSkillsFiltered,
-    [[regexp], [filters, { deep: true }], [() => storeDataSkills.skills]],
+    [
+      [searchNameRegexp],
+      [searchDescriptionRegexp],
+      [filters, { deep: true }],
+      [() => storeDataSkills.skills],
+    ],
   )
 
   function sort(skills: ISkill[], sorters: ISorters) {
@@ -470,10 +516,15 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     sorters,
 
     isUpdating,
-    searchIsActive,
     anyFilterActiveExceptName,
-    counter,
-    errorMessages,
+
+    searchNameIsActive,
+    searchNameCounter,
+    searchNameErrorMessages,
+
+    searchDescriptionIsActive,
+    searchDescriptionCounter,
+    searchDescriptionErrorMessages,
 
     updateSorter,
     updateSkills,

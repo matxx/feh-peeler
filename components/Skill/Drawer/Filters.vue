@@ -5,13 +5,28 @@
     <div v-show="!mobile">
       <v-text-field
         v-model="filters.name"
-        :loading="filterNameLoading"
-        :color="searchIsActive ? 'success' : 'primary'"
-        :counter="counter"
+        :loading="storeSkillsFilters.isUpdating"
+        :color="storeSkillsFilters.searchNameIsActive ? 'success' : 'primary'"
+        :counter="storeSkillsFilters.searchNameCounter"
         density="compact"
         clearable
         :label="t('skills.filters.skillName')"
-        :error-messages="filterNameErrorMessages"
+        :error-messages="storeSkillsFilters.searchNameErrorMessages"
+      />
+    </div>
+
+    <div class="mt-1">
+      <v-text-field
+        v-model="filters.description"
+        :loading="storeSkillsFilters.isUpdating"
+        :color="
+          storeSkillsFilters.searchDescriptionIsActive ? 'success' : 'primary'
+        "
+        :counter="storeSkillsFilters.searchDescriptionCounter"
+        density="compact"
+        clearable
+        :label="t('skills.filters.skillDescription')"
+        :error-messages="storeSkillsFilters.searchDescriptionErrorMessages"
       />
     </div>
 
@@ -243,22 +258,11 @@ const SIZE = 24
 const filters = defineModel<IFilters>('filters')
 defineProps<{
   size: number
-  filterNameLoading: boolean
-  filterNameErrorMessages: string[]
 }>()
 const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeDataConstants = useStoreDataConstants()
-
-const searchLength = computed(() =>
-  filters.value && filters.value.name ? filters.value.name.length : 0,
-)
-const counter = computed(() =>
-  searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
-)
-const searchIsActive = computed(
-  () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
-)
+const storeSkillsFilters = useStoreSkillsFilters()
 
 function toggleAvailability(availability: Availability) {
   const val = filters.value

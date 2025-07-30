@@ -4,9 +4,9 @@
       v-if="showSorters"
       class="mb-3"
     >
-      <h5 class="mb-3">
+      <h3 class="mb-3">
         {{ t('scores.headers.sort') }}
-      </h5>
+      </h3>
       <div>
         <UnitDrawerSorters
           :sorters="sorters"
@@ -17,15 +17,13 @@
     </div>
 
     <div class="mb-3">
-      <h5 class="mb-3">
+      <h3 class="mb-3">
         {{ t('scores.headers.filters') }}
-      </h5>
+      </h3>
       <div>
         <UnitDrawerFilters
           v-model:filters="filters"
           :size="sizeFilters"
-          :filter-name-loading="filterNameLoading"
-          :filter-name-error-messages="filterNameErrorMessages"
         />
       </div>
     </div>
@@ -42,8 +40,6 @@ withDefaults(
     sorters: ISorters
     sizeFilters: number
     sizeSorters: number
-    filterNameLoading: boolean
-    filterNameErrorMessages: string[]
     showSorters?: boolean
   }>(),
   {
