@@ -54,7 +54,7 @@
     "uuid": "^11.1.0",
     "vee-validate": "^4.15.1",
     "vue-virtual-scroller": "^2.0.0-beta.8",
-    "zod": "^3.25.48"
+    "zod": "^4.0.5"
   },
   "overrides": {
     "@vercel/nft": "^0.27.4"
