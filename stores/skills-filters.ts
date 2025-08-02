@@ -25,6 +25,7 @@ import {
   type IFilters,
 } from '~/utils/types/skills-filters'
 import {
+  SORT_NAME,
   SORT_SLOT,
   SORT_RELEASE_DATE,
   SORT_MAX,
@@ -458,6 +459,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       skills,
       sorters.fields.map((field) => {
         switch (field) {
+          case SORT_NAME:
+            return (skill: ISkill) => skill.nameForSorting
           case SORT_SLOT:
             return (skill: ISkill) => SORTED_SLOT_INDEXES[skill.category]
           case SORT_RELEASE_DATE:

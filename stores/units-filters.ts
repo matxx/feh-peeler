@@ -20,6 +20,7 @@ import {
 import { filterByName, RATING_0, type IUnit } from '~/utils/types/units'
 import { createFilters, type IFilters } from '~/utils/types/units-filters'
 import {
+  SORT_NAME,
   SORT_RATING,
   SORT_MOVE,
   SORT_WEAP,
@@ -299,6 +300,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       units,
       sorters.fields.map((field) => {
         switch (field) {
+          case SORT_NAME:
+            return (unit: IUnit) => unit.nameForSorting
           case SORT_RATING:
             return (unit: IUnit) =>
               storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating || RATING_0
