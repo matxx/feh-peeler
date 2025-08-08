@@ -11,4 +11,4 @@ File.write(
 )
 
 `git commit #{file} -m "chore: #{Date.today.strftime('%Y-%m-%d')} update"`
-# `git push origin`
+`git push origin`
