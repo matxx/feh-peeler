@@ -18,10 +18,13 @@ const { locale } = useI18n()
 const storeTheme = useStoreTheme()
 const isDrawerOpen = ref(false)
 useDataStores([useStoreDataAccents()])
-useHead({
+useHead(() => ({
   htmlAttrs: {
     lang: locale.value,
-    class: `theme-${storeTheme.appliedTheme}`,
+    class: [
+      `theme-${storeTheme.appliedTheme}`,
+      `highcharts-${storeTheme.appliedTheme}`,
+    ],
   },
-})
+}))
 </script>

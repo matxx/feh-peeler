@@ -301,6 +301,7 @@ export default {
       devOnly: 'Dev only',
       unitsAndSkills: 'Units & Skills',
       events: 'Events',
+      misc: 'Misc',
     },
     title: {
       index: 'Home',
@@ -317,6 +318,8 @@ export default {
 
       'events-hall-of-forms': 'Hall of Forms',
       'events-binding-worlds': 'Binding Worlds',
+
+      'misc-average-stats-evolution': 'Evolution of stats',
     },
     subtitle: {
       units: 'compare/filter/sort units',
@@ -331,6 +334,8 @@ export default {
 
       'events-hall-of-forms': 'keep track of your progress',
       'events-binding-worlds': 'compare units you can redeem',
+
+      'misc-average-stats-evolution': 'over the years',
     },
   },
 
@@ -540,5 +545,27 @@ export default {
       [hgs.SORT_BY_MOVE_TYPE]: 'Move Type',
     },
     other: 'Askr Trio & New Heroes not yet in generic summon pool',
+  },
+
+  misc: {
+    stats: {
+      considerUnits: 'Consider units',
+      consideredUnits: {
+        [UnitsStats.UNITS_RELEASED_UP_TO_THAT_MONTH]:
+          'released up to that month',
+        [UnitsStats.UNITS_RELEASED_ONLY_THAT_MONTH]: 'released only that month',
+      },
+
+      operator: 'Operator',
+      operators: {
+        [UnitsStats.OPERATOR_AVERAGE]: 'average',
+        [UnitsStats.OPERATOR_MEDIAN]: 'median',
+        [UnitsStats.OPERATOR_MODE]: 'mode',
+        [UnitsStats.OPERATOR_RANGE]: 'range',
+      },
+
+      evolutionOfBST: 'Evolution of BST',
+      evolutionOfStats: 'Evolution of Stats',
+    },
   },
 }

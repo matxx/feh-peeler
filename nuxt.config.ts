@@ -110,6 +110,10 @@ export default defineNuxtConfig({
           href: '/favicon-16x16.png',
         },
         { rel: 'manifest', href: '/site.webmanifest' },
+        {
+          rel: 'stylesheet',
+          href: 'https://code.highcharts.com/css/highcharts.css',
+        },
       ],
     },
   },
@@ -126,6 +130,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@sentry/nuxt/module',
     'vuetify-nuxt-module',
+    'nuxt-highcharts',
   ],
 
   pinia: {
@@ -284,6 +289,12 @@ export default defineNuxtConfig({
         sourcemap: 'hidden',
         sourcemapExcludeSources: true,
       },
+    },
+  },
+
+  highcharts: {
+    chartOptions: {
+      exporting: true,
     },
   },
 })

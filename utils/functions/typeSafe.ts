@@ -1,5 +1,9 @@
 import hasOwnProp from '~/utils/functions/hasOwnProp'
 
+export type GroupedBy<T, U extends string | number | symbol> = {
+  [key in U]: T[]
+}
+
 // TODO: make return type safe...
 export function nestedKeyBy<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

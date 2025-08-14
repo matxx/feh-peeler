@@ -1,15 +1,22 @@
 import some from 'lodash-es/some'
 import keyBy from 'lodash-es/keyBy'
 import sortBy from 'lodash-es/sortBy'
+import _groupBy from 'lodash-es/groupBy'
+import { DateTime } from 'luxon'
 
-import { groupBy, nestedGroupBy } from '~/utils/functions/typeSafe'
+import {
+  groupBy,
+  nestedGroupBy,
+  objectEntries,
+  type GroupedBy,
+} from '~/utils/functions/typeSafe'
 import type {
   IUnitData,
   IUnit,
-  UnitsByWeaponColor,
-  UnitsByAvailability,
+  UnitsBy,
   UnitsByWeaponColorByAvailability,
   IUnitWithAvailability,
+  IUnitWithReleaseDate,
 } from '~/utils/types/units'
 import {
   WEAPON_FAMILY_FOR_TYPE,
@@ -17,7 +24,9 @@ import {
   getSortableType,
   getSortableWeaponColor,
   getSortableWeaponType,
+  type WeaponColor,
 } from '~/utils/types/weapons'
+import type { Availability } from '~/utils/types/units-availabilities'
 import { getAvailability } from '~/utils/types/units-availabilities'
 import { getSortableMoveType } from '~/utils/types/moves'
 import { SKILL_WEAPON, type SkillId } from '~/utils/types/skills'
@@ -83,14 +92,22 @@ export const useStoreDataUnits = defineStore('data/units', () => {
       : [],
   )
   const unitsWithAvailability = computed<IUnitWithAvailability[]>(() =>
-    storeDataUnitsAvailabilities.isLoaded
-      ? units.value.map((unit) => ({
-          ...unit,
-          availability: getAvailability(
-            storeDataUnitsAvailabilities.availabilitiesById[unit.id],
-          ),
-        }))
-      : [],
+    units.value.map((unit) => ({
+      ...unit,
+      availability: getAvailability(
+        storeDataUnitsAvailabilities.availabilitiesById[unit.id],
+      ),
+    })),
+  )
+  const unitsWithReleaseDate = computed<IUnitWithReleaseDate[]>(() =>
+    units.value.map((unit) => {
+      const releaseDate = DateTime.fromISO(unit.release_date)
+      return {
+        ...unit,
+        releaseDate,
+        releaseYearMonth: releaseDate.toFormat('yyyy-LL'),
+      }
+    }),
   )
 
   const unitsById = computed<{ [index: string]: IUnit }>(() =>
@@ -101,10 +118,10 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   //   keyBy(units.value, 'nameForLink'),
   // )
 
-  const unitsByAvailability = computed<UnitsByAvailability>(() =>
+  const unitsByAvailability = computed<UnitsBy<Availability>>(() =>
     groupBy(unitsWithAvailability.value, 'availability'),
   )
-  const unitsByWeaponColor = computed<UnitsByWeaponColor>(() =>
+  const unitsByWeaponColor = computed<UnitsBy<WeaponColor>>(() =>
     groupBy(units.value, 'weaponColor'),
   )
   const unitsByWeaponColorByAvailability =
@@ -120,6 +137,25 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     sortBy(units.value, 'nameForSorting'),
   )
 
+  const unitsByReleaseYearMonth = computed<
+    GroupedBy<IUnitWithReleaseDate, string>
+  >(() => _groupBy(unitsWithReleaseDate.value, (unit) => unit.releaseYearMonth))
+  const unitsUntilYearMonth = computed<GroupedBy<IUnitWithReleaseDate, string>>(
+    () => {
+      const list = sortBy(
+        objectEntries(unitsByReleaseYearMonth.value),
+        ([month, _]) => month,
+      )
+      const res: GroupedBy<IUnitWithReleaseDate, string> = {}
+      const unitsUntilNow: IUnitWithReleaseDate[] = []
+      list.forEach(([month, units]) => {
+        unitsUntilNow.push(...units)
+        res[month] = [...unitsUntilNow]
+      })
+      return res
+    },
+  )
+
   return {
     isLoading,
     isLoaded,
@@ -129,6 +165,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     units,
     unitsCount,
     unitsWithAvailability,
+    unitsWithReleaseDate,
 
     unitsById,
     // unitsByNameForLink,
@@ -136,6 +173,8 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     unitsByAvailability,
     unitsByWeaponColor,
     unitsByWeaponColorByAvailability,
+    unitsByReleaseYearMonth,
+    unitsUntilYearMonth,
 
     sortedUnits,
   }

@@ -5,7 +5,6 @@
 ### Features
 
 1. (PAGE) add units as "owned" : add skills on owned unit as inherited skills
-1. (PAGE) graph "avg stats" by month
 1. (PAGE) list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
 1. (PAGE) event "see's snare" (skill pool, recommendations, ...)
 1. (PAGE) complex pre-inheritance planner/helper

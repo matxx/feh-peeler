@@ -1,3 +1,5 @@
+import type { DateTime } from 'luxon'
+
 import { objectFromEntries } from '~/utils/functions/typeSafe'
 
 import type { MoveType } from '~/utils/types/moves'
@@ -158,6 +160,10 @@ export interface IUnit extends IUnitData {
 export interface IUnitWithAvailability extends IUnit {
   availability: Availability
 }
+export interface IUnitWithReleaseDate extends IUnit {
+  releaseDate: DateTime
+  releaseYearMonth: string
+}
 
 export interface IUnitInstance {
   id: UnitId | null
@@ -181,12 +187,10 @@ export interface IUnitRatingsGame8 {
   recommended_plus10: IV
 }
 
-export type UnitsByAvailability = {
-  [key in Availability]: IUnit[]
+export type UnitsBy<T extends string | number | symbol> = {
+  [key in T]: IUnit[]
 }
-export type UnitsByWeaponColor = {
-  [key in WeaponColor]: IUnit[]
-}
+
 export type UnitsCountByAvailability = {
   [key in Availability]: number
 }
@@ -194,7 +198,7 @@ export type UnitsCountByWeaponColor = {
   [key in WeaponColor]: number
 }
 export type UnitsByWeaponColorByAvailability = {
-  [key in Availability]: UnitsByWeaponColor
+  [key in Availability]: UnitsBy<WeaponColor>
 }
 export type UnitsCountByWeaponColorByAvailability = {
   [key in Availability]: UnitsCountByWeaponColor

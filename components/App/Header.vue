@@ -114,7 +114,7 @@ const storeSearches = useStoreSearches()
 const getRouteBaseName = useRouteBaseName()
 
 const title = computed(() =>
-  t(`home.title.${getRouteBaseName(route)}`, route.params),
+  t(`home.title.${String(getRouteBaseName(route))}`, route.params),
 )
 
 const themes = THEMES.map((theme) => ({

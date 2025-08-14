@@ -111,3 +111,21 @@ export const getDefaulUnitStatsMinMax = (
     [BST]: [0, constants.units_max_bst],
   }
 }
+
+export const UNITS_RELEASED_ONLY_THAT_MONTH = 'UNITS_RELEASED_ONLY_THAT_MONTH'
+export const UNITS_RELEASED_UP_TO_THAT_MONTH = 'UNITS_RELEASED_UP_TO_THAT_MONTH'
+export const CONSIDERATIONS = [
+  UNITS_RELEASED_ONLY_THAT_MONTH,
+  UNITS_RELEASED_UP_TO_THAT_MONTH,
+]
+
+export const OPERATOR_AVERAGE = 'AVERAGE'
+export const OPERATOR_MEDIAN = 'MEDIAN'
+export const OPERATOR_MODE = 'MODE'
+export const OPERATOR_RANGE = 'RANGE'
+export const OPERATORS = [
+  OPERATOR_AVERAGE,
+  OPERATOR_MEDIAN,
+  OPERATOR_MODE,
+  OPERATOR_RANGE,
+]
