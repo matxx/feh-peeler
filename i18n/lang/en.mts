@@ -484,6 +484,7 @@ export default {
         [skillsColumns.COLUMN_GRADE]: 'Grade',
         [skillsColumns.COLUMN_DESCRIPTION]: 'Description',
         [skillsColumns.COLUMN_RESTRICTIONS]: 'Restrictions',
+        [skillsColumns.COLUMN_FODDERS]: 'Fodders',
         [skillsColumns.COLUMN_AVAILABILITY]: 'Availability',
         [skillsColumns.COLUMN_PRE_INHERITANCE]: 'PreInheritance',
         [skillsColumns.COLUMN_MAX]: 'MAX ?',

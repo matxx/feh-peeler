@@ -13,7 +13,6 @@
 
 1. modal unit/skill : update URL on open/close
 1. units: filter on ratings/grades
-1. skills: columns "fodders" (show unit thumbnails, show 5, horizontal-scroll)
 1. skills: filter on ratings/grades
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)

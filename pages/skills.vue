@@ -130,6 +130,12 @@
         <AppDisplayBool :bool="!item.upgrade_ids" />
       </template>
 
+      <template #[`item.${COLUMN_FODDERS}`]="{ item }">
+        <SkillShowFoddersThumbnails
+          :skill="item"
+          :tile-size="size"
+        />
+      </template>
       <template #[`item.${COLUMN_AVAILABILITY}`]="{ item }">
         <SkillAvailability
           :skill="item"
@@ -180,6 +186,7 @@ import {
   ALL_COLUMNS,
   COLUMNS_IN_FILTERS,
   COLUMNS_START_ALIGNED,
+  COLUMNS_UNSORTABLE,
   COLUMN_THUMBNAIL,
   COLUMN_NAME,
   COLUMN_RELEASE_DATE,
@@ -194,6 +201,7 @@ import {
   COLUMN_GRADE,
   COLUMN_DESCRIPTION,
   COLUMN_RESTRICTIONS,
+  COLUMN_FODDERS,
   COLUMN_AVAILABILITY,
   COLUMN_PRE_INHERITANCE,
 } from '~/utils/types/skills-columns'
@@ -263,7 +271,7 @@ const headers = computed(() =>
     title: t(`skills.index.headers.${column}`),
     key: column,
     align: COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
-    sortable: column !== COLUMN_THUMBNAIL,
+    sortable: !COLUMNS_UNSORTABLE.has(column),
   })),
 )
 
@@ -331,6 +339,8 @@ function translate(sortBy: DataTableSortItem[]) {
           return SORT_AVAILABILITY
         case COLUMN_PRE_INHERITANCE:
           return SORT_PRE_INHERITANCE
+        case COLUMN_FODDERS:
+          return SORT_NOTHING
         default:
           console.warn(`unhandled column key: ${column.key}`)
           return SORT_NOTHING
