@@ -29,3 +29,10 @@ export function getSortableMoveType(unit: IUnitData) {
       return 3
   }
 }
+
+export const MOVES_COLORS = {
+  [MOVE_I]: 'red-darken-4',
+  [MOVE_A]: 'green-darken-4',
+  [MOVE_C]: 'yellow-darken-1',
+  [MOVE_F]: 'blue-darken-4',
+}

@@ -96,10 +96,10 @@ export default {
             [grades.GRADE_C]: 'Icon Grade C',
           },
           dragonflowers: {
-            [moves.MOVE_I]: 'Icon dragonflowers green (armored)',
-            [moves.MOVE_A]: 'Icon dragonflowers yellow (cavalry)',
-            [moves.MOVE_C]: 'Icon dragonflowers blue (flying)',
-            [moves.MOVE_F]: 'Icon dragonflowers red (infantry)',
+            [moves.MOVE_I]: 'Icon dragonflowers red (infantry)',
+            [moves.MOVE_A]: 'Icon dragonflowers green (armored)',
+            [moves.MOVE_C]: 'Icon dragonflowers yellow (cavalry)',
+            [moves.MOVE_F]: 'Icon dragonflowers blue (flying)',
           },
           element: {
             [unitsFilters.ELEMENT_FIRE]: 'Icon Fire',
@@ -319,7 +319,7 @@ export default {
       'events-hall-of-forms': 'Hall of Forms',
       'events-binding-worlds': 'Binding Worlds',
 
-      'misc-average-stats-evolution': 'Evolution of stats',
+      'misc-stats-evolution': 'Evolution of stats',
     },
     subtitle: {
       units: 'compare/filter/sort units',
@@ -335,7 +335,7 @@ export default {
       'events-hall-of-forms': 'keep track of your progress',
       'events-binding-worlds': 'compare units you can redeem',
 
-      'misc-average-stats-evolution': 'over the years',
+      'misc-stats-evolution': 'over the years',
     },
   },
 
@@ -566,7 +566,14 @@ export default {
       },
 
       evolutionOfBST: 'Evolution of BST',
-      evolutionOfStats: 'Evolution of Stats',
+      evolutionOfStats: 'Evolution of Stats (all move types)',
+
+      moves: {
+        [moves.MOVE_I]: 'Infantry',
+        [moves.MOVE_A]: 'Armored',
+        [moves.MOVE_C]: 'Cavalry',
+        [moves.MOVE_F]: 'Flying',
+      },
     },
   },
 }

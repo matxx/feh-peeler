@@ -36,13 +36,16 @@
 </template>
 
 <script lang="ts" setup>
+import filter from 'lodash-es/filter'
 import sortBy from 'lodash-es/sortBy'
 import compact from 'lodash-es/compact'
 
 import { hexColor } from '~/plugins/vuetify'
 import { objectEntries } from '~/utils/functions/typeSafe'
-import { STATS, STATS_COLORS, BST } from '~/utils/types/units-stats'
+import { MOVES_COLORS, SORTED_MOVE_TYPES } from '~/utils/types/moves'
 import {
+  STATS,
+  STATS_COLORS,
   CONSIDERATIONS,
   OPERATORS,
   UNITS_RELEASED_UP_TO_THAT_MONTH,
@@ -131,7 +134,7 @@ const graphOnBST = computed(() => ({
     },
     series: [
       {
-        name: t(`units.filters.stats.${BST}`),
+        name: t('global.all'),
         data: unitsByMonthSorted.value.map(([month, units]) => [
           month,
           Math.round(
@@ -142,7 +145,24 @@ const graphOnBST = computed(() => ({
         ]),
         color: current.value.colors['on-surface'],
       },
-    ],
+    ].concat(
+      SORTED_MOVE_TYPES.map((move) => ({
+        name: t(`misc.stats.moves.${move}`),
+        data: unitsByMonthSorted.value.map(([month, units]) => [
+          month,
+          Math.round(
+            operatorCallback.value(
+              compact(
+                filter(units, (unit) => unit.move_type === move).map(
+                  (unit) => unit && unit.bst,
+                ),
+              ),
+            ),
+          ),
+        ]),
+        color: hexColor(MOVES_COLORS[move]),
+      })),
+    ),
   },
 }))
 

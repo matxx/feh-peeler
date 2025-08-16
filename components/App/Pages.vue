@@ -66,6 +66,6 @@ const ITEMS = [
   { isItem: true, link: 'events-hall-of-forms' },
   { isItem: true, link: 'events-binding-worlds' },
   { isSubheader: true, text: t('home.subheader.misc') },
-  { isItem: true, link: 'misc-average-stats-evolution' },
+  { isItem: true, link: 'misc-stats-evolution' },
 ]
 </script>
