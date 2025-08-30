@@ -1,3 +1,5 @@
+import * as skillsColumns from '~/utils/types/skills-columns'
+
 export const ASC = 'asc'
 export const DESC = 'desc'
 
@@ -12,6 +14,7 @@ export const SORT_SP = 'sp'
 export const SORT_CD = 'cd'
 export const SORT_TIER = 'tier'
 export const SORT_RELEASE_DATE = 'release_date'
+export const SORT_VERSION = 'version'
 
 // keys not on skill data
 
@@ -37,6 +40,7 @@ export type SortingField =
   | typeof SORT_CD
   | typeof SORT_TIER
   | typeof SORT_RELEASE_DATE
+  | typeof SORT_VERSION
   // not on unit
   | typeof SORT_EFFECTIVENESS
   | typeof SORT_MAX
@@ -63,3 +67,24 @@ export const createEmptySorters = (): ISorters => ({
   fields: [],
   orders: [],
 })
+
+export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
+  [skillsColumns.COLUMN_NAME]: SORT_NAME,
+  [skillsColumns.COLUMN_SLOT]: SORT_SLOT,
+  [skillsColumns.COLUMN_PRF]: SORT_PRF,
+  [skillsColumns.COLUMN_SP]: SORT_SP,
+  [skillsColumns.COLUMN_CD]: SORT_CD,
+  [skillsColumns.COLUMN_TIER]: SORT_TIER,
+  [skillsColumns.COLUMN_RELEASE_DATE]: SORT_RELEASE_DATE,
+  [skillsColumns.COLUMN_VERSION]: SORT_VERSION,
+  // proxy fields
+  [skillsColumns.COLUMN_EFFECTIVENESS]: SORT_EFFECTIVENESS,
+  [skillsColumns.COLUMN_MAX]: SORT_MAX,
+  [skillsColumns.COLUMN_RATING]: SORT_RATING,
+  [skillsColumns.COLUMN_GRADE]: SORT_GRADE,
+  [skillsColumns.COLUMN_DESCRIPTION]: SORT_DESCRIPTION,
+  [skillsColumns.COLUMN_RESTRICTIONS]: SORT_RESTRICTIONS,
+  [skillsColumns.COLUMN_AVAILABILITY]: SORT_AVAILABILITY,
+  [skillsColumns.COLUMN_PRE_INHERITANCE]: SORT_PRE_INHERITANCE,
+  [skillsColumns.COLUMN_FODDERS]: SORT_NOTHING,
+}

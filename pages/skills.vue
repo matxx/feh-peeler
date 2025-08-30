@@ -40,7 +40,7 @@
 
       <div v-show="!mobile">
         <v-btn
-          v-for="column in COLUMNS_IN_FILTERS"
+          v-for="column in skillsColumns.COLUMNS_IN_FILTERS"
           :key="column"
           size="x-small"
           class="text-primary mr-1 mb-1"
@@ -72,7 +72,7 @@
       :sort-by="sortBy"
       @update:options="updateSkills"
     >
-      <template #[`header.${COLUMN_THUMBNAIL}`]>
+      <template #[`header.${skillsColumns.COLUMN_THUMBNAIL}`]>
         <v-btn
           v-tooltip="t('skills.index.resetSorting')"
           icon
@@ -84,7 +84,7 @@
         </v-btn>
       </template>
 
-      <template #[`item.${COLUMN_THUMBNAIL}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_THUMBNAIL}`]="{ item }">
         <NuxtLink
           class="d-flex justify-center"
           href="#"
@@ -97,7 +97,7 @@
           />
         </NuxtLink>
       </template>
-      <template #[`item.${COLUMN_NAME}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_NAME}`]="{ item }">
         <NuxtLink
           href="#"
           @click.prevent="storeGlobals.showSkill(item.id)"
@@ -105,10 +105,13 @@
           {{ item.name }}
         </NuxtLink>
       </template>
-      <template #[`item.${COLUMN_RELEASE_DATE}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_RELEASE_DATE}`]="{ item }">
         {{ storeDataSkills.skillsById[item.baseId].release_date }}
       </template>
-      <template #[`item.${COLUMN_SLOT}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_VERSION}`]="{ item }">
+        {{ storeDataSkills.skillsById[item.baseId].version }}
+      </template>
+      <template #[`item.${skillsColumns.COLUMN_SLOT}`]="{ item }">
         <div class="d-flex justify-center">
           <SkillImgCategory
             :category="item.category"
@@ -116,54 +119,54 @@
           />
         </div>
       </template>
-      <template #[`item.${COLUMN_EFFECTIVENESS}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_EFFECTIVENESS}`]="{ item }">
         <SkillShowEffectivenessList
           :skill="item"
           :size="size"
         />
       </template>
 
-      <template #[`item.${COLUMN_PRF}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_PRF}`]="{ item }">
         <AppDisplayBool :bool="item.is_prf" />
       </template>
-      <template #[`item.${COLUMN_MAX}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_MAX}`]="{ item }">
         <AppDisplayBool :bool="!item.upgrade_ids" />
       </template>
 
-      <template #[`item.${COLUMN_FODDERS}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_FODDERS}`]="{ item }">
         <SkillShowFoddersThumbnails
           :skill="item"
           :tile-size="size"
         />
       </template>
-      <template #[`item.${COLUMN_AVAILABILITY}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_AVAILABILITY}`]="{ item }">
         <SkillAvailability
           :skill="item"
           :tile-size="size"
         />
       </template>
-      <template #[`item.${COLUMN_PRE_INHERITANCE}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_PRE_INHERITANCE}`]="{ item }">
         <SkillFodderPreInheritances
           :skill="item"
           :tile-size="size"
           :skill-icon-size="size"
         />
       </template>
-      <template #[`item.${COLUMN_RESTRICTIONS}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_RESTRICTIONS}`]="{ item }">
         <SkillRestrictions
           :skill="item"
           :size="size"
         />
       </template>
 
-      <template #[`item.${COLUMN_DESCRIPTION}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_DESCRIPTION}`]="{ item }">
         <SkillDescription :skill="item" />
       </template>
 
-      <template #[`item.${COLUMN_RATING}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_RATING}`]="{ item }">
         {{ storeDataSkillsRatingsGame8.byId[item.id]?.game8_rating }}
       </template>
-      <template #[`item.${COLUMN_GRADE}`]="{ item }">
+      <template #[`item.${skillsColumns.COLUMN_GRADE}`]="{ item }">
         <div class="d-flex justify-center">
           <AppIconGradeOrPlaceholder
             :grade="storeDataSkillsRatingsGame8.byId[item.id]?.game8_grade"
@@ -173,58 +176,17 @@
       </template>
     </v-data-table-server>
 
-    <!-- TODO: version / generation / game / element / artist / VA / dragonflowers -->
+    <!-- TODO: generation / game / element / artist / VA / dragonflowers -->
   </div>
 </template>
 
 <script setup lang="ts">
 import type { DataTableSortItem } from 'vuetify'
+import * as Sentry from '@sentry/nuxt'
 import filter from 'lodash-es/filter'
 
-import {
-  DEFAULT_COLUMNS,
-  ALL_COLUMNS,
-  COLUMNS_IN_FILTERS,
-  COLUMNS_START_ALIGNED,
-  COLUMNS_UNSORTABLE,
-  COLUMN_THUMBNAIL,
-  COLUMN_NAME,
-  COLUMN_RELEASE_DATE,
-  COLUMN_SLOT,
-  COLUMN_PRF,
-  COLUMN_SP,
-  COLUMN_CD,
-  COLUMN_TIER,
-  COLUMN_MAX,
-  COLUMN_EFFECTIVENESS,
-  COLUMN_RATING,
-  COLUMN_GRADE,
-  COLUMN_DESCRIPTION,
-  COLUMN_RESTRICTIONS,
-  COLUMN_FODDERS,
-  COLUMN_AVAILABILITY,
-  COLUMN_PRE_INHERITANCE,
-} from '~/utils/types/skills-columns'
-import {
-  SORT_NAME,
-  SORT_SLOT,
-  SORT_PRF,
-  SORT_SP,
-  SORT_CD,
-  SORT_TIER,
-  SORT_EFFECTIVENESS,
-  SORT_RELEASE_DATE,
-  SORT_MAX,
-  SORT_RATING,
-  SORT_GRADE,
-  SORT_DESCRIPTION,
-  SORT_RESTRICTIONS,
-  SORT_AVAILABILITY,
-  SORT_PRE_INHERITANCE,
-  SORT_NOTHING,
-  ASC,
-  DESC,
-} from '~/utils/types/skills-sorters'
+import * as skillsColumns from '~/utils/types/skills-columns'
+import * as skillsSorters from '~/utils/types/skills-sorters'
 
 definePageMeta({
   layout: 'skills-filters',
@@ -255,7 +217,7 @@ const size = 40
 const storeSkillsFilters = useStoreSkillsFilters()
 storeSkillsFilters.$reset()
 
-const columns = ref(new Set(DEFAULT_COLUMNS))
+const columns = ref(new Set(skillsColumns.DEFAULT_COLUMNS))
 const columnsMobile = computed({
   get: () => Array.from(columns.value),
   set: (newColumns) => {
@@ -265,13 +227,14 @@ const columnsMobile = computed({
 
 const headers = computed(() =>
   filter(
-    ALL_COLUMNS,
-    (column) => column == COLUMN_THUMBNAIL || columns.value.has(column),
+    skillsColumns.ALL_COLUMNS,
+    (column) =>
+      column == skillsColumns.COLUMN_THUMBNAIL || columns.value.has(column),
   ).map((column) => ({
     title: t(`skills.index.headers.${column}`),
     key: column,
-    align: COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
-    sortable: !COLUMNS_UNSORTABLE.has(column),
+    align: skillsColumns.COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
+    sortable: !skillsColumns.COLUMNS_UNSORTABLE.has(column),
   })),
 )
 
@@ -307,54 +270,25 @@ const items = computed(() =>
 function translate(sortBy: DataTableSortItem[]) {
   return {
     fields: sortBy.map((column) => {
-      switch (column.key) {
-        case COLUMN_NAME:
-          return SORT_NAME
-        case COLUMN_SLOT:
-          return SORT_SLOT
-        case COLUMN_PRF:
-          return SORT_PRF
-        case COLUMN_SP:
-          return SORT_SP
-        case COLUMN_CD:
-          return SORT_CD
-        case COLUMN_TIER:
-          return SORT_TIER
-        case COLUMN_RELEASE_DATE:
-          return SORT_RELEASE_DATE
-        // proxy fields
-        case COLUMN_EFFECTIVENESS:
-          return SORT_EFFECTIVENESS
-        case COLUMN_MAX:
-          return SORT_MAX
-        case COLUMN_RATING:
-          return SORT_RATING
-        case COLUMN_GRADE:
-          return SORT_GRADE
-        case COLUMN_DESCRIPTION:
-          return SORT_DESCRIPTION
-        case COLUMN_RESTRICTIONS:
-          return SORT_RESTRICTIONS
-        case COLUMN_AVAILABILITY:
-          return SORT_AVAILABILITY
-        case COLUMN_PRE_INHERITANCE:
-          return SORT_PRE_INHERITANCE
-        case COLUMN_FODDERS:
-          return SORT_NOTHING
-        default:
-          console.warn(`unhandled column key: ${column.key}`)
-          return SORT_NOTHING
-      }
+      const res = skillsSorters.COLUMN_TO_SORT[column.key]
+      if (res) return res
+
+      Sentry.captureException(`unhandled column key: ${column.key}`, {
+        tags: { locator: 'pages/skills.vue#translate' },
+      })
+      return skillsSorters.SORT_NOTHING
     }),
     orders: sortBy.map((column) => {
       switch (column.order) {
         case 'asc':
-          return ASC
+          return skillsSorters.ASC
         case 'desc':
-          return DESC
+          return skillsSorters.DESC
         default:
-          console.warn(`unhandled column order: ${column.order}`)
-          return ASC
+          Sentry.captureException(`unhandled column order: ${column.order}`, {
+            tags: { locator: 'pages/skills.vue#translate' },
+          })
+          return skillsSorters.ASC
       }
     }),
   }
@@ -371,7 +305,7 @@ function updateSkills(options: Options) {
 }
 
 const columnsForSelect = computed(() =>
-  COLUMNS_IN_FILTERS.map((column) => ({
+  skillsColumns.COLUMNS_IN_FILTERS.map((column) => ({
     title: t(`skills.index.headers.${column}`),
     value: column,
   })),

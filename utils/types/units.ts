@@ -137,6 +137,7 @@ export interface IUnitData {
 
   addition_date: string
   release_date: string
+  version: string
 }
 
 export interface IUnit extends IUnitData {
@@ -152,6 +153,7 @@ export interface IUnit extends IUnitData {
   sortableWeaponColor: number
   sortableWeaponType: number
   sortableMoveType: number
+  sortableVersion: string
 
   hasPrfWeapon: boolean
   hasPrfSkill: boolean

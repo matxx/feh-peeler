@@ -5,6 +5,7 @@ import filter from 'lodash-es/filter'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
+import getSortableVersion from '~/utils/functions/getSortableVersion'
 import { getSortableName } from '~/utils/functions/skillSortingVector'
 import type {
   SkillId,
@@ -42,6 +43,7 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
           nameForLink: escapeName(getNameForLink(skill)),
           nameForFilters: storeDataAccents.transliterate(skill.name),
           nameForSorting: getSortableName(skill.name),
+          sortableVersion: getSortableVersion(skill.version || '0'),
         }))
       : [],
   )

@@ -30,6 +30,7 @@ import type { Availability } from '~/utils/types/units-availabilities'
 import { getAvailability } from '~/utils/types/units-availabilities'
 import { getSortableMoveType } from '~/utils/types/moves'
 import { SKILL_WEAPON, type SkillId } from '~/utils/types/skills'
+import getSortableVersion from '~/utils/functions/getSortableVersion'
 
 export const useStoreDataUnits = defineStore('data/units', () => {
   const unitsData = ref<IUnitData[]>([])
@@ -86,6 +87,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
           ),
           sortableWeaponType: getSortableWeaponType(unit),
           sortableMoveType: getSortableMoveType(unit),
+          sortableVersion: getSortableVersion(unit.version),
           hasPrfWeapon: hasPrfWeapon(unit),
           hasPrfSkill: hasPrfSkill(unit),
         }))

@@ -175,6 +175,7 @@ export interface ISkillData {
 
   addition_date: string
   release_date: string
+  version?: string
 }
 
 export interface ISkill extends ISkillData {
@@ -182,6 +183,7 @@ export interface ISkill extends ISkillData {
   nameForLink: string
   nameForFilters: string
   nameForSorting: string
+  sortableVersion: string
 }
 
 export interface ISkillTree {

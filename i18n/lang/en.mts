@@ -101,7 +101,7 @@ export default {
             [moves.MOVE_C]: 'Icon dragonflowers yellow (cavalry)',
             [moves.MOVE_F]: 'Icon dragonflowers blue (flying)',
           },
-          element: {
+          elements: {
             [unitsFilters.ELEMENT_FIRE]: 'Icon Fire',
             [unitsFilters.ELEMENT_WATER]: 'Icon Water',
             [unitsFilters.ELEMENT_WIND]: 'Icon Wind',
@@ -489,6 +489,7 @@ export default {
         [skillsColumns.COLUMN_PRE_INHERITANCE]: 'PreInheritance',
         [skillsColumns.COLUMN_MAX]: 'MAX ?',
         [skillsColumns.COLUMN_RELEASE_DATE]: 'Release Date',
+        [skillsColumns.COLUMN_VERSION]: 'Version',
       },
     },
     show: {

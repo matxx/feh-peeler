@@ -28,6 +28,7 @@ import {
   SORT_NAME,
   SORT_SLOT,
   SORT_RELEASE_DATE,
+  SORT_VERSION,
   SORT_MAX,
   SORT_RATING,
   SORT_GRADE,
@@ -466,6 +467,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
           case SORT_RELEASE_DATE:
             return (skill: ISkill) =>
               storeDataSkills.skillsById[skill.baseId].release_date
+          case SORT_VERSION:
+            return (skill: ISkill) =>
+              storeDataSkills.skillsById[skill.baseId].sortableVersion
           case SORT_MAX:
             return (skill: ISkill) => (!skill.upgrade_ids ? 1 : 0)
           case SORT_RATING:

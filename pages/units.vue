@@ -40,7 +40,7 @@
 
       <div v-show="!mobile">
         <v-btn
-          v-for="column in COLUMNS_IN_FILTERS"
+          v-for="column in unitsColumns.COLUMNS_IN_FILTERS"
           :key="column"
           size="x-small"
           class="text-primary mr-1 mb-1"
@@ -72,7 +72,7 @@
       :sort-by="sortBy"
       @update:options="updateUnits"
     >
-      <template #[`header.${COLUMN_THUMBNAIL}`]>
+      <template #[`header.${unitsColumns.COLUMN_THUMBNAIL}`]>
         <v-btn
           v-tooltip="t('units.index.resetSorting')"
           icon
@@ -83,7 +83,7 @@
           <v-icon>mdi-restart</v-icon>
         </v-btn>
       </template>
-      <template #[`header.${COLUMN_HAS_RESPLENDENT}`]>
+      <template #[`header.${unitsColumns.COLUMN_HAS_RESPLENDENT}`]>
         <img
           src="assets/icons/resplendent.png"
           :width="size"
@@ -91,7 +91,7 @@
         />
       </template>
 
-      <template #[`item.${COLUMN_THUMBNAIL}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_THUMBNAIL}`]="{ item }">
         <NuxtLink
           href="#"
           @click.prevent="storeGlobals.showUnit(item.id)"
@@ -103,7 +103,7 @@
           />
         </NuxtLink>
       </template>
-      <template #[`item.${COLUMN_NAME}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_NAME}`]="{ item }">
         <NuxtLink
           href="#"
           @click.prevent="storeGlobals.showUnit(item.id)"
@@ -111,31 +111,31 @@
           {{ item.full_name }}
         </NuxtLink>
       </template>
-      <template #[`item.${COLUMN_HAS_RESPLENDENT}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_HAS_RESPLENDENT}`]="{ item }">
         <v-icon :color="item.has_respl ? 'green' : 'red'">
           {{ item.has_respl ? 'mdi-check-circle' : 'mdi-close-circle' }}
         </v-icon>
       </template>
-      <template #[`item.${COLUMN_AVAILABILITY}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_AVAILABILITY}`]="{ item }">
         <UnitAvailability
           :unit="item"
           :tile-size="size"
         />
       </template>
-      <template #[`item.${COLUMN_WEAPON}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_WEAPON}`]="{ item }">
         <AppIconWeaponType
           :weapon-type="item.weapon_type"
           :size="size"
         />
       </template>
-      <template #[`item.${COLUMN_MOVE}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_MOVE}`]="{ item }">
         <AppIconMoveType
           :move-type="item.move_type"
           :size="size"
         />
       </template>
 
-      <template #[`item.${COLUMN_IV_HP}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_IV_HP}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
@@ -147,7 +147,7 @@
         </strong>
       </template>
 
-      <template #[`item.${COLUMN_IV_ATK}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_IV_ATK}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
@@ -159,7 +159,7 @@
         </strong>
       </template>
 
-      <template #[`item.${COLUMN_IV_SPD}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_IV_SPD}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
@@ -171,7 +171,7 @@
         </strong>
       </template>
 
-      <template #[`item.${COLUMN_IV_DEF}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_IV_DEF}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
@@ -183,7 +183,7 @@
         </strong>
       </template>
 
-      <template #[`item.${COLUMN_IV_RES}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_IV_RES}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
@@ -195,77 +195,30 @@
         </strong>
       </template>
 
-      <template #[`item.${COLUMN_BST}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_BST}`]="{ item }">
         <strong>
           {{ item.bst }}
         </strong>
       </template>
 
-      <template #[`item.${COLUMN_RATING}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_RATING}`]="{ item }">
         {{ storeDataUnitsRatingsGame8.byId[item.id]?.game8_rating }}
       </template>
     </v-data-table-server>
 
-    <!-- TODO: version / generation / game / element / artist / VA / dragonflowers -->
+    <!-- TODO: generation / game / element / artist / VA / dragonflowers -->
   </div>
 </template>
 
 <script setup lang="ts">
 import type { DataTableSortItem } from 'vuetify'
+import * as Sentry from '@sentry/nuxt'
 import filter from 'lodash-es/filter'
 
 import { STATS_IVS_COLORS } from '~/utils/types/units-stats'
 
-import {
-  DEFAULT_COLUMNS,
-  ALL_COLUMNS,
-  COLUMNS_IN_FILTERS,
-  COLUMNS_START_ALIGNED,
-  COLUMN_THUMBNAIL,
-  COLUMN_NAME,
-  COLUMN_AVAILABILITY,
-  COLUMN_WEAPON,
-  COLUMN_MOVE,
-  COLUMN_IV_HP,
-  COLUMN_IV_ATK,
-  COLUMN_IV_SPD,
-  COLUMN_IV_DEF,
-  COLUMN_IV_RES,
-  COLUMN_BST,
-  COLUMN_MAX_DRAGONFLOWERS,
-  COLUMN_HAS_RESPLENDENT,
-  COLUMN_RATING,
-  COLUMN_GENDER,
-  COLUMN_BOOK,
-  COLUMN_RELEASE_DATE,
-  COLUMN_MAX_SCORE,
-  COLUMN_ORIGIN,
-  COLUMN_ID_INT,
-} from '~/utils/types/units-columns'
-import {
-  SORT_NAME,
-  SORT_GENDER,
-  SORT_HAS_RESPLENDENT,
-  SORT_BOOK,
-  SORT_RELEASE_DATE,
-  SORT_BST,
-  SORT_MAX_DRAGONFLOWERS,
-  SORT_MAX_SCORE,
-  SORT_RATING,
-  SORT_MOVE,
-  SORT_WEAP,
-  SORT_AVAILABILITY,
-  SORT_IV_HP,
-  SORT_IV_ATK,
-  SORT_IV_SPD,
-  SORT_IV_DEF,
-  SORT_IV_RES,
-  SORT_ORIGIN,
-  SORT_ID_INT,
-  SORT_NOTHING,
-  ASC,
-  DESC,
-} from '~/utils/types/units-sorters'
+import * as unitsColumns from '~/utils/types/units-columns'
+import * as unitsSorters from '~/utils/types/units-sorters'
 
 definePageMeta({
   layout: 'units-filters',
@@ -296,7 +249,7 @@ const sizeCorner = 15
 const storeUnitsFilters = useStoreUnitsFilters()
 storeUnitsFilters.$reset()
 
-const columns = ref(new Set(DEFAULT_COLUMNS))
+const columns = ref(new Set(unitsColumns.DEFAULT_COLUMNS))
 const columnsMobile = computed({
   get: () => Array.from(columns.value),
   set: (newColumns) => {
@@ -306,13 +259,14 @@ const columnsMobile = computed({
 
 const headers = computed(() =>
   filter(
-    ALL_COLUMNS,
-    (column) => column == COLUMN_THUMBNAIL || columns.value.has(column),
+    unitsColumns.ALL_COLUMNS,
+    (column) =>
+      column == unitsColumns.COLUMN_THUMBNAIL || columns.value.has(column),
   ).map((column) => ({
     title: t(`units.index.headers.${column}`),
     key: column,
-    align: COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
-    sortable: column !== COLUMN_THUMBNAIL,
+    align: unitsColumns.COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
+    sortable: column !== unitsColumns.COLUMN_THUMBNAIL,
   })),
 )
 
@@ -348,60 +302,25 @@ const items = computed(() =>
 function translate(sortBy: DataTableSortItem[]) {
   return {
     fields: sortBy.map((column) => {
-      switch (column.key) {
-        case COLUMN_NAME:
-          return SORT_NAME
-        case COLUMN_GENDER:
-          return SORT_GENDER
-        case COLUMN_HAS_RESPLENDENT:
-          return SORT_HAS_RESPLENDENT
-        case COLUMN_BOOK:
-          return SORT_BOOK
-        case COLUMN_RELEASE_DATE:
-          return SORT_RELEASE_DATE
-        case COLUMN_BST:
-          return SORT_BST
-        case COLUMN_MAX_DRAGONFLOWERS:
-          return SORT_MAX_DRAGONFLOWERS
-        case COLUMN_MAX_SCORE:
-          return SORT_MAX_SCORE
-        case COLUMN_RATING:
-          return SORT_RATING
-        // proxy fields
-        case COLUMN_MOVE:
-          return SORT_MOVE
-        case COLUMN_WEAPON:
-          return SORT_WEAP
-        case COLUMN_AVAILABILITY:
-          return SORT_AVAILABILITY
-        case COLUMN_IV_HP:
-          return SORT_IV_HP
-        case COLUMN_IV_ATK:
-          return SORT_IV_ATK
-        case COLUMN_IV_SPD:
-          return SORT_IV_SPD
-        case COLUMN_IV_DEF:
-          return SORT_IV_DEF
-        case COLUMN_IV_RES:
-          return SORT_IV_RES
-        case COLUMN_ORIGIN:
-          return SORT_ORIGIN
-        case COLUMN_ID_INT:
-          return SORT_ID_INT
-        default:
-          console.warn(`unhandled column key: ${column.key}`)
-          return SORT_NOTHING
-      }
+      const res = unitsSorters.COLUMN_TO_SORT[column.key]
+      if (res) return res
+
+      Sentry.captureException(`unhandled column key: ${column.key}`, {
+        tags: { locator: 'pages/units.vue#translate' },
+      })
+      return unitsSorters.SORT_NOTHING
     }),
     orders: sortBy.map((column) => {
       switch (column.order) {
         case 'asc':
-          return ASC
+          return unitsSorters.ASC
         case 'desc':
-          return DESC
+          return unitsSorters.DESC
         default:
-          console.warn(`unhandled column order: ${column.order}`)
-          return ASC
+          Sentry.captureException(`unhandled column order: ${column.order}`, {
+            tags: { locator: 'pages/units.vue#translate' },
+          })
+          return unitsSorters.ASC
       }
     }),
   }
@@ -418,7 +337,7 @@ function updateUnits(options: Options) {
 }
 
 const columnsForSelect = computed(() =>
-  COLUMNS_IN_FILTERS.map((column) => ({
+  unitsColumns.COLUMNS_IN_FILTERS.map((column) => ({
     title: t(`units.index.headers.${column}`),
     value: column,
   })),
