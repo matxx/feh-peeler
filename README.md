@@ -12,14 +12,16 @@
 ### QoL
 
 1. modal unit/skill : update URL on open/close
-1. units: filter on ratings/grades/version
-1. skills: filter on ratings/grades/version
+1. units: filter on ratings/grades/version/book
+1. skills: filter on ratings/grades/version/book
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)
 1. replace all assets with spritesheets
 
 ### Fixes
 
+1. B!Eikþyrnir has note on special not being counted but no asterix on special
+1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`
 
