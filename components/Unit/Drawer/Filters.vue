@@ -37,6 +37,18 @@
           <v-btn
             size="small"
             class="text-primary"
+            :active="filters.traits.has(UnitsFilters.TRAIT_ASCENDED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_ASCENDED)"
+          >
+            <img
+              src="assets/icons/unit_types/ascended.png"
+              :width="size"
+              :height="size"
+            />
+          </v-btn>
+          <v-btn
+            size="small"
+            class="text-primary"
             :active="filters.traits.has(UnitsFilters.TRAIT_REARMED)"
             @click="toggleTrait(UnitsFilters.TRAIT_REARMED)"
           >
@@ -54,18 +66,6 @@
           >
             <img
               src="assets/icons/unit_types/attuned.png"
-              :width="size"
-              :height="size"
-            />
-          </v-btn>
-          <v-btn
-            size="small"
-            class="text-primary"
-            :active="filters.traits.has(UnitsFilters.TRAIT_ASCENDED)"
-            @click="toggleTrait(UnitsFilters.TRAIT_ASCENDED)"
-          >
-            <img
-              src="assets/icons/unit_types/ascended.png"
               :width="size"
               :height="size"
             />
@@ -104,6 +104,18 @@
           density="compact"
           variant="outlined"
         >
+          <v-btn
+            size="small"
+            class="text-primary"
+            :active="filters.traits.has(UnitsFilters.TRAIT_ENTWINED)"
+            @click="toggleTrait(UnitsFilters.TRAIT_ENTWINED)"
+          >
+            <img
+              src="assets/icons/unit_types/entwined.png"
+              :width="size"
+              :height="size"
+            />
+          </v-btn>
           <v-btn
             size="small"
             class="text-primary"

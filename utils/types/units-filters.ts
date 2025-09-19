@@ -45,6 +45,7 @@ export const TRAIT_AIDED = 'is_aided'
 export const TRAIT_ASCENDED = 'is_ascended'
 export const TRAIT_ATTUNED = 'is_attuned'
 export const TRAIT_EMBLEM = 'is_emblem'
+export const TRAIT_ENTWINED = 'is_entwined'
 export const TRAIT_REARMED = 'is_rearmed'
 export const TRAIT_LEGENDARY = 'is_legendary'
 export const TRAIT_MYTHIC = 'is_mythic'
@@ -56,6 +57,7 @@ export type Trait =
   | typeof TRAIT_ASCENDED
   | typeof TRAIT_ATTUNED
   | typeof TRAIT_EMBLEM
+  | typeof TRAIT_ENTWINED
   | typeof TRAIT_REARMED
   | typeof TRAIT_LEGENDARY
   | typeof TRAIT_MYTHIC

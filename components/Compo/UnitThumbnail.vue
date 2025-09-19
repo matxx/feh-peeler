@@ -114,6 +114,12 @@
         :height="sizeCorner"
       />
       <img
+        v-if="unit.is_entwined"
+        src="assets/icons/unit_types/entwined.png"
+        :width="sizeCorner"
+        :height="sizeCorner"
+      />
+      <img
         v-if="unit.is_rearmed"
         src="assets/icons/unit_types/rearmed.png"
         :width="sizeCorner"

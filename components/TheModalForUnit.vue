@@ -55,14 +55,6 @@
               />
             </v-btn>
 
-            <!-- TODO: find out why modal always open up -->
-            <!-- <v-btn
-              icon
-              flat
-              @click="closeModalAndShow"
-            >
-              <v-icon>mdi-arrow-expand-all</v-icon>
-            </v-btn> -->
             <v-btn
               icon
               flat

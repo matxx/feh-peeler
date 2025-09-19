@@ -69,6 +69,7 @@ export interface IUnitThumbnail {
   is_attuned: boolean
   is_emblem: boolean
   is_rearmed: boolean
+  is_entwined: boolean
 }
 
 type Gender =
@@ -127,6 +128,7 @@ export interface IUnitData {
   is_ascended: boolean
   is_emblem: boolean
   is_aided: boolean
+  is_entwined: boolean
 
   bst: number
   // duel_score: number
