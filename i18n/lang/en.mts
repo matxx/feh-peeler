@@ -253,6 +253,8 @@ export default {
     totalSP: 'Total SP',
     game8Rating: 'Game8 rating',
 
+    confirmUnitDeletion: 'Unit will be removed, are you sure ?',
+
     labels: {
       enclosureLevel: 'Enclosure Level',
       hidingReason: 'Reason for hiding',

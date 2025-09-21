@@ -14,8 +14,19 @@
         location="top end"
         :icon="disabled ? 'mdi-pencil' : 'mdi-close'"
         size="x-small"
-        class="mt-n10"
+        class="mt-n10 mr-10"
         @click="disabled = !disabled"
+      />
+      <v-fab
+        v-if="unit"
+        color="primary"
+        absolute
+        location="top end"
+        icon="mdi-delete"
+        size="x-small"
+        class="mt-n10"
+        :loading="isDeleting"
+        @click="confirmUnitDeletion"
       />
 
       <v-row class="mt-8">
@@ -199,14 +210,14 @@ import {
 } from '~/utils/events/binding-worlds'
 
 const { t } = useI18n()
-const { mobile } = useDisplay()
 
-const emit = defineEmits(['save'])
+const emit = defineEmits(['save', 'delete'])
 const props = defineProps<{
   unit?: UnitInBindingWorlds
 }>()
 
 const disabled = ref(!!props.unit)
+const isDeleting = ref(false)
 
 const itemsForHidingReason = HIDING_REASONS.map((reason) => ({
   value: reason,
@@ -246,4 +257,15 @@ const schema = toTypedSchema(
       .min(1, { message: 'can not be empty' }),
   }),
 )
+
+function confirmUnitDeletion() {
+  if (!confirm(t('bindingWorlds.confirmUnitDeletion'))) {
+    return (isDeleting.value = false)
+  }
+
+  isDeleting.value = true
+  nextTick(() => {
+    emit('delete')
+  })
+}
 </script>

@@ -51,6 +51,18 @@
     </div>
     <v-expansion-panels v-model="openedPanel">
       <v-expansion-panel
+        v-if="anyUnit"
+        value="prepend"
+      >
+        <v-expansion-panel-title>
+          {{ t('bindingWorlds.addUnit') }}
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <BindingWorldsExpansionPanelText @save="prependUnit($event)" />
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+
+      <v-expansion-panel
         v-for="(unit, index) in units"
         v-show="showAll || openedPanel === index || !unit.hidingReason"
         :key="index"
@@ -68,16 +80,17 @@
           <BindingWorldsExpansionPanelText
             :unit="unit"
             @save="updateUnit(index, $event)"
+            @delete="deleteUnit(index)"
           />
         </v-expansion-panel-text>
       </v-expansion-panel>
 
-      <v-expansion-panel value="add">
+      <v-expansion-panel value="append">
         <v-expansion-panel-title>
           {{ t('bindingWorlds.addUnit') }}
         </v-expansion-panel-title>
         <v-expansion-panel-text>
-          <BindingWorldsExpansionPanelText @save="addUnit($event)" />
+          <BindingWorldsExpansionPanelText @save="appendUnit($event)" />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -104,6 +117,7 @@ const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
 
 const units = ref<UnitInBindingWorlds[]>([])
 
+const anyUnit = computed(() => units.value.length > 0)
 const anyHiddenUnit = computed(() =>
   some(units.value, (unit) => !!unit.hidingReason),
 )
@@ -115,13 +129,23 @@ function confirmReset() {
 }
 
 function updateUnit(index: number, unitNewValue: UnitInBindingWorlds) {
-  units.value.splice(index, 1, unitNewValue)
   openedPanel.value = null
+  units.value.splice(index, 1, unitNewValue)
 }
 
-function addUnit(unit: UnitInBindingWorlds) {
-  units.value.push(unit)
+function prependUnit(unit: UnitInBindingWorlds) {
   openedPanel.value = null
+  units.value.unshift(unit)
+}
+
+function appendUnit(unit: UnitInBindingWorlds) {
+  openedPanel.value = null
+  units.value.push(unit)
+}
+
+function deleteUnit(index: number) {
+  openedPanel.value = null
+  units.value.splice(index, 1)
 }
 
 // local storage
