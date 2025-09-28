@@ -45,7 +45,10 @@
     </div>
 
     <div class="mt-1">
-      <v-checkbox v-model="isHofSelected">
+      <v-checkbox
+        v-model="isHofSelected"
+        hide-details
+      >
         <template #label>
           {{ t('skills.filters.hof.name') }}
 
