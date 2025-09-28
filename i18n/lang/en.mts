@@ -531,6 +531,20 @@ export default {
         [skillsFilters.SP]: 'SP',
         [skillsFilters.CD]: 'CD',
       },
+      hof: {
+        name: 'Hall of Forms',
+        title: {
+          [skillsFilters.HOF_13_20]: 'Chambers 13 to 20',
+          [skillsFilters.HOF_21_24]: 'Chambers 21 to 24',
+          [skillsFilters.HOF_25]: 'Chamber 25',
+        },
+        prepend: {
+          [skillsFilters.HOF_DISABLED]: '0',
+          [skillsFilters.HOF_13_20]: '13',
+          [skillsFilters.HOF_21_24]: '21',
+          [skillsFilters.HOF_25]: '25',
+        },
+      },
     },
   },
 

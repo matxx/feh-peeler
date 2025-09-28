@@ -20,7 +20,6 @@
 
 ### Fixes
 
-1. B!Eikþyrnir has note on special not being counted but no asterix on special
 1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`

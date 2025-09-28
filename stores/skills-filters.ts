@@ -22,6 +22,11 @@ import {
   createFilters,
   getDefaulSkillStatsMinMax,
   STATS,
+  HOF_DISABLED,
+  HOF_13_20,
+  HOF_21_24,
+  HOF_25,
+  VERSION_8_0,
   type IFilters,
 } from '~/utils/types/skills-filters'
 import {
@@ -46,6 +51,7 @@ import {
   filterByDescription,
   RATING_0,
   SORTED_SLOT_INDEXES,
+  SKILL_PASSIVE_ABC,
   type ISkill,
 } from '~/utils/types/skills'
 import { objectEntries } from '~/utils/functions/typeSafe'
@@ -57,6 +63,33 @@ const filterIsPrf = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isPrf, s.is_prf)
 const filterIsMax = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isMax, !s.upgrade_ids)
+
+const filterHoF = (filters: IFilters, s: ISkill) => {
+  switch (filters.hof) {
+    case HOF_13_20:
+      return (
+        !s.is_prf &&
+        (!SKILL_PASSIVE_ABC.includes(s.category) || s.sp >= 240) &&
+        true
+      )
+    case HOF_21_24:
+      return (
+        !s.is_prf &&
+        (!SKILL_PASSIVE_ABC.includes(s.category) || s.sp >= 300) && // special >= 200 sp ?
+        true
+      )
+    case HOF_25:
+      return (
+        !s.is_prf &&
+        (!SKILL_PASSIVE_ABC.includes(s.category) || s.sp >= 300) &&
+        s.sortableVersion >= VERSION_8_0 &&
+        true
+      )
+    case HOF_DISABLED:
+    default:
+      return true
+  }
+}
 
 // https://stackoverflow.com/a/78061467/5032734
 const f =
@@ -74,7 +107,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   function getNewFilters() {
     return createFilters(
       getDefaulSkillStatsMinMax(storeDataConstants.constants),
-  )
+    )
   }
   function resetFilters() {
     filters.value = getNewFilters()
@@ -429,6 +462,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
             : undefined,
         ),
       ),
+      // @ts-expect-error unsafe typings
+      f(filter, (s: ISkill) => filterHoF(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterAvailability(filters.value, s)),
       // @ts-expect-error unsafe typings

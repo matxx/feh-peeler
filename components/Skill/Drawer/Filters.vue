@@ -45,6 +45,47 @@
     </div>
 
     <div class="mt-1">
+      <v-checkbox v-model="isHofSelected">
+        <template #label>
+          {{ t('skills.filters.hof.name') }}
+
+          <v-menu location="bottom">
+            <template #activator="{ props }">
+              <v-btn-group
+                v-show="filters.hof !== HOF_DISABLED"
+                color="primary"
+                density="compact"
+                variant="outlined"
+                class="ml-3"
+              >
+                <v-btn
+                  size="small"
+                  class="text-primary"
+                  v-bind="props"
+                >
+                  {{ t(`skills.filters.hof.prepend.${filters.hof}`) }}
+                </v-btn>
+              </v-btn-group>
+            </template>
+
+            <v-list color="primary">
+              <v-list-item
+                v-for="item in HOF_FILTER_LIST"
+                :key="item"
+                :value="item"
+                @click="filters.hof = item"
+              >
+                <v-list-item-title>
+                  {{ t(`skills.filters.hof.title.${item}`) }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </v-checkbox>
+    </div>
+
+    <div class="mt-1">
       <h4>
         {{ t('skills.filters.headers.type') }}
       </h4>
@@ -239,7 +280,13 @@
 </template>
 
 <script setup lang="ts">
-import { STATS, type IFilters } from '~/utils/types/skills-filters'
+import {
+  STATS,
+  HOF_FILTER_LIST,
+  HOF_DISABLED,
+  HOF_25,
+  type IFilters,
+} from '~/utils/types/skills-filters'
 import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
 import {
   WEAPONS_FOR_SKILLS_FILTERS,
@@ -263,6 +310,13 @@ const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeDataConstants = useStoreDataConstants()
 const storeSkillsFilters = useStoreSkillsFilters()
+
+const isHofSelected = ref(!!filters.value && filters.value.hof !== HOF_DISABLED)
+watch(isHofSelected, () => {
+  if (!filters.value) return
+
+  filters.value.hof = isHofSelected.value ? HOF_25 : HOF_DISABLED
+})
 
 function toggleAvailability(availability: Availability) {
   const val = filters.value

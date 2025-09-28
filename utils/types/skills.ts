@@ -33,6 +33,12 @@ export type SkillCategoryWithIcon =
   | typeof SKILL_PASSIVE_S
   | typeof SKILL_PASSIVE_X
 
+export const SKILL_PASSIVE_ABC: SkillCategory[] = [
+  SKILL_PASSIVE_A,
+  SKILL_PASSIVE_B,
+  SKILL_PASSIVE_C,
+]
+
 export const SKILL_CATEGORIES: SkillCategory[] = [
   SKILL_WEAPON,
   SKILL_ASSIST,
