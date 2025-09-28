@@ -171,13 +171,18 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
   const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
 
-  const filters = ref<IFilters>(
-    createFilters(storeDataConstants.defaulUnitStatsMinMax),
-  )
+  function getNewFilters() {
+    return createFilters(storeDataConstants.defaulUnitStatsMinMax)
+  }
+  function resetFilters() {
+    filters.value = getNewFilters()
+  }
+
+  const filters = ref<IFilters>(getNewFilters())
   const sorters = ref<ISorters>(createEmptySorters())
 
   function $reset() {
-    filters.value = createFilters(storeDataConstants.defaulUnitStatsMinMax)
+    filters.value = getNewFilters()
     sorters.value = createEmptySorters()
   }
 
@@ -352,6 +357,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
     filters,
     sorters,
+
+    resetFilters,
 
     isUpdating,
     anyFilterActiveExceptName,

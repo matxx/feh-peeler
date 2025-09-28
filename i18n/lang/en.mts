@@ -445,6 +445,7 @@ export default {
       },
     },
     filters: {
+      resetFilters: 'Reset filters',
       headers: {
         stats: 'Stats',
       },
@@ -515,6 +516,7 @@ export default {
     filters: {
       skillName: 'Skill name',
       skillDescription: 'Skill description',
+      resetFilters: 'Reset filters',
       isPrf: 'PRF ?',
       isMax: 'MAX ?',
       headers: {

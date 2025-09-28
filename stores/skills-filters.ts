@@ -71,15 +71,20 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
   const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
 
-  const filters = ref<IFilters>(
-    createFilters(getDefaulSkillStatsMinMax(storeDataConstants.constants)),
+  function getNewFilters() {
+    return createFilters(
+      getDefaulSkillStatsMinMax(storeDataConstants.constants),
   )
+  }
+  function resetFilters() {
+    filters.value = getNewFilters()
+  }
+
+  const filters = ref<IFilters>(getNewFilters())
   const sorters = ref<ISorters>(createEmptySorters())
 
   function $reset() {
-    filters.value = createFilters(
-      getDefaulSkillStatsMinMax(storeDataConstants.constants),
-    )
+    filters.value = getNewFilters()
     sorters.value = createEmptySorters()
   }
 
@@ -521,6 +526,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     filters,
     sorters,
+
+    resetFilters,
 
     isUpdating,
     anyFilterActiveExceptName,

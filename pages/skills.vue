@@ -75,13 +75,11 @@
       <template #[`header.${skillsColumns.COLUMN_THUMBNAIL}`]>
         <v-btn
           v-tooltip="t('skills.index.resetSorting')"
-          icon
           size="x-small"
           flat
+          icon="mdi-restart"
           @click="sortBy = []"
-        >
-          <v-icon>mdi-restart</v-icon>
-        </v-btn>
+        />
       </template>
 
       <template #[`item.${skillsColumns.COLUMN_THUMBNAIL}`]="{ item }">

@@ -1,5 +1,17 @@
 <template>
   <div>
+    <div class="position-relative">
+      <v-btn
+        v-tooltip="t('units.filters.resetFilters')"
+        flat
+        position="absolute"
+        location="top end"
+        icon="mdi-restart"
+        size="x-small"
+        @click="storeUnitsFilters.resetFilters"
+      />
+    </div>
+
     <div
       v-if="showSorters"
       class="mb-3"
@@ -49,4 +61,5 @@ withDefaults(
 defineEmits(['update:sorter'])
 
 const { t } = useI18n()
+const storeUnitsFilters = useStoreUnitsFilters()
 </script>
