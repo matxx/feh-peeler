@@ -68,6 +68,22 @@
           ? undefined
           : storeSkillsFilters.filters.name
       "
+      :cell-props="
+        (data) => {
+          if (
+            data.column.key &&
+            [
+              skillsColumns.COLUMN_THUMBNAIL,
+              skillsColumns.COLUMN_SLOT,
+              skillsColumns.COLUMN_GRADE,
+            ].includes(data.column.key)
+          ) {
+            return { class: 'd-flex justify-center align-center' }
+          }
+
+          return
+        }
+      "
       multi-sort
       :sort-by="sortBy"
       @update:options="updateSkills"
@@ -84,7 +100,6 @@
 
       <template #[`item.${skillsColumns.COLUMN_THUMBNAIL}`]="{ item }">
         <NuxtLink
-          class="d-flex justify-center"
           href="#"
           @click.prevent="storeGlobals.showSkill(item.id)"
         >
@@ -92,6 +107,7 @@
             v-tooltip="item.name"
             :skill="item"
             :size="size"
+            class="d-block"
           />
         </NuxtLink>
       </template>
@@ -110,12 +126,10 @@
         {{ storeDataSkills.skillsById[item.baseId].version }}
       </template>
       <template #[`item.${skillsColumns.COLUMN_SLOT}`]="{ item }">
-        <div class="d-flex justify-center">
-          <SkillImgCategory
-            :category="item.category"
-            :size="size"
-          />
-        </div>
+        <SkillImgCategory
+          :category="item.category"
+          :size="size"
+        />
       </template>
       <template #[`item.${skillsColumns.COLUMN_EFFECTIVENESS}`]="{ item }">
         <SkillShowEffectivenessList
@@ -165,12 +179,10 @@
         {{ storeDataSkillsRatingsGame8.byId[item.id]?.game8_rating }}
       </template>
       <template #[`item.${skillsColumns.COLUMN_GRADE}`]="{ item }">
-        <div class="d-flex justify-center">
-          <AppIconGradeOrPlaceholder
-            :grade="storeDataSkillsRatingsGame8.byId[item.id]?.game8_grade"
-            :size="size"
-          />
-        </div>
+        <AppIconGradeOrPlaceholder
+          :grade="storeDataSkillsRatingsGame8.byId[item.id]?.game8_grade"
+          :size="size"
+        />
       </template>
     </v-data-table-server>
 
