@@ -56,7 +56,6 @@
     top: -10%;
     height: 120%;
     width: 2px;
-    background-color: currentColor;
     box-shadow: 0px 0px 3px 1px white;
     z-index: 0;
   }
@@ -67,4 +66,12 @@
   &::after {
     transform: rotate(-45deg);
   }
+}
+.theme-light .crossed::before,
+.theme-light .crossed::after {
+  background-color: black;
+}
+.theme-dark .crossed::before,
+.theme-dark .crossed::after {
+  background-color: white;
 }

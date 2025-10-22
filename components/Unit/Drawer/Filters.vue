@@ -393,7 +393,7 @@
             {{ iconForBool(filters.hasPrfSkill) }}
           </v-icon>
           PRF
-          <span class="ml-2 crossed text-white">
+          <span class="ml-2 crossed">
             <img
               src="assets/icons/skills/weapon.png"
               :width="size"
