@@ -370,7 +370,9 @@ const { mobile } = useDisplay()
 const frameSize = computed(() => (mobile.value ? 60 : 90))
 const thumbnailSize = computed(() => (mobile.value ? 50 : 80))
 const tileSize = 30
+const rowsCount = ref(7)
 
+const heightPx = computed(() => `${frameSize.value * rowsCount.value}px`)
 const widthPx = computed(() => `${frameSize.value * columnsCount.value}px`)
 
 const storeGlobals = useStoreGlobals()
@@ -538,7 +540,7 @@ function updateData(data: IPayloadToSaveV1) {
 
 <style lang="scss" scoped>
 .scroller {
-  height: v-bind('widthPx');
+  height: v-bind('heightPx');
   width: v-bind('widthPx');
 }
 </style>
