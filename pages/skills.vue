@@ -68,22 +68,6 @@
           ? undefined
           : storeSkillsFilters.filters.name
       "
-      :cell-props="
-        (data) => {
-          if (
-            data.column.key &&
-            [
-              skillsColumns.COLUMN_THUMBNAIL,
-              skillsColumns.COLUMN_SLOT,
-              skillsColumns.COLUMN_GRADE,
-            ].includes(data.column.key)
-          ) {
-            return { class: 'd-flex justify-center align-center' }
-          }
-
-          return
-        }
-      "
       multi-sort
       :sort-by="sortBy"
       @update:options="updateSkills"
@@ -99,17 +83,19 @@
       </template>
 
       <template #[`item.${skillsColumns.COLUMN_THUMBNAIL}`]="{ item }">
-        <NuxtLink
-          href="#"
-          @click.prevent="storeGlobals.showSkill(item.id)"
-        >
-          <SkillImg
-            v-tooltip="item.name"
-            :skill="item"
-            :size="size"
-            class="d-block"
-          />
-        </NuxtLink>
+        <div class="d-flex justify-center align-center">
+          <NuxtLink
+            href="#"
+            @click.prevent="storeGlobals.showSkill(item.id)"
+          >
+            <SkillImg
+              v-tooltip="item.name"
+              :skill="item"
+              :size="size"
+              class="d-block"
+            />
+          </NuxtLink>
+        </div>
       </template>
       <template #[`item.${skillsColumns.COLUMN_NAME}`]="{ item }">
         <NuxtLink
@@ -126,10 +112,12 @@
         {{ storeDataSkills.skillsById[item.baseId].version }}
       </template>
       <template #[`item.${skillsColumns.COLUMN_SLOT}`]="{ item }">
-        <SkillImgCategory
-          :category="item.category"
-          :size="size"
-        />
+        <div class="d-flex justify-center align-center">
+          <SkillImgCategory
+            :category="item.category"
+            :size="size"
+          />
+        </div>
       </template>
       <template #[`item.${skillsColumns.COLUMN_EFFECTIVENESS}`]="{ item }">
         <SkillShowEffectivenessList
@@ -179,10 +167,12 @@
         {{ storeDataSkillsRatingsGame8.byId[item.id]?.game8_rating }}
       </template>
       <template #[`item.${skillsColumns.COLUMN_GRADE}`]="{ item }">
-        <AppIconGradeOrPlaceholder
-          :grade="storeDataSkillsRatingsGame8.byId[item.id]?.game8_grade"
-          :size="size"
-        />
+        <div class="d-flex justify-center align-center">
+          <AppIconGradeOrPlaceholder
+            :grade="storeDataSkillsRatingsGame8.byId[item.id]?.game8_grade"
+            :size="size"
+          />
+        </div>
       </template>
     </v-data-table-server>
 
