@@ -63,6 +63,8 @@ const filterIsPrf = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isPrf, s.is_prf)
 const filterIsMax = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isMax, !s.upgrade_ids)
+const filterIsArcane = (filters: IFilters, s: ISkill) =>
+  filterBoolean(filters.isArcane, s.name.includes('Arcane'))
 
 const filterHoF = (filters: IFilters, s: ISkill) => {
   switch (filters.hof) {
@@ -142,6 +144,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
   const isFilterActiveOnIsPrf = computed(() => filters.value.isPrf !== null)
   const isFilterActiveOnIsMax = computed(() => filters.value.isMax !== null)
+  const isFilterActiveOnIsArcane = computed(
+    () => filters.value.isArcane !== null,
+  )
 
   const isFilterActiveOnStats = computed(() =>
     some(
@@ -163,6 +168,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       isFilterActiveOnPreInheritance.value ||
       isFilterActiveOnIsPrf.value ||
       isFilterActiveOnIsMax.value ||
+      isFilterActiveOnIsArcane.value ||
       isFilterActiveOnStats.value ||
       false,
   )
@@ -470,6 +476,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       f(filter, (s: ISkill) => filterIsPrf(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterIsMax(filters.value, s)),
+      // @ts-expect-error unsafe typings
+      f(filter, (s: ISkill) => filterIsArcane(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterCategoryAndWeaponType(filters.value, s)),
       // @ts-expect-error unsafe typings

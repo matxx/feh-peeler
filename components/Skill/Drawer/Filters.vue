@@ -131,6 +131,29 @@
           {{ t('skills.filters.isPrf') }}
         </v-btn>
       </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.isArcane !== null"
+          @click="cycleFilter('isArcane')"
+        >
+          <v-icon start>
+            {{ iconForBool(filters.isArcane) }}
+          </v-icon>
+          <img
+            src="assets/icons/unit_types/rearmed.png"
+            :width="SIZE"
+            :height="SIZE"
+          />
+        </v-btn>
+      </v-btn-group>
     </div>
 
     <div class="mt-1">
@@ -383,7 +406,7 @@ function toggleCanUseWeapon(weaponType: ExtendedWeaponType) {
   }
 }
 
-function cycleFilter(key: 'isMax' | 'isPrf') {
+function cycleFilter(key: 'isMax' | 'isPrf' | 'isArcane') {
   const val = filters.value
   if (!val) return
 
