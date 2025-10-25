@@ -421,8 +421,10 @@ export default {
     },
     show: {
       tabs: {
+        [units.TAB_DESCRIPTIONS]: 'Descriptions',
+        [units.TAB_ARTS]: 'Arts',
         [units.TAB_STATS]: 'Stats',
-        [units.TAB_SKILLS]: 'Skills',
+        [units.TAB_SKILLS]: 'All Skills',
         [units.TAB_FODDER]: 'Fodder',
         [units.TAB_FODDER_VALUE]: 'Fodder Value',
       },

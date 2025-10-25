@@ -14,6 +14,7 @@ import type {
   ISkillTree,
   ISkillById,
   ISkillByName,
+  TBySkillId,
   TBySkillCategory,
 } from '~/utils/types/skills'
 import type { IUnitInstance } from '~/utils/types/units'
@@ -93,6 +94,13 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     )
   }
 
+  const refines = computed<ISkill[]>(() =>
+    filter(skills.value, (s) => !!s.refine),
+  )
+  const refinesByBaseId = computed<TBySkillId<ISkill[]>>(() =>
+    groupBy(refines.value, 'baseId'),
+  )
+
   return {
     isLoading,
     isLoaded,
@@ -108,6 +116,8 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
 
     sortedSkills,
     sortedSkillsByCategory,
+
+    refinesByBaseId,
 
     sumSP,
   }

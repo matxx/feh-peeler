@@ -205,6 +205,9 @@ export type ISkillById = {
 export type ISkillByName = {
   [index: string]: ISkill
 }
+export type TBySkillId<T> = {
+  [key in SkillId]: T
+}
 export type TBySkillCategory<T> = {
   [key in SkillCategory]: T
 }
