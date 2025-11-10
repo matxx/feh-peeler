@@ -1,3 +1,5 @@
+import isNil from 'lodash-es/isNil'
+
 import type { IUnitInstance } from '~/utils/types/units'
 import type { IV } from '~/utils/types/IVs'
 import { getEmptyUnitInstance } from '~/utils/types/units'
@@ -51,7 +53,7 @@ type ValueOf<T> = T[keyof T]
 export type HidingReason = ValueOf<typeof HidingReasons>
 
 export interface UnitInBindingWorlds extends IUnitInstance {
-  enclosure: null | number
+  enclosure: number
   rating: null | string
   hidingReason: null | HidingReason
   notes: null | string
@@ -59,14 +61,18 @@ export interface UnitInBindingWorlds extends IUnitInstance {
   boon: null | IV
   boonAscended: null | IV
   bane: null | IV
-  dragonflowers: null | number
 }
 
-export function getEmptyUnitInstanceInBindingWorlds(): UnitInBindingWorlds {
+export const ENCLOSURE_MIN = 0
+export const ENCLOSURE_MAX = 28
+
+export function getEmptyUnitInstanceInBindingWorlds(
+  enclosure?: number,
+): UnitInBindingWorlds {
   return {
     ...getEmptyUnitInstance(),
 
-    enclosure: null,
+    enclosure: isNil(enclosure) ? ENCLOSURE_MAX : enclosure,
     rating: null,
     hidingReason: null,
     notes: null,
@@ -74,6 +80,5 @@ export function getEmptyUnitInstanceInBindingWorlds(): UnitInBindingWorlds {
     boon: null,
     boonAscended: null,
     bane: null,
-    dragonflowers: null,
   }
 }

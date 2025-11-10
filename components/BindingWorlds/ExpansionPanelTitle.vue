@@ -47,7 +47,7 @@
               </div>
               <div
                 v-if="
-                  unit.dragonflowers ||
+                  unitDetails?.max_df ||
                   unit.boon ||
                   unit.boonAscended ||
                   unit.bane
@@ -55,14 +55,14 @@
                 class="d-flex mt-1"
               >
                 <div
-                  v-if="unit.dragonflowers"
+                  v-if="unitDetails?.max_df"
                   class="mr-2 d-flex align-center"
                 >
                   <AppIconDragonflowers
                     :type="item.move_type"
                     :size="14"
                   />
-                  +{{ unit.dragonflowers }}
+                  +{{ unitDetails.max_df }}
                 </div>
                 <div
                   v-show="unit.boon"

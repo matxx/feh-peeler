@@ -20,7 +20,6 @@ export const COLUMN_BST = 'bst'
 export const COLUMN_ELEMENT = 'element'
 export const COLUMN_ARTIST = 'artist'
 export const COLUMN_VA = 'VA'
-export const COLUMN_DRAGONFLOWERS = 'dragonflowers'
 export const COLUMN_MAX_SCORE = 'max_score'
 export const COLUMN_RATING = 'game8_rating'
 export const COLUMN_ORIGIN = 'origin'
@@ -66,7 +65,6 @@ export const ALL_COLUMNS = [
   // COLUMN_ELEMENT,
   // COLUMN_ARTIST,
   // COLUMN_VA,
-  // COLUMN_DRAGONFLOWERS,
   COLUMN_MAX_SCORE,
   COLUMN_RATING,
   COLUMN_THEME,
@@ -95,7 +93,6 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_ELEMENT,
   // COLUMN_ARTIST,
   // COLUMN_VA,
-  // COLUMN_DRAGONFLOWERS,
   COLUMN_MAX_SCORE,
   COLUMN_RATING,
 ]
@@ -108,6 +105,5 @@ export const COLUMNS_START_ALIGNED = new Set([
   COLUMN_GAME,
   COLUMN_ARTIST,
   COLUMN_VA,
-  COLUMN_DRAGONFLOWERS,
   // COLUMN_RATING,
 ])

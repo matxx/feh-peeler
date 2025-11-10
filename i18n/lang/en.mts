@@ -266,7 +266,6 @@ export default {
       boon: 'Boon',
       boonAscended: 'Ascended Boon',
       bane: 'Bane',
-      dragonflowers: 'Dragonflowers',
     },
 
     hidingReasons: {
@@ -413,7 +412,6 @@ export default {
         [unitsColumns.COLUMN_ELEMENT]: 'Element',
         [unitsColumns.COLUMN_ARTIST]: 'Artist',
         [unitsColumns.COLUMN_VA]: 'VA',
-        [unitsColumns.COLUMN_DRAGONFLOWERS]: 'DragonFlowers',
         [unitsColumns.COLUMN_RATING]: 'Rating',
         [unitsColumns.COLUMN_ORIGIN]: 'Origin',
         [unitsColumns.COLUMN_MAX_SCORE]: 'Max Score',

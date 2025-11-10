@@ -51,14 +51,17 @@
     </div>
     <v-expansion-panels v-model="openedPanel">
       <v-expansion-panel
-        v-if="anyUnit"
         value="prepend"
+        @group:selected="scrollIntoView('#panel-prepend')"
       >
-        <v-expansion-panel-title>
+        <v-expansion-panel-title id="panel-prepend">
           {{ t('bindingWorlds.addUnit') }}
         </v-expansion-panel-title>
         <v-expansion-panel-text>
-          <BindingWorldsExpansionPanelText @save="prependUnit($event)" />
+          <BindingWorldsExpansionPanelText
+            :enclosure="enclosureForPrepend"
+            @save="prependUnit($event)"
+          />
         </v-expansion-panel-text>
       </v-expansion-panel>
 
@@ -67,8 +70,9 @@
         v-show="showAll || openedPanel === index || !unit.hidingReason"
         :key="index"
         :value="index"
+        @group:selected="scrollIntoView(`#panel-${index}`)"
       >
-        <v-expansion-panel-title>
+        <v-expansion-panel-title :id="`panel-${index}`">
           <template #default>
             <BindingWorldsExpansionPanelTitle
               :unit="unit"
@@ -85,12 +89,19 @@
         </v-expansion-panel-text>
       </v-expansion-panel>
 
-      <v-expansion-panel value="append">
-        <v-expansion-panel-title>
+      <v-expansion-panel
+        v-if="anyUnit"
+        value="append"
+        @group:selected="scrollIntoView('#panel-append')"
+      >
+        <v-expansion-panel-title id="panel-append">
           {{ t('bindingWorlds.addUnit') }}
         </v-expansion-panel-title>
         <v-expansion-panel-text>
-          <BindingWorldsExpansionPanelText @save="appendUnit($event)" />
+          <BindingWorldsExpansionPanelText
+            :enclosure="enclosureForAppend"
+            @save="appendUnit($event)"
+          />
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -99,9 +110,16 @@
 
 <script setup lang="ts">
 import some from 'lodash-es/some'
-import type { UnitInBindingWorlds } from '~/utils/events/binding-worlds'
+import take from 'lodash-es/take'
+import takeRight from 'lodash-es/takeRight'
+import {
+  ENCLOSURE_MIN,
+  ENCLOSURE_MAX,
+  type UnitInBindingWorlds,
+} from '~/utils/events/binding-worlds'
 
 const { t } = useI18n()
+const goTo = useGoTo()
 
 const { isLoading: isLoadingData } = useDataStores([
   useStoreDataUnits(),
@@ -121,6 +139,33 @@ const anyUnit = computed(() => units.value.length > 0)
 const anyHiddenUnit = computed(() =>
   some(units.value, (unit) => !!unit.hidingReason),
 )
+
+const enclosureForPrepend = computed(() => {
+  if (units.value.length === 0) return ENCLOSURE_MAX
+  if (units.value.length === 1) return units.value[0].enclosure
+
+  const firstTwoUnits = take(units.value, 2)
+  const diff = firstTwoUnits[0].enclosure - firstTwoUnits[1].enclosure
+  if (Math.abs(diff) !== 1) return ENCLOSURE_MAX
+
+  return Math.min(
+    Math.max(firstTwoUnits[0].enclosure + diff, ENCLOSURE_MIN),
+    ENCLOSURE_MAX,
+  )
+})
+const enclosureForAppend = computed(() => {
+  if (units.value.length === 0) return ENCLOSURE_MIN
+  if (units.value.length === 1) return units.value[0].enclosure
+
+  const lastTwoUnits = takeRight(units.value, 2)
+  const diff = lastTwoUnits[1].enclosure - lastTwoUnits[0].enclosure
+  if (Math.abs(diff) !== 1) return ENCLOSURE_MIN
+
+  return Math.min(
+    Math.max(lastTwoUnits[1].enclosure + diff, ENCLOSURE_MIN),
+    ENCLOSURE_MAX,
+  )
+})
 
 function confirmReset() {
   if (!confirm(t('global.confirmReset'))) return
@@ -146,6 +191,12 @@ function appendUnit(unit: UnitInBindingWorlds) {
 function deleteUnit(index: number) {
   openedPanel.value = null
   units.value.splice(index, 1)
+}
+
+function scrollIntoView(anchor: string) {
+  setTimeout(() => {
+    goTo(anchor)
+  }, 500)
 }
 
 // local storage

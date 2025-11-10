@@ -20,7 +20,6 @@ export const SORT_MAX_DRAGONFLOWERS = 'max_df'
 // export const SORT_ELEMENT = 'element'
 // export const SORT_ARTIST = 'artist'
 // export const SORT_VA = 'VA'
-// export const SORT_DRAGONFLOWERS = 'dragonflowers'
 export const SORT_MAX_SCORE = 'max_score'
 export const SORT_RATING = 'game8_rating'
 export const SORT_ORIGIN = 'origin'
@@ -54,7 +53,6 @@ export type SortingField =
   // | typeof SORT_ELEMENT
   // | typeof SORT_ARTIST
   // | typeof SORT_VA
-  // | typeof SORT_DRAGONFLOWERS
   | typeof SORT_MAX_SCORE
   | typeof SORT_RATING
   | typeof SORT_ORIGIN

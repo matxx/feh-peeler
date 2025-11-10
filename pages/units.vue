@@ -206,7 +206,7 @@
       </template>
     </v-data-table-server>
 
-    <!-- TODO: generation / game / element / artist / VA / dragonflowers -->
+    <!-- TODO: generation / game / element / artist / VA -->
   </div>
 </template>
 

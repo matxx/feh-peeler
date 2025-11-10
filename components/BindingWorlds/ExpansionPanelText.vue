@@ -127,20 +127,6 @@
             </v-row>
           </v-container>
 
-          <v-text-field
-            v-model.number="localUnit.dragonflowers"
-            clearable
-            :disabled="disabled"
-            type="number"
-            step="1"
-            min="0"
-            pattern="[0-9]+"
-            density="compact"
-            hide-details
-            class="mb-2"
-            :label="t('bindingWorlds.labels.dragonflowers')"
-          />
-
           <v-textarea
             v-model="localUnit.notes"
             :disabled="disabled"
@@ -214,6 +200,7 @@ const { t } = useI18n()
 const emit = defineEmits(['save', 'delete'])
 const props = defineProps<{
   unit?: UnitInBindingWorlds
+  enclosure?: number
 }>()
 
 const disabled = ref(!!props.unit)
@@ -229,7 +216,9 @@ const itemsForIVs = IVS.map((iv) => ({
 }))
 
 const localUnit = ref<UnitInBindingWorlds>(
-  props.unit ? { ...props.unit } : getEmptyUnitInstanceInBindingWorlds(),
+  props.unit
+    ? { ...props.unit }
+    : getEmptyUnitInstanceInBindingWorlds(props.enclosure),
 )
 
 function save() {
