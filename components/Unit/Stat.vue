@@ -62,7 +62,7 @@
             </div>
           </td>
           <td class="text-end">
-            {{ stats[`rank_${stat}`] }}
+            {{ ranks[`rank_${stat}`] }}
             /
             {{ storeDataConstants.constants.units_count }}
           </td>
@@ -96,7 +96,7 @@
             </div>
           </td>
           <td class="text-end">
-            {{ stats.rank_bst }}
+            {{ ranks.rank_bst }}
             /
             {{ storeDataConstants.constants.units_count }}
           </td>
@@ -123,8 +123,10 @@ const props = defineProps<{
 const { t } = useI18n()
 const storeDataConstants = useStoreDataConstants()
 const storeDataUnitsStats = useStoreDataUnitsStats()
+const storeDataUnitsStatsRanks = useStoreDataUnitsStatsRanks()
 
 const stats = computed(() => storeDataUnitsStats.statsById[props.unit.id])
+const ranks = computed(() => storeDataUnitsStatsRanks.ranksById[props.unit.id])
 
 const barBgColor = 'gray'
 </script>

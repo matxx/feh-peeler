@@ -61,13 +61,6 @@ export interface IUnitStat {
   level40_def: number
   level40_res: number
 
-  rank_hp: number
-  rank_atk: number
-  rank_spd: number
-  rank_def: number
-  rank_res: number
-  rank_bst: number
-
   iv_hp: IV | null
   iv_atk: IV | null
   iv_spd: IV | null

@@ -193,6 +193,7 @@ const { isLoading } = useDataStores([
   useStoreDataConstants(),
   storeDataUnits,
   useStoreDataUnitsStats(),
+  useStoreDataUnitsStatsRanks(),
   useStoreDataUnitsAvailabilities(),
   useStoreDataSkills(),
   useStoreDataSkillsAvailabilities(),
