@@ -31,6 +31,15 @@
           @SatachiFEH Youtube {{ t('global.video') }}
         </a>
       </li>
+      <li v-if="HALL_OF_FORMS_RESOURCES.TACHO">
+        <a
+          :href="HALL_OF_FORMS_RESOURCES.TACHO"
+          target="_blank"
+        >
+          @TACHO Youtube {{ t('global.video') }}
+        </a>
+      </li>
+
       <li v-if="HALL_OF_FORMS_RESOURCES.COOLEST_MAGICAL_CAT">
         <a
           :href="HALL_OF_FORMS_RESOURCES.COOLEST_MAGICAL_CAT"
