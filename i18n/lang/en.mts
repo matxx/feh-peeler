@@ -303,7 +303,7 @@ export default {
       `,
       line2: `
         But those are premium, rare skills.
-        Turn this off to see scores without using those premium skills.
+        Turn this on to see scores without using those premium skills.
       `,
     },
   },
