@@ -295,6 +295,17 @@ export default {
     labels: {
       unitName: "Unit's name",
     },
+    doNotUseBPremiumSkills: 'Do not use 400SP B Passives',
+    tooltipAboutBPremiumSkills: {
+      line1: `
+        All units (except staff units) can now inherit 400SP B passives
+        (Conjuring Breath, Execution Breath, High Dragon Wall, Patience)
+      `,
+      line2: `
+        But those are premium, rare skills.
+        Turn this off to see scores without using those premium skills.
+      `,
+    },
   },
 
   home: {

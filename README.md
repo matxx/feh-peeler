@@ -16,10 +16,12 @@
 1. skills: filter on ratings/grades/version/book
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page
 1. missing translations in `pages/units-maximum-scores.vue` (alerts on each score)
+1. replaces links to fandom in `pages/units-maximum-scores.vue` (alerts on each score) to the skills page with filters directly activated for 400SP B skills / 300SP seals
 1. replace all assets with spritesheets
 
 ### Fixes
 
+1. staff refines appear as exclusive skills (ex: "In The Fold+")
 1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`

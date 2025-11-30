@@ -25,6 +25,32 @@
 
     <div ref="mobile-units-filter-name" />
 
+    <div class="d-flex align-center mb-3">
+      <v-checkbox
+        v-model="doNotUseBPremiumSkills"
+        :label="t('scores.doNotUseBPremiumSkills')"
+        hide-details
+        density="compact"
+        class="mr-1"
+      />
+
+      <v-tooltip location="bottom">
+        <template #activator="{ props: tooltipProps }">
+          <v-icon
+            v-bind="tooltipProps"
+            color="info"
+            size="xsmall"
+          >
+            mdi-information-outline
+          </v-icon>
+        </template>
+
+        {{ t('scores.tooltipAboutBPremiumSkills.line1') }}
+        <br />
+        {{ t('scores.tooltipAboutBPremiumSkills.line2') }}
+      </v-tooltip>
+    </div>
+
     <div class="scores__line">
       <h4 class="scores__score">
         {{ t('scores.headers.score') }}
@@ -77,7 +103,7 @@
             class="mt-2 mb-2"
             density="compact"
           >
-            > Dragons with PRF weapon +
+            > Units with PRF weapon +
             <a
               :href="l('Category:Duel Passives')"
               target="_blank"
@@ -88,11 +114,11 @@
             </a>
             +
             <a
-              :href="l('High Dragon Wall')"
+              :href="l('Passives#List of B Passives')"
               target="_blank"
               class="text-decoration-none"
             >
-              HDW (B Passive)
+              400SP B Passive
             </a>
             +
             <a
@@ -218,6 +244,8 @@
 import sortBy from 'lodash-es/sortBy'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
+
+import { WEAPON_C_ST } from '~/utils/types/weapons'
 import { createDefaultSortersForUnitsByMaxScore } from '~/utils/types/units-sorters'
 
 definePageMeta({
@@ -227,6 +255,8 @@ definePageMeta({
 const { l } = useFandom()
 const { t } = useI18n()
 const storeGlobals = useStoreGlobals()
+
+const doNotUseBPremiumSkills = ref(false)
 
 const div = useTemplateRef('mobile-units-filter-name')
 onMounted(() => {
@@ -254,7 +284,11 @@ storeUnitsFilters.$reset()
 storeUnitsFilters.sorters = createDefaultSortersForUnitsByMaxScore()
 
 const unitsByMaxScore = computed(() =>
-  groupBy(storeUnitsFilters.unitsFilteredSorted, 'max_score'),
+  groupBy(storeUnitsFilters.unitsFilteredSorted, (u) => {
+    if (u.weapon_type === WEAPON_C_ST) return u.max_score
+
+    return doNotUseBPremiumSkills.value ? u.max_score - 2 : u.max_score
+  }),
 )
 const scores = computed(() =>
   sortBy(compact(Object.keys(unitsByMaxScore.value))).reverse(),
