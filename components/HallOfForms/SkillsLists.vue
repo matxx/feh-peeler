@@ -33,7 +33,7 @@
           :regexps="regexps"
           :error-messages="errorMessages"
           :category="tab"
-          :filters-count="2"
+          :filters-count="FILTERS_COUNT"
           :filters-on-new-lines="mobile"
           can-clear-all
           :highlighted-skill="highlightedSkill"
@@ -48,7 +48,11 @@
 
 <script setup lang="ts">
 import type { IUnitInstance } from '~/utils/types/units'
-import type { FiltersBySkillCategory } from '~/utils/functions/skillLists'
+import { FILTERS_COUNT } from '~/utils/events/hall-of-forms'
+import {
+  getEmptyArray,
+  type FiltersBySkillCategory,
+} from '~/utils/functions/skillLists'
 import {
   SKILL_CATEGORIES_FOR_HALL_OF_FORMS,
   type SkillCategory,
@@ -87,6 +91,6 @@ watch(tabSelected, () => {
   if (!filters.value) return
   if (!tabSelected.value) return
 
-  filters.value[tabSelected.value] = ['', '']
+  filters.value[tabSelected.value] = getEmptyArray(FILTERS_COUNT)
 })
 </script>
