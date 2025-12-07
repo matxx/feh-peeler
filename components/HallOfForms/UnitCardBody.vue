@@ -7,11 +7,10 @@
         class="v-chip-group--full-width"
       >
         <HallOfFormsChip
-          v-for="(skillId, category) in unitInstance.skillIds"
-          v-show="SKILL_CATEGORIES_FOR_HALL_OF_FORMS.includes(category)"
+          v-for="category in SKILL_CATEGORIES_FOR_HALL_OF_FORMS"
           :key="category"
           :category="category"
-          :skill-id="skillId"
+          :skill-id="unitInstance.skillIds[category]"
           :show-sp="false"
           class="mx-0"
           @click="$emit('select-skill-category', category)"
