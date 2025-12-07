@@ -5,6 +5,8 @@ import {
   type FiltersBySkillCategory,
 } from '~/utils/functions/skillLists'
 
+export const FILTERS_COUNT = 3
+
 export type TeamInHallOfForms = [
   IUnitInstance,
   IUnitInstance,
@@ -22,5 +24,5 @@ export function getEmptyTeamInHallOfForms(): TeamInHallOfForms {
 }
 
 export function getEmptyFiltersInHallOfForms(): FiltersBySkillCategory {
-  return getEmptyFilters(2)
+  return getEmptyFilters(FILTERS_COUNT)
 }

@@ -97,6 +97,7 @@ import { HallOfFormsSkillsLists } from '#components'
 
 import type { IUnitInstance, UnitId } from '~/utils/types/units'
 import {
+  FILTERS_COUNT,
   getEmptyFiltersInHallOfForms,
   getEmptyTeamInHallOfForms,
 } from '~/utils/events/hall-of-forms'
@@ -105,7 +106,10 @@ import {
   type SkillCategory,
   type ISkill,
 } from '~/utils/types/skills'
-import type { FiltersBySkillCategory } from '~/utils/functions/skillLists'
+import {
+  getEmptyArray,
+  type FiltersBySkillCategory,
+} from '~/utils/functions/skillLists'
 
 const goTo = useGoTo()
 const { t } = useI18n()
@@ -160,7 +164,7 @@ function equipSkill({
 function selectUnitAndSkill(index: number, skillCategory: SkillCategory) {
   selectedUnitInstanceIndex.value = index
   tabSelected.value = skillCategory
-  filters.value[skillCategory] = ['', '']
+  filters.value[skillCategory] = getEmptyArray(FILTERS_COUNT)
 
   nextTick(() => {
     if (list.value) goTo(list.value.$el)
