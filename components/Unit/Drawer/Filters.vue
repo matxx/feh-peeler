@@ -116,6 +116,14 @@
               :height="size"
             />
           </v-btn>
+        </v-btn-group>
+
+        <v-btn-group
+          divided
+          color="primary"
+          density="compact"
+          variant="outlined"
+        >
           <v-btn
             size="small"
             class="text-primary"
@@ -141,42 +149,56 @@
             />
           </v-btn>
         </v-btn-group>
-
-        <v-btn-group
-          divided
-          color="primary"
-          density="compact"
-          variant="outlined"
-        >
-          <v-btn
-            size="small"
-            class="text-primary"
-            :active="filters.traits.has(UnitsFilters.TRAIT_LEGENDARY)"
-            @click="toggleTrait(UnitsFilters.TRAIT_LEGENDARY)"
-          >
-            <img
-              src="assets/icons/unit_types/legendary.png"
-              :width="size"
-              :height="size"
-            />
-          </v-btn>
-          <v-btn
-            size="small"
-            class="text-primary"
-            :active="filters.traits.has(UnitsFilters.TRAIT_MYTHIC)"
-            @click="toggleTrait(UnitsFilters.TRAIT_MYTHIC)"
-          >
-            <img
-              src="assets/icons/unit_types/mythic.png"
-              :width="size"
-              :height="size"
-            />
-          </v-btn>
-        </v-btn-group>
       </div>
     </div>
 
-    <!-- legendary/mythic element -->
+    <div class="mt-1">
+      <v-btn-group
+        divided
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.traits.has(UnitsFilters.TRAIT_LEGENDARY)"
+          @click="toggleTrait(UnitsFilters.TRAIT_LEGENDARY)"
+        >
+          <img
+            src="assets/icons/unit_types/legendary.png"
+            :width="size"
+            :height="size"
+          />
+        </v-btn>
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.traits.has(UnitsFilters.TRAIT_MYTHIC)"
+          @click="toggleTrait(UnitsFilters.TRAIT_MYTHIC)"
+        >
+          <img
+            src="assets/icons/unit_types/mythic.png"
+            :width="size"
+            :height="size"
+          />
+        </v-btn>
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.traits.has(UnitsFilters.TRAIT_CHOSEN)"
+          @click="toggleTrait(UnitsFilters.TRAIT_CHOSEN)"
+        >
+          <img
+            src="assets/icons/unit_types/chosen.png"
+            :width="size"
+            :height="size"
+          />
+        </v-btn>
+      </v-btn-group>
+    </div>
+
+    <!-- legendary/mythic/chosen element -->
     <div class="mt-1">
       <div>
         <v-btn-group

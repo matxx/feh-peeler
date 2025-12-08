@@ -76,6 +76,12 @@
         :height="sizeCorner"
       />
       <img
+        v-if="unit.image_url_for_icon_chosen"
+        :src="unit.image_url_for_icon_chosen"
+        :width="sizeCorner"
+        :height="sizeCorner"
+      />
+      <img
         v-if="unit.image_url_for_icon_mythic"
         :src="unit.image_url_for_icon_mythic"
         :width="sizeCorner"

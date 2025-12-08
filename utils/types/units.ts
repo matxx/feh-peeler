@@ -62,6 +62,7 @@ export interface IUnitThumbnail {
 
   image_url_for_portrait: string
   image_url_for_icon_legendary?: string
+  image_url_for_icon_chosen?: string
   image_url_for_icon_mythic?: string
 
   move_type: MoveType
@@ -76,6 +77,7 @@ export interface IUnitThumbnail {
   is_emblem: boolean
   is_rearmed: boolean
   is_entwined: boolean
+  is_chosen: boolean
 }
 
 type Gender =
@@ -102,6 +104,7 @@ export interface IUnitData {
 
   image_url_for_portrait: string
   image_url_for_icon_legendary?: string
+  image_url_for_icon_chosen?: string
   image_url_for_icon_mythic?: string
 
   move_type: MoveType
@@ -135,6 +138,7 @@ export interface IUnitData {
   is_emblem: boolean
   is_aided: boolean
   is_entwined: boolean
+  is_chosen: boolean
 
   bst: number
   // duel_score: number

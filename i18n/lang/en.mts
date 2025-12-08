@@ -169,7 +169,7 @@ export default {
       genericSummonPool: 'Generic Summon Pool',
       limitedHeroes: 'Limited Heroes',
       limitedHeroesList:
-        'Mythics, Legendaries, Emblems, Aided, Attuned, Entwined, Rearmed',
+        'Legendaries, Mythics, Chosen, Emblems, Aided, Attuned, Entwined, Rearmed',
       specialHeroes: 'Sperial Heroes',
 
       heroicGrails: 'Heroic Grails',
