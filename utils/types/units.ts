@@ -21,24 +21,24 @@ import type { Element } from '~/utils/types/units-filters'
 
 export type UnitId = string
 
-export const TAB_DESCRIPTIONS = 'descriptions'
+export const TAB_BASE_KIT = 'descriptions'
 export const TAB_ARTS = 'arts'
 export const TAB_STATS = 'stats'
 export const TAB_SKILLS = 'skills'
 export const TAB_FODDER = 'fodder'
 export const TAB_FODDER_VALUE = 'fodder-value'
 
-export const UNIT_DEFAULT_TAB = TAB_DESCRIPTIONS
+export const UNIT_DEFAULT_TAB = TAB_BASE_KIT
 
 export type UnitTab =
-  | typeof TAB_DESCRIPTIONS
+  | typeof TAB_BASE_KIT
   | typeof TAB_ARTS
   | typeof TAB_FODDER
   | typeof TAB_STATS
   | typeof TAB_SKILLS
   | typeof TAB_FODDER_VALUE
 export const UNIT_TABS: UnitTab[] = [
-  TAB_DESCRIPTIONS,
+  TAB_BASE_KIT,
   // TAB_ARTS,
   TAB_STATS,
   TAB_SKILLS,

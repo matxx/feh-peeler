@@ -430,7 +430,7 @@ export default {
     },
     show: {
       tabs: {
-        [units.TAB_DESCRIPTIONS]: 'Descriptions',
+        [units.TAB_BASE_KIT]: 'Base Kit',
         [units.TAB_ARTS]: 'Arts',
         [units.TAB_STATS]: 'Stats',
         [units.TAB_SKILLS]: 'All Skills',

@@ -129,7 +129,7 @@
 
         <v-card-text class="pa-3">
           <v-tabs-window v-model="storeGlobals.shownUnitTab">
-            <v-tabs-window-item :value="TAB_DESCRIPTIONS">
+            <v-tabs-window-item :value="TAB_BASE_KIT">
               <UnitDescriptions
                 :unit="unit"
                 :size="TOOLBAR_ICON_SIZE"
@@ -168,7 +168,7 @@
 
 <script setup lang="ts">
 import {
-  TAB_DESCRIPTIONS,
+  TAB_BASE_KIT,
   // TAB_ARTS,
   TAB_STATS,
   TAB_SKILLS,
