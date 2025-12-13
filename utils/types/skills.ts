@@ -101,17 +101,17 @@ export const SKILL_CATEGORIES_FOR_BINDING_WORLDS: SkillCategory[] = [
 export const DEFAULT_SELECTED_TAB = SKILL_WEAPON
 
 export const TAB_DETAILS = 'details'
-export const TAB_FODDERS = 'fodders'
+export const TAB_OWNERS = 'owners'
 export const TAB_DOWNGRADES = 'downgrades'
 export const TAB_UPGRADES = 'upgrades'
 export type SkillTab =
   | typeof TAB_DETAILS
-  | typeof TAB_FODDERS
+  | typeof TAB_OWNERS
   | typeof TAB_DOWNGRADES
   | typeof TAB_UPGRADES
 export const SKILL_TABS: SkillTab[] = [
   TAB_DETAILS,
-  TAB_FODDERS,
+  TAB_OWNERS,
   TAB_DOWNGRADES,
   TAB_UPGRADES,
 ]

@@ -14,7 +14,7 @@
       <NuxtLink
         class="d-flex align-center"
         href="#"
-        @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
+        @click.prevent="storeGlobals.showSkill(skill.id, TAB_OWNERS)"
       >
         <SkillImg
           v-show="SKILL_CATEGORIES_WITH_ICON.includes(category)"
@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import {
   SKILL_CATEGORIES_WITH_ICON,
-  TAB_FODDERS,
+  TAB_OWNERS,
   type ISkill,
   type SkillCategory,
 } from '~/utils/types/skills'

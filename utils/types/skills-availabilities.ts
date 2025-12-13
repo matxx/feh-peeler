@@ -6,8 +6,8 @@ import type { SkillId } from '~/utils/types/skills'
 import type { UnitId } from '~/utils/types/units'
 
 import {
-  type FODDER_LOWEST_RARITY_WHEN_OBTAINED,
-  type FODDER_LOWEST_RARITY_FOR_INHERITANCE,
+  type OWNER_LOWEST_RARITY_WHEN_OBTAINED,
+  type OWNER_LOWEST_RARITY_FOR_INHERITANCE,
   type GENERIC_SUMMON_POOL,
   type SPECIAL_SUMMON_POOL,
   type HEROIC_GRAILS,
@@ -42,8 +42,8 @@ export const AVAILABILITIES: Availability[] = [
 export interface ISkillAvailability {
   id: SkillId
 
-  fodder: { [key in Availability]: number }
-  fodder_ids: UnitId[]
+  required_slots: { [key in Availability]: number }
+  owner_ids: UnitId[]
 
   is_in: {
     [GENERIC_SUMMON_POOL]: boolean
@@ -53,7 +53,7 @@ export interface ISkillAvailability {
     [LIMITED_DIVINE_CODES]: boolean
     [FOCUS_ONLY]: boolean
   }
-  [FODDER_LOWEST_RARITY_WHEN_OBTAINED]: {
+  [OWNER_LOWEST_RARITY_WHEN_OBTAINED]: {
     [GENERIC_SUMMON_POOL]?: number
     [SPECIAL_SUMMON_POOL]?: number
     [HEROIC_GRAILS]?: number
@@ -61,7 +61,7 @@ export interface ISkillAvailability {
     [LIMITED_DIVINE_CODES]?: number
     [FOCUS_ONLY]?: number
   }
-  [FODDER_LOWEST_RARITY_FOR_INHERITANCE]: {
+  [OWNER_LOWEST_RARITY_FOR_INHERITANCE]: {
     [GENERIC_SUMMON_POOL]?: number
     [SPECIAL_SUMMON_POOL]?: number
     [HEROIC_GRAILS]?: number

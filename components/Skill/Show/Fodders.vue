@@ -1,7 +1,7 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataSkillsAvailabilities.isLoaded">
     <SkillFodderSorting
-      v-if="!hideSorting && sortedFodders.length > 1"
+      v-if="!hideSorting && sortedOwners.length > 1"
       class="ml-3 mb-3"
     />
 
@@ -9,24 +9,22 @@
       <thead>
         <tr>
           <th class="text-no-wrap">
-            <span v-show="!mobile">
-              {{ t('skillsFodders.fodders.unitName') }}
-            </span>
+            {{ t('skillsOwners.owners.unit') }}
           </th>
           <th class="text-no-wrap">
-            {{ t('skillsFodders.fodders.availability') }}
+            {{ t('skillsOwners.owners.availability') }}
           </th>
           <th class="text-no-wrap">
-            {{ t('skillsFodders.fodders.unlockAt') }}
+            {{ t('skillsOwners.owners.unlockAt') }}
           </th>
         </tr>
       </thead>
       <tbody>
         <SkillFodderAvailabilitiesUnit
-          v-for="fodder in sortedFodders"
-          :key="fodder.id"
+          v-for="owner in sortedOwners"
+          :key="owner.id"
           :skill="skill"
-          :unit="fodder"
+          :unit="owner"
           :tile-size="tileSize"
         />
       </tbody>
@@ -41,7 +39,6 @@ import compact from 'lodash-es/compact'
 import type { ISkill } from '@/utils/types/skills'
 
 const { t } = useI18n()
-const { mobile } = useDisplay()
 const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
@@ -61,13 +58,13 @@ const props = withDefaults(
 const availability = computed(
   () => storeDataSkillsAvailabilities.availabilitiesById[props.skill.baseId],
 )
-const fodders = computed(() =>
+const owners = computed(() =>
   compact(
-    availability.value.fodder_ids.map((id) => storeDataUnits.unitsById[id]),
+    availability.value.owner_ids.map((id) => storeDataUnits.unitsById[id]),
   ),
 )
-const sortedFodders = computed(() =>
-  sortBy(fodders.value, [
+const sortedOwners = computed(() =>
+  sortBy(owners.value, [
     (unit) =>
       storeGlobals.sortedByAvailability
         ? storeDataUnitsAvailabilities.availabilitySortingValue(unit)

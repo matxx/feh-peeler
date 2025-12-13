@@ -86,5 +86,5 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [skillsColumns.COLUMN_RESTRICTIONS]: SORT_RESTRICTIONS,
   [skillsColumns.COLUMN_AVAILABILITY]: SORT_AVAILABILITY,
   [skillsColumns.COLUMN_PRE_INHERITANCE]: SORT_PRE_INHERITANCE,
-  [skillsColumns.COLUMN_FODDERS]: SORT_NOTHING,
+  [skillsColumns.COLUMN_OWNERS]: SORT_NOTHING,
 }

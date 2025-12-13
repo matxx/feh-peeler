@@ -3,7 +3,7 @@
     <div class="d-flex justify-space-between mb-3">
       <NuxtLink
         href="#"
-        @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
+        @click.prevent="storeGlobals.showSkill(skill.id, TAB_OWNERS)"
       >
         <div class="d-flex align-center">
           <SkillImg
@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
+import { TAB_OWNERS, type ISkill } from '@/utils/types/skills'
 
 const { t } = useI18n()
 const { mobile } = useDisplay()

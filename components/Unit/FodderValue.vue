@@ -38,7 +38,7 @@
               <NuxtLink
                 class="d-flex align-center"
                 href="#"
-                @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
+                @click.prevent="storeGlobals.showSkill(skill.id, TAB_OWNERS)"
               >
                 <SkillImg
                   v-show="SKILL_CATEGORIES_WITH_ICON.includes(category)"
@@ -80,7 +80,7 @@ import intersection from 'lodash-es/intersection'
 import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
-  TAB_FODDERS,
+  TAB_OWNERS,
   type ISkill,
   type TBySkillCategory,
 } from '~/utils/types/skills'

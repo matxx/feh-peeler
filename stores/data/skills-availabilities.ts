@@ -28,7 +28,7 @@ import {
   // LIMITED_DIVINE_CODES,
   // NORMAL_DIVINE_CODES,
   FOCUS_ONLY,
-  FODDER_LOWEST_RARITY_WHEN_OBTAINED,
+  OWNER_LOWEST_RARITY_WHEN_OBTAINED,
 } from '~/utils/types/obfuscated-keys'
 
 export const useStoreDataSkillsAvailabilities = defineStore(
@@ -50,7 +50,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
       availability
         ? (min(
             compact(
-              Object.values(availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED]),
+              Object.values(availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]),
             ),
           ) || 0) > 4
         : null
@@ -76,7 +76,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
         return 0
       }
 
-      return availability.fodder[avail]
+      return availability.required_slots[avail]
     }
 
     function availabilitySortingValue(skill: ISkill) {
@@ -87,7 +87,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
 
       if (availability.is_in[GENERIC_SUMMON_POOL]) {
         switch (
-          availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
         ) {
           case 3:
           case 4:
@@ -115,7 +115,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
       }
       if (availability.is_in[SPECIAL_SUMMON_POOL]) {
         switch (
-          availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
         ) {
           case 4:
             availabilities.push(AV_SCORE_SPECIAL_POOL_4)

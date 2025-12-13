@@ -136,7 +136,7 @@ export default {
     delete: 'Delete',
   },
 
-  skillsFodders: {
+  skillsOwners: {
     labels: {
       name: 'Name',
     },
@@ -179,8 +179,8 @@ export default {
 
       limitedDivineCode: 'Limited Divine Code',
     },
-    fodders: {
-      unitName: 'Unit Name',
+    owners: {
+      unit: 'Unit',
       availability: 'Availability',
       equippedAt: 'Equipped at',
       unlockAt: 'Unlock at',
@@ -498,7 +498,7 @@ export default {
         [skillsColumns.COLUMN_GRADE]: 'Grade',
         [skillsColumns.COLUMN_DESCRIPTION]: 'Description',
         [skillsColumns.COLUMN_RESTRICTIONS]: 'Restrictions',
-        [skillsColumns.COLUMN_FODDERS]: 'Fodders',
+        [skillsColumns.COLUMN_OWNERS]: 'Owners',
         [skillsColumns.COLUMN_AVAILABILITY]: 'Availability',
         [skillsColumns.COLUMN_PRE_INHERITANCE]: 'PreInheritance',
         [skillsColumns.COLUMN_MAX]: 'MAX ?',
@@ -509,7 +509,7 @@ export default {
     show: {
       tabs: {
         [skills.TAB_DETAILS]: 'Details',
-        [skills.TAB_FODDERS]: 'Fodders',
+        [skills.TAB_OWNERS]: 'Owners',
         [skills.TAB_DOWNGRADES]: 'Downgrades',
         [skills.TAB_UPGRADES]: 'Upgrades',
       },
@@ -519,7 +519,7 @@ export default {
       sp: 'SP',
       canUse: 'Can use',
       effect: 'Effect',
-      fodders: {
+      owners: {
         sortByAvailability: 'Sorted by Availability',
         sortByName: 'Sorted by Name',
       },

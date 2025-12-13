@@ -60,7 +60,7 @@
               <NuxtLink
                 class="d-flex align-center"
                 href="#"
-                @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
+                @click.prevent="storeGlobals.showSkill(skill.id, TAB_OWNERS)"
               >
                 <SkillImg
                   v-show="SKILL_CATEGORIES_WITH_ICON.includes(category)"
@@ -85,7 +85,7 @@
                 <template #default="{ item }">
                   <UnitFodderCellText
                     v-if="item"
-                    :number="item.fodder[avail]"
+                    :number="item.required_slots[avail]"
                     :has-ref-special="
                       isUnitFiveStarLocked &&
                       !storeDataSkillsAvailabilities.isFiveStarLocked(item) &&
@@ -194,7 +194,7 @@ import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
   SKILL_SPECIAL,
-  TAB_FODDERS,
+  TAB_OWNERS,
   type ISkill,
   type TBySkillCategory,
   type SkillId,

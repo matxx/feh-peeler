@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="mb-1">{{ t('skillsFodders.order.title') }}:</p>
+    <p class="mb-1">{{ t('skillsOwners.order.title') }}:</p>
     <ol class="mb-3">
       <li
         v-for="availabilty in availabilties.SORTED_AV_SCORES"
@@ -70,12 +70,12 @@
         </div>
 
         <div class="ml-4">
-          {{ t(`skillsFodders.order.${availabilty}`) }}
+          {{ t(`skillsOwners.order.${availabilty}`) }}
         </div>
       </li>
     </ol>
-    <p class="mb-1">{{ t('skillsFodders.order.legends.sh') }}</p>
-    <p class="mb-1">{{ t('skillsFodders.order.legends.sr') }}</p>
+    <p class="mb-1">{{ t('skillsOwners.order.legends.sh') }}</p>
+    <p class="mb-1">{{ t('skillsOwners.order.legends.sr') }}</p>
   </div>
 </template>
 

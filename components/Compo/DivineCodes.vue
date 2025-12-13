@@ -24,8 +24,8 @@
       <div>
         {{
           ephemera
-            ? t('skillsFodders.availability.limitedDivineCode')
-            : t('skillsFodders.availability.divineCode')
+            ? t('skillsOwners.availability.limitedDivineCode')
+            : t('skillsOwners.availability.divineCode')
         }}
       </div>
       <slot name="tooltip:append" />

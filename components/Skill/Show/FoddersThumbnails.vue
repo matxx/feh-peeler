@@ -3,7 +3,7 @@
     <RecycleScroller
       v-slot="{ item }"
       class="scroller"
-      :items="sortedFodders"
+      :items="sortedOwners"
       :item-size="tileSize"
       key-field="id"
       direction="horizontal"
@@ -48,13 +48,13 @@ const props = withDefaults(
 const availability = computed(
   () => storeDataSkillsAvailabilities.availabilitiesById[props.skill.baseId],
 )
-const fodders = computed(() =>
+const owners = computed(() =>
   compact(
-    availability.value.fodder_ids.map((id) => storeDataUnits.unitsById[id]),
+    availability.value.owner_ids.map((id) => storeDataUnits.unitsById[id]),
   ),
 )
-const sortedFodders = computed(() =>
-  sortBy(fodders.value, [
+const sortedOwners = computed(() =>
+  sortBy(owners.value, [
     (unit) =>
       storeGlobals.sortedByAvailability
         ? storeDataUnitsAvailabilities.availabilitySortingValue(unit)

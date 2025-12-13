@@ -14,14 +14,14 @@
     </template>
 
     <span v-if="isGenericPool">
-      {{ t('skillsFodders.availability.genericSummonPool') }}
+      {{ t('skillsOwners.availability.genericSummonPool') }}
     </span>
     <span v-if="isSpecialPool">
-      {{ t('skillsFodders.availability.specialHeroes') }}
+      {{ t('skillsOwners.availability.specialHeroes') }}
     </span>
     <span v-if="isLimitedHero">
-      {{ t('skillsFodders.availability.limitedHeroes') }}<br />
-      ({{ t('skillsFodders.availability.limitedHeroesList') }})
+      {{ t('skillsOwners.availability.limitedHeroes') }}<br />
+      ({{ t('skillsOwners.availability.limitedHeroesList') }})
     </span>
   </v-tooltip>
 </template>

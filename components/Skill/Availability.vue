@@ -7,7 +7,7 @@
       :size="tileSize"
       :disabled="!availability.is_in[GENERIC_SUMMON_POOL]"
       :rarity="
-        availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
       "
       is-generic-pool
     />
@@ -15,14 +15,14 @@
       :size="tileSize"
       :disabled="!availability.is_in[SPECIAL_SUMMON_POOL]"
       :rarity="
-        availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
       "
       is-special-pool
     />
     <CompoAvailability
       :size="tileSize"
       :disabled="!availability.is_in[FOCUS_ONLY]"
-      :rarity="availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][FOCUS_ONLY]"
+      :rarity="availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][FOCUS_ONLY]"
       is-limited-hero
     />
 
@@ -41,7 +41,7 @@
           v-for="(desc, index) in availability.divine_codes.normal"
           :key="index"
         >
-          {{ t('skillsFodders.availability.part') }} {{ desc.number }} -
+          {{ t('skillsOwners.availability.part') }} {{ desc.number }} -
           {{ desc.title }} - {{ desc.cost }}
         </div>
       </template>
@@ -72,7 +72,7 @@ import padStart from 'lodash-es/padStart'
 
 import type { ISkill } from '@/utils/types/skills'
 import {
-  FODDER_LOWEST_RARITY_WHEN_OBTAINED,
+  OWNER_LOWEST_RARITY_WHEN_OBTAINED,
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
   HEROIC_GRAILS,

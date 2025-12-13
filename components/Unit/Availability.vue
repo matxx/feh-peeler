@@ -42,7 +42,7 @@
           v-for="(desc, index) in availability.divine_codes.normal"
           :key="index"
         >
-          {{ t('skillsFodders.availability.part') }} {{ desc.number }} -
+          {{ t('skillsOwners.availability.part') }} {{ desc.number }} -
           {{ desc.title }} - {{ desc.cost }}
         </div>
       </template>

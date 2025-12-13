@@ -26,7 +26,7 @@ export default function (search: Ref<string | undefined | null>) {
         Sentry.captureException(error, {
           tags: {
             search: search.value,
-            locator: 'skills-fodders/watch/search',
+            locator: 'useSearch/updateRegExp',
           },
         })
       }

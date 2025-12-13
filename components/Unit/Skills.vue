@@ -12,10 +12,10 @@
             {{ t('unitsFodder.skillName') }}
           </th>
           <th class="border-b-lg">
-            {{ t('skillsFodders.fodders.equippedAt') }}
+            {{ t('skillsOwners.owners.equippedAt') }}
           </th>
           <th class="border-b-lg">
-            {{ t('skillsFodders.fodders.unlockAt') }}
+            {{ t('skillsOwners.owners.unlockAt') }}
           </th>
         </tr>
       </thead>

@@ -128,7 +128,7 @@
             <v-tabs-window-item :value="TAB_DETAILS">
               <SkillShowDetails :skill="skill" />
             </v-tabs-window-item>
-            <v-tabs-window-item :value="TAB_FODDERS">
+            <v-tabs-window-item :value="TAB_OWNERS">
               <SkillShowFodders
                 :skill="skill"
                 :tile-size="FODDERS_TILE_SIZE"
@@ -156,7 +156,7 @@
 <script setup lang="ts">
 import {
   TAB_DETAILS,
-  TAB_FODDERS,
+  TAB_OWNERS,
   TAB_DOWNGRADES,
   TAB_UPGRADES,
   SKILL_CATEGORIES_WITH_ICON,
@@ -189,7 +189,7 @@ const skill = computed(() =>
 )
 
 const tabsDisplayed = computed(() => {
-  const res = [TAB_DETAILS, TAB_FODDERS]
+  const res = [TAB_DETAILS, TAB_OWNERS]
   if (skill.value?.downgrade_ids?.length) res.push(TAB_DOWNGRADES)
   if (skill.value?.upgrade_ids?.length) res.push(TAB_UPGRADES)
   return res

@@ -17,7 +17,7 @@
       </v-sheet>
     </template>
 
-    {{ t('skillsFodders.availability.heroicGrails') }}
+    {{ t('skillsOwners.availability.heroicGrails') }}
   </v-tooltip>
 </template>
 

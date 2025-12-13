@@ -4,7 +4,7 @@
       <NuxtLink
         class="d-flex mr-5"
         href="#"
-        @click.prevent="storeGlobals.showSkill(skill.id, TAB_FODDERS)"
+        @click.prevent="storeGlobals.showSkill(skill.id, TAB_OWNERS)"
       >
         <SkillImg
           v-show="withIcon"
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { TAB_FODDERS, type ISkill } from '@/utils/types/skills'
+import { TAB_OWNERS, type ISkill } from '@/utils/types/skills'
 
 const storeGlobals = useStoreGlobals()
 

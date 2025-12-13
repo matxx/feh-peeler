@@ -15,7 +15,7 @@ import {
   // NORMAL_DIVINE_CODES,
   // LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
-  FODDER_LOWEST_RARITY_WHEN_OBTAINED,
+  OWNER_LOWEST_RARITY_WHEN_OBTAINED,
 } from '~/utils/types/obfuscated-keys'
 
 import {
@@ -365,7 +365,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     if (availability.is_in[GENERIC_SUMMON_POOL]) {
       switch (
-        availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
       ) {
         case 3:
         case 4:
@@ -381,7 +381,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     if (availability.is_in[SPECIAL_SUMMON_POOL]) {
       switch (
-        availability[FODDER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
       ) {
         case 4:
           if (availabilities.has(a.AV_SPECIAL_POOL_4)) return true
