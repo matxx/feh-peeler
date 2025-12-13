@@ -242,10 +242,6 @@ export default defineNuxtConfig({
         // fr: '/listes-de-competences',
         en: '/skills-lists',
       },
-      'skills-fodders': {
-        // fr: '/listes-des-possesseurs-de-competences',
-        en: '/skills-fodders',
-      },
 
       skills: {
         // fr: '/competences',

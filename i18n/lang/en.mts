@@ -325,7 +325,6 @@ export default {
       'catalog-of-heroes': 'FEHdex / Catalog of Heroes',
 
       skills: 'Skills',
-      'skills-fodders': 'Skills Fodders',
       'skills-lists': 'Skills Ratings',
 
       'events-hall-of-forms': 'Hall of Forms',
@@ -340,8 +339,6 @@ export default {
       'catalog-of-heroes': 'check which heroes you are missing',
 
       skills: 'compare/filter/sort skills',
-      'skills-fodders':
-        'check if a skill is available in the 3★/4★ pool, grails shop, divine codes, ...',
       'skills-lists': 'compare skills ratings, restrictions, effects',
 
       'events-hall-of-forms': 'keep track of your progress',
