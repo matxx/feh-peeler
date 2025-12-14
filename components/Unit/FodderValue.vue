@@ -57,7 +57,7 @@
               />
             </td>
             <td>
-              <SkillFodderPreInheritances
+              <SkillOwnersPreInheritances
                 v-if="!skill.is_prf"
                 :skill="skill"
                 :tile-size="size"

@@ -47,7 +47,7 @@
     </div>
 
     <div v-show="alwaysOpen || !mobile || isOpen">
-      <SkillShowFodders
+      <SkillShowOwners
         :skill="skill"
         :tile-size="tileSize"
         hide-sorting

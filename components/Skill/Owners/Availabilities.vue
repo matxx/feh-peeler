@@ -36,7 +36,7 @@
     </div>
 
     <AppRenderOnceWhileActive :active="isOpen">
-      <SkillShowFodders
+      <SkillShowOwners
         :skill="skill"
         :tile-size="tileSize"
       />

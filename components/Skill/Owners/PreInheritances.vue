@@ -5,7 +5,7 @@
       :key="downgrade.id"
       class="d-flex align-center"
     >
-      <SkillFodderAvailabilities
+      <SkillOwnersAvailabilities
         :skill="downgrade"
         :tile-size="tileSize"
         :skill-icon-size="skillIconSize"

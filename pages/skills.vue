@@ -133,8 +133,8 @@
         <AppDisplayBool :bool="!item.upgrade_ids" />
       </template>
 
-      <template #[`item.${skillsColumns.COLUMN_FODDERS}`]="{ item }">
-        <SkillShowFoddersThumbnails
+      <template #[`item.${skillsColumns.COLUMN_OWNERS}`]="{ item }">
+        <SkillShowOwnersThumbnails
           :skill="item"
           :tile-size="size"
         />
@@ -146,7 +146,7 @@
         />
       </template>
       <template #[`item.${skillsColumns.COLUMN_PRE_INHERITANCE}`]="{ item }">
-        <SkillFodderPreInheritances
+        <SkillOwnersPreInheritances
           :skill="item"
           :tile-size="size"
           :skill-icon-size="size"

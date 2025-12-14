@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SkillFodderSorting class="ml-3 mb-3" />
+    <SkillOwnersSorting class="ml-3 mb-3" />
 
     <v-container fluid>
       <v-row

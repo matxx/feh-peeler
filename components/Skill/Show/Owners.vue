@@ -1,6 +1,6 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataSkillsAvailabilities.isLoaded">
-    <SkillFodderSorting
+    <SkillOwnersSorting
       v-if="!hideSorting && sortedOwners.length > 1"
       class="ml-3 mb-3"
     />
@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <SkillFodderAvailabilitiesUnit
+        <SkillOwnersAvailabilitiesUnit
           v-for="owner in sortedOwners"
           :key="owner.id"
           :skill="skill"

@@ -33,7 +33,7 @@
           </v-icon>
         </template>
 
-        <SkillFodderSortingListAvailabilities />
+        <SkillOwnersSortingListAvailabilities />
       </v-tooltip>
     </template>
 
@@ -57,7 +57,7 @@
           class="z-index-above-modal"
         >
           <div class="pa-5 pt-2">
-            <SkillFodderSortingListAvailabilities />
+            <SkillOwnersSortingListAvailabilities />
           </div>
         </v-navigation-drawer>
       </Teleport>

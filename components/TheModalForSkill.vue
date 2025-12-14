@@ -25,7 +25,7 @@
           <template v-if="!mobile">
             <SkillAvailability
               :skill="skill"
-              :tile-size="TOOLBAR_FODDER_SIZE"
+              :tile-size="TOOLBAR_OWNER_SIZE"
             />
           </template>
 
@@ -74,7 +74,7 @@
             <div class="d-flex align-center">
               <SkillAvailability
                 :skill="skill"
-                :tile-size="TOOLBAR_FODDER_SIZE"
+                :tile-size="TOOLBAR_OWNER_SIZE"
               />
 
               <v-spacer />
@@ -129,21 +129,21 @@
               <SkillShowDetails :skill="skill" />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_OWNERS">
-              <SkillShowFodders
+              <SkillShowOwners
                 :skill="skill"
-                :tile-size="FODDERS_TILE_SIZE"
+                :tile-size="OWNERS_TILE_SIZE"
               />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_DOWNGRADES">
               <SkillShowDowngrades
                 :skill="skill"
-                :tile-size="FODDERS_TILE_SIZE"
+                :tile-size="OWNERS_TILE_SIZE"
               />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_UPGRADES">
               <SkillShowUpgrades
                 :skill="skill"
-                :tile-size="FODDERS_TILE_SIZE"
+                :tile-size="OWNERS_TILE_SIZE"
               />
             </v-tabs-window-item>
           </v-tabs-window>
@@ -163,8 +163,8 @@ import {
 } from '~/utils/types/skills'
 
 const TOOLBAR_ICON_SIZE = 20
-const TOOLBAR_FODDER_SIZE = 30
-const FODDERS_TILE_SIZE = 40
+const TOOLBAR_OWNER_SIZE = 30
+const OWNERS_TILE_SIZE = 40
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
