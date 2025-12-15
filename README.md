@@ -22,6 +22,7 @@
 
 ### Fixes
 
+1. drop dependencies `@types/jquery` / `jsdom`
 1. staff refines appear as exclusive skills (ex: "In The Fold+")
 1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
