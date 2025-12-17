@@ -1,5 +1,11 @@
 # FEH Peeler
 
+## Introduction
+
+This is the code source for the website [feh-peeler.com](https://feh-peeler.com) <feh-peeler.com>.
+
+All the data is extracted from [Game8](https://game8.co/games/fire-emblem-heroes) and [Fandom](https://feheroes.fandom.com/) by [this code](https://github.com/matxx/feh-scrapper) and stored in [this repo](https://github.com/matxx/feh-data).
+
 ## TODO
 
 ### Features
