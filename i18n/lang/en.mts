@@ -376,9 +376,9 @@ export default {
     preInheritance: 'Pre-Inheritance',
     totals: 'Totals',
     explanationOnSpecial:
-      'Not counted in totals : this Special is not 5★ locked',
+      'Not counted in totals : this special is not 5★ locked',
     explanationOnMultipleSkills:
-      'Not counted in totals : for skills in the same slot, only the skill with highest tier and number of required inherit slot is used',
+      'Not counted in totals : for skills in the same slot, only the skill released the latest is used',
     allSkillsCanBeInheritedInOneGo: 'All skills can be inherited in one go',
     notAllSkillsCanBeInheritedInOneGo:
       'Not all skills can be inherited in one go',

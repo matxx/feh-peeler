@@ -9,7 +9,7 @@
 <!-- Xander: Gallant King [L!Xander] - double A skill => note on always the same A skill -->
 
 <!-- Sakura: In Full Bloom [L!Sakura] - special with both notes -->
-<!-- Mikoto: Caring Mother [L!Sakura] - 2 specials with notes & both notes -->
+<!-- Mikoto: Caring Mother [Mikoto] - 2 specials with notes & both notes -->
 <!-- Maria: Ritual Sacrifice [F!Maria] - 2 specials - imbue on top -->
 
 <template>
@@ -72,7 +72,7 @@
               </NuxtLink>
             </th>
             <td
-              v-for="avail in AVAILABILITIES"
+              v-for="avail in selectedAvailabilities"
               :key="avail"
               class="text-center"
             >
@@ -85,7 +85,14 @@
                 <template #default="{ item }">
                   <UnitFodderCellText
                     v-if="item"
-                    :number="item.required_slots[avail]"
+                    :number="
+                      storeDataSkillsAvailabilities.requiredInheritSlotsCount(
+                        skill,
+                        false,
+                        avail,
+                        selectedAvailabilities,
+                      )
+                    "
                     :has-ref-special="
                       isUnitFiveStarLocked &&
                       !storeDataSkillsAvailabilities.isFiveStarLocked(item) &&
@@ -114,7 +121,7 @@
           <th />
           <th>{{ t('unitsFodder.totals') }}</th>
           <td
-            v-for="(avail, index) in AVAILABILITIES"
+            v-for="(avail, index) in selectedAvailabilities"
             :key="avail"
             class="text-center"
           >
@@ -151,7 +158,7 @@
               <p>{{ t('unitsFodder.usingBridgeFodderFrom') }}:</p>
               <ul class="pl-3">
                 <li
-                  v-for="av in take(AVAILABILITIES, index + 1)"
+                  v-for="av in take(selectedAvailabilities, index + 1)"
                   :key="av"
                 >
                   {{ t(`unitsFodder.availabilities.${av}`) }}
@@ -221,6 +228,8 @@ const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
 const DEFAULT_IS_UNIT_FIVE_STAR_LOCKED = false
 
+const selectedAvailabilities = ref(AVAILABILITIES)
+
 const availability = computed(
   () => storeDataUnitsAvailabilities.availabilitiesById[props.unit.id],
 )
@@ -237,21 +246,7 @@ const skills = computed(() =>
   ),
 )
 const skillsSorted = computed(() =>
-  orderBy(
-    skills.value,
-    [
-      'tier',
-      (skill) =>
-        sumBy(AVAILABILITIES, (avail) =>
-          storeDataSkillsAvailabilities.requiredInheritSlotsCount(
-            skill,
-            isUnitFiveStarLocked.value,
-            avail,
-          ),
-        ),
-    ],
-    ['asc', 'asc'],
-  ),
+  orderBy(skills.value, ['sortableVersion'], ['asc']),
 )
 const skillsMaxTier = computed<ISkill[]>(() =>
   filter(
@@ -292,7 +287,7 @@ const relevantSkillIdByCategory = computed<
 
 const relevantSkillByCategoryByAv = computed(() =>
   objectFromEntries(
-    AVAILABILITIES.map((avail) => [
+    selectedAvailabilities.value.map((avail) => [
       avail,
       mapValues(relevantSkillIdByCategory.value, (skillId) =>
         skillId ? storeDataSkills.skillsById[skillId] : undefined,
@@ -303,7 +298,7 @@ const relevantSkillByCategoryByAv = computed(() =>
 
 const totals = computed(() =>
   objectFromEntries(
-    AVAILABILITIES.map((avail) => [
+    selectedAvailabilities.value.map((avail) => [
       avail,
       sumBy(values(relevantSkillByCategoryByAv.value[avail]), (skill) =>
         skill
@@ -311,6 +306,7 @@ const totals = computed(() =>
               skill,
               isUnitFiveStarLocked.value,
               avail,
+              selectedAvailabilities.value,
             )
           : 0,
       ),

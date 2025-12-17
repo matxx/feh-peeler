@@ -1,4 +1,5 @@
 import min from 'lodash-es/min'
+import take from 'lodash-es/take'
 import keyBy from 'lodash-es/keyBy'
 import compact from 'lodash-es/compact'
 
@@ -63,6 +64,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
       skill: ISkill,
       isUnitFiveStarLocked: boolean,
       avail: Availability,
+      selectedAvailabilities: Availability[],
     ) => {
       if (skill.is_prf) return 0
 
@@ -76,7 +78,14 @@ export const useStoreDataSkillsAvailabilities = defineStore(
         return 0
       }
 
-      return availability.required_slots[avail]
+      const idx = selectedAvailabilities.indexOf(avail)
+      if (idx === -1) return 0
+
+      const fromAvailabilities = take(selectedAvailabilities, idx + 1)
+      return (
+        min(fromAvailabilities.map((av) => availability.required_slots[av])) ||
+        0
+      )
     }
 
     function availabilitySortingValue(skill: ISkill) {
