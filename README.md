@@ -2,9 +2,25 @@
 
 ## Introduction
 
-This is the code source for the website [feh-peeler.com](https://feh-peeler.com) <feh-peeler.com>.
+This is the code source for the website [feh-peeler.com](https://feh-peeler.com).
 
-All the data is extracted from [Game8](https://game8.co/games/fire-emblem-heroes) and [Fandom](https://feheroes.fandom.com/) by [this code](https://github.com/matxx/feh-scrapper) and stored in [this repo](https://github.com/matxx/feh-data).
+All the necessary data for this website is extracted from [Fandom](https://feheroes.fandom.com/) and all ratings (for units, skills and seals) are extracted from [Game8](https://game8.co/games/fire-emblem-heroes). [This repo](https://github.com/matxx/feh-scrapper) is responsible for the extraction, it then calculates a bunch of additional data and stores everything in [this repo](https://github.com/matxx/feh-data).
+
+## Setup
+
+Make sure to install the dependencies:
+
+```bash
+npm install
+```
+
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+npm run dev
+```
 
 ## TODO
 
@@ -32,19 +48,3 @@ All the data is extracted from [Game8](https://game8.co/games/fire-emblem-heroes
 1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-npm install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-npm run dev
-```
