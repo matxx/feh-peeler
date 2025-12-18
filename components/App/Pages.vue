@@ -60,7 +60,7 @@ const ITEMS = [
   { isItem: true, link: 'units-maximum-scores' },
   { isItem: true, link: 'catalog-of-heroes' },
   { isItem: true, link: 'skills' },
-  { isItem: true, link: 'skills-lists' },
+  // { isItem: true, link: 'skills-lists' },
   { isSubheader: true, text: t('home.subheader.events') },
   { isItem: true, link: 'events-hall-of-forms' },
   { isItem: true, link: 'events-binding-worlds' },
