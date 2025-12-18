@@ -588,12 +588,29 @@ export default {
       operators: {
         [UnitsStats.OPERATOR_AVERAGE]: 'average',
         [UnitsStats.OPERATOR_MEDIAN]: 'median',
+        [UnitsStats.OPERATOR_MIN]: 'min',
+        [UnitsStats.OPERATOR_MAX]: 'max',
         [UnitsStats.OPERATOR_MODE]: 'mode',
         [UnitsStats.OPERATOR_RANGE]: 'range',
       },
 
       evolutionOfBST: 'Evolution of BST',
-      evolutionOfStats: 'Evolution of Stats (all move types)',
+      evolutionOfStats: {
+        all: 'Evolution of Stats (all move types)',
+        byMoves: {
+          [moves.MOVE_I]: 'Evolution of Stats (Infantry)',
+          [moves.MOVE_A]: 'Evolution of Stats (Armored)',
+          [moves.MOVE_C]: 'Evolution of Stats (Cavalry)',
+          [moves.MOVE_F]: 'Evolution of Stats (Flying)',
+        },
+        byStats: {
+          [UnitsStats.HP]: 'Evolution of Stats (HP)',
+          [UnitsStats.ATK]: 'Evolution of Stats (Atk)',
+          [UnitsStats.SPD]: 'Evolution of Stats (Spd)',
+          [UnitsStats.DEF]: 'Evolution of Stats (Def)',
+          [UnitsStats.RES]: 'Evolution of Stats (Res)',
+        },
+      },
 
       moves: {
         [moves.MOVE_I]: 'Infantry',

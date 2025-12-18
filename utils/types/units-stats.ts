@@ -114,11 +114,15 @@ export const CONSIDERATIONS = [
 
 export const OPERATOR_AVERAGE = 'AVERAGE'
 export const OPERATOR_MEDIAN = 'MEDIAN'
+export const OPERATOR_MIN = 'MIN'
+export const OPERATOR_MAX = 'MAX'
 export const OPERATOR_MODE = 'MODE'
 export const OPERATOR_RANGE = 'RANGE'
 export const OPERATORS = [
   OPERATOR_AVERAGE,
   OPERATOR_MEDIAN,
+  OPERATOR_MIN,
+  OPERATOR_MAX,
   OPERATOR_MODE,
   OPERATOR_RANGE,
 ]
