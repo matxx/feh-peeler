@@ -29,7 +29,7 @@
 
         <AppDownloadUpload
           :payload="payloadToSave"
-          file-name="FEHdex.json"
+          file-name="Catalog of Heroes.json"
           @uploaded="updateData"
         />
 

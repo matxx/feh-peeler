@@ -322,7 +322,7 @@ export default {
 
       units: 'Units',
       'units-maximum-scores': 'Units By Max Scores',
-      'catalog-of-heroes': 'FEHdex / Catalog of Heroes',
+      'catalog-of-heroes': 'Catalog of Heroes',
 
       skills: 'Skills',
       'skills-lists': 'Skills Ratings',
