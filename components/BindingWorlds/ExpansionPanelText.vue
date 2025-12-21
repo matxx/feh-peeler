@@ -160,6 +160,7 @@
             :key="category"
             v-model="localUnit.skillIds[category]"
             :skill-category="category"
+            :unit="localUnitDetails"
             :disabled="disabled"
             clearable
             class="mb-2"
@@ -196,6 +197,7 @@ import {
 } from '~/utils/events/binding-worlds'
 
 const { t } = useI18n()
+const storeDataUnits = useStoreDataUnits()
 
 const emit = defineEmits(['save', 'delete'])
 const props = defineProps<{
@@ -219,6 +221,13 @@ const localUnit = ref<UnitInBindingWorlds>(
   props.unit
     ? { ...props.unit }
     : getEmptyUnitInstanceInBindingWorlds(props.enclosure),
+)
+const localUnitDetails = computed(
+  () =>
+    (localUnit.value &&
+      localUnit.value.id &&
+      storeDataUnits.unitsById[localUnit.value.id]) ||
+    undefined,
 )
 
 function save() {

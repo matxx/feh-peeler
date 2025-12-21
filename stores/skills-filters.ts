@@ -53,7 +53,9 @@ import {
   SORTED_SLOT_INDEXES,
   SKILL_PASSIVE_ABC,
   type ISkill,
+  type ISkillData,
 } from '~/utils/types/skills'
+import type { IUnitData } from '~/utils/types/units'
 import { objectEntries } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
 import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
@@ -564,6 +566,62 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
   const skillsFilteredCount = computed(() => skillsFiltered.value.length)
 
+  const isSkillAvailableToUnitMoveType = function (
+    skill: ISkillData,
+    unit: IUnitData,
+  ) {
+    if (skill.restrictions.moves.none) return true
+
+    if (skill.restrictions.moves.can_use) {
+      return skill.restrictions.moves.can_use.includes(unit.move_type)
+    }
+    if (skill.restrictions.moves.can_not_use) {
+      return !skill.restrictions.moves.can_not_use.includes(unit.move_type)
+    }
+
+    return true
+  }
+  const isSkillAvailableToUnitWeaponType = function (
+    skill: ISkillData,
+    unit: IUnitData,
+  ) {
+    if (skill.restrictions.weapons.none) return true
+
+    if (skill.restrictions.weapons.can_use) {
+      if (skill.restrictions.weapons.can_use.includes(unit.weapon_type)) {
+        return true
+      }
+
+      return skill.restrictions.weapons.can_use.includes(
+        w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
+      )
+    }
+    if (skill.restrictions.weapons.can_not_use) {
+      if (skill.restrictions.weapons.can_not_use.includes(unit.weapon_type)) {
+        return false
+      }
+
+      return !skill.restrictions.weapons.can_not_use.includes(
+        w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
+      )
+    }
+
+    return true
+  }
+
+  const isSkillAvailableToUnit = function (skill: ISkillData, unit: IUnitData) {
+    if (skill.is_prf) {
+      const availability =
+        storeDataSkillsAvailabilities.availabilitiesById[skill.id]
+      return availability.owner_ids.includes(unit.id)
+    }
+
+    if (!isSkillAvailableToUnitMoveType(skill, unit)) return false
+    if (!isSkillAvailableToUnitWeaponType(skill, unit)) return false
+
+    return true
+  }
+
   return {
     $reset,
 
@@ -588,6 +646,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     skillsFilteredSorted,
     skillsFilteredCount,
+
+    isSkillAvailableToUnit,
   }
 })
 

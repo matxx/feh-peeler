@@ -80,6 +80,7 @@
 <script setup lang="ts">
 import filter from 'lodash-es/filter'
 
+import type { IUnit } from '~/utils/types/units'
 import {
   SKILL_CATEGORIES_WITH_ICON,
   type SkillCategory,
@@ -91,17 +92,20 @@ import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 
 const storeGlobals = useStoreGlobals()
 const storeDataSkills = useStoreDataSkills()
+const storeSkillsFilters = useStoreSkillsFilters()
 
 defineEmits(['update:model-value'])
 const skillId = defineModel<SkillId>()
 const props = withDefaults(
   defineProps<{
     skillCategory?: SkillCategory
+    unit?: IUnit
     clearable?: boolean
     size?: number
   }>(),
   {
     skillCategory: undefined,
+    unit: undefined,
     clearable: false,
     size: 20,
   },
@@ -143,11 +147,20 @@ const skills = computed(
       ? storeDataSkills.sortedSkillsByCategory[props.skillCategory]
       : storeDataSkills.sortedSkills) || [],
 )
+const skillsAvailable = computed(() =>
+  props.unit
+    ? filter(skills.value, (skill) =>
+        storeSkillsFilters.isSkillAvailableToUnit(skill, props.unit!),
+      )
+    : skills.value,
+)
 
 const skillsFiltered = ref<ISkill[]>([])
 const getSkillsFiltered = () =>
   regexp.value && searchIsActive.value
-    ? filter(skills.value, (skill) => filterByName(skill, regexp.value))
+    ? filter(skillsAvailable.value, (skill) =>
+        filterByName(skill, regexp.value),
+      )
     : []
 const updateSkillsFiltered = () => {
   skillsFiltered.value = getSkillsFiltered()
