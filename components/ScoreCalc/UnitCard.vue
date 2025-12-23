@@ -370,7 +370,7 @@ function loadMaxScore() {
     merges: unit.value.is_story ? 0 : MAX_MERGES,
     boon: superBoons.value[0],
     bane: null,
-    blessing: null,
+    blessing: unit.value.element || null,
   }
 
   SORTED_SKILL_CATEGORIES.forEach((category) => {
