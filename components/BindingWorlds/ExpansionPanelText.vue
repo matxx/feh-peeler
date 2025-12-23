@@ -91,7 +91,7 @@
               <v-col>
                 <v-select
                   v-model="localUnit.boon"
-                  :items="itemsForIVs"
+                  :items="itemsForStats"
                   :disabled="disabled"
                   clearable
                   density="compact"
@@ -103,7 +103,7 @@
               <!-- <v-col>
                 <v-select
                   v-model="localUnit.boonAscended"
-                  :items="itemsForIVs"
+                  :items="itemsForStats"
                   :disabled="disabled"
                   clearable
                   density="compact"
@@ -115,7 +115,7 @@
               <v-col>
                 <v-select
                   v-model="localUnit.bane"
-                  :items="itemsForIVs"
+                  :items="itemsForStats"
                   :disabled="disabled"
                   clearable
                   density="compact"
@@ -189,7 +189,6 @@ import * as zod from 'zod'
 import { toTypedSchema } from '@vee-validate/zod'
 
 import { SKILL_CATEGORIES_FOR_BINDING_WORLDS } from '~/utils/types/skills'
-import { IVS } from '~/utils/types/IVs'
 import type { UnitInBindingWorlds } from '~/utils/events/binding-worlds'
 import {
   HIDING_REASONS,
@@ -208,13 +207,11 @@ const props = defineProps<{
 const disabled = ref(!!props.unit)
 const isDeleting = ref(false)
 
+const { itemsForStats } = useSelects()
+
 const itemsForHidingReason = HIDING_REASONS.map((reason) => ({
   value: reason,
   title: t(`bindingWorlds.hidingReasons.${reason}`),
-}))
-const itemsForIVs = IVS.map((iv) => ({
-  value: iv,
-  title: t(`global.IVs.${iv}`),
 }))
 
 const localUnit = ref<UnitInBindingWorlds>(

@@ -6,6 +6,8 @@ import filter from 'lodash-es/filter'
 import orderBy from 'lodash-es/orderBy'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
+import { objectEntries } from '~/utils/functions/typeSafe'
+import { filterBoolean } from '~/utils/functions/filterBoolean'
 
 import * as a from '~/utils/types/units-availabilities'
 import {
@@ -52,21 +54,24 @@ import {
   RATING_0,
   SORTED_SLOT_INDEXES,
   SKILL_PASSIVE_ABC,
+  type SkillId,
   type ISkill,
   type ISkillData,
+  type IRestrictions,
 } from '~/utils/types/skills'
 import type { IUnitData } from '~/utils/types/units'
-import { objectEntries } from '~/utils/functions/typeSafe'
-import { filterBoolean } from '~/utils/functions/filterBoolean'
 import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
 import * as w from '~/utils/types/weapons'
+import type { ISeal, SealId } from '~/utils/types/seals'
+import type { MoveType } from '~/utils/types/moves'
+import type { ExtendedWeaponType } from '~/utils/types/weapons'
 
 const filterIsPrf = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isPrf, s.is_prf)
 const filterIsMax = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isMax, !s.upgrade_ids)
 const filterIsArcane = (filters: IFilters, s: ISkill) =>
-  filterBoolean(filters.isArcane, s.name.includes('Arcane'))
+  filterBoolean(filters.isArcane, s.is_arcane)
 
 const filterHoF = (filters: IFilters, s: ISkill) => {
   switch (filters.hof) {
@@ -95,6 +100,49 @@ const filterHoF = (filters: IFilters, s: ISkill) => {
   }
 }
 
+function isSkillAvailableToUnitMoveType(
+  restrictions: IRestrictions<MoveType>,
+  unit: IUnitData,
+) {
+  if (restrictions.none) return true
+
+  if (restrictions.can_use) {
+    return restrictions.can_use.includes(unit.move_type)
+  }
+  if (restrictions.can_not_use) {
+    return !restrictions.can_not_use.includes(unit.move_type)
+  }
+
+  return true
+}
+function isSkillAvailableToUnitWeaponType(
+  restrictions: IRestrictions<ExtendedWeaponType>,
+  unit: IUnitData,
+) {
+  if (restrictions.none) return true
+
+  if (restrictions.can_use) {
+    if (restrictions.can_use.includes(unit.weapon_type)) {
+      return true
+    }
+
+    return restrictions.can_use.includes(
+      w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
+    )
+  }
+  if (restrictions.can_not_use) {
+    if (restrictions.can_not_use.includes(unit.weapon_type)) {
+      return false
+    }
+
+    return !restrictions.can_not_use.includes(
+      w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
+    )
+  }
+
+  return true
+}
+
 // https://stackoverflow.com/a/78061467/5032734
 const f =
   <V, I, R>(func: (v: V, i: I) => R, i: I) =>
@@ -107,6 +155,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
   const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
   const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
+  const storeDataSeals = useStoreDataSeals()
 
   function getNewFilters() {
     return createFilters(
@@ -566,61 +615,39 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
   const skillsFilteredCount = computed(() => skillsFiltered.value.length)
 
-  const isSkillAvailableToUnitMoveType = function (
-    skill: ISkillData,
-    unit: IUnitData,
-  ) {
-    if (skill.restrictions.moves.none) return true
-
-    if (skill.restrictions.moves.can_use) {
-      return skill.restrictions.moves.can_use.includes(unit.move_type)
-    }
-    if (skill.restrictions.moves.can_not_use) {
-      return !skill.restrictions.moves.can_not_use.includes(unit.move_type)
-    }
-
-    return true
-  }
-  const isSkillAvailableToUnitWeaponType = function (
-    skill: ISkillData,
-    unit: IUnitData,
-  ) {
-    if (skill.restrictions.weapons.none) return true
-
-    if (skill.restrictions.weapons.can_use) {
-      if (skill.restrictions.weapons.can_use.includes(unit.weapon_type)) {
-        return true
-      }
-
-      return skill.restrictions.weapons.can_use.includes(
-        w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
-      )
-    }
-    if (skill.restrictions.weapons.can_not_use) {
-      if (skill.restrictions.weapons.can_not_use.includes(unit.weapon_type)) {
-        return false
-      }
-
-      return !skill.restrictions.weapons.can_not_use.includes(
-        w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
-      )
-    }
-
-    return true
-  }
-
-  const isSkillAvailableToUnit = function (skill: ISkillData, unit: IUnitData) {
+  function isSkillAvailableToUnit(skill: ISkillData, unit: IUnitData) {
     if (skill.is_prf) {
       const availability =
         storeDataSkillsAvailabilities.availabilitiesById[skill.id]
       return availability.owner_ids.includes(unit.id)
     }
 
-    if (!isSkillAvailableToUnitMoveType(skill, unit)) return false
-    if (!isSkillAvailableToUnitWeaponType(skill, unit)) return false
+    if (!isSkillAvailableToUnitMoveType(skill.restrictions.moves, unit)) {
+      return false
+    }
+    if (!isSkillAvailableToUnitWeaponType(skill.restrictions.weapons, unit)) {
+      return false
+    }
 
     return true
   }
+
+  const isSkillIdAvailableToUnit = (skillId: SkillId, unit: IUnitData) =>
+    isSkillAvailableToUnit(storeDataSkills.skillsById[skillId], unit)
+
+  function isSealAvailableToUnit(seal: ISeal, unit: IUnitData) {
+    if (!isSkillAvailableToUnitMoveType(seal.restrictions.moves, unit)) {
+      return false
+    }
+    if (!isSkillAvailableToUnitWeaponType(seal.restrictions.weapons, unit)) {
+      return false
+    }
+
+    return true
+  }
+
+  const isSealIdAvailableToUnit = (sealId: SealId, unit: IUnitData) =>
+    isSealAvailableToUnit(storeDataSeals.sealsById[sealId], unit)
 
   return {
     $reset,
@@ -648,6 +675,10 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     skillsFilteredCount,
 
     isSkillAvailableToUnit,
+    isSkillIdAvailableToUnit,
+
+    isSealAvailableToUnit,
+    isSealIdAvailableToUnit,
   }
 })
 

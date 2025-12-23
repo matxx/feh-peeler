@@ -189,7 +189,7 @@ const graphOnStats = computed(() => ({
       },
     },
     series: stats.STATS.map((stat) => ({
-      name: t(`units.filters.stats.${stat}`),
+      name: t(`global.stats.${stat}`),
       data: unitsByMonthSorted.value.map(([month, units]) => [
         month,
         Math.round(
@@ -236,7 +236,7 @@ const graphOnStatsByMove = computed(() =>
         },
       },
       series: stats.STATS.map((stat) => ({
-        name: t(`units.filters.stats.${stat}`),
+        name: t(`global.stats.${stat}`),
         data: unitsByMonthSorted.value.map(([month, units]) => [
           month,
           Math.round(

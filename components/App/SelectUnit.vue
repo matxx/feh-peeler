@@ -4,7 +4,7 @@
     v-model:search="searchText"
     autocomplete="off"
     return-object
-    :loading="storeDataUnits.isLoading || isUpdating"
+    :loading="isUpdating"
     :items="unitsFiltered"
     item-title="full_name"
     item-value="id"
@@ -38,7 +38,7 @@
     </template>
 
     <template
-      v-if="unit"
+      v-if="unit && !withoutThumbnail"
       #append
     >
       <CompoUnitThumbnail
@@ -91,10 +91,12 @@ defineEmits(['update:model-value', 'click:thumbnail'])
 const unitId = defineModel<null | UnitId>()
 withDefaults(
   defineProps<{
+    withoutThumbnail?: boolean
     thumbnailClickable?: boolean
     clearable?: boolean
   }>(),
   {
+    withoutThumbnail: false,
     thumbnailClickable: false,
     clearable: false,
   },

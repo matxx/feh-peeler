@@ -5,8 +5,10 @@ import filter from 'lodash-es/filter'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
+import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import getSortableVersion from '~/utils/functions/getSortableVersion'
 import { getSortableName } from '~/utils/functions/skillSortingVector'
+
 import type {
   SkillId,
   ISkillData,
@@ -82,9 +84,20 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
   const sortedSkills = computed<ISkill[]>(() =>
     sortBy(skills.value, 'nameForSorting'),
   )
+  const sortedSkillIds = computed<SkillId[]>(() =>
+    sortedSkills.value.map((skill) => skill.id),
+  )
   // @ts-expect-error groupBy is not type safe
   const sortedSkillsByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
     groupBy(sortedSkills.value, 'category'),
+  )
+  const sortedSkillIdsByCategory = computed<TBySkillCategory<SkillId[]>>(() =>
+    objectFromEntries(
+      objectEntries(sortedSkillsByCategory.value).map(([category, skills]) => [
+        category,
+        skills.map((skill) => skill.id),
+      ]),
+    ),
   )
 
   function sumSP(unit: IUnitInstance) {
@@ -115,7 +128,9 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     allSkillIds,
 
     sortedSkills,
+    sortedSkillIds,
     sortedSkillsByCategory,
+    sortedSkillIdsByCategory,
 
     refinesByBaseId,
 

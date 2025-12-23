@@ -1,15 +1,14 @@
-import type { Grade } from '@/utils/types/grades'
-import type { Game8Id } from '@/utils/types/game8'
-import type { MoveType } from '@/utils/types/moves'
-import type { ExtendedWeaponType } from '@/utils/types/weapons'
+import type { Grade } from '~/utils/types/grades'
+import type { Game8Id } from '~/utils/types/game8'
+import type { MoveType } from '~/utils/types/moves'
+import type { ExtendedWeaponType } from '~/utils/types/weapons'
+import type { IRestrictions } from '~/utils/types/skills'
 
 export type SealId = string
 
-export interface ISealRestrictions<T> {
-  none?: true
-  can_use?: T[]
-  can_not_use?: T[]
-}
+export const TAB_DEFAULT = 'default'
+export type SealTab = typeof TAB_DEFAULT
+export const SEAL_DEFAULT_TAB = TAB_DEFAULT
 
 export interface ISealData {
   id: SealId
@@ -24,18 +23,22 @@ export interface ISealData {
   // tier: number
 
   restrictions: {
-    moves: ISealRestrictions<MoveType>
-    weapons: ISealRestrictions<ExtendedWeaponType>
+    moves: IRestrictions<MoveType>
+    weapons: IRestrictions<ExtendedWeaponType>
   }
 }
 
 export interface ISeal extends ISealData {
-  filterableName: string
-  sortableName: string
+  nameForLink: string
+  nameForFilters: string
+  nameForSorting: string
 }
 
 export type ISealById = {
   [index: SealId]: ISeal
+}
+export type ISealByName = {
+  [index: string]: ISeal
 }
 
 export interface ISealDescription {
@@ -46,4 +49,13 @@ export interface ISealDescription {
 export interface ISealRatingsGame8 {
   id: SealId
   game8_grade: Grade | null
+}
+
+export function filterByName(
+  seal: ISeal,
+  r: RegExp | null | undefined,
+): boolean {
+  if (!r) return false
+
+  return !!seal.nameForFilters.match(r) || !!seal.name.match(r)
 }

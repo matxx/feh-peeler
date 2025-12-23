@@ -1,12 +1,12 @@
 <template>
   <v-autocomplete
-    v-model="localSkillId"
+    v-model="localSealId"
     v-model:search="searchText"
     autocomplete="off"
     :loading="isUpdating"
-    :items="skillIdsFiltered"
+    :items="sealIdsFiltered"
     :item-value="(item) => item"
-    :item-title="itemTitleFinal"
+    :item-title="(item) => storeDataSeals.sealsById[item]?.name"
     :menu-props="{
       openOnFocus: false,
       location: 'bottom',
@@ -19,7 +19,7 @@
       hasError
         ? 'global.invalidRegExp'
         : searchIsActive
-          ? 'global.noSkillIsMatchingYourRequest'
+          ? 'global.noSealIsMatchingYourRequest'
           : 'global.typeAtLeastThreeCharacters'
     "
     :error-messages="errorMessages"
@@ -27,25 +27,25 @@
     @update:model-value="$emit('update:model-value', $event ? $event : null)"
   >
     <template
-      v-if="skillCategory"
+      v-if="prependCategory"
       #prepend-inner
     >
       <SkillImgCategory
-        :category="skillCategory"
+        :category="SKILL_PASSIVE_S"
         :size="18"
         class="mr-1"
       />
     </template>
 
     <template
-      v-if="localSkill && !withoutThumbnail"
+      v-if="localSeal && !withoutThumbnail"
       #append
     >
-      <SkillImg
-        :skill="localSkill"
+      <SealImg
+        :seal="localSeal"
         :size="size"
         class="mx-2 cursor-pointer"
-        @click.prevent="storeGlobals.showSkill(localSkill.id)"
+        @click.prevent="storeGlobals.showSeal(localSeal.id)"
       />
     </template>
 
@@ -58,8 +58,8 @@
           v-if="shouldDisplayIconInList"
           #prepend
         >
-          <SkillImg
-            :skill="storeDataSkills.skillsById[item.raw]"
+          <SealImg
+            :seal="storeDataSeals.sealsById[item.raw]"
             :size="size"
             class="mr-2"
           />
@@ -67,7 +67,7 @@
         <v-list-item-title>
           <AppRegExpMatches
             v-if="regexp"
-            :text="storeDataSkills.skillsById[item.raw].name"
+            :text="storeDataSeals.sealsById[item.raw].name"
             :regexp="regexp"
           />
         </v-list-item-title>
@@ -77,64 +77,48 @@
 </template>
 
 <script setup lang="ts">
-// @ts-expect-error not exported by vuetify
-import type { SelectItemKey } from 'vuetify'
 import filter from 'lodash-es/filter'
 
 import type { IUnit } from '~/utils/types/units'
-import {
-  SKILL_CATEGORIES_WITH_ICON,
-  type SkillCategory,
-  type SkillId,
-  filterByName,
-} from '~/utils/types/skills'
+import { type SealId, filterByName } from '~/utils/types/seals'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
+import { SKILL_PASSIVE_S } from '~/utils/types/skills'
 
 const storeGlobals = useStoreGlobals()
-const storeDataSkills = useStoreDataSkills()
+const storeDataSeals = useStoreDataSeals()
 const storeSkillsFilters = useStoreSkillsFilters()
 
 defineEmits(['update:model-value'])
-const modelSkillId = defineModel<SkillId>()
+const modelSealId = defineModel<SealId>()
 const props = withDefaults(
   defineProps<{
     withoutThumbnail?: boolean
-    skillCategory?: SkillCategory
+    prependCategory?: boolean
     unit?: IUnit
     clearable?: boolean
     size?: number
-    itemTitle?: SelectItemKey
   }>(),
   {
     withoutThumbnail: false,
-    skillCategory: undefined,
+    prependCategory: false,
     unit: undefined,
     clearable: false,
     size: 20,
-    itemTitle: undefined,
   },
 )
 
-const itemTitleDefault = (item: SkillId) =>
-  storeDataSkills.skillsById[item]?.name
-const itemTitleFinal = computed(() => props.itemTitle || itemTitleDefault)
-
-const localSkillId = ref<SkillId>()
-function updateSkill() {
-  localSkillId.value = modelSkillId.value || undefined
+const localSealId = ref<SealId>()
+function updateSeal() {
+  localSealId.value = modelSealId.value || undefined
 }
-watch(modelSkillId, updateSkill, { immediate: true })
-const localSkill = computed(
+watch(modelSealId, updateSeal, { immediate: true })
+const localSeal = computed(
   () =>
-    (localSkillId.value && storeDataSkills.skillsById[localSkillId.value]) ||
+    (localSealId.value && storeDataSeals.sealsById[localSealId.value]) ||
     undefined,
 )
 
-const shouldDisplayIconInList = computed(() => {
-  return props.skillCategory
-    ? SKILL_CATEGORIES_WITH_ICON.includes(props.skillCategory)
-    : true
-})
+const shouldDisplayIconInList = computed(() => true)
 
 const searchText = ref('')
 const searchIsActive = computed(
@@ -143,32 +127,27 @@ const searchIsActive = computed(
 )
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
-const skillIds = computed(
-  () =>
-    (props.skillCategory
-      ? storeDataSkills.sortedSkillIdsByCategory[props.skillCategory]
-      : storeDataSkills.sortedSkillIds) || [],
-)
-const skillIdsAvailable = computed(() =>
+const sealIds = computed(() => storeDataSeals.sortedSealIds)
+const sealIdsAvailable = computed(() =>
   props.unit
-    ? filter(skillIds.value, (skillId) =>
-        storeSkillsFilters.isSkillIdAvailableToUnit(skillId, props.unit!),
+    ? filter(sealIds.value, (sealId) =>
+        storeSkillsFilters.isSealIdAvailableToUnit(sealId, props.unit!),
       )
-    : skillIds.value,
+    : sealIds.value,
 )
 
-const skillIdsFiltered = ref<SkillId[]>([])
-const getSkillIdsFiltered = () =>
+const sealIdsFiltered = ref<SealId[]>([])
+const getSealIdsFiltered = () =>
   regexp.value && searchIsActive.value
-    ? filter(skillIdsAvailable.value, (skillId) =>
-        filterByName(storeDataSkills.skillsById[skillId], regexp.value),
+    ? filter(sealIdsAvailable.value, (sealId) =>
+        filterByName(storeDataSeals.sealsById[sealId], regexp.value),
       )
     : []
-const updateSkillIdsFiltered = () => {
-  skillIdsFiltered.value = getSkillIdsFiltered()
+const updateSealIdsFiltered = () => {
+  sealIdsFiltered.value = getSealIdsFiltered()
 }
-const { isUpdating } = useDebounce(updateSkillIdsFiltered, [
+const { isUpdating } = useDebounce(updateSealIdsFiltered, [
   [regexp],
-  [skillIdsAvailable],
+  [sealIdsAvailable],
 ])
 </script>

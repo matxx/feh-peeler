@@ -552,7 +552,7 @@
         class="d-flex align-center"
       >
         <div class="width-stat-headers">
-          {{ t(`units.filters.stats.${stat}`) }}
+          {{ t(`global.stats.${stat}`) }}
         </div>
         <v-range-slider
           v-model="filters.stats[stat]"

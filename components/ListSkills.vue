@@ -135,7 +135,7 @@ import some from 'lodash-es/some'
 import sortBy from 'lodash-es/sortBy'
 
 // @ts-expect-error not exported by vuetify
-import type { ItemKeySlot } from 'vuetify/components/VDataTable'
+import type { ItemKeySlot } from 'vuetify'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '@/utils/constants'
 import {

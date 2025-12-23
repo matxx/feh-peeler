@@ -1,8 +1,8 @@
 import isNil from 'lodash-es/isNil'
 
 import type { IUnitInstance } from '~/utils/types/units'
-import type { IV } from '~/utils/types/IVs'
 import { getEmptyUnitInstance } from '~/utils/types/units'
+import type { Stat } from '~/utils/types/units-stats'
 
 export const HIDING_REASON_GENERIC_SUMMON = 'REGULAR_SUMMON'
 export const HIDING_REASON_GRAND_HERO_BATTLE = 'GRAND_HERO_BATTLE'
@@ -58,9 +58,9 @@ export interface UnitInBindingWorlds extends IUnitInstance {
   hidingReason: null | HidingReason
   notes: null | string
 
-  boon: null | IV
-  boonAscended: null | IV
-  bane: null | IV
+  boon: null | Stat
+  boonAscended: null | Stat
+  bane: null | Stat
 }
 
 export const ENCLOSURE_MIN = 0

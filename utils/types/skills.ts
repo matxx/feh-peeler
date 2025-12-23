@@ -98,6 +98,16 @@ export const SKILL_CATEGORIES_FOR_BINDING_WORLDS: SkillCategory[] = [
   SKILL_PASSIVE_X,
 ]
 
+export const SKILL_CATEGORIES_FOR_SCORE_CALC: SkillCategory[] = [
+  SKILL_WEAPON,
+  SKILL_ASSIST,
+  SKILL_SPECIAL,
+  SKILL_PASSIVE_A,
+  SKILL_PASSIVE_B,
+  SKILL_PASSIVE_C,
+  SKILL_PASSIVE_S,
+]
+
 export const DEFAULT_SELECTED_TAB = SKILL_WEAPON
 
 export const TAB_DETAILS = 'details'
@@ -146,7 +156,7 @@ export type Effectiveness =
 
 export type SkillId = string
 
-export interface ISkillRestrictions<T> {
+export interface IRestrictions<T> {
   none?: true
   can_use?: T[]
   can_not_use?: T[]
@@ -166,6 +176,7 @@ export interface ISkillData {
   image_url?: string
 
   is_prf: boolean
+  is_arcane: boolean
   sp: number
   cd?: number
   eff?: Effectiveness[]
@@ -175,8 +186,8 @@ export interface ISkillData {
   upgrade_ids?: SkillId[]
 
   restrictions: {
-    moves: ISkillRestrictions<MoveType>
-    weapons: ISkillRestrictions<ExtendedWeaponType>
+    moves: IRestrictions<MoveType>
+    weapons: IRestrictions<ExtendedWeaponType>
   }
 
   addition_date: string

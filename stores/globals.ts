@@ -1,4 +1,9 @@
 import {
+  SEAL_DEFAULT_TAB,
+  type SealId,
+  type SealTab,
+} from '~/utils/types/seals'
+import {
   SKILL_DEFAULT_TAB,
   type SkillId,
   type SkillTab,
@@ -10,15 +15,38 @@ import {
 } from '~/utils/types/units'
 
 export const useStoreGlobals = defineStore('globals', () => {
+  const modalSealIsOpen = ref(false)
+  const shownSealId = ref<SealId>()
+  const shownSealTab = ref<SealTab>()
+
   const modalSkillIsOpen = ref(false)
   const shownSkillId = ref<SkillId>()
   const shownSkillTab = ref<SkillTab>()
+
   const modalUnitIsOpen = ref(false)
   const shownUnitId = ref<UnitId>()
   const shownUnitTab = ref<UnitTab>()
+
+  function showSeal(sealId?: SealId, tab: SealTab = SEAL_DEFAULT_TAB) {
+    if (!sealId) return
+
+    hideSkill()
+    hideUnit()
+
+    shownSealTab.value = tab
+    shownSealId.value = sealId
+    modalSealIsOpen.value = true
+  }
+  function hideSeal() {
+    shownSealId.value = undefined
+    shownSealTab.value = undefined
+    modalSealIsOpen.value = false
+  }
+
   function showSkill(skillId?: SkillId, tab: SkillTab = SKILL_DEFAULT_TAB) {
     if (!skillId) return
 
+    hideSeal()
     hideUnit()
 
     shownSkillTab.value = tab
@@ -30,9 +58,11 @@ export const useStoreGlobals = defineStore('globals', () => {
     shownSkillTab.value = undefined
     modalSkillIsOpen.value = false
   }
+
   function showUnit(unitId?: UnitId, tab: UnitTab = UNIT_DEFAULT_TAB) {
     if (!unitId) return
 
+    hideSeal()
     hideSkill()
 
     shownUnitTab.value = tab
@@ -64,15 +94,25 @@ export const useStoreGlobals = defineStore('globals', () => {
   }
 
   return {
+    shownSealTab,
+    shownSealId,
+    modalSealIsOpen,
+
     modalSkillIsOpen,
     shownSkillId,
     shownSkillTab,
+
     modalUnitIsOpen,
     shownUnitId,
     shownUnitTab,
+
+    showSeal,
+    hideSeal,
+
     showSkill,
-    showUnit,
     hideSkill,
+
+    showUnit,
     hideUnit,
 
     sortedByAvailability,

@@ -1,6 +1,5 @@
 import * as availability from '~/utils/types/units-availabilities'
 import * as grades from '~/utils/types/grades'
-import { IVS_HASH } from '~/utils/types/IVs'
 import * as skills from '~/utils/types/skills'
 import * as skillsColumns from '~/utils/types/skills-columns'
 import * as skillsFilters from '~/utils/types/skills-filters'
@@ -28,6 +27,7 @@ export default {
     unitName: 'Unit Name',
 
     noSkillIsMatchingYourRequest: 'No skill is matching your request',
+    noSealIsMatchingYourRequest: 'No seal is matching your request',
     noUnitIsMatchingYourRequest: 'No unit is matching your request',
     nothingIsMatchingYourRequest: 'Nothing is matching your request',
     invalidRegExp: 'Invalid regular expression',
@@ -65,7 +65,25 @@ export default {
     upload: 'Upload',
     loadSave: 'Load / Save',
 
-    IVs: IVS_HASH,
+    stats: {
+      [UnitsStats.HP]: 'HP',
+      [UnitsStats.ATK]: 'Atk',
+      [UnitsStats.SPD]: 'Spd',
+      [UnitsStats.DEF]: 'Def',
+      [UnitsStats.RES]: 'Res',
+      [UnitsStats.BST]: 'BST',
+    },
+
+    elements: {
+      [unitsFilters.ELEMENT_FIRE]: 'Fire',
+      [unitsFilters.ELEMENT_WATER]: 'Water',
+      [unitsFilters.ELEMENT_WIND]: 'Wind',
+      [unitsFilters.ELEMENT_EARTH]: 'Earth',
+      [unitsFilters.ELEMENT_LIGHT]: 'Light',
+      [unitsFilters.ELEMENT_DARK]: 'Dark',
+      [unitsFilters.ELEMENT_ASTRA]: 'Astra',
+      [unitsFilters.ELEMENT_ANIMA]: 'Anima',
+    },
 
     assets: {
       icons: {
@@ -322,6 +340,7 @@ export default {
 
       units: 'Units',
       'units-maximum-scores': 'Units By Max Scores',
+      'score-calc': 'Score Calculator',
       'catalog-of-heroes': 'Catalog of Heroes',
 
       skills: 'Skills',
@@ -336,6 +355,7 @@ export default {
       units: 'compare/filter/sort units',
       'units-maximum-scores':
         'compare units scores (for arena and other modes)',
+      'score-calc': '(for arena and other modes)',
       'catalog-of-heroes': 'check which heroes you are missing',
 
       skills: 'compare/filter/sort skills',
@@ -466,14 +486,6 @@ export default {
         hasPrfSkill: 'PRF Skill',
         isGHB: 'Grand Hero Battle',
         isTT: 'Tempest Trial',
-      },
-      stats: {
-        [UnitsStats.HP]: 'HP',
-        [UnitsStats.ATK]: 'Atk',
-        [UnitsStats.SPD]: 'Spd',
-        [UnitsStats.DEF]: 'Def',
-        [UnitsStats.RES]: 'Res',
-        [UnitsStats.BST]: 'BST',
       },
     },
   },
@@ -618,6 +630,28 @@ export default {
         [moves.MOVE_C]: 'Cavalry',
         [moves.MOVE_F]: 'Flying',
       },
+    },
+  },
+
+  scoreCalc: {
+    headers: {
+      bst: 'BST',
+      visibleBst:
+        'Visible BST (from "Duel" A skill or duo/legendary unit standard effect "Duel")',
+      totalSP: 'Total SP',
+      score: 'Score',
+    },
+    labels: {
+      unit: 'Unit #{index}',
+      rarity: 'Rarity',
+      level: 'Level',
+      merges: 'Merges',
+      boon: 'Boon',
+      bane: 'Bane',
+      blessing: 'Blessing',
+    },
+    cta: {
+      loadMaxScore: 'Load Max Score',
     },
   },
 }

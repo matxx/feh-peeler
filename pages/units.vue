@@ -257,7 +257,13 @@ const columnsMobile = computed({
   },
 })
 
-const headers = computed(() =>
+interface Header {
+  title: string
+  key: string
+  align: 'start' | 'center'
+  sortable: boolean
+}
+const headers = computed<Header[]>(() =>
   filter(
     unitsColumns.ALL_COLUMNS,
     (column) =>

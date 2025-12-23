@@ -3,7 +3,7 @@ import type { IConstants } from '@/utils/types/constants'
 
 export const BANE = 'bane'
 export const BOON = 'boon'
-export type IV = typeof BANE | typeof BANE
+export type IV = typeof BANE | typeof BOON
 
 export const HP = 'hp'
 export const ATK = 'atk'
@@ -12,9 +12,11 @@ export const DEF = 'def'
 export const RES = 'res'
 
 export const BST = 'bst'
+export const NONE = 'none'
 
 export type Stat = typeof HP | typeof ATK | typeof SPD | typeof DEF | typeof RES
 export type StatOrBST = Stat | typeof BST
+export type StatOrNone = Stat | typeof NONE
 
 export const STATS: Stat[] = [HP, ATK, SPD, DEF, RES]
 export const STATS_AND_BST: StatOrBST[] = [HP, ATK, SPD, DEF, RES, BST]

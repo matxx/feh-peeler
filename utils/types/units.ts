@@ -9,7 +9,6 @@ import {
   type WeaponFamily,
   type WeaponColor,
 } from '~/utils/types/weapons'
-import type { IV } from '~/utils/types/IVs'
 import type { Game8Id } from '~/utils/types/game8'
 import { SKILL_CATEGORIES } from '~/utils/types/skills'
 import type { TBySkillCategory, SkillId } from '~/utils/types/skills'
@@ -18,10 +17,11 @@ import {
   type Availability,
 } from '~/utils/types/units-availabilities'
 import type { Element } from '~/utils/types/units-filters'
+import type { StatOrNone } from '~/utils/types/units-stats'
 
 export type UnitId = string
 
-export const TAB_BASE_KIT = 'descriptions'
+export const TAB_BASE_KIT = 'base-kit'
 export const TAB_ARTS = 'arts'
 export const TAB_STATS = 'stats'
 export const TAB_SKILLS = 'skills'
@@ -141,7 +141,8 @@ export interface IUnitData {
   is_chosen: boolean
 
   bst: number
-  // duel_score: number
+  duel_score: number
+  clash_score: number
   // visible_bst: number
   max_score: number
   max_df: number
@@ -184,21 +185,25 @@ export interface IUnitInstance {
   skillIds: TBySkillCategory<SkillId | undefined>
 }
 
+export function getEmptyUnitInstanceSkillIds(): TBySkillCategory<
+  SkillId | undefined
+> {
+  return objectFromEntries(SKILL_CATEGORIES.map((cat) => [cat, undefined]))
+}
+
 export function getEmptyUnitInstance(): IUnitInstance {
   return {
     id: null,
-    skillIds: objectFromEntries(
-      SKILL_CATEGORIES.map((cat) => [cat, undefined]),
-    ),
+    skillIds: getEmptyUnitInstanceSkillIds(),
   }
 }
 
 export interface IUnitRatingsGame8 {
   id: UnitId
   game8_rating: string
-  recommended_boon: IV
-  recommended_bane: IV
-  recommended_plus10: IV
+  recommended_boon: StatOrNone
+  recommended_bane: StatOrNone
+  recommended_plus10: StatOrNone
 }
 
 export type UnitsBy<T extends string | number | symbol> = {
