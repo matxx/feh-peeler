@@ -329,7 +329,7 @@ export default {
   home: {
     subheader: {
       devOnly: 'Dev only',
-      unitsAndSkills: 'Units & Skills',
+      skillsAndUnits: 'Skills & Units',
       events: 'Events',
       misc: 'Misc',
     },

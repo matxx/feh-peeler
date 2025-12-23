@@ -55,13 +55,13 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 const ITEMS = [
-  { isSubheader: true, text: t('home.subheader.unitsAndSkills') },
+  { isSubheader: true, text: t('home.subheader.skillsAndUnits') },
+  { isItem: true, link: 'skills' },
+  // { isItem: true, link: 'skills-lists' },
   { isItem: true, link: 'units' },
   { isItem: true, link: 'units-maximum-scores' },
   { isItem: true, link: 'score-calc' },
   { isItem: true, link: 'catalog-of-heroes' },
-  { isItem: true, link: 'skills' },
-  // { isItem: true, link: 'skills-lists' },
   { isSubheader: true, text: t('home.subheader.events') },
   { isItem: true, link: 'events-hall-of-forms' },
   { isItem: true, link: 'events-binding-worlds' },
