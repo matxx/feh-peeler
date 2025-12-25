@@ -12,6 +12,7 @@ import * as themes from '~/utils/types/themes'
 import * as UnitsStats from '~/utils/types/units-stats'
 import * as hgs from '~/utils/types/units-heroicGrails'
 import * as moves from '~/utils/types/moves'
+import * as unitThemes from '~/utils/types/units-themes'
 
 export default {
   global: {
@@ -444,6 +445,7 @@ export default {
         [unitsColumns.COLUMN_RATING]: 'Rating',
         [unitsColumns.COLUMN_ORIGIN]: 'Origin',
         [unitsColumns.COLUMN_MAX_SCORE]: 'Max Score',
+        [unitsColumns.COLUMN_THEME]: 'Theme',
       },
     },
     show: {
@@ -481,6 +483,7 @@ export default {
       buttons: {
         isGHB: 'GHB',
         isTT: 'TT',
+        theme: 'Theme',
       },
       tooltips: {
         hasPrfWeapon: 'PRF Weapon',
@@ -488,6 +491,25 @@ export default {
         isGHB: 'Grand Hero Battle',
         isTT: 'Tempest Trial',
       },
+    },
+    themes: {
+      [unitThemes.THEME_NEW_YEAR]: 'New Year',
+      [unitThemes.THEME_DESERT]: 'Desert',
+      [unitThemes.THEME_DOD]: 'Day of Devotion (Valentine)',
+      [unitThemes.THEME_SPRING]: 'Spring',
+      [unitThemes.THEME_KIDS]: 'Kids',
+      [unitThemes.THEME_WEDDING]: 'Wedding',
+      [unitThemes.THEME_SUMMER]: 'Summer',
+      [unitThemes.THEME_HALLOWEEN]: 'Halloween',
+      [unitThemes.THEME_NINJAS]: 'Ninjas',
+      [unitThemes.THEME_WINTER]: 'Winter',
+      [unitThemes.THEME_DANCE]: 'Dance',
+      [unitThemes.THEME_HOSHIDAN_SUMMER]: 'Hoshidan Summer',
+      [unitThemes.THEME_HOSTILE_SPRING]: 'Hostile Spring',
+      [unitThemes.THEME_PICNIC]: 'Picnic',
+      [unitThemes.THEME_PIRATES]: 'Pirates',
+      [unitThemes.THEME_TEA]: 'Tea',
+      [unitThemes.THEME_TRIBES]: 'Tribes',
     },
   },
 
@@ -618,7 +640,7 @@ export default {
             Su: 'Summer (banners in july & august)',
             HSu: 'Hoshidan Summer (august 2018 & 2024)',
             P: 'Pirate (august 2020 & 2021)',
-            T: 'Tee (august 2023 & 2025)',
+            T: 'Tea (august 2023 & 2025)',
             Da: 'Dance (called "performing arts" by game8) (september 2017, 2019 & 2020)',
             FT: 'Fire Tribe (september 2022)',
             WT: 'Wind Tribe (september 2023)',

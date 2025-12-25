@@ -24,6 +24,7 @@ export const SORT_MAX_SCORE = 'max_score'
 export const SORT_RATING = 'game8_rating'
 export const SORT_ORIGIN = 'origin'
 export const SORT_ID_INT = 'id_int'
+export const SORT_THEME = 'theme'
 
 // keys not on unit data
 
@@ -57,6 +58,7 @@ export type SortingField =
   | typeof SORT_RATING
   | typeof SORT_ORIGIN
   | typeof SORT_ID_INT
+  | typeof SORT_THEME // but order should
   // not on unit
   | typeof SORT_MOVE
   | typeof SORT_WEAP
@@ -100,6 +102,7 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [unitsColumns.COLUMN_MAX_DRAGONFLOWERS]: SORT_MAX_DRAGONFLOWERS,
   [unitsColumns.COLUMN_MAX_SCORE]: SORT_MAX_SCORE,
   [unitsColumns.COLUMN_RATING]: SORT_RATING,
+  [unitsColumns.COLUMN_THEME]: SORT_THEME,
   // proxy fields
   [unitsColumns.COLUMN_MOVE]: SORT_MOVE,
   [unitsColumns.COLUMN_WEAPON]: SORT_WEAP,

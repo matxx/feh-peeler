@@ -47,10 +47,10 @@ export const UNIT_TABS: UnitTab[] = [
 ]
 export const UNIT_TABS_WITH_TOOLTIP = [TAB_FODDER, TAB_FODDER_VALUE]
 
-export const ALFONSE_ID = 'PID_アルフォンス'
-export const SHARENA_ID = 'PID_シャロン'
-export const ANNA_ID = 'PID_アンナ'
-export const ASKR_TRIO_IDS = [ALFONSE_ID, SHARENA_ID, ANNA_ID]
+// export const ALFONSE_ID = 'PID_アルフォンス'
+// export const SHARENA_ID = 'PID_シャロン'
+// export const ANNA_ID = 'PID_アンナ'
+// export const ASKR_TRIO_IDS = [ALFONSE_ID, SHARENA_ID, ANNA_ID]
 
 // only for sorting purposes (when no rating from game8)
 export const RATING_0 = '0'

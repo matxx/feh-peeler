@@ -31,6 +31,7 @@ import {
   SORT_IV_SPD,
   SORT_IV_DEF,
   SORT_IV_RES,
+  SORT_THEME,
   SORT_NOTHING,
   createEmptySorters,
   type ISorter,
@@ -171,6 +172,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
   const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
 
+  const { t } = useI18n()
+
   function getNewFilters() {
     return createFilters(storeDataConstants.defaulUnitStatsMinMax)
   }
@@ -188,6 +191,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
   const anyFilterActiveExceptName = computed(
     () =>
+      filters.value.theme !== null ||
       filters.value.traits.size > 0 ||
       filters.value.moves.size > 0 ||
       filters.value.weapons.size > 0 ||
@@ -238,6 +242,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
           u,
           searchNameIsActive.value ? searchNameRegexp.value : undefined,
         ),
+      ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filters.value.theme === null ? true : filters.value.theme === u.theme,
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
@@ -336,6 +344,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
           case SORT_IV_RES:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_res
+          case SORT_THEME:
+            return (unit: IUnit) => t(`units.themes.${unit.theme}`)
           case SORT_NOTHING:
             return () => 0
         }

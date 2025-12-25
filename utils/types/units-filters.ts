@@ -1,7 +1,8 @@
-import type { MoveType } from '@/utils/types/moves'
-import type { ExtendedWeaponType } from '@/utils/types/weapons'
-import type { Availability } from '@/utils/types/units-availabilities'
-import type { IUnitStatMinMax } from '@/utils/types/units-stats'
+import type { MoveType } from '~/utils/types/moves'
+import type { ExtendedWeaponType } from '~/utils/types/weapons'
+import type { Availability } from '~/utils/types/units-availabilities'
+import type { IUnitStatMinMax } from '~/utils/types/units-stats'
+import type { UnitTheme } from '~/utils/types/units-themes'
 
 export const ELEMENT_FIRE = 'Fire'
 export const ELEMENT_WATER = 'Water'
@@ -68,6 +69,7 @@ export type Trait =
 
 export interface IFilters {
   name: string | null
+  theme: UnitTheme | null
 
   weapons: Set<ExtendedWeaponType>
   moves: Set<MoveType>
@@ -93,6 +95,7 @@ export interface IFilters {
 
 export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   name: null,
+  theme: null,
 
   weapons: new Set(),
   moves: new Set(),

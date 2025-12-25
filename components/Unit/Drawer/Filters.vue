@@ -18,6 +18,18 @@
     </div>
 
     <div class="mt-1">
+      <v-select
+        v-model="filters.theme"
+        :items="itemsForThemes"
+        clearable
+        density="compact"
+        hide-details
+        class="mb-2"
+        :label="t('units.filters.buttons.theme')"
+      />
+    </div>
+
+    <div class="mt-1">
       <AppFiltersOnAvailability
         :size="SIZE"
         :availabilities="filters.availabilities"
@@ -572,6 +584,7 @@
 </template>
 
 <script setup lang="ts">
+import sortBy from 'lodash-es/sortBy'
 import difference from 'lodash-es/difference'
 
 import * as UnitsFilters from '~/utils/types/units-filters'
@@ -593,6 +606,7 @@ import { STATS_AND_BST } from '~/utils/types/units-stats'
 import { cycleState } from '~/utils/functions/cycleState'
 import { iconForBool } from '~/utils/functions/iconFor'
 import type { Availability } from '~/utils/types/units-availabilities'
+import { ALL_THEMES } from '~/utils/types/units-themes'
 
 const SIZE = 24
 
@@ -696,6 +710,14 @@ function cycleFilter(
 
   filters.value[key] = cycleState(filters.value[key])
 }
+
+const itemsForThemes = sortBy(
+  ALL_THEMES.map((theme) => ({
+    value: theme,
+    title: t(`units.themes.${theme}`),
+  })),
+  'title',
+)
 </script>
 
 <style lang="scss" scoped>

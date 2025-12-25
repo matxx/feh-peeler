@@ -204,6 +204,10 @@
       <template #[`item.${unitsColumns.COLUMN_RATING}`]="{ item }">
         {{ storeDataUnitsRatingsGame8.byId[item.id]?.game8_rating }}
       </template>
+
+      <template #[`item.${unitsColumns.COLUMN_THEME}`]="{ item }">
+        {{ item.theme && t(`units.themes.${item.theme}`) }}
+      </template>
     </v-data-table-server>
 
     <!-- TODO: generation / game / element / artist / VA -->

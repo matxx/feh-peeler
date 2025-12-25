@@ -95,6 +95,7 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_VA,
   COLUMN_MAX_SCORE,
   COLUMN_RATING,
+  COLUMN_THEME,
 ]
 
 export const COLUMNS_START_ALIGNED = new Set([
@@ -106,4 +107,5 @@ export const COLUMNS_START_ALIGNED = new Set([
   COLUMN_ARTIST,
   COLUMN_VA,
   // COLUMN_RATING,
+  COLUMN_THEME,
 ])
