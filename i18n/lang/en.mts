@@ -349,6 +349,7 @@ export default {
       'events-hall-of-forms': 'Hall of Forms',
       'events-binding-worlds': 'Binding Worlds',
 
+      'misc-glossary': 'Glossary',
       'misc-stats-evolution': 'Evolution of stats',
     },
     subtitle: {
@@ -588,6 +589,70 @@ export default {
   },
 
   misc: {
+    glossary: {
+      abbreviations: {
+        header: 'Abbreviations of unit names',
+        description:
+          'The same character can have multiple titles in game and can be difficult to remember. So the FEH commmunity uses abbreviated names to refer to them.',
+        example:
+          'Example: B!Lucina (the prefix "B" means "Brave" and refers to one of the many alts of Lucina)',
+        prefix: {
+          introduction:
+            'Here is a the list of prefixes used on this website (generally the lower case letters are omitted by the community)',
+          headers: {
+            byTrait: 'By trait',
+            byTheme: 'By theme',
+            other: 'Other',
+          },
+          byTheme: {
+            NY: 'New Year (banners at the beginning of the year)',
+            HSp: 'Hostile Spring (january 2019)',
+            De: 'Desert (Plegian, Hatari, Sage, Nabata, Jehanna) (banners in january)',
+            V: 'Valentine (can also be called "DoD", Day of Devotion) (banners in february)',
+            Sp: 'Spring (banners in march)',
+            Y: 'Young (banners in april)',
+            Pic: 'Picnic (april 2019)',
+            Gr: 'Groom (males in wedding banners) (banners in mai)',
+            Br: 'Bride (females in wedding banners) (banners in mai)',
+            // We: 'Wedding (non binary in wedding banners) (banners in mai)',
+            Su: 'Summer (banners in july & august)',
+            HSu: 'Hoshidan Summer (august 2018 & 2024)',
+            P: 'Pirate (august 2020 & 2021)',
+            T: 'Tee (august 2023 & 2025)',
+            Da: 'Dance (called "performing arts" by game8) (september 2017, 2019 & 2020)',
+            FT: 'Fire Tribe (september 2022)',
+            WT: 'Wind Tribe (september 2023)',
+            IT: 'Ice Tribe (september 2024)',
+            H: 'Halloween (banners in october)',
+            N: 'Ninja (banners in november)',
+            W: 'Winter (banners in december)',
+          },
+          byTrait: {
+            Ai: 'Aided',
+            As: 'Ascended',
+            At: 'Attuned',
+            E: 'Emblem',
+            Et: 'Entwined',
+            R: 'Rearmed',
+            F: 'Fallen',
+            C: 'Chosen',
+            L: 'Legendary',
+            M: 'Mythic',
+            D: 'Duo',
+            H: 'Harmonized',
+          },
+          other: {
+            '35': '35th anniversary (only used for 35!Marth, a new duo Marth release for the 35th anniversary of the Fire Emblem franchise)',
+            B: 'Brave (heroes chosen by the community in the CYL events)',
+          },
+        },
+        suffix: {
+          M: 'Male',
+          F: 'Female',
+        },
+      },
+    },
+
     stats: {
       considerUnits: 'Consider units',
       consideredUnits: {

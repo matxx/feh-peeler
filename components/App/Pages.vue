@@ -31,6 +31,7 @@
           {{ t(`home.title.${item.link}`) }}
         </v-list-item-title>
         <v-list-item-subtitle
+          v-if="te(`home.subtitle.${item.link}`)"
           v-show="showSubtitles"
           class="pl-5"
         >
@@ -51,7 +52,7 @@ withDefaults(
   },
 )
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 const localePath = useLocalePath()
 
 const ITEMS = [
@@ -66,6 +67,7 @@ const ITEMS = [
   { isItem: true, link: 'events-hall-of-forms' },
   { isItem: true, link: 'events-binding-worlds' },
   { isSubheader: true, text: t('home.subheader.misc') },
+  { isItem: true, link: 'misc-glossary' },
   { isItem: true, link: 'misc-stats-evolution' },
 ]
 </script>

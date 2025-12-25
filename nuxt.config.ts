@@ -221,14 +221,14 @@ export default defineNuxtConfig({
         // fr: '/unites',
         en: '/units',
       },
-      'units/[name]': {
-        // fr: '/unites/[name]',
-        en: '/units/[name]',
-      },
-      'units/[name]/[tab]': {
-        // fr: '/unites/[name]/[tab]',
-        en: '/units/[name]/[tab]',
-      },
+      // 'units/[name]': {
+      //   // fr: '/unites/[name]',
+      //   en: '/units/[name]',
+      // },
+      // 'units/[name]/[tab]': {
+      //   // fr: '/unites/[name]/[tab]',
+      //   en: '/units/[name]/[tab]',
+      // },
       'units-maximum-scores': {
         // fr: '/scores-maximum-en-arene',
         en: '/units-maximum-scores',
@@ -247,14 +247,14 @@ export default defineNuxtConfig({
         // fr: '/competences',
         en: '/skills',
       },
-      'skills/[name]': {
-        // fr: '/competences/[name]',
-        en: '/skills/[name]',
-      },
-      'skills/[name]/[tab]': {
-        // fr: '/competences/[name]/[tab]',
-        en: '/skills/[name]/[tab]',
-      },
+      // 'skills/[name]': {
+      //   // fr: '/competences/[name]',
+      //   en: '/skills/[name]',
+      // },
+      // 'skills/[name]/[tab]': {
+      //   // fr: '/competences/[name]/[tab]',
+      //   en: '/skills/[name]/[tab]',
+      // },
 
       'events/hall-of-forms': {
         // fr: '/evenements/hall-of-forms',
@@ -263,6 +263,15 @@ export default defineNuxtConfig({
       'events/binding-worlds': {
         // fr: '/evenements/binding-worlds',
         en: '/events/binding-worlds',
+      },
+
+      'misc/glossary': {
+        // fr: '/misc/glossaire',
+        en: '/misc/glossary',
+      },
+      'misc/stats-evolution': {
+        // fr: '/misc/evolution-des-attributs',
+        en: '/misc/stats-evolution',
       },
     },
   },
