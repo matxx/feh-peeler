@@ -33,9 +33,9 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
   const storeDataAccents = useStoreDataAccents()
 
   const getNameForLink = (skill: ISkillData) => {
-    if (!skill.refine) return skill.name
+    if (!skill.refine_kind) return skill.name
 
-    return `${skill.name} (${skill.refine})`
+    return `${skill.name} (${skill.refine_kind})`
   }
 
   const skills = computed<ISkill[]>(() =>
@@ -108,7 +108,7 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
   }
 
   const refines = computed<ISkill[]>(() =>
-    filter(skills.value, (s) => !!s.refine),
+    filter(skills.value, (s) => !!s.refine_kind),
   )
   const refinesByBaseId = computed<TBySkillId<ISkill[]>>(() =>
     groupBy(refines.value, 'baseId'),

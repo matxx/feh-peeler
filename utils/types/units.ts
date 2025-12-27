@@ -68,16 +68,16 @@ export interface IUnitThumbnail {
   move_type: MoveType
   weapon_type: WeaponType
 
-  is_refresher: boolean
-  is_duo: boolean
-  is_harmonized: boolean
-  is_aided: boolean
-  is_ascended: boolean
-  is_attuned: boolean
-  is_emblem: boolean
-  is_rearmed: boolean
-  is_entwined: boolean
-  is_chosen: boolean
+  is_refresher?: true
+  is_duo?: true
+  is_harmonized?: true
+  is_aided?: true
+  is_ascended?: true
+  is_attuned?: true
+  is_emblem?: true
+  is_rearmed?: true
+  is_entwined?: true
+  is_chosen?: true
 }
 
 type Gender =
@@ -113,32 +113,32 @@ export interface IUnitData {
   book: number
   origin: string
   gender: Gender
-  has_respl: boolean // has resplendent attire
+  has_respl?: true // has resplendent attire
 
-  is_brave: boolean
-  is_fallen: boolean
-  is_story: boolean
-  is_tt: boolean
-  is_ghb: boolean
-  // is_special: boolean
-  // is_generic_pool: boolean
+  is_brave?: true
+  is_fallen?: true
+  is_story?: true
+  is_tt?: true
+  is_ghb?: true
+  // is_special?: true
+  // is_generic_pool?: true
 
-  is_legendary: boolean
-  is_mythic: boolean
+  is_legendary?: true
+  is_mythic?: true
   element?: Element
 
-  is_duo: boolean
-  is_harmonized: boolean
+  is_duo?: true
+  is_harmonized?: true
 
-  is_refresher: boolean
+  is_refresher?: true
 
-  is_rearmed: boolean
-  is_attuned: boolean
-  is_ascended: boolean
-  is_emblem: boolean
-  is_aided: boolean
-  is_entwined: boolean
-  is_chosen: boolean
+  is_rearmed?: true
+  is_attuned?: true
+  is_ascended?: true
+  is_emblem?: true
+  is_aided?: true
+  is_entwined?: true
+  is_chosen?: true
 
   bst: number
   duel_score: number

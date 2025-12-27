@@ -171,12 +171,15 @@ export interface ISkillData {
   group_name: string
   category: SkillCategory
   weapon_type?: ExtendedWeaponType
-  refine?: string
+
+  refine_kind?: string
+  has_refine?: true
+  refines_max_sp?: number
 
   image_url?: string
 
-  is_prf: boolean
-  is_arcane: boolean
+  is_prf?: true
+  is_arcane?: true
   sp: number
   cd?: number
   eff?: Effectiveness[]
