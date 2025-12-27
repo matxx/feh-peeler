@@ -27,6 +27,7 @@
             target="_blank"
             >here</a
           >. <br />
+          Refined weapons for 350 SP are missing <br />
           Blessings and Mjolnir Strike are probably not working correctly at the
           moment.
         </v-alert>
