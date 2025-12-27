@@ -27,7 +27,6 @@
             target="_blank"
             >here</a
           >. <br />
-          Refined weapons for 350 SP are missing <br />
           Blessings and Mjolnir Strike are probably not working correctly at the
           moment.
         </v-alert>
@@ -69,13 +68,23 @@
         <v-card>
           <v-card-title class="bg-primary d-flex justify-space-evenly">
             <div>
-              <span>{{ t('scoreCalc.headers.scoreRange') }}:</span>
+              <span>{{ t('scoreCalc.headers.score') }}:</span>
+              {{ scoreRounded }}
+              <span v-tooltip:bottom="t('scoreCalc.tooltips.scoreExact')">
+                ({{ scoreExact }})<!--
+                --><sup>
+                  <v-icon size="x-small">mdi-information-outline</v-icon>
+                </sup>
+              </span>
+            </div>
+            <div>
+              <span>{{ t('scoreCalc.headers.range') }}:</span>
               {{ offenseScoreMin }} to
               {{ offenseScoreMax }}
             </div>
             <div>
               <span>{{ t('scoreCalc.headers.defenseScore') }}:</span>
-              {{ defenseScoreRounded }} ({{ defenseScoreExact }})
+              {{ defenseScore }}
             </div>
           </v-card-title>
           <v-card-text class="pa-0">
@@ -177,14 +186,30 @@
     </v-row>
 
     <DevOnly>
-      <v-row dense>
+      <v-row
+        dense
+        class="mt-5"
+      >
         <v-col>
           <h4>Tips to increase your score:</h4>
-          <ul class="pl-5">
+          <ol class="pl-5">
             <li>Use four 5* units at level 40.</li>
             <li>Use units with maximum merges.</li>
-          </ul>
-          <p>
+            <li>Use maximum SP skills.</li>
+            <li>Use a bonus legendary unit.</li>
+            <li>Use up to 2 lengendaries of the same in-season element.</li>
+            <li>
+              Bless all your non-legendary units with the element of those
+              legendaries.
+            </li>
+          </ol>
+          <p class="mt-3">
+            Choose units with the highest BST or legendary/duo units with the
+            highest "Duel" effect. You can find a tierlist of the best scoring
+            units
+            <NuxtLink :to="localePath('units-maximum-scores')">here</NuxtLink>.
+          </p>
+          <p class="mt-3">
             <a
               href="https://imgur.com/NycQzxt"
               target="_blank"
@@ -199,7 +224,9 @@
 </template>
 
 <script setup lang="ts">
+import max from 'lodash-es/max'
 import filter from 'lodash-es/filter'
+import compact from 'lodash-es/compact'
 
 import {
   SKILL_PASSIVE_S,
@@ -227,6 +254,7 @@ import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
+const localePath = useLocalePath()
 const { itemsForElementsLegendary, itemsForElementsMythic } = useSelects()
 
 const storeDataUnits = useStoreDataUnits()
@@ -285,16 +313,20 @@ function selectSkill(
   unit: IUnitInstanceInScoreCalc,
   { category, id }: { category: SkillCategory; id: SkillId },
 ) {
-  if (id) {
-    unit.skillIds[category] = id
-    unit.skillSPs[category] =
-      category === SKILL_PASSIVE_S
-        ? storeDataSeals.sealsById[id].sp
-        : storeDataSkills.skillsById[id].sp
-  } else {
+  if (!id) {
     unit.skillIds[category] = undefined
     unit.skillSPs[category] = undefined
+    return
   }
+
+  unit.skillIds[category] = id
+  if (category === SKILL_PASSIVE_S) {
+    unit.skillSPs[category] = storeDataSeals.sealsById[id].sp
+    return
+  }
+
+  const skill = storeDataSkills.skillsById[id]
+  unit.skillSPs[category] = max(compact([skill.sp, skill.refines_max_sp]))
 }
 function selectSp(
   unit: IUnitInstanceInScoreCalc,
@@ -337,10 +369,13 @@ const scoreContext = computed<ScoreContext>(() => ({
 const averageScore = computed(
   () => TEAM_BASE_SCORE + mean(units.value.map((u) => u.score)),
 )
-const defenseScoreRounded = computed(() => Math.floor(averageScore.value) * 2)
-const defenseScoreExact = computed(
-  () => averageScore.value * scoreContext.value.bonusFactor,
+const scoreRounded = computed(
+  () => scoreContext.value.bonusFactor * Math.floor(averageScore.value),
 )
+const scoreExact = computed(
+  () => scoreContext.value.bonusFactor * averageScore.value,
+)
+const defenseScore = computed(() => Math.floor(averageScore.value) * 2)
 const offenseScoreMin = computed(
   () =>
     Math.floor(averageScore.value + OFFENSE_SCORE_DIFF_MIN) *

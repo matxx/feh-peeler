@@ -67,7 +67,7 @@
         <v-list-item-title>
           <AppRegExpMatches
             v-if="regexp"
-            :text="storeDataSkills.skillsById[item.raw].name"
+            :text="itemTitleFinal(item.raw)"
             :regexp="regexp"
           />
         </v-list-item-title>

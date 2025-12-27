@@ -26,7 +26,7 @@
 
               <span
                 v-if="visibleBst !== bst"
-                v-tooltip:bottom="t('scoreCalc.headers.visibleBst')"
+                v-tooltip:bottom="t('scoreCalc.tooltips.visibleBst')"
               >
                 ({{ visibleBst }})<!--
                 --><sup>
@@ -256,8 +256,10 @@
 </template>
 
 <script setup lang="ts">
+import max from 'lodash-es/max'
 import uniq from 'lodash-es/uniq'
 import filter from 'lodash-es/filter'
+import compact from 'lodash-es/compact'
 import orderBy from 'lodash-es/orderBy'
 
 import {
@@ -405,7 +407,14 @@ function loadMaxScore() {
 
     const relevantSkills = filter(
       skillIdsAvailableByCategory.value[category],
-      (id) => storeDataSkills.skillsById[id].sp === sp,
+      (id) => {
+        const skill = storeDataSkills.skillsById[id]
+        if (skill.has_refine && storeDataSkills.refinesByBaseId[id]) {
+          return false
+        }
+
+        return max(compact([skill.sp, skill.refines_max_sp])) === sp
+      },
     )
     if (relevantSkills.length === 1) {
       newUnitInstance.skillIds[category] = relevantSkills[0]
@@ -443,7 +452,12 @@ const spsAvailableByCategory = computed<GroupedBy<SkillCategory, number>>(() =>
     objectEntries(skillIdsAvailableByCategory.value).map(([category, ids]) => [
       category,
       orderBy(
-        uniq(ids.map((id) => storeDataSkills.skillsById[id].sp)),
+        uniq(
+          ids.map((id) => {
+            const skill = storeDataSkills.skillsById[id]
+            return max(compact([skill.sp, skill.refines_max_sp])) || 0
+          }),
+        ),
         [(i) => i],
         ['desc'],
       ),

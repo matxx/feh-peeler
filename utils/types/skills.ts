@@ -255,3 +255,6 @@ export function filterByDescription(
 
   return !!skillDescription.description.match(r)
 }
+
+export const getFilterableName = (skill: ISkillData) =>
+  skill.is_prf ? `[PRF] ${skill.name}` : skill.name

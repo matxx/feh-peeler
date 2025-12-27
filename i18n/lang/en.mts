@@ -722,14 +722,18 @@ export default {
 
   scoreCalc: {
     headers: {
-      scoreRange: 'Score Range',
+      score: 'Score',
+      range: 'Range',
       defenseScore: 'Defense Score',
 
       bst: 'BST',
+      totalSP: 'Total SP',
+    },
+    tooltips: {
+      scoreExact:
+        'Score not rounded (in order to see how close you are from the next step)',
       visibleBst:
         'Visible BST : adjusted BST based on "Duel" A skill or duo/legendary unit standard effect "Duel"',
-      totalSP: 'Total SP',
-      score: 'Score',
     },
     labels: {
       hasBonusUnit: 'Bonus unit ?',
