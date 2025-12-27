@@ -754,5 +754,24 @@ export default {
     cta: {
       loadMaxScore: 'Load Max Score',
     },
+    tips: {
+      header: 'Tips to increase your score:',
+
+      useFourUnitsRarity5Level40: 'Use four 5* units at level 40.',
+      useUnitsWithMaxMerges: 'Use units with maximum merges.',
+      useMaxSpSkills: 'Use maximum SP skills.',
+      useABonusLegendaryUnit: 'Use a bonus legendary unit.',
+      useUpToTwoLegendaries:
+        'Use up to 2 lengendaries of the same in-season element.',
+      blessYourUnits:
+        'Bless all your non-legendary units with the element of those legendaries.',
+
+      chooseHighestBstUnits:
+        'Choose units with the highest BST or legendary/duo units with the highest "Duel" effect.',
+      findTierlist: 'You can find a tierlist of the best scoring units {link}.',
+      here: 'here',
+
+      completeFormulae: 'Complete formulae to calculate score.',
+    },
   },
 }

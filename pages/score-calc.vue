@@ -185,41 +185,43 @@
       </v-col>
     </v-row>
 
-    <DevOnly>
-      <v-row
-        dense
-        class="mt-5"
-      >
-        <v-col>
-          <h4>Tips to increase your score:</h4>
-          <ol class="pl-5">
-            <li>Use four 5* units at level 40.</li>
-            <li>Use units with maximum merges.</li>
-            <li>Use maximum SP skills.</li>
-            <li>Use a bonus legendary unit.</li>
-            <li>Use up to 2 lengendaries of the same in-season element.</li>
-            <li>
-              Bless all your non-legendary units with the element of those
-              legendaries.
-            </li>
-          </ol>
-          <p class="mt-3">
-            Choose units with the highest BST or legendary/duo units with the
-            highest "Duel" effect. You can find a tierlist of the best scoring
-            units
-            <NuxtLink :to="localePath('units-maximum-scores')">here</NuxtLink>.
-          </p>
-          <p class="mt-3">
-            <a
-              href="https://imgur.com/NycQzxt"
-              target="_blank"
-            >
-              Complete formulae to calculate score.
-            </a>
-          </p>
-        </v-col>
-      </v-row>
-    </DevOnly>
+    <v-row
+      dense
+      class="mt-5"
+    >
+      <v-col>
+        <h4>{{ t('scoreCalc.tips.header') }}</h4>
+        <ol class="pl-5">
+          <li>{{ t('scoreCalc.tips.useFourUnitsRarity5Level40') }}</li>
+          <li>{{ t('scoreCalc.tips.useUnitsWithMaxMerges') }}</li>
+          <li>{{ t('scoreCalc.tips.useMaxSpSkills') }}</li>
+          <li>{{ t('scoreCalc.tips.useABonusLegendaryUnit') }}</li>
+          <li>{{ t('scoreCalc.tips.useUpToTwoLegendaries') }}</li>
+          <li>{{ t('scoreCalc.tips.blessYourUnits') }}</li>
+        </ol>
+        <p class="mt-3">
+          {{ t('scoreCalc.tips.chooseHighestBstUnits') }}
+          <i18n-t
+            keypath="scoreCalc.tips.findTierlist"
+            tag="span"
+          >
+            <template #link>
+              <NuxtLink :to="localePath('units-maximum-scores')">
+                {{ t('scoreCalc.tips.here') }}
+              </NuxtLink>
+            </template>
+          </i18n-t>
+        </p>
+        <p class="mt-3">
+          <a
+            href="https://imgur.com/NycQzxt"
+            target="_blank"
+          >
+            {{ t('scoreCalc.tips.completeFormulae') }}
+          </a>
+        </p>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
