@@ -380,11 +380,12 @@ const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
 const storeDataBanners = useStoreDataBanners()
 const storeDataUnitsHeroicGrails = useStoreDataUnitsHeroicGrails()
+const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 const { isLoading: isLoadingStores } = useDataStores([
   storeDataUnits,
   storeDataBanners,
   storeDataUnitsHeroicGrails,
-  useStoreDataUnitsAvailabilities(),
+  storeDataUnitsAvailabilities,
 ])
 
 const sortOrders = computed(() =>
@@ -436,6 +437,8 @@ const allUnitsCountByAvailability = computed<UnitsCountByAvailability>(() =>
 )
 const ownedUnitsCountByWeaponColorByAvailability = computed(() => {
   const res = getEmptyUnitsCountByWeaponColorByAvailability()
+  if (!storeDataUnitsAvailabilities.isLoaded) return res
+
   storeDataUnits.unitsWithAvailability.forEach((unit) => {
     if (!ownedUnitIds.value.has(unit.id)) return
 

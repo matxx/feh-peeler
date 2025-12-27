@@ -94,12 +94,14 @@ export const useStoreDataUnits = defineStore('data/units', () => {
       : [],
   )
   const unitsWithAvailability = computed<IUnitWithAvailability[]>(() =>
-    units.value.map((unit) => ({
-      ...unit,
-      availability: getAvailability(
-        storeDataUnitsAvailabilities.availabilitiesById[unit.id],
-      ),
-    })),
+    storeDataUnitsAvailabilities.isLoaded
+      ? units.value.map((unit) => ({
+          ...unit,
+          availability: getAvailability(
+            storeDataUnitsAvailabilities.availabilitiesById[unit.id],
+          ),
+        }))
+      : [],
   )
   const unitsWithReleaseDate = computed<IUnitWithReleaseDate[]>(() =>
     units.value.map((unit) => {
