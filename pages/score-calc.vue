@@ -27,8 +27,8 @@
             target="_blank"
             >here</a
           >. <br />
-          Blessings and Mjolnir Strike are probably not working correctly at the
-          moment.
+          Mjolnir Strike is probably not working correctly at the moment because
+          not tested (waiting on the event to come back).
         </v-alert>
       </v-col>
     </v-row>
@@ -78,7 +78,7 @@
               </span>
             </div>
             <div>
-              <span>{{ t('scoreCalc.headers.range') }}:</span>
+              <span>{{ t('scoreCalc.headers.offenseRange') }}:</span>
               {{ offenseScoreMin }} to
               {{ offenseScoreMax }}
             </div>

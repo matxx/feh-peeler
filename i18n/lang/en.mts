@@ -723,7 +723,7 @@ export default {
   scoreCalc: {
     headers: {
       score: 'Score',
-      range: 'Range',
+      offenseRange: 'Offense Range',
       defenseScore: 'Defense Score',
 
       bst: 'BST',

@@ -65,6 +65,7 @@
             <CompoUnitThumbnail
               v-if="unit"
               :unit="unit"
+              :blessing="unitInstance.blessing"
               :size="THUMBNAIL_SIZE"
               :size-corner="40"
               :margin="20"

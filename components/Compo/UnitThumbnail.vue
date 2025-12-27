@@ -76,16 +76,21 @@
         :height="sizeCorner"
       />
       <img
-        v-if="unit.image_url_for_icon_chosen"
+        v-else-if="unit.image_url_for_icon_chosen"
         :src="unit.image_url_for_icon_chosen"
         :width="sizeCorner"
         :height="sizeCorner"
       />
       <img
-        v-if="unit.image_url_for_icon_mythic"
+        v-else-if="unit.image_url_for_icon_mythic"
         :src="unit.image_url_for_icon_mythic"
         :width="sizeCorner"
         :height="sizeCorner"
+      />
+      <AppIconElement
+        v-else-if="blessing"
+        :element="blessing"
+        :size="sizeCorner"
       />
     </v-sheet>
 
@@ -144,18 +149,21 @@
 
 <script setup lang="ts">
 import type { IUnitThumbnail } from '@/utils/types/units.ts'
+import type { Element } from '~/utils/types/units-filters'
 
 const { mobile } = useDisplay()
 
 const props = withDefaults(
   defineProps<{
     unit: IUnitThumbnail
+    blessing?: Element | null
     size?: number
     sizeCorner?: number
     margin?: number
     marginIcon?: number
   }>(),
   {
+    blessing: undefined,
     size: 80,
     sizeCorner: 30,
     margin: 10,

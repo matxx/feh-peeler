@@ -184,16 +184,18 @@ export default function useUnitScore(
 
   const blessingScore = computed(() => {
     if (!unit.value) return 0
-    if (!unit.value.element) return 0
     if (unit.value.is_legendary) return 0
 
+    const element = unitInstance.value.blessing
+    if (!element) return 0
+
     // @ts-expect-error ElementMythic handled here
-    if (!scoreContext.value.seasonElements.includes(unit.value.element)) {
+    if (!scoreContext.value.seasonElements.includes(element)) {
       return 0
     }
 
     // @ts-expect-error ElementMythic handled here
-    return (scoreContext.value.legendaryCounts[unit.value.element] || 0) * 4
+    return (scoreContext.value.legendaryCounts[element] || 0) * 4
   })
 
   const scorePartRarity = computed(() => rarityBaseValue.value)
