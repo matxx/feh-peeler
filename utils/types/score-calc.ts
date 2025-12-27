@@ -1,7 +1,11 @@
-import { objectFromEntries } from '~/utils/functions/typeSafe'
+import { objectFromEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { SKILL_CATEGORIES, type TBySkillCategory } from '~/utils/types/skills'
 import { getEmptyUnitInstance, type IUnitInstance } from '~/utils/types/units'
-import type { Element } from '~/utils/types/units-filters'
+import type {
+  Element,
+  ElementLegendary,
+  ElementMythic,
+} from '~/utils/types/units-filters'
 import type { Stat } from '~/utils/types/units-stats'
 import { WEAPON_R, WEAPON_B, WEAPON_G, WEAPON_C } from '~/utils/types/weapons'
 import { MOVE_I, MOVE_C, MOVE_F } from '~/utils/types/moves'
@@ -13,6 +17,8 @@ export const MAX_MERGES = 10
 export const GROWTH_RATE_DIFF = 5
 
 export interface IUnitInstanceInScoreCalc extends IUnitInstance {
+  score: number
+
   rarity: number
   level: number
   merges: number
@@ -21,6 +27,17 @@ export interface IUnitInstanceInScoreCalc extends IUnitInstance {
   blessing: null | Element
 
   skillSPs: TBySkillCategory<number | undefined>
+}
+
+export type ScoreContext = {
+  bonusFactor: number
+  seasonElements: ElementLegendary[]
+  legendaryCounts: IndexedBy<ElementLegendary, number>
+  mjolnirStrike: {
+    isActive: boolean
+    minor: ElementMythic | null
+    major: ElementMythic | null
+  }
 }
 
 export type EditableKey =
@@ -58,9 +75,11 @@ export function getEmptyUnitInstanceInScoreCalc(): IUnitInstanceInScoreCalc {
   return {
     ...getEmptyUnitInstance(),
 
+    score: 0,
+
     rarity: 5,
     level: 40,
-    merges: 10,
+    merges: 0,
     boon: null,
     bane: null,
     blessing: null,
@@ -71,6 +90,8 @@ export function getEmptyUnitInstanceInScoreCalc(): IUnitInstanceInScoreCalc {
 
 // https://imgur.com/NycQzxt
 export const TEAM_BASE_SCORE = 150
+export const OFFENSE_SCORE_DIFF_MIN = -1
+export const OFFENSE_SCORE_DIFF_MAX = 6
 export const SCORE_RARITY_CONSTANTS = [
   {
     baseValue: 47,
@@ -90,7 +111,7 @@ export const SCORE_RARITY_CONSTANTS = [
   },
   {
     baseValue: 55,
-    levelFactor: 7 / 3,
+    levelFactor: 91 / 39,
   },
 ]
 

@@ -7,7 +7,6 @@
       >
         <v-card-title>
           <AppSelectUnit
-            :disabled="disabled"
             :model-value="unitInstance.id"
             without-thumbnail
             clearable
@@ -19,16 +18,20 @@
         <div class="d-flex flex-no-wrap justify-space-between">
           <div class="d-flex flex-column">
             <v-card-title>
-              {{ t('scoreCalc.headers.score') }}: {{ unit ? score : 0 }}
+              {{ t('scoreCalc.headers.score') }}: {{ finalScore }}
             </v-card-title>
 
             <v-card-subtitle>
               {{ t('scoreCalc.headers.bst') }}: {{ bst }}
+
               <span
                 v-if="visibleBst !== bst"
-                v-tooltip="t('scoreCalc.headers.visibleBst')"
+                v-tooltip:bottom="t('scoreCalc.headers.visibleBst')"
               >
-                ({{ visibleBst }})
+                ({{ visibleBst }})<!--
+                --><sup>
+                  <v-icon size="x-small">mdi-information-outline</v-icon>
+                </sup>
               </span>
             </v-card-subtitle>
             <v-card-subtitle>
@@ -122,7 +125,7 @@
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('rarity', $event)
+                    updateUnit('rarity', parseInt($event, 10))
                     handleChange($event)
                   }
                 "
@@ -150,7 +153,7 @@
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('level', $event)
+                    updateUnit('level', parseInt($event, 10))
                     handleChange($event)
                   }
                 "
@@ -165,7 +168,7 @@
             >
               <v-text-field
                 :model-value="unitInstance.merges"
-                :disabled="disabled"
+                :disabled="unit?.is_story"
                 required
                 type="number"
                 step="1"
@@ -178,7 +181,7 @@
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('merges', $event)
+                    updateUnit('merges', parseInt($event, 10))
                     handleChange($event)
                   }
                 "
@@ -188,7 +191,6 @@
 
           <v-col cols="6">
             <v-select
-              :disabled="disabled"
               :model-value="unitInstance.boon"
               :items="itemsForStats"
               clearable
@@ -200,7 +202,6 @@
           </v-col>
           <v-col cols="6">
             <v-select
-              :disabled="disabled"
               :model-value="unitInstance.bane"
               :items="itemsForStats"
               clearable
@@ -208,6 +209,19 @@
               hide-details
               :label="t('scoreCalc.labels.bane')"
               @update:model-value="updateUnit('bane', $event)"
+            />
+          </v-col>
+
+          <v-col cols="12">
+            <v-select
+              :disabled="isBlessingDisabled"
+              :model-value="unitInstance.blessing"
+              :items="itemsForElements"
+              clearable
+              density="compact"
+              hide-details
+              :label="t('scoreCalc.labels.blessing')"
+              @update:model-value="updateUnit('blessing', $event)"
             />
           </v-col>
         </v-row>
@@ -237,26 +251,6 @@
           </v-row>
         </v-container>
       </AppRenderOnceWhileActive>
-
-      <v-container
-        fluid
-        class="pa-0"
-      >
-        <v-row dense>
-          <v-col cols="12">
-            <v-select
-              :disabled="isBlessingDisabled"
-              :model-value="unitInstance.blessing"
-              :items="itemsForElements"
-              clearable
-              density="compact"
-              hide-details
-              :label="t('scoreCalc.labels.blessing')"
-              @update:model-value="updateUnit('blessing', $event)"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
     </v-card-text>
   </v-card>
 </template>
@@ -277,6 +271,7 @@ import {
   SEAL_MAX_SP,
   SEAL_OTHER_THAN_DC_MAX_SP,
   type IUnitInstanceInScoreCalc,
+  type ScoreContext,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds } from '~/utils/types/units'
 // import { STATS } from '~/utils/types/units-stats'
@@ -312,6 +307,7 @@ const emit = defineEmits([
 ])
 const props = withDefaults(
   defineProps<{
+    scoreContext: ScoreContext
     unitInstance: IUnitInstanceInScoreCalc
     index: number
     isLoading?: boolean
@@ -329,11 +325,24 @@ const {
   bst,
   visibleBst,
   totalSkillSPs,
-  score,
+
+  // for debug
+  // scorePartRarity,
+  // scorePartLevel,
+  // scorePartMerges,
+  // scorePartSPs,
+  // scorePartBST,
+  // scorePartBlessing,
+
+  baseScore,
+  finalScore,
   superBoons,
   hasAccessToDuelSkill,
   needsDuelSkill,
-} = useScoreData(toRef(props, 'unitInstance'))
+} = useUnitScore(toRef(props, 'unitInstance'), toRef(props, 'scoreContext'))
+watch(baseScore, () => {
+  updateUnit('score', baseScore.value)
+})
 
 const storeGlobals = useStoreGlobals()
 const storeDataSeals = useStoreDataSeals()
@@ -348,7 +357,6 @@ const isLoaded = computed(
     storeDataSkillsAvailabilities.isLoaded,
 )
 
-const disabled = false
 const isBlessingDisabled = computed(() => !unit.value || !!unit.value.element)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -361,6 +369,7 @@ function loadMaxScore() {
 
   const newUnitInstance: IUnitInstanceInScoreCalc = {
     id: props.unitInstance.id,
+    score: 0,
 
     skillIds: getEmptyUnitInstanceSkillIds(),
     skillSPs: getEmptyUnitInstanceSkillSPs(),
@@ -370,7 +379,7 @@ function loadMaxScore() {
     merges: unit.value.is_story ? 0 : MAX_MERGES,
     boon: superBoons.value[0],
     bane: null,
-    blessing: unit.value.element || null,
+    blessing: props.unitInstance.blessing || unit.value.element || null,
   }
 
   SORTED_SKILL_CATEGORIES.forEach((category) => {
@@ -422,14 +431,14 @@ const skillIdsAvailable = computed(() =>
       )
     : skillIds.value,
 )
-const skillIdsAvailableByCategory = computed<GroupedBy<SkillId, SkillCategory>>(
+const skillIdsAvailableByCategory = computed<GroupedBy<SkillCategory, SkillId>>(
   () =>
     groupByFunc(
       skillIdsAvailable.value,
       (id) => storeDataSkills.skillsById[id].category,
     ),
 )
-const spsAvailableByCategory = computed<GroupedBy<number, SkillCategory>>(() =>
+const spsAvailableByCategory = computed<GroupedBy<SkillCategory, number>>(() =>
   objectFromEntries(
     objectEntries(skillIdsAvailableByCategory.value).map(([category, ids]) => [
       category,

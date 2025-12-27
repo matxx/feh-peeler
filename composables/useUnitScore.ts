@@ -15,6 +15,7 @@ import {
   // MAX_MERGES,
   GROWTH_RATE_DIFF,
   type IUnitInstanceInScoreCalc,
+  type ScoreContext,
 } from '~/utils/types/score-calc'
 import { SKILL_PASSIVE_A } from '~/utils/types/skills'
 import { BANE, BOON, STATS } from '~/utils/types/units-stats'
@@ -31,8 +32,9 @@ const statAtLevel = (
   return statLevel1 + Math.floor(((level - 1) * appliedGrowthRate) / 100)
 }
 
-export default function useScoreData(
+export default function useUnitScore(
   unitInstance: Ref<IUnitInstanceInScoreCalc>,
+  scoreContext: Ref<ScoreContext>,
 ) {
   const storeDataUnits = useStoreDataUnits()
   const storeDataUnitsStats = useStoreDataUnitsStats()
@@ -112,24 +114,20 @@ export default function useScoreData(
     ),
   )
   const bst = computed(() => sum(objectEntries(stats.value).map(([, v]) => v)))
+
+  const isMaxLevelRarity = computed(
+    () =>
+      unitInstance.value.level === MAX_LEVEL &&
+      unitInstance.value.rarity === MAX_RARITY,
+  )
   const duelEffectVisibleBst = computed(() => {
-    if (
-      unitInstance.value.level < MAX_LEVEL ||
-      unitInstance.value.rarity < MAX_RARITY
-    ) {
-      return
-    }
+    if (!isMaxLevelRarity.value) return
 
     return unit.value?.duel_score
   })
   const clashEffectVisibleBst = computed(() => unit.value?.clash_score)
   const duelSkillVisibleBst = computed(() => {
-    if (
-      unitInstance.value.level < MAX_LEVEL ||
-      unitInstance.value.rarity < MAX_RARITY
-    ) {
-      return
-    }
+    if (!isMaxLevelRarity.value) return
 
     const skillId = unitInstance.value.skillIds[SKILL_PASSIVE_A]
     if (!skillId) return
@@ -145,6 +143,7 @@ export default function useScoreData(
       ? DUEL_SKILL_SCORES_TIER4.min
       : DUEL_SKILL_SCORES_TIER4.max
   })
+
   const visibleBst = computed(() => {
     const possibleBsts = compact([
       bst.value,
@@ -172,15 +171,58 @@ export default function useScoreData(
     return maxBst.value < DUEL_SKILL_SCORES_TIER4.max
   })
 
-  const partialMax = computed(
-    () =>
-      rarityBaseValue.value +
-      Math.floor(rarityLevelFactor.value * unitInstance.value.level) +
-      unitInstance.value.merges * 2 +
-      Math.floor(totalSkillSPs.value / 100) +
-      Math.floor(visibleBst.value / 5),
+  const bonusMergesCount = computed(() => {
+    if (!unit.value) return 0
+    if (!unit.value.is_mythic) return 0
+    if (!scoreContext.value.mjolnirStrike.isActive) return 0
+
+    if (unit.value.element === scoreContext.value.mjolnirStrike.major) return 10
+    if (unit.value.element === scoreContext.value.mjolnirStrike.minor) return 5
+
+    return 0
+  })
+
+  const blessingScore = computed(() => {
+    if (!unit.value) return 0
+    if (!unit.value.element) return 0
+    if (unit.value.is_legendary) return 0
+
+    // @ts-expect-error ElementMythic handled here
+    if (!scoreContext.value.seasonElements.includes(unit.value.element)) {
+      return 0
+    }
+
+    // @ts-expect-error ElementMythic handled here
+    return (scoreContext.value.legendaryCounts[unit.value.element] || 0) * 4
+  })
+
+  const scorePartRarity = computed(() => rarityBaseValue.value)
+  const scorePartLevel = computed(() =>
+    Math.floor(rarityLevelFactor.value * unitInstance.value.level),
   )
-  const score = computed(() => (TEAM_BASE_SCORE + partialMax.value) * 2)
+  const scorePartMerges = computed(
+    () => (unitInstance.value.merges + bonusMergesCount.value) * 2,
+  )
+  const scorePartSPs = computed(() => Math.floor(totalSkillSPs.value / 100))
+  const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
+  const scorePartBlessing = computed(() => blessingScore.value)
+  const baseScore = computed(() =>
+    unit.value
+      ? sum([
+          scorePartRarity.value,
+          scorePartLevel.value,
+          scorePartMerges.value,
+          scorePartSPs.value,
+          scorePartBST.value,
+          scorePartBlessing.value,
+        ])
+      : 0,
+  )
+  const finalScore = computed(() =>
+    unit.value
+      ? (TEAM_BASE_SCORE + baseScore.value) * scoreContext.value.bonusFactor
+      : 0,
+  )
 
   return {
     unit,
@@ -191,7 +233,17 @@ export default function useScoreData(
     bst,
     visibleBst,
     totalSkillSPs,
-    score,
+    bonusMergesCount,
+
+    scorePartRarity,
+    scorePartLevel,
+    scorePartMerges,
+    scorePartSPs,
+    scorePartBST,
+    scorePartBlessing,
+
+    baseScore,
+    finalScore,
 
     hasAccessToDuelSkill,
     needsDuelSkill,

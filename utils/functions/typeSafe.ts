@@ -1,6 +1,10 @@
 import hasOwnProp from '~/utils/functions/hasOwnProp'
 
-export type GroupedBy<T, U extends string | number | symbol> = {
+export type IndexedBy<U extends string | number | symbol, T> = {
+  [key in U]: T
+}
+
+export type GroupedBy<U extends string | number | symbol, T> = {
   [key in U]: T[]
 }
 

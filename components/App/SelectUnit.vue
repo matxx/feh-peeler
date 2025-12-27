@@ -69,7 +69,7 @@
         <v-list-item-title>
           <AppRegExpMatches
             v-if="regexp"
-            :text="item.raw.full_name"
+            :text="`${item.raw.abbreviated_name} (${item.raw.title})`"
             :regexp="regexp"
           />
         </v-list-item-title>

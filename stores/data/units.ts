@@ -140,15 +140,15 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   )
 
   const unitsByReleaseYearMonth = computed<
-    GroupedBy<IUnitWithReleaseDate, string>
+    GroupedBy<string, IUnitWithReleaseDate>
   >(() => _groupBy(unitsWithReleaseDate.value, (unit) => unit.releaseYearMonth))
-  const unitsUntilYearMonth = computed<GroupedBy<IUnitWithReleaseDate, string>>(
+  const unitsUntilYearMonth = computed<GroupedBy<string, IUnitWithReleaseDate>>(
     () => {
       const list = sortBy(
         objectEntries(unitsByReleaseYearMonth.value),
         ([month, _]) => month,
       )
-      const res: GroupedBy<IUnitWithReleaseDate, string> = {}
+      const res: GroupedBy<string, IUnitWithReleaseDate> = {}
       const unitsUntilNow: IUnitWithReleaseDate[] = []
       list.forEach(([month, units]) => {
         unitsUntilNow.push(...units)

@@ -1,5 +1,9 @@
 import { STATS } from '~/utils/types/units-stats'
-import { SORTED_LEGENDARY_ELEMENTS } from '~/utils/types/units-filters'
+import {
+  SORTED_LEGENDARY_ELEMENTS,
+  SORTED_MYTHIC_ELEMENTS,
+  SORTED_ELEMENTS,
+} from '~/utils/types/units-filters'
 
 export default function useSelects() {
   const { t } = useI18n()
@@ -8,7 +12,17 @@ export default function useSelects() {
     value: stat,
     title: t(`global.stats.${stat}`),
   }))
-  const itemsForElements = SORTED_LEGENDARY_ELEMENTS.map((element) => ({
+  const itemsForElements = SORTED_ELEMENTS.map((element) => ({
+    value: element,
+    title: t(`global.elements.${element}`),
+  }))
+  const itemsForElementsLegendary = SORTED_LEGENDARY_ELEMENTS.map(
+    (element) => ({
+      value: element,
+      title: t(`global.elements.${element}`),
+    }),
+  )
+  const itemsForElementsMythic = SORTED_MYTHIC_ELEMENTS.map((element) => ({
     value: element,
     title: t(`global.elements.${element}`),
   }))
@@ -16,5 +30,7 @@ export default function useSelects() {
   return {
     itemsForStats,
     itemsForElements,
+    itemsForElementsLegendary,
+    itemsForElementsMythic,
   }
 }

@@ -26,7 +26,9 @@
             href="https://github.com/matxx/feh-peeler/issues/new"
             target="_blank"
             >here</a
-          >.
+          >. <br />
+          Blessings and Mjolnir Strike are probably not working correctly at the
+          moment.
         </v-alert>
       </v-col>
     </v-row>
@@ -61,6 +63,98 @@
       </v-col>
     </v-row>
 
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title class="bg-primary d-flex justify-space-evenly">
+            <div>
+              <span>{{ t('scoreCalc.headers.scoreRange') }}:</span>
+              {{ offenseScoreMin }} to
+              {{ offenseScoreMax }}
+            </div>
+            <div>
+              <span>{{ t('scoreCalc.headers.defenseScore') }}:</span>
+              {{ defenseScoreRounded }} ({{ defenseScoreExact }})
+            </div>
+          </v-card-title>
+          <v-card-text class="pa-0">
+            <v-container fluid>
+              <v-row>
+                <v-col>
+                  <v-checkbox
+                    v-model="hasBonusUnit"
+                    :label="t('scoreCalc.labels.hasBonusUnit')"
+                    density="compact"
+                    hide-details
+                  />
+                </v-col>
+                <v-col>
+                  <v-switch
+                    v-model="isMjolnirStrike"
+                    density="compact"
+                    hide-details
+                    :label="
+                      isMjolnirStrike
+                        ? t('scoreCalc.labels.mjolnirStrike')
+                        : t('scoreCalc.labels.arena')
+                    "
+                  />
+                </v-col>
+
+                <template v-if="isMjolnirStrike">
+                  <v-col>
+                    <v-select
+                      v-model="mjolnirStrikeMajor"
+                      :items="itemsForElementsMythic"
+                      clearable
+                      density="compact"
+                      hide-details
+                      :label="t('scoreCalc.labels.majorBlessing')"
+                  /></v-col>
+                  <v-col>
+                    <v-select
+                      v-model="mjolnirStrikeMinor"
+                      :items="itemsForElementsMythic"
+                      clearable
+                      density="compact"
+                      hide-details
+                      :label="t('scoreCalc.labels.minorBlessing')"
+                    />
+                  </v-col>
+                </template>
+                <template v-else>
+                  <v-col>
+                    <v-select
+                      v-model="seasonElements[0]"
+                      :items="itemsForElementsLegendary"
+                      clearable
+                      density="compact"
+                      hide-details
+                      :label="
+                        t('scoreCalc.labels.seasonElements', { index: 1 })
+                      "
+                    />
+                  </v-col>
+                  <v-col>
+                    <v-select
+                      v-model="seasonElements[1]"
+                      :items="itemsForElementsLegendary"
+                      clearable
+                      density="compact"
+                      hide-details
+                      :label="
+                        t('scoreCalc.labels.seasonElements', { index: 2 })
+                      "
+                    />
+                  </v-col>
+                </template>
+              </v-row>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
     <v-row dense>
       <v-col
         v-for="(unit, index) in units"
@@ -68,6 +162,7 @@
         :cols="mobile ? 12 : 3"
       >
         <ScoreCalcUnitCard
+          :score-context="scoreContext"
           :unit-instance="unit"
           :index="index"
           :is-loading="isLoading"
@@ -79,10 +174,32 @@
         />
       </v-col>
     </v-row>
+
+    <DevOnly>
+      <v-row dense>
+        <v-col>
+          <h4>Tips to increase your score:</h4>
+          <ul class="pl-5">
+            <li>Use four 5* units at level 40.</li>
+            <li>Use units with maximum merges.</li>
+          </ul>
+          <p>
+            <a
+              href="https://imgur.com/NycQzxt"
+              target="_blank"
+            >
+              Complete formulae to calculate score.
+            </a>
+          </p>
+        </v-col>
+      </v-row>
+    </DevOnly>
   </v-container>
 </template>
 
 <script setup lang="ts">
+import filter from 'lodash-es/filter'
+
 import {
   SKILL_PASSIVE_S,
   type SkillCategory,
@@ -91,13 +208,25 @@ import {
 import {
   getEmptyTeamInScoreCalc,
   getEmptyUnitInstanceSkillSPs,
+  OFFENSE_SCORE_DIFF_MAX,
+  OFFENSE_SCORE_DIFF_MIN,
+  TEAM_BASE_SCORE,
   type EditableKey,
   type IUnitInstanceInScoreCalc,
+  type ScoreContext,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
+import {
+  SORTED_LEGENDARY_ELEMENTS,
+  type ElementLegendary,
+  type ElementMythic,
+} from '~/utils/types/units-filters'
+import { objectFromEntries } from '~/utils/functions/typeSafe'
+import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
+const { itemsForElementsLegendary, itemsForElementsMythic } = useSelects()
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataSkills = useStoreDataSkills()
@@ -110,9 +239,26 @@ const { isLoading: isLoadingData } = useDataStores([
   storeDataSeals,
 ])
 
-const units = ref<IUnitInstanceInScoreCalc[]>(getEmptyTeamInScoreCalc())
+const DEFAULT_VALUES = {
+  hasBonusUnit: true,
+  seasonElements: [],
+  isMjolnirStrike: false,
+  mjolnirStrikeMinor: null,
+  mjolnirStrikeMajor: null,
+}
 
 const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
+
+const units = ref<IUnitInstanceInScoreCalc[]>(getEmptyTeamInScoreCalc())
+const hasBonusUnit = ref(DEFAULT_VALUES.hasBonusUnit)
+const seasonElements = ref<ElementLegendary[]>(DEFAULT_VALUES.seasonElements)
+const isMjolnirStrike = ref(DEFAULT_VALUES.isMjolnirStrike)
+const mjolnirStrikeMajor = ref<ElementMythic | null>(
+  DEFAULT_VALUES.mjolnirStrikeMajor,
+)
+const mjolnirStrikeMinor = ref<ElementMythic | null>(
+  DEFAULT_VALUES.mjolnirStrikeMinor,
+)
 
 function selectUnit(unit: IUnitInstanceInScoreCalc, id: UnitId) {
   unit.id = id
@@ -161,7 +307,49 @@ function confirmReset() {
   if (!confirm(t('global.confirmReset'))) return
 
   units.value = getEmptyTeamInScoreCalc()
+  hasBonusUnit.value = DEFAULT_VALUES.hasBonusUnit
+  seasonElements.value = DEFAULT_VALUES.seasonElements
+  isMjolnirStrike.value = DEFAULT_VALUES.isMjolnirStrike
+  mjolnirStrikeMajor.value = DEFAULT_VALUES.mjolnirStrikeMajor
+  mjolnirStrikeMinor.value = DEFAULT_VALUES.mjolnirStrikeMinor
 }
+
+const scoreContext = computed<ScoreContext>(() => ({
+  bonusFactor: hasBonusUnit.value ? 2 : 1,
+  seasonElements: seasonElements.value,
+  legendaryCounts: objectFromEntries(
+    SORTED_LEGENDARY_ELEMENTS.map((element) => [
+      element,
+      filter(
+        units.value,
+        (u) => u.id && storeDataUnits.unitsById[u.id]?.element === element,
+      ).length,
+    ]),
+  ),
+  mjolnirStrike: {
+    isActive: isMjolnirStrike.value,
+    minor: mjolnirStrikeMinor.value,
+    major: mjolnirStrikeMajor.value,
+  },
+}))
+
+const averageScore = computed(
+  () => TEAM_BASE_SCORE + mean(units.value.map((u) => u.score)),
+)
+const defenseScoreRounded = computed(() => Math.floor(averageScore.value) * 2)
+const defenseScoreExact = computed(
+  () => averageScore.value * scoreContext.value.bonusFactor,
+)
+const offenseScoreMin = computed(
+  () =>
+    Math.floor(averageScore.value + OFFENSE_SCORE_DIFF_MIN) *
+    scoreContext.value.bonusFactor,
+)
+const offenseScoreMax = computed(
+  () =>
+    Math.floor(averageScore.value + OFFENSE_SCORE_DIFF_MAX) *
+    scoreContext.value.bonusFactor,
+)
 
 // local storage
 
@@ -176,19 +364,35 @@ const {
 interface IPayloadToSaveV1 {
   version: 1
   units: IUnitInstanceInScoreCalc[]
+  hasBonusUnit: boolean
+  seasonElements: ElementLegendary[]
+  isMjolnirStrike: boolean
+  mjolnirStrikeMajor: ElementMythic | null
+  mjolnirStrikeMinor: ElementMythic | null
 }
 
 const payloadToSave = computed(() => ({
   version: CURRENT_PAYLOAD_VERSION,
   units: units.value,
+  hasBonusUnit: hasBonusUnit.value,
+  seasonElements: seasonElements.value,
+  isMjolnirStrike: isMjolnirStrike.value,
+  mjolnirStrikeMajor: mjolnirStrikeMajor.value,
+  mjolnirStrikeMinor: mjolnirStrikeMinor.value,
 }))
 storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
 
 function updateData(data: IPayloadToSaveV1) {
-  if (data.version !== CURRENT_PAYLOAD_VERSION)
+  if (data.version !== CURRENT_PAYLOAD_VERSION) {
     throw new Error('unknown version')
+  }
 
-  units.value = data.units
+  units.value = data.units || []
+  hasBonusUnit.value = data.hasBonusUnit
+  seasonElements.value = data.seasonElements || []
+  isMjolnirStrike.value = data.isMjolnirStrike
+  mjolnirStrikeMajor.value = data.mjolnirStrikeMajor
+  mjolnirStrikeMinor.value = data.mjolnirStrikeMinor
 }
 </script>

@@ -13,24 +13,37 @@ export const ELEMENT_DARK = 'Dark'
 export const ELEMENT_ASTRA = 'Astra'
 export const ELEMENT_ANIMA = 'Anima'
 
-export type Element =
+export type ElementLegendary =
   | typeof ELEMENT_FIRE
   | typeof ELEMENT_WATER
   | typeof ELEMENT_WIND
   | typeof ELEMENT_EARTH
+export type ElementMythic =
   | typeof ELEMENT_LIGHT
   | typeof ELEMENT_DARK
   | typeof ELEMENT_ASTRA
   | typeof ELEMENT_ANIMA
+export type Element = ElementLegendary | ElementMythic
 
-export const SORTED_LEGENDARY_ELEMENTS: Element[] = [
+export const SORTED_LEGENDARY_ELEMENTS: ElementLegendary[] = [
   ELEMENT_FIRE,
   ELEMENT_WATER,
   ELEMENT_WIND,
   ELEMENT_EARTH,
 ]
 
-export const SORTED_MYTHIC_ELEMENTS: Element[] = [
+export const SORTED_MYTHIC_ELEMENTS: ElementMythic[] = [
+  ELEMENT_LIGHT,
+  ELEMENT_DARK,
+  ELEMENT_ASTRA,
+  ELEMENT_ANIMA,
+]
+
+export const SORTED_ELEMENTS: Element[] = [
+  ELEMENT_FIRE,
+  ELEMENT_WATER,
+  ELEMENT_WIND,
+  ELEMENT_EARTH,
   ELEMENT_LIGHT,
   ELEMENT_DARK,
   ELEMENT_ASTRA,

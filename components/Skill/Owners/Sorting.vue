@@ -3,11 +3,6 @@
     density="compact"
     color="primary"
     hide-details
-    :label="
-      storeGlobals.sortedByAvailability
-        ? t('skills.show.owners.sortByAvailability')
-        : t('skills.show.owners.sortByName')
-    "
     :model-value="storeGlobals.sortedByAvailability"
     @update:model-value="storeGlobals.setSortedByAvailability(!!$event)"
   >

@@ -722,13 +722,23 @@ export default {
 
   scoreCalc: {
     headers: {
+      scoreRange: 'Score Range',
+      defenseScore: 'Defense Score',
+
       bst: 'BST',
       visibleBst:
-        'Visible BST (from "Duel" A skill or duo/legendary unit standard effect "Duel")',
+        'Visible BST : adjusted BST based on "Duel" A skill or duo/legendary unit standard effect "Duel"',
       totalSP: 'Total SP',
       score: 'Score',
     },
     labels: {
+      hasBonusUnit: 'Bonus unit ?',
+      arena: 'Arena',
+      mjolnirStrike: 'MjolnirStrike',
+      seasonElements: 'Season element #{index}',
+      majorBlessing: 'Major Blessing',
+      minorBlessing: 'Minor Blessing',
+
       unit: 'Unit #{index}',
       rarity: 'Rarity',
       level: 'Level',
