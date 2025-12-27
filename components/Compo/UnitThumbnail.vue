@@ -67,30 +67,30 @@
       :height="sizeCorner"
       :width="sizeCorner"
       color="transparent"
-      class="img-unit__icon img-unit__icon--legend"
+      class="img-unit__icon img-unit__icon--legend d-flex justify-center align-center"
     >
       <img
         v-if="unit.image_url_for_icon_legendary"
         :src="unit.image_url_for_icon_legendary"
-        :width="sizeCorner"
+        width="auto"
         :height="sizeCorner"
       />
       <img
         v-else-if="unit.image_url_for_icon_chosen"
         :src="unit.image_url_for_icon_chosen"
-        :width="sizeCorner"
+        width="auto"
         :height="sizeCorner"
       />
       <img
         v-else-if="unit.image_url_for_icon_mythic"
         :src="unit.image_url_for_icon_mythic"
-        :width="sizeCorner"
+        width="auto"
         :height="sizeCorner"
       />
       <AppIconElement
         v-else-if="blessing"
         :element="blessing"
-        :size="sizeCorner"
+        :height="sizeCorner"
       />
     </v-sheet>
 

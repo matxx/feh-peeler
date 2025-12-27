@@ -1,8 +1,8 @@
 <template>
   <img
     :src="img"
-    :width="size"
-    :height="size"
+    :width="computedWidth"
+    :height="computedHeight"
     :alt="t(`global.assets.icons.alt.elements.${element}`)"
   />
 </template>
@@ -33,8 +33,13 @@ const { t } = useI18n()
 
 const props = defineProps<{
   element: Element
-  size: string | number
+  size?: string | number
+  height?: string | number
+  width?: string | number
 }>()
+
+const computedWidth = computed(() => props.width ?? props.size ?? 'auto')
+const computedHeight = computed(() => props.height ?? props.size ?? 'auto')
 
 const img = computed(() => {
   switch (props.element) {
