@@ -69,8 +69,11 @@
           <v-card-title class="bg-primary d-flex justify-space-evenly">
             <div>
               <span>{{ t('scoreCalc.headers.score') }}:</span>
-              {{ scoreRounded }}
-              <span v-tooltip:bottom="t('scoreCalc.tooltips.scoreExact')">
+              {{ noUnit ? '-' : scoreRounded }}
+              <span
+                v-if="!noUnit"
+                v-tooltip:bottom="t('scoreCalc.tooltips.scoreExact')"
+              >
                 ({{ scoreExact }})<!--
                 --><sup>
                   <v-icon size="x-small">mdi-information-outline</v-icon>
@@ -79,12 +82,12 @@
             </div>
             <div>
               <span>{{ t('scoreCalc.headers.offenseRange') }}:</span>
-              {{ offenseScoreMin }} to
-              {{ offenseScoreMax }}
+              {{ noUnit ? '-' : offenseScoreMin }} to
+              {{ noUnit ? '-' : offenseScoreMax }}
             </div>
             <div>
               <span>{{ t('scoreCalc.headers.defenseScore') }}:</span>
-              {{ defenseScore }}
+              {{ noUnit ? '-' : defenseScore }}
             </div>
           </v-card-title>
           <v-card-text class="pa-0">
@@ -290,6 +293,8 @@ const mjolnirStrikeMajor = ref<ElementMythic | null>(
 const mjolnirStrikeMinor = ref<ElementMythic | null>(
   DEFAULT_VALUES.mjolnirStrikeMinor,
 )
+
+const noUnit = computed(() => filter(units.value, 'id').length === 0)
 
 function selectUnit(unit: IUnitInstanceInScoreCalc, id: UnitId) {
   unit.id = id
