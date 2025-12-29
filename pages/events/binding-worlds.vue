@@ -146,6 +146,7 @@ const enclosureForPrepend = computed(() => {
 
   const firstTwoUnits = take(units.value, 2)
   const diff = firstTwoUnits[0].enclosure - firstTwoUnits[1].enclosure
+  if (diff === 0) return firstTwoUnits[0].enclosure
   if (Math.abs(diff) !== 1) return ENCLOSURE_MAX
 
   return Math.min(
@@ -159,6 +160,7 @@ const enclosureForAppend = computed(() => {
 
   const lastTwoUnits = takeRight(units.value, 2)
   const diff = lastTwoUnits[1].enclosure - lastTwoUnits[0].enclosure
+  if (diff === 0) return lastTwoUnits[0].enclosure
   if (Math.abs(diff) !== 1) return ENCLOSURE_MIN
 
   return Math.min(
