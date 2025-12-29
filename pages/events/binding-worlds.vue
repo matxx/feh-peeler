@@ -140,6 +140,9 @@ const anyHiddenUnit = computed(() =>
   some(units.value, (unit) => !!unit.hidingReason),
 )
 
+function ensureBetweenMinMax(enclosure: number) {
+  return Math.min(Math.max(enclosure, ENCLOSURE_MIN), ENCLOSURE_MAX)
+}
 const enclosureForPrepend = computed(() => {
   if (units.value.length === 0) return ENCLOSURE_MAX
   if (units.value.length === 1) return units.value[0].enclosure
@@ -149,10 +152,7 @@ const enclosureForPrepend = computed(() => {
   if (diff === 0) return firstTwoUnits[0].enclosure
   if (Math.abs(diff) !== 1) return ENCLOSURE_MAX
 
-  return Math.min(
-    Math.max(firstTwoUnits[0].enclosure + diff, ENCLOSURE_MIN),
-    ENCLOSURE_MAX,
-  )
+  return ensureBetweenMinMax(firstTwoUnits[0].enclosure + diff)
 })
 const enclosureForAppend = computed(() => {
   if (units.value.length === 0) return ENCLOSURE_MIN
@@ -163,10 +163,7 @@ const enclosureForAppend = computed(() => {
   if (diff === 0) return lastTwoUnits[0].enclosure
   if (Math.abs(diff) !== 1) return ENCLOSURE_MIN
 
-  return Math.min(
-    Math.max(lastTwoUnits[1].enclosure + diff, ENCLOSURE_MIN),
-    ENCLOSURE_MAX,
-  )
+  return ensureBetweenMinMax(lastTwoUnits[1].enclosure + diff)
 })
 
 function confirmReset() {
