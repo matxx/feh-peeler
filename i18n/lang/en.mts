@@ -357,8 +357,7 @@ export default {
     },
     subtitle: {
       units: 'compare/filter/sort units',
-      'units-maximum-scores':
-        'compare units scores (for arena and other modes)',
+      'units-maximum-scores': '(for arena and other modes)',
       'score-calc': '(for arena and other modes)',
       'catalog-of-heroes': 'check which heroes you are missing',
 
@@ -694,7 +693,7 @@ export default {
             Y: 'Young',
 
             SoV: 'Shadow of Valentia (refers to the Fire Emblem game released in 2017)',
-            'FE{N}': 'Refers to the {N}-th Fire Emblem game',
+            'FE{N}': "Refers to the {'{N}'}-th Fire Emblem game",
           },
         },
       },

@@ -7,7 +7,10 @@
     :temporary="!mobile"
     @update:model-value="isOpen = $event"
   >
-    <AppPages v-show="route.path !== '/'" />
+    <AppPages
+      v-show="route.path !== '/'"
+      one-list
+    />
 
     <v-divider v-show="mobile" />
 
