@@ -24,7 +24,7 @@
     "
     :error-messages="errorMessages"
     v-bind="$attrs"
-    @update:model-value="$emit('update:model-value', $event ? $event : null)"
+    @update:model-value="$emit('update:model-value', $event)"
   >
     <template
       v-if="skillCategory"
@@ -116,7 +116,7 @@ const props = withDefaults(
 )
 
 const itemTitleDefault = (item: SkillId) =>
-  storeDataSkills.skillsById[item]?.name
+  storeDataSkills.skillsById[item]?.nameForSelect
 const itemTitleFinal = computed(() => props.itemTitle || itemTitleDefault)
 
 const localSkillId = ref<SkillId>()
@@ -151,17 +151,17 @@ const skillIds = computed(
 )
 const skillIdsAvailable = computed(() =>
   props.unit
-    ? filter(skillIds.value, (skillId) =>
-        storeSkillsFilters.isSkillIdAvailableToUnit(skillId, props.unit!),
+    ? filter(skillIds.value, (id) =>
+        storeSkillsFilters.isSkillIdAvailableToUnit(id, props.unit!),
       )
     : skillIds.value,
 )
 
 const skillIdsFiltered = ref<SkillId[]>([])
 const getSkillIdsFiltered = () =>
-  regexp.value && searchIsActive.value
-    ? filter(skillIdsAvailable.value, (skillId) =>
-        filterByName(storeDataSkills.skillsById[skillId], regexp.value),
+  regexp.value && searchIsActive.value && storeDataSkills.isLoaded
+    ? filter(skillIdsAvailable.value, (id) =>
+        filterByName(storeDataSkills.skillsById[id], regexp.value),
       )
     : []
 const updateSkillIdsFiltered = () => {

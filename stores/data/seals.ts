@@ -29,8 +29,9 @@ export const useStoreDataSeals = defineStore('data/seals', () => {
       ? sealsData.value.map((seal) => ({
           ...seal,
           nameForLink: escapeName(getNameForLink(seal)),
-          nameForFilters: storeDataAccents.transliterate(seal.name),
+          nameForSelect: seal.name,
           nameForSorting: getSortableName(seal.name),
+          nameForFiltering: storeDataAccents.transliterate(seal.name),
         }))
       : [],
   )

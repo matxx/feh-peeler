@@ -6,7 +6,7 @@
     :loading="isUpdating"
     :items="sealIdsFiltered"
     :item-value="(item) => item"
-    :item-title="(item) => storeDataSeals.sealsById[item]?.name"
+    :item-title="itemTitleFinal"
     :menu-props="{
       openOnFocus: false,
       location: 'bottom',
@@ -24,7 +24,7 @@
     "
     :error-messages="errorMessages"
     v-bind="$attrs"
-    @update:model-value="$emit('update:model-value', $event ? $event : null)"
+    @update:model-value="$emit('update:model-value', $event)"
   >
     <template
       v-if="prependCategory"
@@ -67,7 +67,7 @@
         <v-list-item-title>
           <AppRegExpMatches
             v-if="regexp"
-            :text="storeDataSeals.sealsById[item.raw].name"
+            :text="itemTitleFinal(item.raw)"
             :regexp="regexp"
           />
         </v-list-item-title>
@@ -77,6 +77,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-expect-error not exported by vuetify
+import type { SelectItemKey } from 'vuetify'
 import filter from 'lodash-es/filter'
 
 import type { IUnit } from '~/utils/types/units'
@@ -97,6 +99,7 @@ const props = withDefaults(
     unit?: IUnit
     clearable?: boolean
     size?: number
+    itemTitle?: SelectItemKey
   }>(),
   {
     withoutThumbnail: false,
@@ -104,8 +107,13 @@ const props = withDefaults(
     unit: undefined,
     clearable: false,
     size: 20,
+    itemTitle: undefined,
   },
 )
+
+const itemTitleDefault = (item: SealId) =>
+  storeDataSeals.sealsById[item]?.nameForSelect
+const itemTitleFinal = computed(() => props.itemTitle || itemTitleDefault)
 
 const localSealId = ref<SealId>()
 function updateSeal() {
@@ -130,17 +138,17 @@ const { regexp, hasError, errorMessages } = useSearch(searchText)
 const sealIds = computed(() => storeDataSeals.sortedSealIds)
 const sealIdsAvailable = computed(() =>
   props.unit
-    ? filter(sealIds.value, (sealId) =>
-        storeSkillsFilters.isSealIdAvailableToUnit(sealId, props.unit!),
+    ? filter(sealIds.value, (id) =>
+        storeSkillsFilters.isSealIdAvailableToUnit(id, props.unit!),
       )
     : sealIds.value,
 )
 
 const sealIdsFiltered = ref<SealId[]>([])
 const getSealIdsFiltered = () =>
-  regexp.value && searchIsActive.value
-    ? filter(sealIdsAvailable.value, (sealId) =>
-        filterByName(storeDataSeals.sealsById[sealId], regexp.value),
+  regexp.value && searchIsActive.value && storeDataSeals.isLoaded
+    ? filter(sealIdsAvailable.value, (id) =>
+        filterByName(storeDataSeals.sealsById[id], regexp.value),
       )
     : []
 const updateSealIdsFiltered = () => {

@@ -201,8 +201,9 @@ export interface ISkillData {
 export interface ISkill extends ISkillData {
   baseId: SkillId
   nameForLink: string
-  nameForFilters: string
+  nameForSelect: string
   nameForSorting: string
+  nameForFiltering: string
   sortableVersion: string
 }
 
@@ -243,7 +244,12 @@ export function filterByName(
 ): boolean {
   if (!r) return false
 
-  return !!skill.nameForFilters.match(r) || !!skill.name.match(r)
+  return (
+    !!skill.nameForFiltering.match(r) ||
+    !!skill.nameForSelect.match(r) ||
+    !!skill.name.match(r) ||
+    false
+  )
 }
 
 export function filterByDescription(
@@ -255,6 +261,3 @@ export function filterByDescription(
 
   return !!skillDescription.description.match(r)
 }
-
-export const getFilterableName = (skill: ISkillData) =>
-  skill.is_prf ? `[PRF] ${skill.name}` : skill.name

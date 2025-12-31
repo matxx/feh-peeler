@@ -11,6 +11,7 @@ import {
   type GroupedBy,
 } from '~/utils/functions/typeSafe'
 import type {
+  UnitId,
   IUnitData,
   IUnit,
   UnitsBy,
@@ -78,9 +79,10 @@ export const useStoreDataUnits = defineStore('data/units', () => {
           weaponFamily: WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
           weaponColor: WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
           nameForLink: escapeName(unit.full_name),
-          nameForFilters: storeDataAccents.transliterate(unit.full_name),
+          nameForSelect: `${unit.abbreviated_name} (${unit.title})`,
           nameForSorting: unit.full_name,
-          nameForDisplay: `${unit.full_name} [${unit.abbreviated_name}]`,
+          nameForFiltering: storeDataAccents.transliterate(unit.full_name),
+          nameForDisplay: `${unit.full_name} - ${unit.abbreviated_name}`,
           sortableType: getSortableType(unit),
           sortableWeaponColor: getSortableWeaponColor(
             WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
@@ -140,6 +142,9 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   const sortedUnits = computed<IUnit[]>(() =>
     sortBy(units.value, 'nameForSorting'),
   )
+  const sortedUnitIds = computed<UnitId[]>(() =>
+    sortedUnits.value.map((unit) => unit.id),
+  )
 
   const unitsByReleaseYearMonth = computed<
     GroupedBy<string, IUnitWithReleaseDate>
@@ -181,6 +186,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     unitsUntilYearMonth,
 
     sortedUnits,
+    sortedUnitIds,
   }
 })
 

@@ -3,6 +3,7 @@
     <AppRenderOncePresent :item="unitDetails">
       <template #default="{ item }">
         <div
+          v-if="item"
           class="d-flex justify-space-between align-center mr-5"
           :class="{ 'width-400px': !mobile }"
         >

@@ -30,8 +30,9 @@ export interface ISealData {
 
 export interface ISeal extends ISealData {
   nameForLink: string
-  nameForFilters: string
+  nameForSelect: string
   nameForSorting: string
+  nameForFiltering: string
 }
 
 export type ISealById = {
@@ -57,5 +58,10 @@ export function filterByName(
 ): boolean {
   if (!r) return false
 
-  return !!seal.nameForFilters.match(r) || !!seal.name.match(r)
+  return (
+    !!seal.nameForFiltering.match(r) ||
+    !!seal.nameForSelect.match(r) ||
+    !!seal.name.match(r) ||
+    false
+  )
 }

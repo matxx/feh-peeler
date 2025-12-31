@@ -5,7 +5,6 @@
         :is="category === SKILL_PASSIVE_S ? AppSelectSeal : AppSelectSkill"
         :model-value="unitInstance.skillIds[category]"
         :skill-category="category"
-        :item-title="itemTitle"
         :unit="unit"
         prepend-category
         without-thumbnail
@@ -42,12 +41,7 @@
 import { AppSelectSeal, AppSelectSkill } from '#components'
 
 import type { IUnitInstanceInScoreCalc } from '~/utils/types/score-calc'
-import type { SealId } from '~/utils/types/seals'
-import {
-  SKILL_PASSIVE_S,
-  type SkillCategory,
-  type SkillId,
-} from '~/utils/types/skills'
+import { SKILL_PASSIVE_S, type SkillCategory } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
 
 defineEmits(['select-skill', 'select-sp'])
@@ -59,9 +53,6 @@ const props = defineProps<{
   availableSpForSeals: number[]
 }>()
 
-const storeDataSkills = useStoreDataSkills()
-const storeDataSeals = useStoreDataSeals()
-
 const isFocused = ref(false)
 const displaySelect = computed(() => !!items.value && !isFocused.value)
 
@@ -69,22 +60,5 @@ const items = computed(() =>
   props.category === SKILL_PASSIVE_S
     ? props.availableSpForSeals
     : props.availableSp,
-)
-
-const itemTitleSkill = (item: SkillId) => {
-  const skill = storeDataSkills.skillsById[item]
-  if (!skill) return ''
-  if (skill.is_prf) return `[PRF] ${skill.name}`
-
-  return skill.name
-}
-const itemTitleSeal = (item: SealId) => {
-  const seal = storeDataSeals.sealsById[item]
-  if (!seal) return ''
-
-  return seal.name
-}
-const itemTitle = computed(() =>
-  props.category === SKILL_PASSIVE_S ? itemTitleSeal : itemTitleSkill,
 )
 </script>

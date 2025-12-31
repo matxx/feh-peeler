@@ -158,8 +158,9 @@ export interface IUnit extends IUnitData {
   weaponColor: WeaponColor
 
   nameForLink: string
-  nameForFilters: string
+  nameForSelect: string
   nameForSorting: string
+  nameForFiltering: string
   nameForDisplay: string
 
   sortableType: number
@@ -243,8 +244,10 @@ export function filterByName(
   if (!r) return false
 
   return (
-    !!unit.nameForFilters.match(r) ||
+    !!unit.nameForFiltering.match(r) ||
+    !!unit.nameForSelect.match(r) ||
     !!unit.full_name.match(r) ||
-    !!unit.abbreviated_name.match(r)
+    !!unit.abbreviated_name.match(r) ||
+    false
   )
 }

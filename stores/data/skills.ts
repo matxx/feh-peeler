@@ -9,16 +9,15 @@ import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import getSortableVersion from '~/utils/functions/getSortableVersion'
 import { getSortableName } from '~/utils/functions/skillSortingVector'
 
-import {
-  type SkillId,
-  type ISkillData,
-  type ISkill,
-  type ISkillTree,
-  type ISkillById,
-  type ISkillByName,
-  type TBySkillId,
-  type TBySkillCategory,
-  getFilterableName,
+import type {
+  SkillId,
+  ISkillData,
+  ISkill,
+  ISkillTree,
+  ISkillById,
+  ISkillByName,
+  TBySkillId,
+  TBySkillCategory,
 } from '~/utils/types/skills'
 import type { IUnitInstance } from '~/utils/types/units'
 
@@ -45,10 +44,9 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
           ...skill,
           baseId: skill.base_id || skill.id,
           nameForLink: escapeName(getNameForLink(skill)),
-          nameForFilters: storeDataAccents.transliterate(
-            getFilterableName(skill),
-          ),
+          nameForSelect: skill.is_prf ? `[PRF] ${skill.name}` : skill.name,
           nameForSorting: getSortableName(skill.name),
+          nameForFiltering: storeDataAccents.transliterate(skill.name),
           sortableVersion: getSortableVersion(skill.version || '0'),
         }))
       : [],

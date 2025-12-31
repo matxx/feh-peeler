@@ -1,13 +1,12 @@
 <template>
   <v-autocomplete
-    v-model="unit"
+    v-model="localUnitId"
     v-model:search="searchText"
     autocomplete="off"
-    return-object
     :loading="isUpdating"
-    :items="unitsFiltered"
-    item-title="full_name"
-    item-value="id"
+    :items="unitIdsFiltered"
+    :item-value="(item) => item"
+    :item-title="itemTitleFinal"
     :menu-props="{
       openOnFocus: false,
       location: 'bottom',
@@ -25,7 +24,7 @@
     "
     :error-messages="errorMessages"
     v-bind="$attrs"
-    @update:model-value="$emit('update:model-value', $event ? $event.id : null)"
+    @update:model-value="$emit('update:model-value', $event)"
   >
     <template
       v-if="$slots['prepend']"
@@ -38,17 +37,17 @@
     </template>
 
     <template
-      v-if="unit && !withoutThumbnail"
+      v-if="localUnit && !withoutThumbnail"
       #append
     >
       <CompoUnitThumbnail
-        :unit="unit"
+        :unit="localUnit"
         :size="25"
         :size-corner="10"
         :margin="5"
         :margin-icon="-5"
         class="cursor-pointer"
-        @click="storeGlobals.showUnit(unit.id)"
+        @click="storeGlobals.showUnit(localUnit.id)"
       />
     </template>
 
@@ -59,7 +58,7 @@
       >
         <template #prepend>
           <CompoUnitThumbnail
-            :unit="item.raw"
+            :unit="storeDataUnits.unitsById[item.raw]"
             :size="30"
             :size-corner="15"
             :margin="10"
@@ -69,7 +68,7 @@
         <v-list-item-title>
           <AppRegExpMatches
             v-if="regexp"
-            :text="`${item.raw.abbreviated_name} (${item.raw.title})`"
+            :text="itemTitleFinal(item.raw)"
             :regexp="regexp"
           />
         </v-list-item-title>
@@ -79,44 +78,46 @@
 </template>
 
 <script setup lang="ts">
+// @ts-expect-error not exported by vuetify
+import type { SelectItemKey } from 'vuetify'
 import filter from 'lodash-es/filter'
 
-import { type UnitId, type IUnit, filterByName } from '~/utils/types/units'
+import { type UnitId, filterByName } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
 const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
 
 defineEmits(['update:model-value', 'click:thumbnail'])
-const unitId = defineModel<null | UnitId>()
-withDefaults(
+const modelUnitId = defineModel<null | UnitId>()
+const props = withDefaults(
   defineProps<{
     withoutThumbnail?: boolean
     thumbnailClickable?: boolean
     clearable?: boolean
+    itemTitle?: SelectItemKey
   }>(),
   {
     withoutThumbnail: false,
     thumbnailClickable: false,
     clearable: false,
+    itemTitle: undefined,
   },
 )
 
-const unit = ref<IUnit>()
-const isInitialized = ref(false)
-function updateUnit() {
-  unit.value =
-    (unitId.value && storeDataUnits.unitsById[unitId.value]) || undefined
-}
-watch(unitId, updateUnit, { immediate: true })
-watch(
-  () => storeDataUnits.isLoaded,
-  () => {
-    if (isInitialized.value) return
+const itemTitleDefault = (item: UnitId) =>
+  storeDataUnits.unitsById[item]?.nameForSelect
+const itemTitleFinal = computed(() => props.itemTitle || itemTitleDefault)
 
-    isInitialized.value = true
-    updateUnit()
-  },
+const localUnitId = ref<UnitId>()
+function updateUnit() {
+  localUnitId.value = modelUnitId.value || undefined
+}
+watch(modelUnitId, updateUnit, { immediate: true })
+const localUnit = computed(
+  () =>
+    (localUnitId.value && storeDataUnits.unitsById[localUnitId.value]) ||
+    undefined,
 )
 
 const searchText = ref('')
@@ -126,15 +127,17 @@ const searchIsActive = computed(
 )
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
-const units = computed(() => storeDataUnits.sortedUnits)
+const unitIds = computed(() => storeDataUnits.sortedUnitIds)
 
-const unitsFiltered = ref<IUnit[]>([])
-const getUnitsFiltered = () =>
-  regexp.value && searchIsActive.value
-    ? filter(units.value, (unit) => filterByName(unit, regexp.value))
+const unitIdsFiltered = ref<UnitId[]>([])
+const getUnitIdsFiltered = () =>
+  regexp.value && searchIsActive.value && storeDataUnits.isLoaded
+    ? filter(unitIds.value, (id) =>
+        filterByName(storeDataUnits.unitsById[id], regexp.value),
+      )
     : []
-const updateUnitsFiltered = () => {
-  unitsFiltered.value = getUnitsFiltered()
+const updateUnitIdsFiltered = () => {
+  unitIdsFiltered.value = getUnitIdsFiltered()
 }
-const { isUpdating } = useDebounce(updateUnitsFiltered, [[regexp], [units]])
+const { isUpdating } = useDebounce(updateUnitIdsFiltered, [[regexp], [unitIds]])
 </script>
