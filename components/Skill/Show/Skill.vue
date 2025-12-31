@@ -36,13 +36,7 @@
         variant="text"
         @click="isOpen = !isOpen"
       >
-        <v-icon
-          left
-          class="chevron"
-          :class="{ 'chevron--opened': isOpen }"
-        >
-          mdi-chevron-right
-        </v-icon>
+        <AppChevronRight :is-open="isOpen" />
       </v-btn>
     </div>
 
@@ -76,13 +70,3 @@ withDefaults(
 
 const isOpen = ref(false)
 </script>
-
-<style scoped>
-.chevron {
-  color: inherit;
-  transition: transform 0.2s ease-in-out;
-}
-.chevron--opened {
-  transform: rotate(90deg);
-}
-</style>
