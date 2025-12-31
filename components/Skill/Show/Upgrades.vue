@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import sortBy from 'lodash-es/sortBy'
+import orderBy from 'lodash-es/orderBy'
 import compact from 'lodash-es/compact'
 
 import type { ISkill } from '@/utils/types/skills'
@@ -27,5 +27,7 @@ const upgrades = computed(() =>
       )
     : [],
 )
-const upgradesSorted = computed(() => sortBy(upgrades.value, 'is_prf'))
+const upgradesSorted = computed(() =>
+  orderBy(upgrades.value, ['is_prf', 'release_date'], ['desc', 'desc']),
+)
 </script>
