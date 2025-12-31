@@ -19,6 +19,8 @@ export default {
     NA: 'N/A',
     total: 'Total',
 
+    here: 'here',
+
     inpiredBy: 'Inspired by',
     post: 'post | post | posts',
     video: 'video',
@@ -509,7 +511,9 @@ export default {
       [unitThemes.THEME_PICNIC]: 'Picnic',
       [unitThemes.THEME_PIRATES]: 'Pirates',
       [unitThemes.THEME_TEA]: 'Tea',
-      [unitThemes.THEME_TRIBES]: 'Tribes',
+      [unitThemes.THEME_THIEVES]: 'Thieves',
+      [unitThemes.THEME_S12]: 'S12',
+      [unitThemes.THEME_NATIONS]: 'Nations',
     },
   },
 
@@ -616,9 +620,15 @@ export default {
         header: 'Abbreviations of unit names',
         description:
           'The same character can have multiple titles in game and can be difficult to remember. So the FEH commmunity uses abbreviated names to refer to them.',
-        example:
-          'Example: B!Lucina (the prefix "B" means "Brave" and refers to one of the many alts of Lucina)',
+
+        exampleHeader: 'Examples:',
+        exampleWithPrefix:
+          'B!Lucina : the prefix "B" means "Brave" (check below the list of prefixes)',
+        exampleWithSuffix:
+          'Corrin(M) : the suffix "M" means "Male" (check below the list of suffixes)',
+
         prefix: {
+          header: 'Prefixes',
           introduction:
             'Here is a the list of prefixes used on this website (generally the lower case letters are omitted by the community)',
           headers: {
@@ -640,11 +650,14 @@ export default {
             Su: 'Summer (banners in july & august)',
             HSu: 'Hoshidan Summer (august 2018 & 2024)',
             P: 'Pirate (august 2020 & 2021)',
+            Th: 'Thieves (august 2022)',
             T: 'Tea (august 2023 & 2025)',
             Da: 'Dance (called "performing arts" by game8) (september 2017, 2019 & 2020)',
+            S12: 'Scions of Twelve (september 2021)',
             FT: 'Fire Tribe (september 2022)',
             WT: 'Wind Tribe (september 2023)',
             IT: 'Ice Tribe (september 2024)',
+            Fe: 'Ferox (also called Arena) (september 2025)',
             H: 'Halloween (banners in october)',
             N: 'Ninja (banners in november)',
             W: 'Winter (banners in december)',
@@ -664,13 +677,25 @@ export default {
             H: 'Harmonized',
           },
           other: {
-            '35': '35th anniversary (only used for 35!Marth, a new duo Marth release for the 35th anniversary of the Fire Emblem franchise)',
+            '35': '35th anniversary (only used for 35!Marth, a new duo Marth released for the 35th anniversary of the Fire Emblem franchise)',
             B: 'Brave (heroes chosen by the community in the CYL events)',
+            Ad: 'Adrift (name of Paralogue 27)',
           },
         },
         suffix: {
-          M: 'Male',
-          F: 'Female',
+          header: 'Suffixes',
+          listOfFEGames: 'The list of Fire Emblem games be found {link}.',
+
+          other: {
+            M: 'Male',
+            F: 'Female',
+
+            A: 'Adult',
+            Y: 'Young',
+
+            SoV: 'Shadow of Valentia (refers to the Fire Emblem game released in 2017)',
+            'FE{N}': 'Refers to the {N}-th Fire Emblem game',
+          },
         },
       },
     },
@@ -769,7 +794,6 @@ export default {
       chooseHighestBstUnits:
         'Choose units with the highest BST or legendary/duo units with the highest "Duel" effect.',
       findTierlist: 'You can find a tierlist of the best scoring units {link}.',
-      here: 'here',
 
       completeFormulae: 'Complete formulae to calculate score.',
     },

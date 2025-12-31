@@ -16,7 +16,9 @@ export const THEME_HOSTILE_SPRING = 'hostile_spring'
 export const THEME_PICNIC = 'picnic'
 export const THEME_PIRATES = 'pirates'
 export const THEME_TEA = 'tea'
-export const THEME_TRIBES = 'tribes'
+export const THEME_THIEVES = 'thieves'
+export const THEME_S12 = 's12'
+export const THEME_NATIONS = 'nations'
 
 export type UnitTheme =
   | typeof THEME_NEW_YEAR
@@ -35,7 +37,9 @@ export type UnitTheme =
   | typeof THEME_PICNIC
   | typeof THEME_PIRATES
   | typeof THEME_TEA
-  | typeof THEME_TRIBES
+  | typeof THEME_THIEVES
+  | typeof THEME_S12
+  | typeof THEME_NATIONS
 
 export const ALL_THEMES: UnitTheme[] = [
   THEME_NEW_YEAR,
@@ -54,5 +58,7 @@ export const ALL_THEMES: UnitTheme[] = [
   THEME_PICNIC,
   THEME_PIRATES,
   THEME_TEA,
-  THEME_TRIBES,
+  THEME_THIEVES,
+  THEME_S12,
+  THEME_NATIONS,
 ]
