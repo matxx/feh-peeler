@@ -533,7 +533,7 @@ export default {
         [skillsColumns.COLUMN_RATING]: 'Rating',
         [skillsColumns.COLUMN_GRADE]: 'Grade',
         [skillsColumns.COLUMN_DESCRIPTION]: 'Description',
-        [skillsColumns.COLUMN_RESTRICTIONS]: 'Restrictions',
+        [skillsColumns.COLUMN_RESTRICTIONS]: 'Can use',
         [skillsColumns.COLUMN_OWNERS]: 'Owners',
         [skillsColumns.COLUMN_AVAILABILITY]: 'Availability',
         [skillsColumns.COLUMN_PRE_INHERITANCE]: 'PreInheritance',
