@@ -445,6 +445,7 @@ export default {
         [unitsColumns.COLUMN_VA]: 'VA',
         [unitsColumns.COLUMN_RATING]: 'Rating',
         [unitsColumns.COLUMN_ORIGIN]: 'Origin',
+        [unitsColumns.COLUMN_ID_INT]: 'ID',
         [unitsColumns.COLUMN_MAX_SCORE]: 'Max Score',
         [unitsColumns.COLUMN_THEME]: 'Theme',
       },
