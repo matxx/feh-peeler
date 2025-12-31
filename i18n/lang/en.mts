@@ -555,8 +555,8 @@ export default {
       canUse: 'Can use',
       effect: 'Effect',
       owners: {
-        sortByAvailability: 'Sorted by Availability',
-        sortByName: 'Sorted by Name',
+        sortByAvailability: 'Owners sorted by Availability',
+        sortByName: 'Owners sorted by Name',
       },
     },
     filters: {
