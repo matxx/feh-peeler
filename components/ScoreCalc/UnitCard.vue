@@ -15,30 +15,31 @@
             @update:model-value="$emit('select-unit', $event)"
           />
         </v-card-title>
-        <div class="d-flex flex-no-wrap justify-space-between">
-          <div class="d-flex flex-column">
-            <v-card-title>
-              {{ t('scoreCalc.headers.score') }}: {{ finalScore }}
-            </v-card-title>
+        <v-card-text class="pb-0">
+          <div class="d-flex flex-no-wrap justify-space-between">
+            <div class="d-flex flex-column">
+              <v-card-title>
+                {{ t('scoreCalc.headers.score') }}: {{ finalScore }}
+              </v-card-title>
 
-            <v-card-subtitle>
-              {{ t('scoreCalc.headers.bst') }}: {{ bst }}
+              <v-card-subtitle>
+                {{ t('scoreCalc.headers.bst') }}: {{ bst }}
 
-              <span
-                v-if="visibleBst !== bst"
-                v-tooltip:bottom="t('scoreCalc.tooltips.visibleBst')"
-              >
-                ({{ visibleBst }})<!--
+                <span
+                  v-if="visibleBst !== bst"
+                  v-tooltip:bottom="t('scoreCalc.tooltips.visibleBst')"
+                >
+                  ({{ visibleBst }})<!--
                 --><sup>
-                  <v-icon size="x-small">mdi-information-outline</v-icon>
-                </sup>
-              </span>
-            </v-card-subtitle>
-            <v-card-subtitle>
-              {{ t('scoreCalc.headers.totalSP') }}: {{ totalSkillSPs }}
-            </v-card-subtitle>
+                    <v-icon size="x-small">mdi-information-outline</v-icon>
+                  </sup>
+                </span>
+              </v-card-subtitle>
+              <v-card-subtitle>
+                {{ t('scoreCalc.headers.totalSP') }}: {{ totalSkillSPs }}
+              </v-card-subtitle>
 
-            <!-- <DevOnly>
+              <!-- <DevOnly>
               <v-card-subtitle
                 v-for="stat in STATS"
                 :key="stat"
@@ -46,49 +47,68 @@
                 {{ t(`global.stats.${stat}`) }}: {{ stats[stat] }}
               </v-card-subtitle>
             </DevOnly> -->
+            </div>
 
-            <v-spacer />
-
-            <v-card-actions>
-              <v-btn
-                :disabled="!unit"
-                class="ms-2"
-                size="small"
-                :text="t('scoreCalc.cta.loadMaxScore')"
-                variant="outlined"
-                @click="loadMaxScore"
+            <div style="height: 100px">
+              <CompoUnitThumbnail
+                v-if="unit"
+                :unit="unit"
+                :blessing="unitInstance.blessing"
+                :size="THUMBNAIL_SIZE"
+                :size-corner="25"
+                :margin="12"
+                :margin-icon="-9"
+                class="cursor-pointer"
+                @click="storeGlobals.showUnit(unit.id)"
               />
-            </v-card-actions>
+              <v-sheet
+                v-else
+                class="ma-3 d-flex justify-center align-center"
+                tile
+                :height="THUMBNAIL_SIZE"
+                :width="THUMBNAIL_SIZE"
+                color="transparent"
+              >
+                <v-icon :size="THUMBNAIL_SIZE">mdi-account-question</v-icon>
+              </v-sheet>
+            </div>
           </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            v-show="isClosable"
+            size="small"
+            variant="outlined"
+            @click="$emit('toggle-details')"
+          >
+            {{
+              isClosed
+                ? t('scoreCalc.cta.showDetails')
+                : t('scoreCalc.cta.hideDetails')
+            }}
+            <AppChevronRight :is-open="!isClosed" />
+          </v-btn>
 
-          <div :style="{ height: '175px' }">
-            <CompoUnitThumbnail
-              v-if="unit"
-              :unit="unit"
-              :blessing="unitInstance.blessing"
-              :size="THUMBNAIL_SIZE"
-              :size-corner="40"
-              :margin="20"
-              :margin-icon="-10"
-              class="cursor-pointer"
-              @click="storeGlobals.showUnit(unit.id)"
-            />
-            <v-sheet
-              v-else
-              class="ma-5 d-flex justify-center align-center"
-              tile
-              :height="THUMBNAIL_SIZE"
-              :width="THUMBNAIL_SIZE"
-              color="transparent"
-            >
-              <v-icon size="100">mdi-account-question</v-icon>
-            </v-sheet>
-          </div>
-        </div>
+          <v-spacer v-show="isClosable" />
+
+          <v-btn
+            :disabled="!unit"
+            size="small"
+            :text="t('scoreCalc.cta.loadMaxScore')"
+            variant="outlined"
+            @click="loadMaxScore"
+          />
+        </v-card-actions>
       </v-card>
     </v-card-title>
 
-    <v-card-text class="fill-height d-flex flex-column pt-3">
+    <v-card-text
+      class="fill-height flex-column pt-3"
+      :class="{
+        'd-none': isClosed && isClosable,
+        'd-flex': !isClosed || !isClosable,
+      }"
+    >
       <v-overlay
         :model-value="isLoading"
         contained
@@ -299,7 +319,7 @@ import {
   WEAPON_FAMILY_FOR_TYPE,
 } from '~/utils/types/weapons'
 
-const THUMBNAIL_SIZE = 125
+const THUMBNAIL_SIZE = 70
 
 const emit = defineEmits([
   'select-unit',
@@ -307,6 +327,8 @@ const emit = defineEmits([
   'replace-unit',
   'select-skill',
   'select-sp',
+  'update-score',
+  'toggle-details',
 ])
 const props = withDefaults(
   defineProps<{
@@ -314,13 +336,16 @@ const props = withDefaults(
     unitInstance: IUnitInstanceInScoreCalc
     index: number
     isLoading?: boolean
+    isClosed?: boolean
   }>(),
   {
     isLoading: false,
+    isClosed: false,
   },
 )
 
 const { t } = useI18n()
+const { smAndDown } = useDisplay()
 const { itemsForStats, itemsForElements } = useSelects()
 const {
   unit,
@@ -344,7 +369,7 @@ const {
   needsDuelSkill,
 } = useUnitScore(toRef(props, 'unitInstance'), toRef(props, 'scoreContext'))
 watch(baseScore, () => {
-  updateUnit('score', baseScore.value)
+  emit('update-score', baseScore.value)
 })
 
 const storeGlobals = useStoreGlobals()
@@ -360,6 +385,7 @@ const isLoaded = computed(
     storeDataSkillsAvailabilities.isLoaded,
 )
 
+const isClosable = computed(() => smAndDown.value)
 const isBlessingDisabled = computed(() => !unit.value || !!unit.value.element)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -372,7 +398,6 @@ function loadMaxScore() {
 
   const newUnitInstance: IUnitInstanceInScoreCalc = {
     id: props.unitInstance.id,
-    score: 0,
 
     skillIds: getEmptyUnitInstanceSkillIds(),
     skillSPs: getEmptyUnitInstanceSkillSPs(),

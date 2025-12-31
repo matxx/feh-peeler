@@ -66,7 +66,10 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title class="bg-primary d-flex justify-space-evenly">
+          <v-card-title
+            class="bg-primary d-flex justify-space-evenly"
+            :class="{ 'flex-column': smAndDown }"
+          >
             <div>
               <span>{{ t('scoreCalc.headers.score') }}:</span>
               {{ noUnit ? '-' : scoreRounded }}
@@ -93,7 +96,10 @@
           <v-card-text class="pa-0">
             <v-container fluid>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="6"
+                  md="3"
+                >
                   <v-checkbox
                     v-model="hasBonusUnit"
                     :label="t('scoreCalc.labels.hasBonusUnit')"
@@ -101,7 +107,10 @@
                     hide-details
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="6"
+                  md="3"
+                >
                   <v-switch
                     v-model="isMjolnirStrike"
                     density="compact"
@@ -115,7 +124,10 @@
                 </v-col>
 
                 <template v-if="isMjolnirStrike">
-                  <v-col>
+                  <v-col
+                    cols="6"
+                    md="3"
+                  >
                     <v-select
                       v-model="mjolnirStrikeMajor"
                       :items="itemsForElementsMythic"
@@ -123,8 +135,12 @@
                       density="compact"
                       hide-details
                       :label="t('scoreCalc.labels.majorBlessing')"
-                  /></v-col>
-                  <v-col>
+                    />
+                  </v-col>
+                  <v-col
+                    cols="6"
+                    md="3"
+                  >
                     <v-select
                       v-model="mjolnirStrikeMinor"
                       :items="itemsForElementsMythic"
@@ -136,7 +152,10 @@
                   </v-col>
                 </template>
                 <template v-else>
-                  <v-col>
+                  <v-col
+                    cols="6"
+                    md="3"
+                  >
                     <v-select
                       v-model="seasonElements[0]"
                       :items="itemsForElementsLegendary"
@@ -148,7 +167,10 @@
                       "
                     />
                   </v-col>
-                  <v-col>
+                  <v-col
+                    cols="6"
+                    md="3"
+                  >
                     <v-select
                       v-model="seasonElements[1]"
                       :items="itemsForElementsLegendary"
@@ -172,18 +194,23 @@
       <v-col
         v-for="(unit, index) in units"
         :key="index"
-        :cols="mobile ? 12 : 3"
+        cols="12"
+        sm="6"
+        md="3"
       >
         <ScoreCalcUnitCard
           :score-context="scoreContext"
           :unit-instance="unit"
           :index="index"
           :is-loading="isLoading"
+          :is-closed="areUnitsDetailsClosed[index]"
           @select-unit="selectUnit(unit, $event)"
           @update-unit="updateUnit(unit, $event)"
           @replace-unit="replaceUnit(index, $event)"
           @select-skill="selectSkill(unit, $event)"
           @select-sp="selectSp(unit, $event)"
+          @update-score="updateScore(index, $event)"
+          @toggle-details="toggleDetails(index)"
         />
       </v-col>
     </v-row>
@@ -210,7 +237,7 @@
           >
             <template #link>
               <NuxtLink :to="localePath('units-maximum-scores')">
-                {{ t('scoreCalc.tips.here') }}
+                {{ t('global.here') }}
               </NuxtLink>
             </template>
           </i18n-t>
@@ -258,7 +285,7 @@ import { objectFromEntries } from '~/utils/functions/typeSafe'
 import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
-const { mobile } = useDisplay()
+const { sm, smAndDown } = useDisplay()
 const localePath = useLocalePath()
 const { itemsForElementsLegendary, itemsForElementsMythic } = useSelects()
 
@@ -293,6 +320,12 @@ const mjolnirStrikeMajor = ref<ElementMythic | null>(
 const mjolnirStrikeMinor = ref<ElementMythic | null>(
   DEFAULT_VALUES.mjolnirStrikeMinor,
 )
+
+const unitsScores = ref(units.value.map((_) => 0))
+const areUnitsDetailsClosed = ref(units.value.map((_) => true))
+onMounted(() => {
+  units.value.map((_) => smAndDown.value)
+})
 
 const noUnit = computed(() => filter(units.value, 'id').length === 0)
 
@@ -342,6 +375,21 @@ function selectSp(
   unit.skillIds[category] = undefined
   unit.skillSPs[category] = sp
 }
+function updateScore(index: number, score: number) {
+  unitsScores.value[index] = score
+}
+function toggleDetails(index: number) {
+  areUnitsDetailsClosed.value[index] = !areUnitsDetailsClosed.value[index]
+  if (!sm.value) return
+
+  // on MD breakpoint, there are 2 units side by side
+  // make sure to open/close details for both units
+  if (index % 2 === 0) {
+    areUnitsDetailsClosed.value[index + 1] = areUnitsDetailsClosed.value[index]
+  } else {
+    areUnitsDetailsClosed.value[index - 1] = areUnitsDetailsClosed.value[index]
+  }
+}
 
 function confirmReset() {
   if (!confirm(t('global.confirmReset'))) return
@@ -373,9 +421,7 @@ const scoreContext = computed<ScoreContext>(() => ({
   },
 }))
 
-const averageScore = computed(
-  () => TEAM_BASE_SCORE + mean(units.value.map((u) => u.score)),
-)
+const averageScore = computed(() => TEAM_BASE_SCORE + mean(unitsScores.value))
 const scoreRounded = computed(
   () => scoreContext.value.bonusFactor * Math.floor(averageScore.value),
 )

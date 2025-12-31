@@ -17,8 +17,6 @@ export const MAX_MERGES = 10
 export const GROWTH_RATE_DIFF = 5
 
 export interface IUnitInstanceInScoreCalc extends IUnitInstance {
-  score: number
-
   rarity: number
   level: number
   merges: number
@@ -74,8 +72,6 @@ export function getEmptyUnitInstanceSkillSPs(): TBySkillCategory<
 export function getEmptyUnitInstanceInScoreCalc(): IUnitInstanceInScoreCalc {
   return {
     ...getEmptyUnitInstance(),
-
-    score: 0,
 
     rarity: 5,
     level: 40,

@@ -777,6 +777,8 @@ export default {
     },
     cta: {
       loadMaxScore: 'Load Max Score',
+      showDetails: 'Show Details',
+      hideDetails: 'Hide Details',
     },
     tips: {
       header: 'Tips to increase your score:',
