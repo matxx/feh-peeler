@@ -28,6 +28,11 @@
     </v-app-bar-title>
 
     <v-spacer v-show="!mobile" />
+    <DevOnly>
+      <v-app-bar-title>
+        {{ name }}
+      </v-app-bar-title>
+    </DevOnly>
 
     <v-menu>
       <template #activator="{ props: menuProps }">
@@ -106,7 +111,7 @@ import { THEMES } from '~/utils/types/themes'
 
 const isDrawerOpen = defineModel<boolean>('is-drawer-open')
 
-const { mobile } = useDisplay()
+const { mobile, name } = useDisplay()
 const { t } = useI18n()
 const route = useRoute()
 const storeTheme = useStoreTheme()
