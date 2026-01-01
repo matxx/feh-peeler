@@ -18,18 +18,6 @@
     </div>
 
     <div class="mt-1">
-      <v-select
-        v-model="filters.theme"
-        :items="itemsForThemes"
-        clearable
-        density="compact"
-        hide-details
-        class="mb-2"
-        :label="t('units.filters.buttons.theme')"
-      />
-    </div>
-
-    <div class="mt-1">
       <AppFiltersOnAvailability
         :size="SIZE"
         :availabilities="filters.availabilities"
@@ -555,6 +543,56 @@
     </div>
 
     <div class="mt-1">
+      <v-select
+        v-model="filters.books"
+        :items="itemsForBooks"
+        multiple
+        clearable
+        density="compact"
+        hide-details
+        :label="t('units.filters.selects.books')"
+      />
+    </div>
+
+    <div class="mt-1">
+      <v-select
+        v-model="filters.themes"
+        :items="itemsForThemes"
+        multiple
+        clearable
+        density="compact"
+        hide-details
+        :label="t('units.filters.selects.themes')"
+      />
+    </div>
+
+    <template v-if="storeDataConstants.constants">
+      <div class="mt-1">
+        <v-select
+          v-model="filters.games"
+          :items="storeDataConstants.constants.games"
+          multiple
+          clearable
+          density="compact"
+          hide-details
+          :label="t('units.filters.selects.games')"
+        />
+      </div>
+
+      <div class="mt-1">
+        <v-select
+          v-model="filters.genders"
+          :items="storeDataConstants.constants.units_genders"
+          multiple
+          clearable
+          density="compact"
+          hide-details
+          :label="t('units.filters.selects.genders')"
+        />
+      </div>
+    </template>
+
+    <div class="mt-3">
       <h4>
         {{ t('units.filters.headers.stats') }}
       </h4>
@@ -607,6 +645,7 @@ import { cycleState } from '~/utils/functions/cycleState'
 import { iconForBool } from '~/utils/functions/iconFor'
 import type { Availability } from '~/utils/types/units-availabilities'
 import { ALL_THEMES } from '~/utils/types/units-themes'
+import { BOOKS_COUNT } from '~/utils/types/constants'
 
 const SIZE = 24
 
@@ -717,6 +756,10 @@ const itemsForThemes = sortBy(
     title: t(`units.themes.${theme}`),
   })),
   'title',
+)
+
+const itemsForBooks = Array.from({ length: BOOKS_COUNT }).map(
+  (_, index) => index + 1,
 )
 </script>
 

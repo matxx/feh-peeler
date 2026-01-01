@@ -3,6 +3,7 @@ import some from 'lodash-es/some'
 import every from 'lodash-es/every'
 import filter from 'lodash-es/filter'
 import orderBy from 'lodash-es/orderBy'
+import intersection from 'lodash-es/intersection'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
@@ -191,7 +192,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
   const anyFilterActiveExceptName = computed(
     () =>
-      filters.value.theme !== null ||
+      filters.value.books.length > 0 ||
+      filters.value.themes.length > 0 ||
+      filters.value.games.length > 0 ||
+      filters.value.genders.length > 0 ||
       filters.value.traits.size > 0 ||
       filters.value.moves.size > 0 ||
       filters.value.weapons.size > 0 ||
@@ -245,7 +249,29 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
-        filters.value.theme === null ? true : filters.value.theme === u.theme,
+        filters.value.books.length === 0
+          ? true
+          : filters.value.books.includes(u.book),
+      ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filters.value.themes.length === 0
+          ? true
+          : !u.theme
+            ? false
+            : filters.value.themes.includes(u.theme),
+      ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filters.value.games.length === 0
+          ? true
+          : intersection(filters.value.games, u.games).length > 0,
+      ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filters.value.genders.length === 0
+          ? true
+          : filters.value.genders.includes(u.gender),
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>

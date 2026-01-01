@@ -1,5 +1,6 @@
 import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
+import type { Gender } from '~/utils/types/units'
 import type { Availability } from '~/utils/types/units-availabilities'
 import type { IUnitStatMinMax } from '~/utils/types/units-stats'
 import type { UnitTheme } from '~/utils/types/units-themes'
@@ -82,7 +83,11 @@ export type Trait =
 
 export interface IFilters {
   name: string | null
-  theme: UnitTheme | null
+
+  themes: UnitTheme[]
+  games: string[]
+  genders: Gender[]
+  books: number[]
 
   weapons: Set<ExtendedWeaponType>
   moves: Set<MoveType>
@@ -108,7 +113,11 @@ export interface IFilters {
 
 export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   name: null,
-  theme: null,
+
+  themes: [],
+  games: [],
+  genders: [],
+  books: [],
 
   weapons: new Set(),
   moves: new Set(),

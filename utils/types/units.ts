@@ -18,6 +18,7 @@ import {
 } from '~/utils/types/units-availabilities'
 import type { Element } from '~/utils/types/units-filters'
 import type { StatOrNone } from '~/utils/types/units-stats'
+import type { UnitTheme } from '~/utils/types/units-themes'
 
 export type UnitId = string
 
@@ -80,17 +81,7 @@ export interface IUnitThumbnail {
   is_chosen?: true
 }
 
-type Gender =
-  | 'Male'
-  | 'Female'
-  | 'MF'
-  | 'FF'
-  | 'N'
-  | 'MM'
-  | 'F'
-  | 'M'
-  | 'FM'
-  | 'NF'
+export type Gender = 'F' | 'FF' | 'FM' | 'M' | 'MF' | 'MM' | 'N' | 'NF'
 
 export interface IUnitData {
   id: UnitId
@@ -113,6 +104,8 @@ export interface IUnitData {
   book: number
   origin: string
   gender: Gender
+  games: string[]
+
   has_respl?: true // has resplendent attire
 
   is_brave?: true
@@ -146,7 +139,7 @@ export interface IUnitData {
   // visible_bst: number
   max_score: number
   max_df: number
-  theme?: string
+  theme?: UnitTheme
 
   addition_date: string
   release_date: string

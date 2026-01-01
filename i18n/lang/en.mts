@@ -487,7 +487,12 @@ export default {
       buttons: {
         isGHB: 'GHB',
         isTT: 'TT',
-        theme: 'Theme',
+      },
+      selects: {
+        books: 'Books',
+        themes: 'Themes',
+        games: 'Games',
+        genders: 'Genders',
       },
       tooltips: {
         hasPrfWeapon: 'PRF Weapon',
