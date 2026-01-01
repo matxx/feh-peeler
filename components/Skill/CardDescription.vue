@@ -1,14 +1,18 @@
 <template>
   <v-card class="ma-1">
     <v-card-title class="d-flex justify-space-between align-center">
-      <div class="d-flex align-center">
+      <NuxtLink
+        class="d-flex align-center"
+        href="#"
+        @click.prevent="storeGlobals.showSkill(skill.id)"
+      >
         <SkillImg
           :skill="skill"
           :size="size"
           class="mr-2"
         />
         {{ skill.name }}
-      </div>
+      </NuxtLink>
       <div>
         <SkillImgCategory
           :category="skill.category"
@@ -26,4 +30,5 @@
 <script setup lang="ts">
 import type { ISkill } from '~/utils/types/skills'
 defineProps<{ skill: ISkill; size: number }>()
+const storeGlobals = useStoreGlobals()
 </script>
