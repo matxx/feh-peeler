@@ -221,7 +221,7 @@
       </div>
     </div>
 
-    <div class="mt-1">
+    <div class="mt-3">
       <h4>
         {{ t('skills.filters.headers.whoCanInherit') }}
       </h4>
@@ -274,7 +274,7 @@
       </v-btn-group>
     </div>
 
-    <div class="mt-1">
+    <div class="mt-3">
       <h4>
         {{ t('skills.filters.headers.stats') }}
       </h4>
@@ -301,7 +301,7 @@
       </div>
     </div>
 
-    <div class="mt-1">
+    <div class="mt-3">
       <h4>
         {{ t('skills.filters.headers.preInheritance') }}
       </h4>

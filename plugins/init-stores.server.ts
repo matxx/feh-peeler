@@ -15,6 +15,15 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   promises.push(useStoreDataAccents().load())
   promises.push(useStoreDataConstants().load())
 
+  const storeFodderSettings = useStoreFodderSettings()
+  if (hasOwnProp(session.data, 'fodderAvailabilities')) {
+    promises.push(
+      storeFodderSettings.asynSetFodderAvailabilities(
+        session.data.fodderAvailabilities,
+      ),
+    )
+  }
+
   const storeSearches = useStoreSearches()
   if (hasOwnProp(session.data, 'useRegExp')) {
     promises.push(storeSearches.asyncSetUseRegExp(session.data.useRegExp))

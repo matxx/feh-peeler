@@ -20,6 +20,15 @@ export default {
     total: 'Total',
 
     here: 'here',
+    other: 'other',
+
+    headers: {
+      settings: 'Settings',
+    },
+    cta: {
+      cancel: 'cancel',
+      submit: 'submit',
+    },
 
     inpiredBy: 'Inspired by',
     post: 'post | post | posts',
@@ -392,6 +401,8 @@ export default {
   },
 
   unitsFodder: {
+    chooseTheOrderOfTheBridgeFodderConsidered:
+      'Choose the order of the bridge fodder considered',
     numberOfSlotsRequiredToInherit: 'Number of slots required to inherit',
     skillKind: 'Skill kind',
     skillName: 'Skill name',

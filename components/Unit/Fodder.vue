@@ -14,6 +14,8 @@
 
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
+    <UnitFodderSettings />
+
     <div class="mb-3">
       {{ t('global.inpiredBy') }}
       <!-- eslint-disable vue/html-closing-bracket-newline -->
@@ -72,7 +74,7 @@
               </NuxtLink>
             </th>
             <td
-              v-for="avail in selectedAvailabilities"
+              v-for="avail in storeFodderSettings.fodderAvailabilities"
               :key="avail"
               class="text-center"
             >
@@ -90,7 +92,7 @@
                         skill,
                         false,
                         avail,
-                        selectedAvailabilities,
+                        storeFodderSettings.fodderAvailabilities,
                       )
                     "
                     :has-ref-special="
@@ -121,7 +123,7 @@
           <th />
           <th>{{ t('unitsFodder.totals') }}</th>
           <td
-            v-for="(avail, index) in selectedAvailabilities"
+            v-for="(avail, index) in storeFodderSettings.fodderAvailabilities"
             :key="avail"
             class="text-center"
           >
@@ -158,7 +160,10 @@
               <p>{{ t('unitsFodder.usingBridgeFodderFrom') }}:</p>
               <ul class="pl-3">
                 <li
-                  v-for="av in take(selectedAvailabilities, index + 1)"
+                  v-for="av in take(
+                    storeFodderSettings.fodderAvailabilities,
+                    index + 1,
+                  )"
                   :key="av"
                 >
                   {{ t(`unitsFodder.availabilities.${av}`) }}
@@ -206,7 +211,6 @@ import {
   type TBySkillCategory,
   type SkillId,
 } from '~/utils/types/skills'
-import { AVAILABILITIES } from '~/utils/types/skills-availabilities'
 import type { IUnit } from '~/utils/types/units'
 import {
   objectFromEntries,
@@ -221,14 +225,13 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const storeGlobals = useStoreGlobals()
+const storeFodderSettings = useStoreFodderSettings()
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
 const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 
 const DEFAULT_IS_UNIT_FIVE_STAR_LOCKED = false
-
-const selectedAvailabilities = ref(AVAILABILITIES)
 
 const availability = computed(
   () => storeDataUnitsAvailabilities.availabilitiesById[props.unit.id],
@@ -287,7 +290,7 @@ const relevantSkillIdByCategory = computed<
 
 const relevantSkillByCategoryByAv = computed(() =>
   objectFromEntries(
-    selectedAvailabilities.value.map((avail) => [
+    storeFodderSettings.fodderAvailabilities.map((avail) => [
       avail,
       mapValues(relevantSkillIdByCategory.value, (skillId) =>
         skillId ? storeDataSkills.skillsById[skillId] : undefined,
@@ -298,7 +301,7 @@ const relevantSkillByCategoryByAv = computed(() =>
 
 const totals = computed(() =>
   objectFromEntries(
-    selectedAvailabilities.value.map((avail) => [
+    storeFodderSettings.fodderAvailabilities.map((avail) => [
       avail,
       sumBy(values(relevantSkillByCategoryByAv.value[avail]), (skill) =>
         skill
@@ -306,7 +309,7 @@ const totals = computed(() =>
               skill,
               isUnitFiveStarLocked.value,
               avail,
-              selectedAvailabilities.value,
+              storeFodderSettings.fodderAvailabilities,
             )
           : 0,
       ),

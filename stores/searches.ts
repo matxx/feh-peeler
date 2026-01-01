@@ -42,8 +42,11 @@ export const useStoreSearches = defineStore('searches', () => {
   }
   watch(useRegExp, storeInSession)
 
-  async function asyncSetUseRegExp(value: boolean) {
+  function setUseRegExp(value: boolean) {
     useRegExp.value = value
+  }
+  async function asyncSetUseRegExp(value: boolean) {
+    await setUseRegExp(value)
   }
 
   return {

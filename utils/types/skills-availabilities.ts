@@ -31,6 +31,23 @@ export type Availability =
   | typeof AV_SPECIAL_POOL_45
 
 export const AVAILABILITIES: Availability[] = [
+  AV_HEROIC_GRAILS,
+  AV_DIVINE_CODES,
+  AV_GENERIC_POOL_34,
+  AV_SPECIAL_POOL_4,
+  AV_GENERIC_POOL_45,
+  AV_SPECIAL_POOL_45,
+]
+
+export const AVAILABILITIES_WO_DC: Availability[] = [
+  AV_GENERIC_POOL_34,
+  AV_HEROIC_GRAILS,
+  AV_SPECIAL_POOL_4,
+  AV_GENERIC_POOL_45,
+  AV_SPECIAL_POOL_45,
+]
+
+export const AVAILABILITIES_DC_BEFORE_S4: Availability[] = [
   AV_GENERIC_POOL_34,
   AV_HEROIC_GRAILS,
   AV_DIVINE_CODES,
@@ -38,6 +55,17 @@ export const AVAILABILITIES: Availability[] = [
   AV_GENERIC_POOL_45,
   AV_SPECIAL_POOL_45,
 ]
+
+export const AVAILABILITIES_S4_BEFORE_DC: Availability[] = [
+  AV_GENERIC_POOL_34,
+  AV_HEROIC_GRAILS,
+  AV_SPECIAL_POOL_4,
+  AV_DIVINE_CODES,
+  AV_GENERIC_POOL_45,
+  AV_SPECIAL_POOL_45,
+]
+
+export const DEFAULT_FODDER_AVAILABILITIES = AVAILABILITIES_WO_DC
 
 export interface ISkillAvailability {
   id: SkillId
