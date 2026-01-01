@@ -31,11 +31,11 @@ export const SORT_THEME = 'theme'
 export const SORT_MOVE = 'move_type'
 export const SORT_WEAP = 'weapon_type'
 export const SORT_AVAILABILITY = 'availability'
-export const SORT_IV_HP = 'HP'
-export const SORT_IV_ATK = 'Atk'
-export const SORT_IV_SPD = 'Spd'
-export const SORT_IV_DEF = 'Def'
-export const SORT_IV_RES = 'Res'
+export const SORT_STAT_HP = 'HP'
+export const SORT_STAT_ATK = 'Atk'
+export const SORT_STAT_SPD = 'Spd'
+export const SORT_STAT_DEF = 'Def'
+export const SORT_STAT_RES = 'Res'
 
 // special key to disable sorting
 export const SORT_NOTHING = 'nothing'
@@ -63,11 +63,11 @@ export type SortingField =
   | typeof SORT_MOVE
   | typeof SORT_WEAP
   | typeof SORT_AVAILABILITY
-  | typeof SORT_IV_HP
-  | typeof SORT_IV_ATK
-  | typeof SORT_IV_SPD
-  | typeof SORT_IV_DEF
-  | typeof SORT_IV_RES
+  | typeof SORT_STAT_HP
+  | typeof SORT_STAT_ATK
+  | typeof SORT_STAT_SPD
+  | typeof SORT_STAT_DEF
+  | typeof SORT_STAT_RES
   // special
   | typeof SORT_NOTHING
 
@@ -107,11 +107,11 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [unitsColumns.COLUMN_MOVE]: SORT_MOVE,
   [unitsColumns.COLUMN_WEAPON]: SORT_WEAP,
   [unitsColumns.COLUMN_AVAILABILITY]: SORT_AVAILABILITY,
-  [unitsColumns.COLUMN_STAT_HP]: SORT_IV_HP,
-  [unitsColumns.COLUMN_STAT_ATK]: SORT_IV_ATK,
-  [unitsColumns.COLUMN_STAT_SPD]: SORT_IV_SPD,
-  [unitsColumns.COLUMN_STAT_DEF]: SORT_IV_DEF,
-  [unitsColumns.COLUMN_STAT_RES]: SORT_IV_RES,
+  [unitsColumns.COLUMN_STAT_HP]: SORT_STAT_HP,
+  [unitsColumns.COLUMN_STAT_ATK]: SORT_STAT_ATK,
+  [unitsColumns.COLUMN_STAT_SPD]: SORT_STAT_SPD,
+  [unitsColumns.COLUMN_STAT_DEF]: SORT_STAT_DEF,
+  [unitsColumns.COLUMN_STAT_RES]: SORT_STAT_RES,
   [unitsColumns.COLUMN_ORIGIN]: SORT_ORIGIN,
   [unitsColumns.COLUMN_ID_INT]: SORT_ID_INT,
 }

@@ -26,11 +26,11 @@ import {
   SORT_MOVE,
   SORT_WEAP,
   SORT_AVAILABILITY,
-  SORT_IV_HP,
-  SORT_IV_ATK,
-  SORT_IV_SPD,
-  SORT_IV_DEF,
-  SORT_IV_RES,
+  SORT_STAT_HP,
+  SORT_STAT_ATK,
+  SORT_STAT_SPD,
+  SORT_STAT_DEF,
+  SORT_STAT_RES,
   SORT_THEME,
   SORT_NOTHING,
   createEmptySorters,
@@ -329,19 +329,19 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
           case SORT_AVAILABILITY:
             return (unit: IUnit) =>
               storeDataUnitsAvailabilities.availabilitySortingValue(unit)
-          case SORT_IV_HP:
+          case SORT_STAT_HP:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_hp
-          case SORT_IV_ATK:
+          case SORT_STAT_ATK:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_atk
-          case SORT_IV_SPD:
+          case SORT_STAT_SPD:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_spd
-          case SORT_IV_DEF:
+          case SORT_STAT_DEF:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_def
-          case SORT_IV_RES:
+          case SORT_STAT_RES:
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_res
           case SORT_THEME:
