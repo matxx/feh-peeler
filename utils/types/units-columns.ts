@@ -11,11 +11,11 @@ export const COLUMN_GENERATION = 'generation'
 export const COLUMN_BOOK = 'book'
 export const COLUMN_RELEASE_DATE = 'release_date'
 export const COLUMN_GAME = 'game'
-export const COLUMN_IV_HP = 'HP'
-export const COLUMN_IV_ATK = 'Atk'
-export const COLUMN_IV_SPD = 'Spd'
-export const COLUMN_IV_DEF = 'Def'
-export const COLUMN_IV_RES = 'Res'
+export const COLUMN_STAT_HP = 'HP'
+export const COLUMN_STAT_ATK = 'Atk'
+export const COLUMN_STAT_SPD = 'Spd'
+export const COLUMN_STAT_DEF = 'Def'
+export const COLUMN_STAT_RES = 'Res'
 export const COLUMN_BST = 'bst'
 export const COLUMN_ELEMENT = 'element'
 export const COLUMN_ARTIST = 'artist'
@@ -27,16 +27,25 @@ export const COLUMN_ID_INT = 'id_int'
 export const COLUMN_THEME = 'theme'
 export const COLUMN_MAX_DRAGONFLOWERS = 'max_df'
 
+export const COLUMNS_OF_STAT = [
+  COLUMN_STAT_HP,
+  COLUMN_STAT_ATK,
+  COLUMN_STAT_SPD,
+  COLUMN_STAT_DEF,
+  COLUMN_STAT_RES,
+  COLUMN_BST,
+]
+
 export const DEFAULT_COLUMNS = [
   COLUMN_AVAILABILITY,
   COLUMN_WEAPON,
   COLUMN_MOVE,
   COLUMN_VERSION,
-  COLUMN_IV_HP,
-  COLUMN_IV_ATK,
-  COLUMN_IV_SPD,
-  COLUMN_IV_DEF,
-  COLUMN_IV_RES,
+  COLUMN_STAT_HP,
+  COLUMN_STAT_ATK,
+  COLUMN_STAT_SPD,
+  COLUMN_STAT_DEF,
+  COLUMN_STAT_RES,
   COLUMN_BST,
 ]
 
@@ -55,11 +64,11 @@ export const ALL_COLUMNS = [
   COLUMN_BOOK,
   COLUMN_RELEASE_DATE,
   // COLUMN_GAME,
-  COLUMN_IV_HP,
-  COLUMN_IV_ATK,
-  COLUMN_IV_SPD,
-  COLUMN_IV_DEF,
-  COLUMN_IV_RES,
+  COLUMN_STAT_HP,
+  COLUMN_STAT_ATK,
+  COLUMN_STAT_SPD,
+  COLUMN_STAT_DEF,
+  COLUMN_STAT_RES,
   COLUMN_BST,
   COLUMN_MAX_DRAGONFLOWERS,
   // COLUMN_ELEMENT,
@@ -84,11 +93,11 @@ export const COLUMNS_IN_FILTERS = [
   COLUMN_BOOK,
   COLUMN_RELEASE_DATE,
   // COLUMN_GAME,
-  COLUMN_IV_HP,
-  COLUMN_IV_ATK,
-  COLUMN_IV_SPD,
-  COLUMN_IV_DEF,
-  COLUMN_IV_RES,
+  COLUMN_STAT_HP,
+  COLUMN_STAT_ATK,
+  COLUMN_STAT_SPD,
+  COLUMN_STAT_DEF,
+  COLUMN_STAT_RES,
   COLUMN_BST,
   COLUMN_MAX_DRAGONFLOWERS,
   // COLUMN_ELEMENT,

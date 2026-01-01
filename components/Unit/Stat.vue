@@ -103,6 +103,10 @@
         </tr>
       </tfoot>
     </v-table>
+
+    <p class="mt-3">
+      {{ t('units.index.statsDisplayedAre5starLevel40plus0') }}
+    </p>
   </AppRenderOnceWhileActive>
 </template>
 

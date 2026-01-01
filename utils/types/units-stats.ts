@@ -3,6 +3,7 @@ import type { IConstants } from '@/utils/types/constants'
 
 export const BANE = 'bane'
 export const BOON = 'boon'
+export const NULL = 'null'
 export type IV = typeof BANE | typeof BOON
 
 export const HP = 'hp'
@@ -24,7 +25,7 @@ export const STATS_AND_BST: StatOrBST[] = [HP, ATK, SPD, DEF, RES, BST]
 export const STATS_IVS_COLORS = {
   [BANE]: 'text-red',
   [BOON]: 'text-blue',
-  null: undefined,
+  [NULL]: undefined,
 }
 
 export const STATS_NAMES = {

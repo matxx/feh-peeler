@@ -135,11 +135,11 @@
         />
       </template>
 
-      <template #[`item.${unitsColumns.COLUMN_IV_HP}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_STAT_HP}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
-              storeDataUnitsStats.statsById[item.id]?.iv_hp || 'null'
+              storeDataUnitsStats.statsById[item.id]?.iv_hp || NULL
             ]
           "
         >
@@ -147,11 +147,11 @@
         </strong>
       </template>
 
-      <template #[`item.${unitsColumns.COLUMN_IV_ATK}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_STAT_ATK}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
-              storeDataUnitsStats.statsById[item.id]?.iv_atk || 'null'
+              storeDataUnitsStats.statsById[item.id]?.iv_atk || NULL
             ]
           "
         >
@@ -159,11 +159,11 @@
         </strong>
       </template>
 
-      <template #[`item.${unitsColumns.COLUMN_IV_SPD}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_STAT_SPD}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
-              storeDataUnitsStats.statsById[item.id]?.iv_spd || 'null'
+              storeDataUnitsStats.statsById[item.id]?.iv_spd || NULL
             ]
           "
         >
@@ -171,11 +171,11 @@
         </strong>
       </template>
 
-      <template #[`item.${unitsColumns.COLUMN_IV_DEF}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_STAT_DEF}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
-              storeDataUnitsStats.statsById[item.id]?.iv_def || 'null'
+              storeDataUnitsStats.statsById[item.id]?.iv_def || NULL
             ]
           "
         >
@@ -183,11 +183,11 @@
         </strong>
       </template>
 
-      <template #[`item.${unitsColumns.COLUMN_IV_RES}`]="{ item }">
+      <template #[`item.${unitsColumns.COLUMN_STAT_RES}`]="{ item }">
         <strong
           :class="
             STATS_IVS_COLORS[
-              storeDataUnitsStats.statsById[item.id]?.iv_res || 'null'
+              storeDataUnitsStats.statsById[item.id]?.iv_res || NULL
             ]
           "
         >
@@ -210,6 +210,13 @@
       </template>
     </v-data-table-server>
 
+    <p
+      v-if="hasStatColumn"
+      class="mt-3"
+    >
+      * {{ t('units.index.statsDisplayedAre5starLevel40plus0') }}
+    </p>
+
     <!-- TODO: generation / game / element / artist / VA -->
   </div>
 </template>
@@ -217,9 +224,10 @@
 <script setup lang="ts">
 import type { DataTableSortItem } from 'vuetify'
 import * as Sentry from '@sentry/nuxt'
+import some from 'lodash-es/some'
 import filter from 'lodash-es/filter'
 
-import { STATS_IVS_COLORS } from '~/utils/types/units-stats'
+import { STATS_IVS_COLORS, NULL } from '~/utils/types/units-stats'
 
 import * as unitsColumns from '~/utils/types/units-columns'
 import * as unitsSorters from '~/utils/types/units-sorters'
@@ -260,7 +268,7 @@ const columnsMobile = computed({
     columns.value = new Set(newColumns)
   },
 })
-
+// statsDisplayedAre5starLevel40plus0
 interface Header {
   title: string
   key: string
@@ -273,11 +281,14 @@ const headers = computed<Header[]>(() =>
     (column) =>
       column == unitsColumns.COLUMN_THUMBNAIL || columns.value.has(column),
   ).map((column) => ({
-    title: t(`units.index.headers.${column}`),
+    title: `${t(`units.index.headers.${column}`)}${unitsColumns.COLUMNS_OF_STAT.includes(column) ? '*' : ''}`,
     key: column,
     align: unitsColumns.COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
     sortable: column !== unitsColumns.COLUMN_THUMBNAIL,
   })),
+)
+const hasStatColumn = computed(() =>
+  some(unitsColumns.COLUMNS_OF_STAT, (column) => columns.value.has(column)),
 )
 
 interface Options {

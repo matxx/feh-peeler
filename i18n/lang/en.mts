@@ -420,6 +420,8 @@ export default {
     index: {
       columnsDisplayed: 'Displayed columns',
       resetSorting: 'Reset sorting',
+      statsDisplayedAre5starLevel40plus0:
+        'Stats displayed correspond to the 5★ at level 40+0',
       headers: {
         [unitsColumns.COLUMN_THUMBNAIL]: 'Thumbnail',
         [unitsColumns.COLUMN_NAME]: 'Name',
@@ -433,11 +435,11 @@ export default {
         [unitsColumns.COLUMN_BOOK]: 'Book',
         [unitsColumns.COLUMN_RELEASE_DATE]: 'Release Date',
         [unitsColumns.COLUMN_GAME]: 'Game',
-        [unitsColumns.COLUMN_IV_HP]: 'HP',
-        [unitsColumns.COLUMN_IV_ATK]: 'Atk',
-        [unitsColumns.COLUMN_IV_SPD]: 'Spd',
-        [unitsColumns.COLUMN_IV_DEF]: 'Def',
-        [unitsColumns.COLUMN_IV_RES]: 'Res',
+        [unitsColumns.COLUMN_STAT_HP]: 'HP',
+        [unitsColumns.COLUMN_STAT_ATK]: 'Atk',
+        [unitsColumns.COLUMN_STAT_SPD]: 'Spd',
+        [unitsColumns.COLUMN_STAT_DEF]: 'Def',
+        [unitsColumns.COLUMN_STAT_RES]: 'Res',
         [unitsColumns.COLUMN_BST]: 'BST',
         [unitsColumns.COLUMN_MAX_DRAGONFLOWERS]: 'Max DF',
         [unitsColumns.COLUMN_ELEMENT]: 'Element',
