@@ -34,6 +34,7 @@ npm run dev
 
 ### QoL
 
+1. modal unit->base kit: add emblem/duo/harmonized special effects
 1. modal unit/skill : update URL on open/close
 1. units: filter on ratings/grades/version/book
 1. skills: filter on ratings/grades/version/book

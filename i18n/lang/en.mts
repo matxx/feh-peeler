@@ -582,6 +582,8 @@ export default {
       },
       hof: {
         name: 'Hall of Forms',
+        tooltip:
+          'filters skills based on version and SP thresholds (it does not take into account the short period after release where a skill is not yet available in HoF)',
         title: {
           [skillsFilters.HOF_13_20]: 'Chambers 13 to 20',
           [skillsFilters.HOF_21_24]: 'Chambers 21 to 24',

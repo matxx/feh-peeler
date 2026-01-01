@@ -52,6 +52,18 @@
         <template #label>
           {{ t('skills.filters.hof.name') }}
 
+          <span
+            v-tooltip="t('skills.filters.hof.tooltip')"
+            class="ml-3"
+          >
+            <v-icon
+              color="primary"
+              size="x-small"
+            >
+              mdi-information-outline
+            </v-icon>
+          </span>
+
           <v-menu location="bottom">
             <template #activator="{ props }">
               <v-btn-group
