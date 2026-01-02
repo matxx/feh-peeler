@@ -659,7 +659,7 @@ export default {
           byTheme: {
             NY: 'New Year (banners at the beginning of the year)',
             HSp: 'Hostile Spring (january 2019)',
-            De: 'Desert (Plegian, Hatari, Sage, Nabata, Jehanna) (banners in january)',
+            De: 'Desert (banners in january) (names on game8 : Plegian, Hatari, Sage, Nabata, Jehanna)',
             V: 'Valentine (can also be called "DoD", Day of Devotion) (banners in february)',
             Sp: 'Spring (banners in march)',
             Y: 'Young (banners in april)',
@@ -672,7 +672,7 @@ export default {
             P: 'Pirate (august 2020 & 2021)',
             Th: 'Thieves (august 2022)',
             T: 'Tea (august 2023 & 2025)',
-            Da: 'Dance (called "performing arts" by game8) (september 2017, 2019 & 2020)',
+            Da: 'Dance (september 2017, 2019 & 2020 ; only composed of refreshers) (names on game8 : Performing, Soiree, Masquerade)',
             S12: 'Scions of Twelve (september 2021)',
             FT: 'Fire Tribe (september 2022)',
             WT: 'Wind Tribe (september 2023)',
