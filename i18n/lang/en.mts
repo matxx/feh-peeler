@@ -378,6 +378,12 @@ export default {
 
       'misc-stats-evolution': 'over the years',
     },
+    misc: {
+      allDataFrom: '* All data comes from {link}.',
+      fandom: 'Fandom',
+      allRatingsFrom: '* All ratings comes from {link}.',
+      game8: 'Game8',
+    },
   },
 
   layout: {

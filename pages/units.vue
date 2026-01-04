@@ -11,8 +11,6 @@
       />
     </v-overlay>
 
-    <TheInfoAboutGame8Ratings class="mb-3" />
-
     <div class="mb-3">
       <v-select
         v-show="mobile"

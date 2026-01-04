@@ -2,7 +2,6 @@
   <div class="ma-3">
     <TheWarningAboutMobile class="mb-3" />
     <TheWarningAboutLocalStorage class="mb-3" />
-    <TheInfoAboutGame8Ratings class="mb-3" />
 
     <div class="d-flex align-center mb-3">
       <v-btn

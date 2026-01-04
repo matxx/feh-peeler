@@ -1,7 +1,6 @@
 <template>
   <div class="ma-3">
     <TheWarningAboutLocalStorage class="mb-3" />
-    <TheInfoAboutGame8Ratings class="mb-3" />
 
     <v-progress-linear
       v-if="!isLoaded"

@@ -11,8 +11,6 @@
       />
     </v-overlay>
 
-    <TheInfoAboutGame8Ratings class="mb-3" />
-
     <div class="mb-3">
       <v-select
         v-show="mobile"
@@ -127,7 +125,7 @@
       </template>
 
       <template #[`item.${skillsColumns.COLUMN_PRF}`]="{ item }">
-        <AppDisplayBool :bool="item.is_prf" />
+        <AppDisplayBool :bool="!!item.is_prf" />
       </template>
       <template #[`item.${skillsColumns.COLUMN_MAX}`]="{ item }">
         <AppDisplayBool :bool="!item.upgrade_ids" />
