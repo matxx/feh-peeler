@@ -768,8 +768,7 @@ export default {
   scoreCalc: {
     headers: {
       score: 'Score',
-      offenseRange: 'Offense Range',
-      defenseScore: 'Defense Score',
+      range: 'Range',
 
       bst: 'BST',
       totalSP: 'Total SP',
@@ -797,9 +796,8 @@ export default {
       blessing: 'Blessing',
     },
     cta: {
+      details: 'Details',
       loadMaxScore: 'Load Max Score',
-      showDetails: 'Show Details',
-      hideDetails: 'Hide Details',
     },
     tips: {
       header: 'Tips to increase your score:',

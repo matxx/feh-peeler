@@ -81,12 +81,16 @@
             variant="outlined"
             @click="$emit('toggle-details')"
           >
-            {{
-              isClosed
-                ? t('scoreCalc.cta.showDetails')
-                : t('scoreCalc.cta.hideDetails')
-            }}
-            <AppChevronRight :is-open="!isClosed" />
+            {{ t('scoreCalc.cta.details') }}
+            <v-icon
+              class="ml-1"
+              right
+              :icon="
+                isClosed
+                  ? 'mdi-plus-circle-outline'
+                  : 'mdi-minus-circle-outline'
+              "
+            />
           </v-btn>
 
           <v-spacer v-show="isClosable" />

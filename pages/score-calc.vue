@@ -68,7 +68,7 @@
         <v-card>
           <v-card-title
             class="bg-primary d-flex justify-space-evenly"
-            :class="{ 'flex-column': smAndDown }"
+            :class="{ 'flex-column': xs }"
           >
             <div>
               <span>{{ t('scoreCalc.headers.score') }}:</span>
@@ -84,13 +84,9 @@
               </span>
             </div>
             <div>
-              <span>{{ t('scoreCalc.headers.offenseRange') }}:</span>
-              {{ noUnit ? '-' : offenseScoreMin }} to
-              {{ noUnit ? '-' : offenseScoreMax }}
-            </div>
-            <div>
-              <span>{{ t('scoreCalc.headers.defenseScore') }}:</span>
-              {{ noUnit ? '-' : defenseScore }}
+              <span>{{ t('scoreCalc.headers.range') }}:</span>
+              {{ noUnit ? '-' : rangeScoreMin }} to
+              {{ noUnit ? '-' : rangeScoreMax }}
             </div>
           </v-card-title>
           <v-card-text class="pa-0">
@@ -285,7 +281,7 @@ import { objectFromEntries } from '~/utils/functions/typeSafe'
 import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
-const { sm, smAndDown } = useDisplay()
+const { xs, sm, smAndDown } = useDisplay()
 const localePath = useLocalePath()
 const { itemsForElementsLegendary, itemsForElementsMythic } = useSelects()
 
@@ -428,13 +424,12 @@ const scoreRounded = computed(
 const scoreExact = computed(
   () => scoreContext.value.bonusFactor * averageScore.value,
 )
-const defenseScore = computed(() => Math.floor(averageScore.value) * 2)
-const offenseScoreMin = computed(
+const rangeScoreMin = computed(
   () =>
     Math.floor(averageScore.value + OFFENSE_SCORE_DIFF_MIN) *
     scoreContext.value.bonusFactor,
 )
-const offenseScoreMax = computed(
+const rangeScoreMax = computed(
   () =>
     Math.floor(averageScore.value + OFFENSE_SCORE_DIFF_MAX) *
     scoreContext.value.bonusFactor,
