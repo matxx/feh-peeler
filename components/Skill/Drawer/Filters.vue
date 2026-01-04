@@ -52,17 +52,15 @@
         <template #label>
           {{ t('skills.filters.hof.name') }}
 
-          <span
+          <v-icon
             v-tooltip="t('skills.filters.hof.tooltip')"
+            color="primary"
+            size="x-small"
             class="ml-3"
+            @click.prevent
           >
-            <v-icon
-              color="primary"
-              size="x-small"
-            >
-              mdi-information-outline
-            </v-icon>
-          </span>
+            mdi-information-outline
+          </v-icon>
 
           <v-menu location="bottom">
             <template #activator="{ props }">
