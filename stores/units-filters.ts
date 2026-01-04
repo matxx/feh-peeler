@@ -176,7 +176,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const { t } = useI18n()
 
   function getNewFilters() {
-    return createFilters(storeDataConstants.defaulUnitStatsMinMax)
+    return createFilters(storeDataConstants.defaultUnitStatsMinMax)
   }
   function resetFilters() {
     filters.value = getNewFilters()
@@ -212,8 +212,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       some(
         objectEntries(filters.value.stats),
         ([stat, [min, max]]) =>
-          min > storeDataConstants.defaulUnitStatsMinMax[stat][0] ||
-          max < storeDataConstants.defaulUnitStatsMinMax[stat][1],
+          min > storeDataConstants.defaultUnitStatsMinMax[stat][0] ||
+          max < storeDataConstants.defaultUnitStatsMinMax[stat][1],
       ) ||
       false,
   )

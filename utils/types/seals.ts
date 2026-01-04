@@ -4,11 +4,20 @@ import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
 import type { IRestrictions } from '~/utils/types/skills'
 
+// only for sorting purposes (when no rating from game8)
+export const RATING_0 = '0'
+
 export type SealId = string
 
-export const TAB_DEFAULT = 'default'
-export type SealTab = typeof TAB_DEFAULT
-export const SEAL_DEFAULT_TAB = TAB_DEFAULT
+export const TAB_DETAILS = 'details'
+export const TAB_DOWNGRADES = 'downgrades'
+export const TAB_UPGRADES = 'upgrades'
+export type SealTab =
+  | typeof TAB_DETAILS
+  | typeof TAB_DOWNGRADES
+  | typeof TAB_UPGRADES
+
+export const SEAL_DEFAULT_TAB = TAB_DETAILS
 
 export interface ISealData {
   id: SealId
@@ -20,12 +29,15 @@ export interface ISealData {
   image_url: string | null
 
   sp: number
-  // tier: number
+  tier: number
 
   restrictions: {
     moves: IRestrictions<MoveType>
     weapons: IRestrictions<ExtendedWeaponType>
   }
+
+  downgrade_ids?: SealId[]
+  upgrade_ids?: SealId[]
 }
 
 export interface ISeal extends ISealData {
@@ -64,4 +76,14 @@ export function filterByName(
     !!seal.name.match(r) ||
     false
   )
+}
+
+export function filterByDescription(
+  skillDescription: ISealDescription,
+  r: RegExp | null | undefined,
+): boolean {
+  if (!r) return false
+  if (!skillDescription.description) return false
+
+  return !!skillDescription.description.match(r)
 }

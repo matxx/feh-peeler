@@ -1,7 +1,8 @@
 import type { IConstants } from '~/utils/types/constants'
 
-import { getDefaulUnitStatsMinMax } from '~/utils/types/units-stats'
-import { getDefaulSkillStatsMinMax } from '~/utils/types/skills-filters'
+import { getDefaultSealStatsMinMax } from '~/utils/types/seals-filters'
+import { getDefaultSkillStatsMinMax } from '~/utils/types/skills-filters'
+import { getDefaultUnitStatsMinMax } from '~/utils/types/units-stats'
 
 export const useStoreDataConstants = defineStore('data/constants', () => {
   const constants = ref<IConstants>()
@@ -12,11 +13,14 @@ export const useStoreDataConstants = defineStore('data/constants', () => {
     constants,
   )
 
-  const defaulUnitStatsMinMax = computed(() =>
-    getDefaulUnitStatsMinMax(constants.value),
+  const defaultSealStatsMinMax = computed(() =>
+    getDefaultSealStatsMinMax(constants.value),
   )
-  const defaulSkillStatsMinMax = computed(() =>
-    getDefaulSkillStatsMinMax(constants.value),
+  const defaultSkillStatsMinMax = computed(() =>
+    getDefaultSkillStatsMinMax(constants.value),
+  )
+  const defaultUnitStatsMinMax = computed(() =>
+    getDefaultUnitStatsMinMax(constants.value),
   )
 
   return {
@@ -26,8 +30,9 @@ export const useStoreDataConstants = defineStore('data/constants', () => {
 
     constants,
 
-    defaulUnitStatsMinMax,
-    defaulSkillStatsMinMax,
+    defaultSealStatsMinMax,
+    defaultSkillStatsMinMax,
+    defaultUnitStatsMinMax,
   }
 })
 

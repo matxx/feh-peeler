@@ -1,0 +1,47 @@
+export const COLUMN_THUMBNAIL = 'thumbnail'
+
+export const COLUMN_NAME = 'name'
+export const COLUMN_SP = 'sp'
+export const COLUMN_TIER = 'tier'
+
+export const COLUMN_RATING = 'game8_rating'
+export const COLUMN_GRADE = 'game8_grade'
+export const COLUMN_DESCRIPTION = 'description'
+
+export const COLUMN_RESTRICTIONS = 'restrictions'
+
+export const COLUMN_MAX = 'isMax'
+
+export const DEFAULT_COLUMNS = [COLUMN_NAME, COLUMN_SP, COLUMN_RESTRICTIONS]
+
+export const ALL_COLUMNS = [
+  COLUMN_THUMBNAIL,
+  COLUMN_NAME,
+  COLUMN_MAX,
+  COLUMN_SP,
+  COLUMN_TIER,
+  // COLUMN_RATING,
+  COLUMN_GRADE,
+  COLUMN_DESCRIPTION,
+  COLUMN_RESTRICTIONS,
+]
+
+export const COLUMNS_IN_FILTERS = [
+  COLUMN_NAME,
+  COLUMN_MAX,
+  COLUMN_SP,
+  COLUMN_TIER,
+  // COLUMN_RATING,
+  COLUMN_GRADE,
+  COLUMN_DESCRIPTION,
+  COLUMN_RESTRICTIONS,
+]
+
+export const COLUMNS_START_ALIGNED = new Set([
+  COLUMN_NAME,
+  COLUMN_SP,
+  COLUMN_DESCRIPTION,
+  COLUMN_RESTRICTIONS,
+])
+
+export const COLUMNS_UNSORTABLE = new Set([COLUMN_THUMBNAIL])

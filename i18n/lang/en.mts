@@ -1,5 +1,8 @@
 import * as availability from '~/utils/types/units-availabilities'
 import * as grades from '~/utils/types/grades'
+import * as seals from '~/utils/types/seals'
+import * as sealsColumns from '~/utils/types/seals-columns'
+import * as sealsFilters from '~/utils/types/seals-filters'
 import * as skills from '~/utils/types/skills'
 import * as skillsColumns from '~/utils/types/skills-columns'
 import * as skillsFilters from '~/utils/types/skills-filters'
@@ -341,7 +344,7 @@ export default {
   home: {
     subheader: {
       devOnly: 'Dev only',
-      skillsAndUnits: 'Skills & Units',
+      main: 'Seals / Skills / Units',
       events: 'Events',
       misc: 'Misc',
     },
@@ -354,6 +357,8 @@ export default {
       'units-maximum-scores': 'Units By Max Scores',
       'score-calc': 'Score Calculator',
       'catalog-of-heroes': 'Catalog of Heroes',
+
+      seals: 'Seals',
 
       skills: 'Skills',
       'skills-lists': 'Skills Ratings',
@@ -369,6 +374,8 @@ export default {
       'units-maximum-scores': '(for arena and other modes)',
       'score-calc': '(for arena and other modes)',
       'catalog-of-heroes': 'check which heroes you are missing',
+
+      seals: 'compare/filter/sort seals',
 
       skills: 'compare/filter/sort skills',
       'skills-lists': 'compare skills ratings, restrictions, effects',
@@ -538,6 +545,50 @@ export default {
       [unitThemes.THEME_THIEVES]: 'Thieves',
       [unitThemes.THEME_S12]: 'S12',
       [unitThemes.THEME_NATIONS]: 'Nations',
+    },
+  },
+
+  seals: {
+    index: {
+      columnsDisplayed: 'Displayed columns',
+      resetSorting: 'Reset sorting',
+      headers: {
+        [sealsColumns.COLUMN_THUMBNAIL]: 'Thumbnail',
+        [sealsColumns.COLUMN_NAME]: 'Name',
+        [sealsColumns.COLUMN_SP]: 'SP',
+        [sealsColumns.COLUMN_TIER]: 'Tier',
+        [sealsColumns.COLUMN_RATING]: 'Rating',
+        [sealsColumns.COLUMN_GRADE]: 'Grade',
+        [sealsColumns.COLUMN_DESCRIPTION]: 'Description',
+        [sealsColumns.COLUMN_RESTRICTIONS]: 'Can use',
+        [sealsColumns.COLUMN_MAX]: 'MAX ?',
+      },
+    },
+    show: {
+      tabs: {
+        [seals.TAB_DETAILS]: 'Details',
+        [seals.TAB_DOWNGRADES]: 'Downgrades',
+        [seals.TAB_UPGRADES]: 'Upgrades',
+      },
+      tier: 'Tier',
+      sp: 'SP',
+      canUse: 'Can use',
+      effect: 'Effect',
+    },
+    filters: {
+      sealName: 'Seal name',
+      sealDescription: 'Seal description',
+      resetFilters: 'Reset filters',
+      isMax: 'MAX ?',
+      headers: {
+        type: 'Type',
+        whoCanEquip: 'Who can equip ?',
+        stats: 'Stats',
+      },
+      stats: {
+        [sealsFilters.TIER]: 'Tier',
+        [sealsFilters.SP]: 'SP',
+      },
     },
   },
 

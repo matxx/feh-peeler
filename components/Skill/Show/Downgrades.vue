@@ -21,9 +21,7 @@ const props = defineProps<{
 const downgrades = computed(() =>
   props.skill.downgrade_ids
     ? compact(
-        props.skill.downgrade_ids.map(
-          (downgradeId) => storeDataSkills.skillsById[downgradeId],
-        ),
+        props.skill.downgrade_ids.map((id) => storeDataSkills.skillsById[id]),
       )
     : [],
 )

@@ -75,7 +75,8 @@ const { xs } = useDisplay()
 
 const COLUMNS = [
   [
-    { isSubheader: true, text: t('home.subheader.skillsAndUnits') },
+    { isSubheader: true, text: t('home.subheader.main') },
+    { isItem: true, link: 'seals' },
     { isItem: true, link: 'skills' },
     // { isItem: true, link: 'skills-lists' },
     { isItem: true, link: 'units' },

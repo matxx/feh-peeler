@@ -1,7 +1,5 @@
 <template>
   <div>
-    <SkillOwnersSorting class="ml-3 mb-3" />
-
     <v-container fluid>
       <v-row
         :class="{
@@ -10,14 +8,14 @@
         }"
       >
         <v-col
-          v-for="skill in skills"
-          :key="skill.id"
+          v-for="seal in seals"
+          :key="seal.id"
           :cols="colsSpanEffective"
         >
-          <SkillShowSkill
-            :skill="skill"
+          <SealShowSeal
+            :seal="seal"
             :tile-size="tileSize"
-            :always-open="skillsCount === 1"
+            :always-open="sealsCount === 1"
           />
         </v-col>
       </v-row>
@@ -26,15 +24,15 @@
 </template>
 
 <script setup lang="ts">
-import type { ISkill } from '@/utils/types/skills'
+import type { ISeal } from '@/utils/types/seals'
 
 const { mobile } = useDisplay()
 
 const props = defineProps<{
-  skills: ISkill[]
+  seals: ISeal[]
   tileSize: number
 }>()
 
-const skillsCount = computed(() => props.skills.length)
-const { colsSpanEffective } = useGrid(skillsCount)
+const sealsCount = computed(() => props.seals.length)
+const { colsSpanEffective } = useGrid(sealsCount)
 </script>

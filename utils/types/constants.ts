@@ -21,6 +21,9 @@ export interface IConstants {
   skills_max_sp: number
   skills_max_cd: number
 
+  seals_max_tier: number
+  seals_max_sp: number
+
   units_genders: Gender[]
   games: string[]
 }
