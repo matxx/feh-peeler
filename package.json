@@ -32,7 +32,7 @@
     "sass": "^1.97.1",
     "tsx": "^4.21.0",
     "vue": "^3.5.22",
-    "vue-router": "^4.5.1",
+    "vue-router": "^4.6.4",
     "vuetify-nuxt-module": "^0.18.7"
   },
   "dependencies": {
