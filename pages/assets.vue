@@ -2,6 +2,34 @@
   <v-container>
     <v-row>
       <v-col>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/bHQqvYy5KYo?si=sBtdM1IFDNvrkY4v"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/ePzkF7pkw0c?si=_xWvz-oDfhcOIe2A"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <v-text-field
           v-model.number="rotation"
           label="rotation"
