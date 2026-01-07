@@ -24,6 +24,7 @@
 
           <template v-if="!mobile">
             <SkillAvailability
+              v-if="skill.category !== SKILL_PASSIVE_S"
               :skill="skill"
               :tile-size="TOOLBAR_OWNER_SIZE"
             />
@@ -73,6 +74,7 @@
           >
             <div class="d-flex align-center">
               <SkillAvailability
+                v-if="skill.category !== SKILL_PASSIVE_S"
                 :skill="skill"
                 :tile-size="TOOLBAR_OWNER_SIZE"
               />
@@ -160,6 +162,7 @@ import {
   TAB_DOWNGRADES,
   TAB_UPGRADES,
   SKILL_CATEGORIES_WITH_ICON,
+  SKILL_PASSIVE_S,
 } from '~/utils/types/skills'
 
 const TOOLBAR_ICON_SIZE = 20
@@ -189,7 +192,10 @@ const skill = computed(() =>
 )
 
 const tabsDisplayed = computed(() => {
-  const res = [TAB_DETAILS, TAB_OWNERS]
+  const res = [TAB_DETAILS]
+  if (skill.value && skill.value.category !== SKILL_PASSIVE_S) {
+    res.push(TAB_OWNERS)
+  }
   if (skill.value?.downgrade_ids?.length) res.push(TAB_DOWNGRADES)
   if (skill.value?.upgrade_ids?.length) res.push(TAB_UPGRADES)
   return res

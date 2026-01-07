@@ -1,5 +1,6 @@
 <template>
   <SkillShowSkills
+    :show-owners="skill.category !== SKILL_PASSIVE_S"
     :skills="downgradesSorted"
     :tile-size="tileSize"
   />
@@ -9,7 +10,7 @@
 import orderBy from 'lodash-es/orderBy'
 import compact from 'lodash-es/compact'
 
-import type { ISkill } from '@/utils/types/skills'
+import { SKILL_PASSIVE_S, type ISkill } from '@/utils/types/skills'
 
 const storeDataSkills = useStoreDataSkills()
 

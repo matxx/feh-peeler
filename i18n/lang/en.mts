@@ -486,6 +486,8 @@ export default {
         [units.TAB_FODDER_VALUE]: 'Fodder Value',
       },
       tooltips: {
+        [units.TAB_BASE_KIT]: 'Base Kit',
+        [units.TAB_ARTS]: 'Arts',
         [units.TAB_STATS]: 'Stats',
         [units.TAB_SKILLS]: 'Skills',
         [units.TAB_FODDER]: 'Can I inherit all skills in one go ?',

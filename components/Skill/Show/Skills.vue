@@ -1,6 +1,9 @@
 <template>
   <div>
-    <SkillOwnersSorting class="ml-3 mb-3" />
+    <SkillOwnersSorting
+      v-if="showOwners"
+      class="ml-3 mb-3"
+    />
 
     <v-container fluid>
       <v-row
@@ -15,6 +18,7 @@
           :cols="colsSpanEffective"
         >
           <SkillShowSkill
+            :show-owners="showOwners"
             :skill="skill"
             :tile-size="tileSize"
             :always-open="skillsCount === 1"
@@ -31,6 +35,7 @@ import type { ISkill } from '@/utils/types/skills'
 const { mobile } = useDisplay()
 
 const props = defineProps<{
+  showOwners: boolean
   skills: ISkill[]
   tileSize: number
 }>()

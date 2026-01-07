@@ -31,6 +31,7 @@
       </div>
 
       <v-btn
+        v-if="showOwners"
         v-show="!alwaysOpen && mobile"
         class="ml-3"
         variant="text"
@@ -40,7 +41,10 @@
       </v-btn>
     </div>
 
-    <div v-show="alwaysOpen || !mobile || isOpen">
+    <div
+      v-if="showOwners"
+      v-show="alwaysOpen || !mobile || isOpen"
+    >
       <SkillShowOwners
         :skill="skill"
         :tile-size="tileSize"
@@ -59,6 +63,7 @@ const storeGlobals = useStoreGlobals()
 
 withDefaults(
   defineProps<{
+    showOwners: boolean
     skill: ISkill
     tileSize: number
     alwaysOpen?: boolean

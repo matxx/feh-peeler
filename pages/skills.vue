@@ -133,18 +133,21 @@
 
       <template #[`item.${skillsColumns.COLUMN_OWNERS}`]="{ item }">
         <SkillShowOwnersThumbnails
+          v-if="item.category !== SKILL_PASSIVE_S"
           :skill="item"
           :tile-size="size"
         />
       </template>
       <template #[`item.${skillsColumns.COLUMN_AVAILABILITY}`]="{ item }">
         <SkillAvailability
+          v-if="item.category !== SKILL_PASSIVE_S"
           :skill="item"
           :tile-size="size"
         />
       </template>
       <template #[`item.${skillsColumns.COLUMN_PRE_INHERITANCE}`]="{ item }">
         <SkillOwnersPreInheritances
+          v-if="item.category !== SKILL_PASSIVE_S"
           :skill="item"
           :tile-size="size"
           :skill-icon-size="size"
@@ -183,6 +186,7 @@ import filter from 'lodash-es/filter'
 
 import * as skillsColumns from '~/utils/types/skills-columns'
 import * as skillsSorters from '~/utils/types/skills-sorters'
+import { SKILL_PASSIVE_S } from '~/utils/types/skills'
 
 definePageMeta({
   layout: 'skills-filters',
