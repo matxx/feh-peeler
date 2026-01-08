@@ -403,10 +403,15 @@ function loadMaxScore() {
     const sp = spsAvailableByCategory.value[category][0]
     newUnitInstance.skillSPs[category] = sp
 
-    const relevantSkills = filter(
+    const relevantSkillIds = filter(
       skillIdsAvailableByCategory.value[category],
       (id) => {
         const skill = storeDataSkills.skillsById[id]
+
+        // upgrades have same or higher SPs
+        if (skill.upgrade_ids) return false
+
+        // refines have same or higher SPs
         if (skill.has_refine && storeDataSkills.refinesByBaseId[id]) {
           return false
         }
@@ -414,8 +419,18 @@ function loadMaxScore() {
         return max(compact([skill.sp, skill.refines_max_sp])) === sp
       },
     )
-    if (relevantSkills.length === 1) {
-      newUnitInstance.skillIds[category] = relevantSkills[0]
+    if (relevantSkillIds.length === 1) {
+      newUnitInstance.skillIds[category] = relevantSkillIds[0]
+      return
+    }
+
+    const relevantSkillIds2 = filter(relevantSkillIds, (id) => {
+      const skill = storeDataSkills.skillsById[id]
+
+      return !skill.upgrade_ids && !!skill.is_prf
+    })
+    if (relevantSkillIds2.length === 1) {
+      newUnitInstance.skillIds[category] = relevantSkillIds2[0]
     }
   })
 
