@@ -193,8 +193,8 @@ export interface ISkillData {
     weapons: IRestrictions<ExtendedWeaponType>
   }
 
-  addition_date: string
-  release_date: string
+  // addition_date?: string
+  release_date?: string
   version?: string
 }
 

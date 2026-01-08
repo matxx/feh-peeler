@@ -141,7 +141,7 @@ export interface IUnitData {
   max_df: number
   theme?: UnitTheme
 
-  addition_date: string
+  // addition_date: string
   release_date: string
   version: string
 }
