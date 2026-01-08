@@ -268,7 +268,6 @@
                 :unit="unit"
                 :unit-instance="unitInstance"
                 :available-sp="spsAvailableByCategory[category]"
-                :available-sp-for-seals="spsAvailableForSeals"
                 @select-skill="$emit('select-skill', $event)"
                 @select-sp="$emit('select-sp', $event)"
               />
@@ -293,10 +292,6 @@ import {
   MAX_RARITY,
   MAX_MERGES,
   DUEL_SKILL_IDS_BY_MOVE_BY_COLOR,
-  SEAL_ID_DC_MELEE,
-  SEAL_ID_DC_DRAGON,
-  SEAL_MAX_SP,
-  SEAL_OTHER_THAN_DC_MAX_SP,
   type IUnitInstanceInScoreCalc,
   type ScoreContext,
 } from '~/utils/types/score-calc'
@@ -314,14 +309,8 @@ import {
   SORTED_SKILL_CATEGORIES,
   SKILL_CATEGORIES_FOR_SCORE_CALC,
   SKILL_PASSIVE_A,
-  SKILL_PASSIVE_S,
 } from '~/utils/types/skills'
-import {
-  WEAPON_A_BR,
-  WEAPON_A_ME,
-  WEAPON_COLOR_FOR_TYPE,
-  WEAPON_FAMILY_FOR_TYPE,
-} from '~/utils/types/weapons'
+import { WEAPON_COLOR_FOR_TYPE } from '~/utils/types/weapons'
 
 const THUMBNAIL_SIZE = 70
 
@@ -377,16 +366,12 @@ watch(baseScore, () => {
 })
 
 const storeGlobals = useStoreGlobals()
-const storeDataSeals = useStoreDataSeals()
 const storeDataSkills = useStoreDataSkills()
 const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
 const storeSkillsFilters = useStoreSkillsFilters()
 
 const isLoaded = computed(
-  () =>
-    storeDataSkills.isLoaded &&
-    storeDataSeals.isLoaded &&
-    storeDataSkillsAvailabilities.isLoaded,
+  () => storeDataSkills.isLoaded && storeDataSkillsAvailabilities.isLoaded,
 )
 
 const isClosable = computed(() => smAndDown.value)
@@ -415,23 +400,6 @@ function loadMaxScore() {
   }
 
   SORTED_SKILL_CATEGORIES.forEach((category) => {
-    if (category === SKILL_PASSIVE_S) {
-      const weaponFamily = WEAPON_FAMILY_FOR_TYPE[unit.value!.weapon_type]
-      switch (weaponFamily) {
-        case WEAPON_A_ME:
-          newUnitInstance.skillIds[category] = SEAL_ID_DC_MELEE
-          newUnitInstance.skillSPs[category] = SEAL_MAX_SP
-          break
-        case WEAPON_A_BR:
-          newUnitInstance.skillIds[category] = SEAL_ID_DC_DRAGON
-          newUnitInstance.skillSPs[category] = SEAL_MAX_SP
-          break
-        default:
-          newUnitInstance.skillSPs[category] = SEAL_OTHER_THAN_DC_MAX_SP
-      }
-      return
-    }
-
     const sp = spsAvailableByCategory.value[category][0]
     newUnitInstance.skillSPs[category] = sp
 
@@ -492,22 +460,6 @@ const spsAvailableByCategory = computed<GroupedBy<SkillCategory, number>>(() =>
         ['desc'],
       ),
     ]),
-  ),
-)
-
-const sealIds = computed(() => storeDataSeals.sortedSealIds)
-const sealIdsAvailable = computed(() =>
-  unit.value && isLoaded.value
-    ? filter(sealIds.value, (sealId) =>
-        storeSkillsFilters.isSealIdAvailableToUnit(sealId, unit.value!),
-      )
-    : sealIds.value,
-)
-const spsAvailableForSeals = computed(() =>
-  orderBy(
-    uniq(sealIdsAvailable.value.map((id) => storeDataSeals.sealsById[id].sp)),
-    [(i) => i],
-    ['desc'],
   ),
 )
 </script>

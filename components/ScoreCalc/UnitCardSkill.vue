@@ -1,8 +1,7 @@
 <template>
   <v-row no-gutters>
     <v-col :cols="displaySelect ? 8 : 12">
-      <component
-        :is="category === SKILL_PASSIVE_S ? AppSelectSeal : AppSelectSkill"
+      <AppSelectSkill
         :model-value="unitInstance.skillIds[category]"
         :skill-category="category"
         :unit="unit"
@@ -22,9 +21,9 @@
       :class="{ 'd-none': !displaySelect }"
     >
       <v-select
-        v-if="items"
+        v-if="availableSp"
         :model-value="unitInstance.skillSPs[category]"
-        :items="items"
+        :items="availableSp"
         :item-title="(item) => `${item} SP`"
         :item-value="(item) => item"
         class="mb-2"
@@ -38,10 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import { AppSelectSeal, AppSelectSkill } from '#components'
-
 import type { IUnitInstanceInScoreCalc } from '~/utils/types/score-calc'
-import { SKILL_PASSIVE_S, type SkillCategory } from '~/utils/types/skills'
+import type { SkillCategory } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
 
 defineEmits(['select-skill', 'select-sp'])
@@ -50,15 +47,8 @@ const props = defineProps<{
   unitInstance: IUnitInstanceInScoreCalc
   category: SkillCategory
   availableSp?: number[]
-  availableSpForSeals: number[]
 }>()
 
 const isFocused = ref(false)
-const displaySelect = computed(() => !!items.value && !isFocused.value)
-
-const items = computed(() =>
-  props.category === SKILL_PASSIVE_S
-    ? props.availableSpForSeals
-    : props.availableSp,
-)
+const displaySelect = computed(() => !!props.availableSp && !isFocused.value)
 </script>

@@ -62,7 +62,6 @@ import {
 import type { IUnitData } from '~/utils/types/units'
 import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
 import * as w from '~/utils/types/weapons'
-import type { ISeal, SealId } from '~/utils/types/seals'
 import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
 
@@ -155,7 +154,6 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   const storeDataSkillsAvailabilities = useStoreDataSkillsAvailabilities()
   const storeDataSkillsRatingsGame8 = useStoreDataSkillsRatingsGame8()
   const storeDataSkillsDescriptions = useStoreDataSkillsDescriptions()
-  const storeDataSeals = useStoreDataSeals()
 
   function getNewFilters() {
     return createFilters(
@@ -635,20 +633,6 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   const isSkillIdAvailableToUnit = (skillId: SkillId, unit: IUnitData) =>
     isSkillAvailableToUnit(storeDataSkills.skillsById[skillId], unit)
 
-  function isSealAvailableToUnit(seal: ISeal, unit: IUnitData) {
-    if (!isSkillAvailableToUnitMoveType(seal.restrictions.moves, unit)) {
-      return false
-    }
-    if (!isSkillAvailableToUnitWeaponType(seal.restrictions.weapons, unit)) {
-      return false
-    }
-
-    return true
-  }
-
-  const isSealIdAvailableToUnit = (sealId: SealId, unit: IUnitData) =>
-    isSealAvailableToUnit(storeDataSeals.sealsById[sealId], unit)
-
   return {
     $reset,
 
@@ -676,9 +660,6 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     isSkillAvailableToUnit,
     isSkillIdAvailableToUnit,
-
-    isSealAvailableToUnit,
-    isSealIdAvailableToUnit,
   }
 })
 

@@ -39,7 +39,6 @@ export default {
     unitName: 'Unit Name',
 
     noSkillIsMatchingYourRequest: 'No skill is matching your request',
-    noSealIsMatchingYourRequest: 'No seal is matching your request',
     noUnitIsMatchingYourRequest: 'No unit is matching your request',
     nothingIsMatchingYourRequest: 'Nothing is matching your request',
     invalidRegExp: 'Invalid regular expression',

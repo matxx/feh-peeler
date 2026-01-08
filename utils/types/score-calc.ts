@@ -211,8 +211,3 @@ export const DUEL_SKILL_IDS_BY_MOVE_BY_COLOR = {
 export const DUEL_SKILL_IDS = Object.values(DUEL_SKILL_IDS_BY_MOVE_BY_COLOR)
   .map((value) => Object.values(value))
   .flat(2)
-
-export const SEAL_ID_DC_MELEE = 'SID_遠反・剣槍斧専用'
-export const SEAL_ID_DC_DRAGON = 'SID_遠反・竜専用'
-export const SEAL_MAX_SP = 300
-export const SEAL_OTHER_THAN_DC_MAX_SP = 240

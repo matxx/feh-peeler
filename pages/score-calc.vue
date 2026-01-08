@@ -256,11 +256,7 @@ import max from 'lodash-es/max'
 import filter from 'lodash-es/filter'
 import compact from 'lodash-es/compact'
 
-import {
-  SKILL_PASSIVE_S,
-  type SkillCategory,
-  type SkillId,
-} from '~/utils/types/skills'
+import type { SkillCategory, SkillId } from '~/utils/types/skills'
 import {
   getEmptyTeamInScoreCalc,
   getEmptyUnitInstanceSkillSPs,
@@ -287,13 +283,11 @@ const { itemsForElementsLegendary, itemsForElementsMythic } = useSelects()
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataSkills = useStoreDataSkills()
-const storeDataSeals = useStoreDataSeals()
 const { isLoading: isLoadingData } = useDataStores([
   storeDataUnits,
   useStoreDataUnitsStats(),
   storeDataSkills,
   useStoreDataSkillsAvailabilities(),
-  storeDataSeals,
 ])
 
 const DEFAULT_VALUES = {
@@ -356,10 +350,6 @@ function selectSkill(
   }
 
   unit.skillIds[category] = id
-  if (category === SKILL_PASSIVE_S) {
-    unit.skillSPs[category] = storeDataSeals.sealsById[id].sp
-    return
-  }
 
   const skill = storeDataSkills.skillsById[id]
   unit.skillSPs[category] = max(compact([skill.sp, skill.refines_max_sp]))
