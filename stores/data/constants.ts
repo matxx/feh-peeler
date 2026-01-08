@@ -1,7 +1,7 @@
 import type { IConstants } from '~/utils/types/constants'
 
-import { getDefaulUnitStatsMinMax } from '~/utils/types/units-stats'
-import { getDefaulSkillStatsMinMax } from '~/utils/types/skills-filters'
+import { getDefaultUnitStatsMinMax } from '~/utils/types/units-stats'
+import { getDefaultSkillStatsMinMax } from '~/utils/types/skills-filters'
 
 export const useStoreDataConstants = defineStore('data/constants', () => {
   const constants = ref<IConstants>()
@@ -13,10 +13,10 @@ export const useStoreDataConstants = defineStore('data/constants', () => {
   )
 
   const defaulUnitStatsMinMax = computed(() =>
-    getDefaulUnitStatsMinMax(constants.value),
+    getDefaultUnitStatsMinMax(constants.value),
   )
   const defaulSkillStatsMinMax = computed(() =>
-    getDefaulSkillStatsMinMax(constants.value),
+    getDefaultSkillStatsMinMax(constants.value),
   )
 
   return {

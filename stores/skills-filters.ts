@@ -22,7 +22,7 @@ import {
 
 import {
   createFilters,
-  getDefaulSkillStatsMinMax,
+  getDefaultSkillStatsMinMax,
   STATS,
   HOF_DISABLED,
   HOF_13_20,
@@ -159,7 +159,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
   function getNewFilters() {
     return createFilters(
-      getDefaulSkillStatsMinMax(storeDataConstants.constants),
+      getDefaultSkillStatsMinMax(storeDataConstants.constants),
     )
   }
   function resetFilters() {
