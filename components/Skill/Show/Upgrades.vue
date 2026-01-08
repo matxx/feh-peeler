@@ -22,7 +22,9 @@ const props = defineProps<{
 const upgrades = computed(() =>
   props.skill.upgrade_ids
     ? compact(
-        props.skill.upgrade_ids.map((id) => storeDataSkills.skillsById[id]),
+        props.skill.upgrade_ids.map(
+          (upgradeId) => storeDataSkills.skillsById[upgradeId],
+        ),
       )
     : [],
 )

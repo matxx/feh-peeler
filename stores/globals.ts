@@ -83,11 +83,6 @@ export const useStoreGlobals = defineStore('globals', () => {
     sortedByAvailability.value = !sortedByAvailability.value
   }
 
-  const mobileSealFilterElem = ref<HTMLElement | null>()
-  function setMobileSealFilterElem(val?: HTMLElement | null) {
-    mobileSealFilterElem.value = val
-  }
-
   const mobileUnitFilterElem = ref<HTMLElement | null>()
   function setMobileUnitFilterElem(val?: HTMLElement | null) {
     mobileUnitFilterElem.value = val
@@ -123,9 +118,6 @@ export const useStoreGlobals = defineStore('globals', () => {
     sortedByAvailability,
     setSortedByAvailability,
     toggleSortedByAvailability,
-
-    mobileSealFilterElem,
-    setMobileSealFilterElem,
 
     mobileUnitFilterElem,
     setMobileUnitFilterElem,

@@ -84,7 +84,7 @@ export type IUnitStatMinMax = {
   [BST]: [number, number]
 }
 
-export const getDefaultUnitStatsMinMax = (
+export const getDefaulUnitStatsMinMax = (
   constants?: IConstants,
 ): IUnitStatMinMax => {
   if (!constants) {

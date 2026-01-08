@@ -238,11 +238,6 @@ export default defineNuxtConfig({
         en: '/catalog-of-heroes',
       },
 
-      seals: {
-        // fr: '/seals', ?
-        en: '/seals',
-      },
-
       'skills-lists': {
         // fr: '/listes-de-competences',
         en: '/skills-lists',

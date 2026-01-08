@@ -78,7 +78,7 @@ export const createFilters = (stats: ISkillStatMinMax): IFilters => ({
   stats,
 })
 
-export const getDefaultSkillStatsMinMax = (
+export const getDefaulSkillStatsMinMax = (
   constants?: IConstants,
 ): ISkillStatMinMax => {
   if (!constants) {

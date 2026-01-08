@@ -22,7 +22,7 @@ import {
 
 import {
   createFilters,
-  getDefaultSkillStatsMinMax,
+  getDefaulSkillStatsMinMax,
   STATS,
   HOF_DISABLED,
   HOF_13_20,
@@ -100,7 +100,7 @@ const filterHoF = (filters: IFilters, s: ISkill) => {
   }
 }
 
-export function isSkillAvailableToUnitMoveType(
+function isSkillAvailableToUnitMoveType(
   restrictions: IRestrictions<MoveType>,
   unit: IUnitData,
 ) {
@@ -115,7 +115,7 @@ export function isSkillAvailableToUnitMoveType(
 
   return true
 }
-export function isSkillAvailableToUnitWeaponType(
+function isSkillAvailableToUnitWeaponType(
   restrictions: IRestrictions<ExtendedWeaponType>,
   unit: IUnitData,
 ) {
@@ -159,7 +159,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
   function getNewFilters() {
     return createFilters(
-      getDefaultSkillStatsMinMax(storeDataConstants.constants),
+      getDefaulSkillStatsMinMax(storeDataConstants.constants),
     )
   }
   function resetFilters() {
@@ -203,8 +203,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     some(
       objectEntries(filters.value.stats),
       ([stat, [min, max]]) =>
-        min > storeDataConstants.defaultSkillStatsMinMax[stat][0] ||
-        max < storeDataConstants.defaultSkillStatsMinMax[stat][1],
+        min > storeDataConstants.defaulSkillStatsMinMax[stat][0] ||
+        max < storeDataConstants.defaulSkillStatsMinMax[stat][1],
     ),
   )
 
@@ -373,9 +373,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       if (s[stat] === undefined) {
         return (
           filters.stats[stat][0] ===
-            storeDataConstants.defaultSkillStatsMinMax[stat][0] &&
+            storeDataConstants.defaulSkillStatsMinMax[stat][0] &&
           filters.stats[stat][1] ===
-            storeDataConstants.defaultSkillStatsMinMax[stat][1]
+            storeDataConstants.defaulSkillStatsMinMax[stat][1]
         )
       }
       if (s[stat] < filters.stats[stat][0]) return false
