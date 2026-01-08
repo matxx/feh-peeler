@@ -221,7 +221,7 @@
 
     <div class="mt-3">
       <h4>
-        {{ t('skills.filters.headers.whoCanInherit') }}
+        {{ t('skills.filters.headers.whoCanInheritOrEquip') }}
       </h4>
     </div>
 

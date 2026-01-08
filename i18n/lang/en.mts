@@ -593,7 +593,7 @@ export default {
       isMax: 'MAX ?',
       headers: {
         type: 'Type',
-        whoCanInherit: 'Who can inherit ?',
+        whoCanInheritOrEquip: 'Who can inherit/equip ?',
         stats: 'Stats',
         availability: 'Availability',
         preInheritance: 'Pre-Inheritance',
