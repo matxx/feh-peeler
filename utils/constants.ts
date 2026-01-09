@@ -37,15 +37,15 @@ export const ITEMS_PER_PAGE_OPTIONS = [
 
 export const INHERIT_SLOTS = 5
 export const HALL_OF_FORMS_RESOURCES = {
-  // PM1: null,
-  PM1: 'https://www.youtube.com/watch?v=0kLR1KmxABA',
+  PM1: null,
+  // PM1: 'https://www.youtube.com/watch?v=0kLR1KmxABA',
   // FEHOLOGY: null,
-  FEHOLOGY: 'https://www.youtube.com/watch?v=P7uhPw72ROw',
-  // TACHO: null,
-  TACHO: 'https://www.youtube.com/watch?v=pUfFozVDfrY',
+  FEHOLOGY: 'https://www.youtube.com/watch?v=RGJwme_p-YY',
+  TACHO: null,
+  // TACHO: 'https://www.youtube.com/watch?v=pUfFozVDfrY',
   SATACHI: null,
   // SATACHI: 'https://www.youtube.com/watch?v=RbMUtD7uuM8',
-  // COOLEST_MAGICAL_CAT: null,
-  COOLEST_MAGICAL_CAT:
-    'https://www.reddit.com/r/FireEmblemHeroes/comments/1pqp2hr/recommended_forma_skills_infographic_hall_of/',
+  COOLEST_MAGICAL_CAT: null,
+  // COOLEST_MAGICAL_CAT:
+  //   'https://www.reddit.com/r/FireEmblemHeroes/comments/1pqp2hr/recommended_forma_skills_infographic_hall_of/',
 }

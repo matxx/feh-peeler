@@ -812,9 +812,10 @@ export default {
       useFourUnitsRarity5Level40: 'Use four 5* units at level 40.',
       useUnitsWithMaxMerges: 'Use units with maximum merges.',
       useMaxSpSkills: 'Use maximum SP skills.',
-      useABonusLegendaryUnit: 'Use a bonus legendary unit.',
+      useABonusLegendaryUnit:
+        'Use a bonus unit (preferably a bonus legendary).',
       useUpToTwoLegendaries:
-        'Use up to 2 lengendaries of the same in-season element.',
+        'Use up to 2 legendaries of the same in-season element.',
       blessYourUnits:
         'Bless all your non-legendary units with the element of those legendaries.',
 
