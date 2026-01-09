@@ -45,7 +45,7 @@
       v-if="showOwners"
       v-show="alwaysOpen || !mobile || isOpen"
     >
-      <SkillShowOwners
+      <SkillOwners
         :skill="skill"
         :tile-size="tileSize"
         hide-sorting

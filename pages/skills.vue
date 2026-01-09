@@ -118,7 +118,7 @@
         </div>
       </template>
       <template #[`item.${skillsColumns.COLUMN_EFFECTIVENESS}`]="{ item }">
-        <SkillShowEffectivenessList
+        <SkillEffectivenessList
           :skill="item"
           :size="size"
         />
@@ -132,7 +132,7 @@
       </template>
 
       <template #[`item.${skillsColumns.COLUMN_OWNERS}`]="{ item }">
-        <SkillShowOwnersThumbnails
+        <SkillOwnersThumbnails
           v-if="item.category !== SKILL_PASSIVE_S"
           :skill="item"
           :tile-size="size"

@@ -130,31 +130,31 @@
         <v-card-text class="pa-3">
           <v-tabs-window v-model="storeGlobals.shownUnitTab">
             <v-tabs-window-item :value="TAB_BASE_KIT">
-              <UnitDescriptions
+              <UnitTabBaseKit
                 :unit="unit"
                 :size="TOOLBAR_ICON_SIZE"
               />
             </v-tabs-window-item>
             <!-- <v-tabs-window-item :value="TAB_ARTS">
-              <UnitArts :unit="unit" />
+              <UnitTabArts :unit="unit" />
             </v-tabs-window-item> -->
             <v-tabs-window-item :value="TAB_STATS">
-              <UnitStat :unit="unit" />
+              <UnitTabStat :unit="unit" />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_SKILLS">
-              <UnitSkills
+              <UnitTabSkills
                 :unit="unit"
                 :size="FODDERS_TILE_SIZE"
               />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_FODDER">
-              <UnitFodder
+              <UnitTabFodder
                 :unit="unit"
                 :size="FODDERS_TILE_SIZE"
               />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_FODDER_VALUE">
-              <UnitFodderValue
+              <UnitTabFodderValue
                 :unit="unit"
                 :size="FODDERS_TILE_SIZE"
               />

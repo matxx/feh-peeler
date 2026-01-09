@@ -14,7 +14,7 @@
 
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsAvailabilities.isLoaded">
-    <UnitFodderSettings />
+    <UnitTabFodderSettings />
 
     <div class="mb-3">
       {{ t('global.inpiredBy') }}
@@ -38,7 +38,7 @@
     </div>
 
     <v-table class="text-no-wrap">
-      <UnitFodderThead :size="size" />
+      <UnitTabFodderThead :size="size" />
 
       <tbody>
         <template
@@ -85,7 +85,7 @@
                 "
               >
                 <template #default="{ item }">
-                  <UnitFodderCellText
+                  <UnitTabFodderCellText
                     v-if="item"
                     :number="
                       storeDataSkillsAvailabilities.requiredInheritSlotsCount(

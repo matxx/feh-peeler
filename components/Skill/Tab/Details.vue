@@ -12,7 +12,7 @@
       class="mb-2 align-center"
     >
       <h4 class="mr-3">{{ t('skills.show.effectiveness') }}:</h4>
-      <SkillShowEffectivenessList
+      <SkillEffectivenessList
         :skill="skill"
         :size="size"
       />

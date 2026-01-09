@@ -128,22 +128,22 @@
         <v-card-text class="pa-3">
           <v-tabs-window v-model="storeGlobals.shownSkillTab">
             <v-tabs-window-item :value="TAB_DETAILS">
-              <SkillShowDetails :skill="skill" />
+              <SkillTabDetails :skill="skill" />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_OWNERS">
-              <SkillShowOwners
+              <SkillTabOwners
                 :skill="skill"
                 :tile-size="OWNERS_TILE_SIZE"
               />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_DOWNGRADES">
-              <SkillShowDowngrades
+              <SkillTabDowngrades
                 :skill="skill"
                 :tile-size="OWNERS_TILE_SIZE"
               />
             </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_UPGRADES">
-              <SkillShowUpgrades
+              <SkillTabUpgrades
                 :skill="skill"
                 :tile-size="OWNERS_TILE_SIZE"
               />

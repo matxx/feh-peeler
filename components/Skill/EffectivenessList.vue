@@ -6,7 +6,7 @@
     v-else-if="skill.eff"
     class="d-flex"
   >
-    <SkillShowEffectivenessListItem
+    <SkillEffectivenessListItem
       v-for="item in skill.eff"
       :key="item"
       :eff="item"

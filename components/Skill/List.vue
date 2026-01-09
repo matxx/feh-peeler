@@ -17,7 +17,7 @@
           :key="skill.id"
           :cols="colsSpanEffective"
         >
-          <SkillShowSkill
+          <SkillListItem
             :show-owners="showOwners"
             :skill="skill"
             :tile-size="tileSize"

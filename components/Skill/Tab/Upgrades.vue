@@ -1,5 +1,5 @@
 <template>
-  <SkillShowSkills
+  <SkillList
     :show-owners="skill.category !== SKILL_PASSIVE_S"
     :skills="upgradesSorted"
     :tile-size="tileSize"
