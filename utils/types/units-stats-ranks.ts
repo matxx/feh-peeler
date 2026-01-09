@@ -10,7 +10,3 @@ export interface IUnitStatRank {
   rank_res: number
   rank_bst: number
 }
-
-export type IUnitStatRankById = {
-  [index: UnitId]: IUnitStatRank
-}

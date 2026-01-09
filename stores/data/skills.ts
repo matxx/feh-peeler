@@ -2,10 +2,15 @@ import keyBy from 'lodash-es/keyBy'
 import sumBy from 'lodash-es/sumBy'
 import sortBy from 'lodash-es/sortBy'
 import filter from 'lodash-es/filter'
-import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
-import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
+import {
+  objectEntries,
+  objectFromEntries,
+  groupBy,
+  type GroupedBy,
+  type IndexedBy,
+} from '~/utils/functions/typeSafe'
 import getSortableVersion from '~/utils/functions/getSortableVersion'
 import { getSortableName } from '~/utils/functions/skillSortingVector'
 
@@ -14,10 +19,7 @@ import type {
   ISkillData,
   ISkill,
   ISkillTree,
-  ISkillById,
-  ISkillByName,
-  TBySkillId,
-  TBySkillCategory,
+  SkillCategory,
 } from '~/utils/types/skills'
 import type { IUnitInstance } from '~/utils/types/units'
 
@@ -77,8 +79,10 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     }
   }
 
-  const skillsById = computed<ISkillById>(() => keyBy(skills.value, 'id'))
-  const skillsByNameForLink = computed<ISkillByName>(() =>
+  const skillsById = computed<IndexedBy<SkillId, ISkill>>(() =>
+    keyBy(skills.value, 'id'),
+  )
+  const skillsByNameForLink = computed<IndexedBy<string, ISkill>>(() =>
     keyBy(skills.value, 'nameForLink'),
   )
 
@@ -88,17 +92,16 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
   const sortedSkillIds = computed<SkillId[]>(() =>
     sortedSkills.value.map((skill) => skill.id),
   )
-  // @ts-expect-error groupBy is not type safe
-  const sortedSkillsByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
-    groupBy(sortedSkills.value, 'category'),
+  const sortedSkillsByCategory = computed<GroupedBy<SkillCategory, ISkill>>(
+    () => groupBy(sortedSkills.value, 'category'),
   )
-  const sortedSkillIdsByCategory = computed<TBySkillCategory<SkillId[]>>(() =>
-    objectFromEntries(
-      objectEntries(sortedSkillsByCategory.value).map(([category, skills]) => [
-        category,
-        skills.map((skill) => skill.id),
-      ]),
-    ),
+  const sortedSkillIdsByCategory = computed<GroupedBy<SkillCategory, SkillId>>(
+    () =>
+      objectFromEntries(
+        objectEntries(sortedSkillsByCategory.value).map(
+          ([category, skills]) => [category, skills.map((skill) => skill.id)],
+        ),
+      ),
   )
 
   function sumSP(unit: IUnitInstance) {
@@ -111,7 +114,7 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
   const refines = computed<ISkill[]>(() =>
     filter(skills.value, (s) => !!s.refine_kind),
   )
-  const refinesByBaseId = computed<TBySkillId<ISkill[]>>(() =>
+  const refinesByBaseId = computed<GroupedBy<SkillId, ISkill>>(() =>
     groupBy(refines.value, 'baseId'),
   )
 

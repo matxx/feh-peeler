@@ -214,19 +214,6 @@ export interface ISkillTree {
   children?: ISkillTree[]
 }
 
-export type ISkillById = {
-  [index: SkillId]: ISkill
-}
-export type ISkillByName = {
-  [index: string]: ISkill
-}
-export type TBySkillId<T> = {
-  [key in SkillId]: T
-}
-export type TBySkillCategory<T> = {
-  [key in SkillCategory]: T
-}
-
 export interface ISkillDescription {
   id: SkillId
   description: string | null

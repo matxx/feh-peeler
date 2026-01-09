@@ -9,13 +9,13 @@ import {
   nestedGroupBy,
   objectEntries,
   type GroupedBy,
+  type GroupedByBy,
+  type IndexedBy,
 } from '~/utils/functions/typeSafe'
 import type {
   UnitId,
   IUnitData,
   IUnit,
-  UnitsBy,
-  UnitsByWeaponColorByAvailability,
   IUnitWithAvailability,
   IUnitWithReleaseDate,
 } from '~/utils/types/units'
@@ -116,28 +116,26 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     }),
   )
 
-  const unitsById = computed<{ [index: string]: IUnit }>(() =>
+  const unitsById = computed<IndexedBy<UnitId, IUnit>>(() =>
     keyBy(units.value, 'id'),
   )
   // to put name in URL
-  // const unitsByNameForLink = computed<{ [index: string]: IUnit }>(() =>
+  // const unitsByNameForLink = computed<IndexedBy<string, IUnit>>(() =>
   //   keyBy(units.value, 'nameForLink'),
   // )
 
-  const unitsByAvailability = computed<UnitsBy<Availability>>(() =>
+  const unitsByAvailability = computed<GroupedBy<Availability, IUnit>>(() =>
     groupBy(unitsWithAvailability.value, 'availability'),
   )
-  const unitsByWeaponColor = computed<UnitsBy<WeaponColor>>(() =>
+  const unitsByWeaponColor = computed<GroupedBy<WeaponColor, IUnit>>(() =>
     groupBy(units.value, 'weaponColor'),
   )
-  const unitsByWeaponColorByAvailability =
-    // @ts-expect-error unsafe typing :/
-    computed<UnitsByWeaponColorByAvailability>(() =>
-      nestedGroupBy(unitsWithAvailability.value, [
-        'availability',
-        'weaponColor',
-      ]),
-    )
+  // @ts-expect-error unsafe typing :/
+  const unitsByWeaponColorByAvailability = computed<
+    GroupedByBy<Availability, WeaponColor, IUnit>
+  >(() =>
+    nestedGroupBy(unitsWithAvailability.value, ['availability', 'weaponColor']),
+  )
 
   const sortedUnits = computed<IUnit[]>(() =>
     sortBy(units.value, 'nameForSorting'),

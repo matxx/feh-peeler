@@ -48,10 +48,10 @@ import orderBy from 'lodash-es/orderBy'
 import {
   SKILL_CATEGORIES,
   type ISkill,
-  type TBySkillCategory,
+  type SkillCategory,
 } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
-import { groupBy } from '~/utils/functions/typeSafe'
+import { groupBy, type GroupedBy } from '~/utils/functions/typeSafe'
 
 const props = defineProps<{
   unit: IUnit
@@ -80,7 +80,7 @@ const skillsSorted = computed(
   //     : 0,
   // ),
 )
-const skillsByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
+const skillsByCategory = computed<GroupedBy<SkillCategory, ISkill>>(() =>
   groupBy(skillsSorted.value, 'category'),
 )
 </script>

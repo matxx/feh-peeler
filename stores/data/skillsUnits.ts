@@ -1,9 +1,7 @@
-import type {
-  ISkillUnit,
-  ISkillUnitBySkillIdByUnitId,
-  ISkillUnitByUnitIdBySkillId,
-} from '@/utils/types/skillsUnits'
-import { nestedKeyBy } from '~/utils/functions/typeSafe'
+import type { ISkillUnit } from '@/utils/types/skillsUnits'
+import { nestedKeyBy, type IndexedByBy } from '~/utils/functions/typeSafe'
+import type { SkillId } from '~/utils/types/skills'
+import type { UnitId } from '~/utils/types/units'
 
 export const useStoreDataSkillsUnits = defineStore('data/skillsUnits', () => {
   const items = ref<ISkillUnit[]>([])
@@ -14,11 +12,11 @@ export const useStoreDataSkillsUnits = defineStore('data/skillsUnits', () => {
     items,
   )
 
-  const bySkillIdByUnitId = computed<ISkillUnitBySkillIdByUnitId>(() =>
-    nestedKeyBy(items.value, ['unit_id', 'skill_id']),
+  const bySkillIdByUnitId = computed<IndexedByBy<UnitId, SkillId, ISkillUnit>>(
+    () => nestedKeyBy(items.value, ['unit_id', 'skill_id']),
   )
-  const byUnitIdBySkillId = computed<ISkillUnitByUnitIdBySkillId>(() =>
-    nestedKeyBy(items.value, ['skill_id', 'unit_id']),
+  const byUnitIdBySkillId = computed<IndexedByBy<SkillId, UnitId, ISkillUnit>>(
+    () => nestedKeyBy(items.value, ['skill_id', 'unit_id']),
   )
 
   return {

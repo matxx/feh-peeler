@@ -71,10 +71,6 @@ export interface IUnitStat {
   iv_res: IV | null
 }
 
-export type IUnitStatById = {
-  [index: UnitId]: IUnitStat
-}
-
 export type IUnitStatMinMax = {
   [HP]: [number, number]
   [ATK]: [number, number]

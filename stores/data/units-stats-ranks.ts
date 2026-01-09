@@ -1,9 +1,8 @@
 import keyBy from 'lodash-es/keyBy'
 
-import type {
-  IUnitStatRank,
-  IUnitStatRankById,
-} from '@/utils/types/units-stats-ranks'
+import type { IndexedBy } from '~/utils/functions/typeSafe'
+import type { UnitId } from '~/utils/types/units'
+import type { IUnitStatRank } from '@/utils/types/units-stats-ranks'
 
 export const useStoreDataUnitsStatsRanks = defineStore(
   'data/units-stats-ranks',
@@ -16,7 +15,7 @@ export const useStoreDataUnitsStatsRanks = defineStore(
       ranks,
     )
 
-    const ranksById = computed<IUnitStatRankById>(() =>
+    const ranksById = computed<IndexedBy<UnitId, IUnitStatRank>>(() =>
       keyBy(ranks.value, 'id'),
     )
 

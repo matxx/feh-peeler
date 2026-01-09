@@ -346,9 +346,6 @@ import mapValues from 'lodash-es/mapValues'
 import {
   type IUnit,
   type UnitId,
-  type UnitsCountByWeaponColor,
-  type UnitsCountByWeaponColorByAvailability,
-  type UnitsCountByAvailability,
   getEmptyUnitsCountByWeaponColor,
   getEmptyUnitsCountByWeaponColorByAvailability,
 } from '~/utils/types/units'
@@ -358,7 +355,11 @@ import {
   type Availability,
 } from '~/utils/types/units-availabilities'
 import { SORTED_WEAPON_COLORS, type WeaponColor } from '~/utils/types/weapons'
-import { chunkMaxLength } from '~/utils/functions/typeSafe'
+import {
+  chunkMaxLength,
+  type IndexedByBy,
+  type IndexedBy,
+} from '~/utils/functions/typeSafe'
 import {
   SORT_ORDERS,
   SORT_BY_MOVE_TYPE,
@@ -420,20 +421,22 @@ function confirmReset() {
   ownedUnitIds.value = new Set()
 }
 
-const allUnitsCountByWeaponColorByAvailability =
-  computed<UnitsCountByWeaponColorByAvailability>(() =>
-    mapValues(
-      storeDataUnits.unitsByWeaponColorByAvailability,
-      (allUnitsByWeaponColor) =>
-        mapValues(allUnitsByWeaponColor, (units) => units.length),
-    ),
-  )
-const allUnitsCountByAvailability = computed<UnitsCountByAvailability>(() =>
+const allUnitsCountByWeaponColorByAvailability = computed<
+  IndexedByBy<Availability, WeaponColor, number>
+>(() =>
   mapValues(
-    allUnitsCountByWeaponColorByAvailability.value,
-    (allUnitsCountByWeaponColor) =>
-      sum(Object.values(allUnitsCountByWeaponColor)),
+    storeDataUnits.unitsByWeaponColorByAvailability,
+    (allUnitsByWeaponColor) =>
+      mapValues(allUnitsByWeaponColor, (units) => units.length),
   ),
+)
+const allUnitsCountByAvailability = computed<IndexedBy<Availability, number>>(
+  () =>
+    mapValues(
+      allUnitsCountByWeaponColorByAvailability.value,
+      (allUnitsCountByWeaponColor) =>
+        sum(Object.values(allUnitsCountByWeaponColor)),
+    ),
 )
 const ownedUnitsCountByWeaponColorByAvailability = computed(() => {
   const res = getEmptyUnitsCountByWeaponColorByAvailability()
@@ -446,16 +449,17 @@ const ownedUnitsCountByWeaponColorByAvailability = computed(() => {
   })
   return res
 })
-const ownedUnitsCountByAvailability = computed<UnitsCountByAvailability>(() =>
-  mapValues(
-    ownedUnitsCountByWeaponColorByAvailability.value,
-    (ownedUnitsCountByWeaponColor) =>
-      sum(Object.values(ownedUnitsCountByWeaponColor)),
-  ),
+const ownedUnitsCountByAvailability = computed<IndexedBy<Availability, number>>(
+  () =>
+    mapValues(
+      ownedUnitsCountByWeaponColorByAvailability.value,
+      (ownedUnitsCountByWeaponColor) =>
+        sum(Object.values(ownedUnitsCountByWeaponColor)),
+    ),
 )
 
-const allUnitsCountByWeaponColor = computed<UnitsCountByWeaponColor>(() =>
-  mapValues(storeDataUnits.unitsByWeaponColor, (units) => units.length),
+const allUnitsCountByWeaponColor = computed<IndexedBy<WeaponColor, number>>(
+  () => mapValues(storeDataUnits.unitsByWeaponColor, (units) => units.length),
 )
 const ownedUnitsCountByWeaponColor = computed(() => {
   const res = getEmptyUnitsCountByWeaponColor()

@@ -82,10 +82,10 @@ import {
   SKILL_CATEGORIES_WITH_ICON,
   TAB_OWNERS,
   type ISkill,
-  type TBySkillCategory,
+  type SkillCategory,
 } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
-import { groupBy } from '~/utils/functions/typeSafe'
+import { groupBy, type GroupedBy } from '~/utils/functions/typeSafe'
 
 const props = defineProps<{
   unit: IUnit
@@ -115,7 +115,7 @@ const skillsMaxTier = computed<ISkill[]>(() =>
       isEmpty(intersection(skill.upgrade_ids, availability.value.skill_ids)),
   ),
 )
-const skillsMaxTierByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
+const skillsMaxTierByCategory = computed<GroupedBy<SkillCategory, ISkill>>(() =>
   groupBy(skillsMaxTier.value, 'category'),
 )
 </script>

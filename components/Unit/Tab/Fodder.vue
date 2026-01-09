@@ -208,14 +208,15 @@ import {
   SKILL_SPECIAL,
   TAB_OWNERS,
   type ISkill,
-  type TBySkillCategory,
+  type SkillCategory,
   type SkillId,
 } from '~/utils/types/skills'
 import type { IUnit } from '~/utils/types/units'
 import {
-  objectFromEntries,
   groupBy,
   objectEntries,
+  objectFromEntries,
+  type IndexedBy,
 } from '~/utils/functions/typeSafe'
 
 const props = defineProps<{
@@ -259,8 +260,8 @@ const skillsMaxTier = computed<ISkill[]>(() =>
       isEmpty(intersection(skill.upgrade_ids, availability.value.skill_ids)),
   ),
 )
-const skillsMaxTierByCategory = computed<TBySkillCategory<ISkill[]>>(() =>
-  groupBy(skillsMaxTier.value, 'category'),
+const skillsMaxTierByCategory = computed<IndexedBy<SkillCategory, ISkill[]>>(
+  () => groupBy(skillsMaxTier.value, 'category'),
 )
 
 const hasSpecialNotFiveStarLocked = computed(() =>
@@ -278,7 +279,7 @@ const hasMultipleSkillsInSameSlots = computed(() =>
 )
 
 const relevantSkillIdByCategory = computed<
-  TBySkillCategory<SkillId | undefined>
+  IndexedBy<SkillCategory, SkillId | undefined>
 >(() =>
   objectFromEntries(
     objectEntries(skillsMaxTierByCategory.value).map(([category, skills]) => [

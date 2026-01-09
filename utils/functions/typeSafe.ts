@@ -1,11 +1,25 @@
 import hasOwnProp from '~/utils/functions/hasOwnProp'
 
-export type IndexedBy<U extends string | number | symbol, T> = {
-  [key in U]: T
+export type IndexedBy<T extends string | number | symbol, U> = {
+  [key in T]: U
+}
+export type IndexedByBy<
+  T extends string | number | symbol,
+  U extends string | number | symbol,
+  V,
+> = {
+  [key in T]: IndexedBy<U, V>
 }
 
-export type GroupedBy<U extends string | number | symbol, T> = {
-  [key in U]: T[]
+export type GroupedBy<T extends string | number | symbol, U> = {
+  [key in T]: U[]
+}
+export type GroupedByBy<
+  T extends string | number | symbol,
+  U extends string | number | symbol,
+  V,
+> = {
+  [key in T]: GroupedBy<U, V>
 }
 
 // TODO: make return type safe...

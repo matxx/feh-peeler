@@ -7,7 +7,6 @@ import { type SkillId, type ISkill, SKILL_SPECIAL } from '~/utils/types/skills'
 import type {
   Availability,
   ISkillAvailability,
-  ISkillAvailabilityById,
 } from '@/utils/types/skills-availabilities'
 import {
   AV_SCORE_GENERIC_POOL_3_4,
@@ -31,6 +30,7 @@ import {
   FOCUS_ONLY,
   OWNER_LOWEST_RARITY_WHEN_OBTAINED,
 } from '~/utils/types/obfuscated-keys'
+import type { IndexedBy } from '~/utils/functions/typeSafe'
 
 export const useStoreDataSkillsAvailabilities = defineStore(
   'data/skills-availabilities',
@@ -43,8 +43,8 @@ export const useStoreDataSkillsAvailabilities = defineStore(
       availabilities,
     )
 
-    const availabilitiesById = computed<ISkillAvailabilityById>(() =>
-      keyBy(availabilities.value, 'id'),
+    const availabilitiesById = computed<IndexedBy<SkillId, ISkillAvailability>>(
+      () => keyBy(availabilities.value, 'id'),
     )
 
     const isFiveStarLocked = (availability?: ISkillAvailability) =>

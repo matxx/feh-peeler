@@ -8,7 +8,7 @@ import intersection from 'lodash-es/intersection'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
 import * as a from '~/utils/types/units-availabilities'
-import { STATS, type IUnitStatById } from '~/utils/types/units-stats'
+import { STATS, type IUnitStat } from '~/utils/types/units-stats'
 import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
@@ -18,7 +18,12 @@ import {
   FOCUS_ONLY,
 } from '~/utils/types/obfuscated-keys'
 
-import { filterByName, RATING_0, type IUnit } from '~/utils/types/units'
+import {
+  filterByName,
+  RATING_0,
+  type IUnit,
+  type UnitId,
+} from '~/utils/types/units'
 import { createFilters, type IFilters } from '~/utils/types/units-filters'
 import {
   SORT_NAME,
@@ -40,7 +45,7 @@ import {
 } from '~/utils/types/units-sorters'
 import { SORTED_MOVE_TYPES_INDEXES } from '~/utils/types/moves'
 import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
-import { objectEntries } from '~/utils/functions/typeSafe'
+import { objectEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
 
 function filterName(u: IUnit, r?: RegExp) {
@@ -80,7 +85,11 @@ const filterHasPrfWeapon = (filters: IFilters, u: IUnit) =>
 const filterHasPrfSkill = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.hasPrfSkill, u.hasPrfSkill)
 
-function filterStats(filters: IFilters, u: IUnit, statById: IUnitStatById) {
+function filterStats(
+  filters: IFilters,
+  u: IUnit,
+  statById: IndexedBy<UnitId, IUnitStat>,
+) {
   if (u.bst < filters.stats.bst[0]) return false
   if (u.bst > filters.stats.bst[1]) return false
 
@@ -98,7 +107,7 @@ function filterStats(filters: IFilters, u: IUnit, statById: IUnitStatById) {
 function filterAvailability(
   filters: IFilters,
   u: IUnit,
-  availabilitiesById: a.IUnitAvailabilityById,
+  availabilitiesById: IndexedBy<UnitId, a.IUnitAvailability>,
 ) {
   if (filters.availabilities.size === 0) return true
 

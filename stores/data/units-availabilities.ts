@@ -16,7 +16,6 @@ import {
   AV_SCORE_SPECIAL_POOL_5,
   AV_SCORE_INFINITY,
   type IUnitAvailability,
-  type IUnitAvailabilityById,
 } from '@/utils/types/units-availabilities'
 import {
   GENERIC_SUMMON_POOL,
@@ -26,6 +25,7 @@ import {
   // LIMITED_DIVINE_CODES,
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
+import type { IndexedBy } from '~/utils/functions/typeSafe'
 
 export const useStoreDataUnitsAvailabilities = defineStore(
   'data/units-availabilities',
@@ -38,8 +38,8 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       availabilities,
     )
 
-    const availabilitiesById = computed<IUnitAvailabilityById>(() =>
-      keyBy(availabilities.value, 'id'),
+    const availabilitiesById = computed<IndexedBy<UnitId, IUnitAvailability>>(
+      () => keyBy(availabilities.value, 'id'),
     )
 
     function availabilitySortingValue(unit: IUnit) {

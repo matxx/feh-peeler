@@ -1,5 +1,5 @@
 import { objectFromEntries, type IndexedBy } from '~/utils/functions/typeSafe'
-import { SKILL_CATEGORIES, type TBySkillCategory } from '~/utils/types/skills'
+import { SKILL_CATEGORIES, type SkillCategory } from '~/utils/types/skills'
 import { getEmptyUnitInstance, type IUnitInstance } from '~/utils/types/units'
 import type {
   Element,
@@ -24,7 +24,7 @@ export interface IUnitInstanceInScoreCalc extends IUnitInstance {
   bane: null | Stat
   blessing: null | Element
 
-  skillSPs: TBySkillCategory<number | undefined>
+  skillSPs: IndexedBy<SkillCategory, number | undefined>
 }
 
 export type ScoreContext = {
@@ -63,7 +63,8 @@ export function getEmptyTeamInScoreCalc(): TeamInScoreCalc {
   ]
 }
 
-export function getEmptyUnitInstanceSkillSPs(): TBySkillCategory<
+export function getEmptyUnitInstanceSkillSPs(): IndexedBy<
+  SkillCategory,
   number | undefined
 > {
   return objectFromEntries(SKILL_CATEGORIES.map((cat) => [cat, undefined]))

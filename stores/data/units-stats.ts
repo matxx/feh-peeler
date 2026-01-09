@@ -1,6 +1,8 @@
 import keyBy from 'lodash-es/keyBy'
 
-import type { IUnitStat, IUnitStatById } from '@/utils/types/units-stats'
+import type { IndexedBy } from '~/utils/functions/typeSafe'
+import type { UnitId } from '~/utils/types/units'
+import type { IUnitStat } from '~/utils/types/units-stats'
 
 export const useStoreDataUnitsStats = defineStore('data/units-stats', () => {
   const stats = ref<IUnitStat[]>([])
@@ -11,7 +13,9 @@ export const useStoreDataUnitsStats = defineStore('data/units-stats', () => {
     stats,
   )
 
-  const statsById = computed<IUnitStatById>(() => keyBy(stats.value, 'id'))
+  const statsById = computed<IndexedBy<UnitId, IUnitStat>>(() =>
+    keyBy(stats.value, 'id'),
+  )
 
   return {
     isLoading,

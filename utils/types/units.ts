@@ -1,6 +1,10 @@
 import type { DateTime } from 'luxon'
 
-import { objectFromEntries } from '~/utils/functions/typeSafe'
+import {
+  objectFromEntries,
+  type IndexedByBy,
+  type IndexedBy,
+} from '~/utils/functions/typeSafe'
 
 import type { MoveType } from '~/utils/types/moves'
 import {
@@ -11,7 +15,7 @@ import {
 } from '~/utils/types/weapons'
 import type { Game8Id } from '~/utils/types/game8'
 import { SKILL_CATEGORIES } from '~/utils/types/skills'
-import type { TBySkillCategory, SkillId } from '~/utils/types/skills'
+import type { SkillCategory, SkillId } from '~/utils/types/skills'
 import {
   SORTED_AVAILABILITIES,
   type Availability,
@@ -40,7 +44,7 @@ export type UnitTab =
   | typeof TAB_FODDER_VALUE
 export const UNIT_TABS: UnitTab[] = [
   TAB_BASE_KIT,
-  // TAB_ARTS,
+  TAB_ARTS,
   TAB_STATS,
   TAB_SKILLS,
   TAB_FODDER,
@@ -176,10 +180,11 @@ export interface IUnitWithReleaseDate extends IUnit {
 
 export interface IUnitInstance {
   id: UnitId | null
-  skillIds: TBySkillCategory<SkillId | undefined>
+  skillIds: IndexedBy<SkillCategory, SkillId | undefined>
 }
 
-export function getEmptyUnitInstanceSkillIds(): TBySkillCategory<
+export function getEmptyUnitInstanceSkillIds(): IndexedBy<
+  SkillCategory,
   SkillId | undefined
 > {
   return objectFromEntries(SKILL_CATEGORIES.map((cat) => [cat, undefined]))
@@ -200,28 +205,18 @@ export interface IUnitRatingsGame8 {
   recommended_plus10: StatOrNone
 }
 
-export type UnitsBy<T extends string | number | symbol> = {
-  [key in T]: IUnit[]
-}
-
-export type UnitsCountByAvailability = {
-  [key in Availability]: number
-}
-export type UnitsCountByWeaponColor = {
-  [key in WeaponColor]: number
-}
-export type UnitsByWeaponColorByAvailability = {
-  [key in Availability]: UnitsBy<WeaponColor>
-}
-export type UnitsCountByWeaponColorByAvailability = {
-  [key in Availability]: UnitsCountByWeaponColor
-}
-
-export function getEmptyUnitsCountByWeaponColor(): UnitsCountByWeaponColor {
+export function getEmptyUnitsCountByWeaponColor(): IndexedBy<
+  WeaponColor,
+  number
+> {
   return objectFromEntries(SORTED_WEAPON_COLORS.map((color) => [color, 0]))
 }
 
-export function getEmptyUnitsCountByWeaponColorByAvailability(): UnitsCountByWeaponColorByAvailability {
+export function getEmptyUnitsCountByWeaponColorByAvailability(): IndexedByBy<
+  Availability,
+  WeaponColor,
+  number
+> {
   return objectFromEntries(
     SORTED_AVAILABILITIES.map((availability) => [
       availability,

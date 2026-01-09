@@ -43,10 +43,6 @@ export interface IUnitAvailability {
   skill_ids: SkillId[]
 }
 
-export type IUnitAvailabilityById = {
-  [index: SkillId]: IUnitAvailability
-}
-
 // NB : do not use 0, it causes problems in units scores filters
 export const AV_SCORE_GENERIC_POOL_3_4 = 5
 export const AV_SCORE_HEROIC_GRAILS = 10

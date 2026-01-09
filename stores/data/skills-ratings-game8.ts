@@ -1,6 +1,7 @@
 import keyBy from 'lodash-es/keyBy'
 
 import type { SkillId, ISkillRatingsGame8 } from '@/utils/types/skills'
+import type { IndexedBy } from '~/utils/functions/typeSafe'
 
 export const useStoreDataSkillsRatingsGame8 = defineStore(
   'data/skills-ratings-game8',
@@ -13,9 +14,9 @@ export const useStoreDataSkillsRatingsGame8 = defineStore(
       items,
     )
 
-    const byId = computed<{
-      [index: SkillId]: ISkillRatingsGame8
-    }>(() => keyBy(items.value, 'id'))
+    const byId = computed<IndexedBy<SkillId, ISkillRatingsGame8>>(() =>
+      keyBy(items.value, 'id'),
+    )
 
     return {
       isLoading,

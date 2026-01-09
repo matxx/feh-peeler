@@ -102,7 +102,3 @@ export interface ISkillAvailability {
     limited?: IDivineCodeLimited[]
   }
 }
-
-export type ISkillAvailabilityById = {
-  [index: SkillId]: ISkillAvailability
-}
