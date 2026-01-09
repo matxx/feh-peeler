@@ -124,19 +124,40 @@ function isSkillAvailableToUnitWeaponType(
     if (restrictions.can_use.includes(unit.weapon_type)) {
       return true
     }
+    if (
+      restrictions.can_use.includes(w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type])
+    ) {
+      return true
+    }
+    if (
+      restrictions.can_use.includes(w.WEAPON_COLOR_FOR_TYPE[unit.weapon_type])
+    ) {
+      return true
+    }
 
-    return restrictions.can_use.includes(
-      w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
-    )
+    return false
   }
+
   if (restrictions.can_not_use) {
     if (restrictions.can_not_use.includes(unit.weapon_type)) {
       return false
     }
+    if (
+      restrictions.can_not_use.includes(
+        w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
+      )
+    ) {
+      return false
+    }
+    if (
+      restrictions.can_not_use.includes(
+        w.WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
+      )
+    ) {
+      return false
+    }
 
-    return !restrictions.can_not_use.includes(
-      w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
-    )
+    return true
   }
 
   return true
