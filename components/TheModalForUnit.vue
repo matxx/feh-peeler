@@ -24,11 +24,19 @@
             <UnitAvailability
               :unit="unit"
               :tile-size="TOOLBAR_FODDER_SIZE"
-              show-all
             />
           </template>
 
           <v-toolbar-items>
+            <DevOnly>
+              <v-btn
+                disabled
+                flat
+              >
+                {{ name }}
+              </v-btn>
+            </DevOnly>
+
             <v-btn
               v-show="!mobile"
               icon
@@ -74,7 +82,6 @@
               <UnitAvailability
                 :unit="unit"
                 :tile-size="TOOLBAR_FODDER_SIZE"
-                show-all
               />
 
               <v-spacer />
@@ -135,9 +142,9 @@
                 :size="TOOLBAR_ICON_SIZE"
               />
             </v-tabs-window-item>
-            <!-- <v-tabs-window-item :value="TAB_ARTS">
+            <v-tabs-window-item :value="TAB_ARTS">
               <UnitTabArts :unit="unit" />
-            </v-tabs-window-item> -->
+            </v-tabs-window-item>
             <v-tabs-window-item :value="TAB_STATS">
               <UnitTabStat :unit="unit" />
             </v-tabs-window-item>
@@ -169,7 +176,7 @@
 <script setup lang="ts">
 import {
   TAB_BASE_KIT,
-  // TAB_ARTS,
+  TAB_ARTS,
   TAB_STATS,
   TAB_SKILLS,
   TAB_FODDER,
@@ -183,7 +190,7 @@ const TOOLBAR_FODDER_SIZE = 30
 const FODDERS_TILE_SIZE = 40
 
 const { t } = useI18n()
-const { mobile } = useDisplay()
+const { mobile, name } = useDisplay()
 const { l: lGame8 } = useGame8()
 const { l: lFandom } = useFandom()
 const storeGlobals = useStoreGlobals()
@@ -192,9 +199,10 @@ const storeDataUnits = useStoreDataUnits()
 const { isLoading } = useDataStores([
   useStoreDataConstants(),
   storeDataUnits,
+  useStoreDataUnitsArts(),
+  useStoreDataUnitsAvailabilities(),
   useStoreDataUnitsStats(),
   useStoreDataUnitsStatsRanks(),
-  useStoreDataUnitsAvailabilities(),
   useStoreDataSkills(),
   useStoreDataSkillsAvailabilities(),
   useStoreDataSkillsUnits(),

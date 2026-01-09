@@ -31,6 +31,15 @@
           </template>
 
           <v-toolbar-items>
+            <DevOnly>
+              <v-btn
+                disabled
+                flat
+              >
+                {{ name }}
+              </v-btn>
+            </DevOnly>
+
             <v-btn
               v-show="!mobile"
               icon
@@ -170,7 +179,7 @@ const TOOLBAR_OWNER_SIZE = 30
 const OWNERS_TILE_SIZE = 40
 
 const { t } = useI18n()
-const { mobile } = useDisplay()
+const { mobile, name } = useDisplay()
 const { l: lGame8 } = useGame8()
 const { l: lFandom } = useFandom()
 const storeGlobals = useStoreGlobals()

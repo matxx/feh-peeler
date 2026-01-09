@@ -496,6 +496,10 @@ export default {
           bst: 'BST',
         },
       },
+      arts: {
+        classicArts: 'Classic Arts',
+        resplendentArts: 'Resplendent Arts',
+      },
     },
     filters: {
       resetFilters: 'Reset filters',
