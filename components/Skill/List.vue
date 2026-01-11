@@ -1,9 +1,16 @@
 <template>
   <div>
-    <SkillOwnersSorting
-      v-if="showOwners"
-      class="ml-3 mb-3"
-    />
+    <div class="d-flex justify-space-between align-center mx-3 mb-3">
+      <SkillOwnersSorting v-if="showOwners" />
+
+      <v-icon
+        v-show="showScrollHelper"
+        disabled
+        class="bounce-horizontally"
+      >
+        mdi-chevron-right-circle-outline
+      </v-icon>
+    </div>
 
     <v-container fluid>
       <v-row
@@ -74,4 +81,32 @@ const colsSpanMin = computed(() => {
 const colsSpanEffective = computed(() => {
   return Math.max(colsSpanRaw.value, colsSpanMin.value)
 })
+const columnCountEffective = computed(
+  () => GRID_COLUMNS_COUNT / colsSpanEffective.value,
+)
+const showScrollHelper = computed(
+  () => !mobile.value && columnCountEffective.value < skillsCount.value,
+)
 </script>
+
+<style lang="scss" scoped>
+// https://codepen.io/nelledejones/pen/gOOPWrK
+.bounce-horizontally {
+  animation: bounce 2s ease infinite;
+}
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-10px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+}
+</style>
