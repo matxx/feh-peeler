@@ -55,25 +55,11 @@
           </div>
         </div>
         <client-only v-if="unitsByMaxScore[score]">
-          <RecycleScroller
-            v-slot="{ item }"
-            class="scroller"
-            :items="unitsByMaxScore[score]"
-            :item-size="totalSize"
-            key-field="id"
-            direction="horizontal"
-          >
-            <NuxtLink
-              href="#"
-              @click.prevent="storeGlobals.showUnit(item.id)"
-            >
-              <CompoUnitThumbnail
-                :unit="item"
-                :size="size"
-                :size-corner="sizeCorner"
-              />
-            </NuxtLink>
-          </RecycleScroller>
+          <UnitListThumbnailsHorizontal
+            :units="unitsByMaxScore[score]"
+            :size="size"
+            :size-corner="sizeCorner"
+          />
         </client-only>
       </div>
 
@@ -256,8 +242,6 @@ onMounted(() => {
   storeDataUnitsAvailabilities.load()
 })
 
-const totalSize = 60
-const totalSizePx = computed(() => `${totalSize}px`)
 const size = 40
 const sizeCorner = 15
 
@@ -274,10 +258,6 @@ const scores = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-.scroller {
-  height: v-bind('totalSizePx');
-}
-
 .scores__line {
   display: flex;
 }
