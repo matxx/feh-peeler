@@ -5,6 +5,7 @@
     disable-route-watcher
     :model-value="route.path === '/' ? mobile && isOpen : isOpen"
     :temporary="!mobile"
+    :width="drawerWidth"
     @update:model-value="isOpen = $event"
   >
     <AppPages
@@ -16,6 +17,7 @@
 
     <v-list
       v-show="mobile"
+      ref="content"
       lines="one"
     >
       <v-list-subheader>
@@ -79,6 +81,7 @@
 import { GITHUB_LINK } from '@/utils/constants'
 
 const SIZE = 24
+const DEFAULT_DRAWER_WIDTH = 250
 const isOpen = defineModel<boolean>('is-open')
 
 const { t } = useI18n()
@@ -94,4 +97,11 @@ router.afterEach(() => {
 
   isOpen.value = false
 })
+
+const content = useTemplateRef('content')
+const container = computed<HTMLElement | undefined>(
+  () => content.value?.$el.parentElement,
+)
+const { scrollbarWidth } = useScroll(container)
+const drawerWidth = computed(() => DEFAULT_DRAWER_WIDTH + scrollbarWidth.value)
 </script>
