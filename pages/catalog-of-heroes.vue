@@ -47,13 +47,14 @@
     >
       <v-row>
         <v-col>
-          <h4>
+          <h4 :class="{ 'text-center': mobile }">
             {{ t('catalogOfHeroes.headers.catalog') }}
           </h4>
 
           <RecycleScroller
             v-slot="{ item }"
             class="scroller"
+            :class="{ 'scroller--centered': mobile }"
             :items="catalogLines"
             :item-size="frameSize"
           >
@@ -238,6 +239,7 @@
             item-title="name"
             item-value="name"
             clearable
+            class="mb-3"
           />
 
           <div v-if="storeDataBanners.selectedBanner">
@@ -267,11 +269,14 @@
           <v-select
             v-model="storeDataUnitsHeroicGrails.order"
             :items="sortOrders"
+            hide-details
+            class="mb-3"
           />
 
           <RecycleScroller
             v-slot="{ item }"
             class="scroller"
+            :class="{ 'scroller--centered': mobile }"
             :items="storeDataUnitsHeroicGrails.heroicGrailsUnitsLines"
             :item-size="frameSize"
           >
@@ -549,5 +554,8 @@ function updateData(data: IPayloadToSaveV1) {
 .scroller {
   height: v-bind('heightPx');
   width: v-bind('widthPx');
+}
+.scroller--centered {
+  margin: 0 auto;
 }
 </style>
