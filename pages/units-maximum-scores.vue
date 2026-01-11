@@ -1,5 +1,16 @@
 <template>
   <div>
+    <v-alert
+      type="warning"
+      border="start"
+      variant="tonal"
+      class="mb-3"
+    >
+      {{ t('scores.alertAboutBPremiumSkills.line1') }}
+      <br />
+      {{ t('scores.alertAboutBPremiumSkills.line2') }}
+    </v-alert>
+
     <div class="d-flex align-center mb-3">
       <div>
         {{ t('global.inpiredBy') }}
@@ -24,32 +35,6 @@
     </div>
 
     <div ref="mobile-units-filter-name" />
-
-    <div class="d-flex align-center mb-3">
-      <v-checkbox
-        v-model="doNotUseBPremiumSkills"
-        :label="t('scores.doNotUseBPremiumSkills')"
-        hide-details
-        density="compact"
-        class="mr-1"
-      />
-
-      <v-tooltip location="bottom">
-        <template #activator="{ props: tooltipProps }">
-          <v-icon
-            v-bind="tooltipProps"
-            color="info"
-            size="xsmall"
-          >
-            mdi-information-outline
-          </v-icon>
-        </template>
-
-        {{ t('scores.tooltipAboutBPremiumSkills.line1') }}
-        <br />
-        {{ t('scores.tooltipAboutBPremiumSkills.line2') }}
-      </v-tooltip>
-    </div>
 
     <div class="scores__line">
       <h4 class="scores__score">
@@ -245,7 +230,6 @@ import sortBy from 'lodash-es/sortBy'
 import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
-import { WEAPON_C_ST } from '~/utils/types/weapons'
 import { createDefaultSortersForUnitsByMaxScore } from '~/utils/types/units-sorters'
 
 definePageMeta({
@@ -255,8 +239,6 @@ definePageMeta({
 const { l } = useFandom()
 const { t } = useI18n()
 const storeGlobals = useStoreGlobals()
-
-const doNotUseBPremiumSkills = ref(false)
 
 const div = useTemplateRef('mobile-units-filter-name')
 onMounted(() => {
@@ -284,11 +266,7 @@ storeUnitsFilters.$reset()
 storeUnitsFilters.sorters = createDefaultSortersForUnitsByMaxScore()
 
 const unitsByMaxScore = computed(() =>
-  groupBy(storeUnitsFilters.unitsFilteredSorted, (u) => {
-    if (u.weapon_type === WEAPON_C_ST) return u.max_score
-
-    return doNotUseBPremiumSkills.value ? u.max_score - 2 : u.max_score
-  }),
+  groupBy(storeUnitsFilters.unitsFilteredSorted, 'max_score'),
 )
 const scores = computed(() =>
   sortBy(compact(Object.keys(unitsByMaxScore.value))).reverse(),
