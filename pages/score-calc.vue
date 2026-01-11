@@ -234,6 +234,7 @@
           <i18n-t
             keypath="scoreCalc.tips.findTierlist"
             tag="span"
+            scope="global"
           >
             <template #link>
               <NuxtLink :to="localePath('units-maximum-scores')">

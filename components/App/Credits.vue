@@ -3,6 +3,7 @@
     <i18n-t
       keypath="home.misc.allDataFrom"
       tag="span"
+      scope="global"
     >
       <template #link>
         <a
@@ -19,6 +20,7 @@
     <i18n-t
       keypath="home.misc.allRatingsFrom"
       tag="span"
+      scope="global"
     >
       <template #link>
         <a

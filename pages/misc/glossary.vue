@@ -88,6 +88,7 @@
     <i18n-t
       keypath="misc.glossary.abbreviations.suffix.listOfFEGames"
       tag="p"
+      scope="global"
     >
       <template #link>
         <a
