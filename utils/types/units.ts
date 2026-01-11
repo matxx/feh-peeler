@@ -1,5 +1,6 @@
 import type { DateTime } from 'luxon'
 
+import type { Guid } from '~/utils/types/shared'
 import {
   objectFromEntries,
   type IndexedByBy,
@@ -24,7 +25,7 @@ import type { Element } from '~/utils/types/units-filters'
 import type { StatOrNone } from '~/utils/types/units-stats'
 import type { UnitTheme } from '~/utils/types/units-themes'
 
-export type UnitId = string
+export type UnitId = Guid<'unit'>
 
 export const TAB_BASE_KIT = 'base-kit'
 export const TAB_ARTS = 'arts'

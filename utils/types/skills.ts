@@ -1,3 +1,4 @@
+import type { Guid } from '~/utils/types/shared'
 import type { Grade } from '@/utils/types/grades'
 import type { Game8Id } from '@/utils/types/game8'
 import type { MoveType } from '@/utils/types/moves'
@@ -154,7 +155,7 @@ export type Effectiveness =
   | typeof EFF_DRAGONSTONE
   | typeof EFF_ALL
 
-export type SkillId = string
+export type SkillId = Guid<'skill'>
 
 export interface IRestrictions<T> {
   none?: true
