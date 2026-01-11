@@ -5,7 +5,7 @@
       v-model="isDrawerOpen"
       :location="mobile ? 'bottom' : 'left'"
       :permanent="!mobile"
-      width="275"
+      :width="drawerWidth"
     >
       <v-overlay
         contained
@@ -19,6 +19,7 @@
       </v-overlay>
 
       <UnitDrawerAll
+        ref="content"
         v-model:filters="filters"
         :sorters="sorters"
         :show-sorters="showSorters"
@@ -108,6 +109,8 @@ const { isLoading } = useDataStores([
   useStoreDataSkills(),
 ])
 
+const DEFAULT_DRAWER_WIDTH = 275
+
 const sizeSorters = 20
 const sizeFilters = 20
 
@@ -119,4 +122,11 @@ const getRouteBaseName = useRouteBaseName()
 const showSorters = computed(
   () => getRouteBaseName(route) === 'units-maximum-scores',
 )
+
+const content = useTemplateRef('content')
+const container = computed<HTMLElement | undefined>(
+  () => content.value?.$el.parentElement,
+)
+const { scrollbarWidth } = useScroll(container)
+const drawerWidth = computed(() => DEFAULT_DRAWER_WIDTH + scrollbarWidth.value)
 </script>

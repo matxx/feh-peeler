@@ -131,6 +131,7 @@ export default defineNuxtConfig({
     '@sentry/nuxt/module',
     'vuetify-nuxt-module',
     'nuxt-highcharts',
+    '@vueuse/nuxt',
   ],
 
   pinia: {

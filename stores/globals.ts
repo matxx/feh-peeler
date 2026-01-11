@@ -10,6 +10,28 @@ import {
 } from '~/utils/types/units'
 
 export const useStoreGlobals = defineStore('globals', () => {
+  const scrollbarWidth = ref(0)
+  const scrollbarHeight = ref(0)
+  const scrollbarWidthPx = computed(() => scrollbarWidth.value + 'px')
+  const scrollbarHeightPx = computed(() => scrollbarHeight.value + 'px')
+
+  // inspired by https://stackoverflow.com/a/13382873
+  function updateScrollbarSizes() {
+    const outer = document.createElement('div')
+    outer.style.visibility = 'hidden'
+    outer.style.overflow = 'scroll' // forcing scrollbar to appear
+    // outer.style.msOverflowStyle = 'scrollbar' // needed for WinJS apps
+    document.body.appendChild(outer)
+
+    const inner = document.createElement('div')
+    outer.appendChild(inner)
+
+    scrollbarWidth.value = outer.offsetWidth - inner.offsetWidth
+    scrollbarHeight.value = outer.offsetHeight - inner.offsetHeight
+
+    outer.parentNode!.removeChild(outer)
+  }
+
   const modalSkillIsOpen = ref(false)
   const shownSkillId = ref<SkillId>()
   const shownSkillTab = ref<SkillTab>()
@@ -67,6 +89,12 @@ export const useStoreGlobals = defineStore('globals', () => {
   }
 
   return {
+    scrollbarWidth,
+    scrollbarHeight,
+    scrollbarWidthPx,
+    scrollbarHeightPx,
+    updateScrollbarSizes,
+
     modalSkillIsOpen,
     shownSkillId,
     shownSkillTab,

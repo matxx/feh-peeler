@@ -123,7 +123,7 @@ const { isLoading: isLoadingData } = useDataStores([
   useStoreDataSkillsRatingsGame8(),
 ])
 
-const list = ref<InstanceType<typeof HallOfFormsSkillsLists>>()
+const list = useTemplateRef('list')
 
 const showSp = ref(false)
 const showDescriptions = ref(false)

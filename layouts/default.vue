@@ -27,4 +27,5 @@ useHead(() => ({
     ],
   },
 }))
+onMounted(useStoreGlobals().updateScrollbarSizes)
 </script>

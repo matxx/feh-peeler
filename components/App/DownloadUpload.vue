@@ -42,7 +42,7 @@ const props = defineProps<{
 
 const isDownloading = ref(false)
 const isUploading = ref(false)
-const uploader = ref<null | HTMLInputElement>(null)
+const uploader = useTemplateRef('uploader')
 
 function downloadJson() {
   isDownloading.value = true
