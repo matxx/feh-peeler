@@ -515,8 +515,6 @@ export default {
         genders: 'Genders',
       },
       tooltips: {
-        hasPrfWeapon: 'PRF Weapon',
-        hasPrfSkill: 'PRF Skill',
         isGHB: 'Grand Hero Battle',
         isTT: 'Tempest Trial',
       },

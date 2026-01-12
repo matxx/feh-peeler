@@ -374,54 +374,28 @@
 
     <div class="mt-1">
       <v-btn-group
+        v-for="cat in SKILL_CATEGORIES_FOR_PRF"
+        :key="cat"
         color="primary"
         density="compact"
         variant="outlined"
+        class="mr-1"
       >
         <v-btn
-          v-tooltip:bottom="t('units.filters.tooltips.hasPrfWeapon')"
           size="small"
           class="text-primary"
-          :active="filters.hasPrfWeapon !== null"
-          @click="cycleFilter('hasPrfWeapon')"
+          :active="filters.hasPrf[cat] !== null"
+          @click="cyclePrf(cat)"
         >
           <v-icon start>
-            {{ iconForBool(filters.hasPrfWeapon) }}
+            {{ iconForBool(filters.hasPrf[cat]) }}
           </v-icon>
           PRF
-          <img
-            src="assets/icons/skills/weapon.png"
-            :width="size"
-            :height="size"
+          <SkillImgCategory
+            :category="cat"
+            :size="size"
             class="ml-2"
           />
-        </v-btn>
-      </v-btn-group>
-
-      <v-btn-group
-        color="primary"
-        density="compact"
-        variant="outlined"
-        class="ml-1"
-      >
-        <v-btn
-          v-tooltip:bottom="t('units.filters.tooltips.hasPrfSkill')"
-          size="small"
-          class="text-primary"
-          :active="filters.hasPrfSkill !== null"
-          @click="cycleFilter('hasPrfSkill')"
-        >
-          <v-icon start>
-            {{ iconForBool(filters.hasPrfSkill) }}
-          </v-icon>
-          PRF
-          <span class="ml-2 crossed">
-            <img
-              src="assets/icons/skills/weapon.png"
-              :width="size"
-              :height="size"
-            />
-          </span>
         </v-btn>
       </v-btn-group>
     </div>
@@ -646,6 +620,10 @@ import { iconForBool } from '~/utils/functions/iconFor'
 import type { Availability } from '~/utils/types/units-availabilities'
 import { ALL_THEMES } from '~/utils/types/units-themes'
 import { BOOKS_COUNT } from '~/utils/types/constants'
+import {
+  SKILL_CATEGORIES_FOR_PRF,
+  type SkillCategory,
+} from '~/utils/types/skills'
 
 const SIZE = 24
 
@@ -741,13 +719,17 @@ function cycleFilter(
     | 'isFallen'
     | 'isStory'
     | 'isTT'
-    | 'isGHB'
-    | 'hasPrfWeapon'
-    | 'hasPrfSkill',
+    | 'isGHB',
 ) {
   if (!filters.value) return
 
   filters.value[key] = cycleState(filters.value[key])
+}
+
+function cyclePrf(key: SkillCategory) {
+  if (!filters.value) return
+
+  filters.value.hasPrf[key] = cycleState(filters.value.hasPrf[key])
 }
 
 const itemsForThemes = sortBy(

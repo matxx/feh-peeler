@@ -40,6 +40,15 @@ export const SKILL_PASSIVE_ABC: SkillCategory[] = [
   SKILL_PASSIVE_C,
 ]
 
+export const SKILL_CATEGORIES_FOR_PRF: SkillCategory[] = [
+  SKILL_WEAPON,
+  SKILL_ASSIST,
+  SKILL_SPECIAL,
+  SKILL_PASSIVE_A,
+  SKILL_PASSIVE_B,
+  SKILL_PASSIVE_C,
+]
+
 export const SKILL_CATEGORIES: SkillCategory[] = [
   SKILL_WEAPON,
   SKILL_ASSIST,

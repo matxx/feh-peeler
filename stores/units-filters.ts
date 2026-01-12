@@ -22,6 +22,7 @@ import {
   filterByName,
   RATING_0,
   type IUnit,
+  type IUnitData,
   type UnitId,
 } from '~/utils/types/units'
 import { createFilters, type IFilters } from '~/utils/types/units-filters'
@@ -47,6 +48,7 @@ import { SORTED_MOVE_TYPES_INDEXES } from '~/utils/types/moves'
 import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
 import { objectEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
+import type { SkillCategory, SkillId } from '~/utils/types/skills'
 
 function filterName(u: IUnit, r?: RegExp) {
   if (!r) return true
@@ -80,10 +82,6 @@ const filterIsTT = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.isTT, u.is_tt)
 const filterIsGHB = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.isGHB, u.is_ghb)
-const filterHasPrfWeapon = (filters: IFilters, u: IUnit) =>
-  filterBoolean(filters.hasPrfWeapon, u.hasPrfWeapon)
-const filterHasPrfSkill = (filters: IFilters, u: IUnit) =>
-  filterBoolean(filters.hasPrfSkill, u.hasPrfSkill)
 
 function filterStats(
   filters: IFilters,
@@ -181,6 +179,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const storeDataUnitsStats = useStoreDataUnitsStats()
   const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
   const storeDataUnitsRatingsGame8 = useStoreDataUnitsRatingsGame8()
+  const storeDataSkills = useStoreDataSkills()
 
   const { t } = useI18n()
 
@@ -216,8 +215,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.isStory !== null ||
       filters.value.isTT !== null ||
       filters.value.isGHB !== null ||
-      filters.value.hasPrfWeapon !== null ||
-      filters.value.hasPrfSkill !== null ||
+      some(
+        objectEntries(filters.value.hasPrf),
+        ([_cat, bool]) => bool !== null,
+      ) ||
       some(
         objectEntries(filters.value.stats),
         ([stat, [min, max]]) =>
@@ -226,6 +227,19 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       ) ||
       false,
   )
+
+  function hasPrf(unit: IUnitData, cat: SkillCategory) {
+    if (!storeDataSkills.isLoaded) return false
+    if (!storeDataUnitsAvailabilities.isLoaded) return false
+
+    return some(
+      storeDataUnitsAvailabilities.availabilitiesById[unit.id].skill_ids,
+      (skillId: SkillId) => {
+        const skill = storeDataSkills.skillsById[skillId]
+        return skill.is_prf && skill.category === cat
+      },
+    )
+  }
 
   function updateSorter([index, sorter]: [number, ISorter]) {
     if (!sorters.value) return
@@ -322,16 +336,21 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterIsGHB(filters.value, u)),
       // @ts-expect-error unsafe typings
-      f(filter, (u: IUnit) => filterHasPrfWeapon(filters.value, u)),
-      // @ts-expect-error unsafe typings
-      f(filter, (u: IUnit) => filterHasPrfSkill(filters.value, u)),
-      // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterMoveType(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterWeaponType(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
         filterStats(filters.value, u, storeDataUnitsStats.statsById),
+      ),
+
+      ...objectEntries(filters.value.hasPrf).map(([cat, bool]) =>
+        // @ts-expect-error unsafe typings
+        f(filter, (u: IUnit) => {
+          if (bool === null) return true
+
+          return bool === hasPrf(u, cat)
+        }),
       ),
     )(units)
 

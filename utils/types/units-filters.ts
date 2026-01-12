@@ -1,9 +1,14 @@
+import { objectFromEntries } from '~/utils/functions/typeSafe'
 import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
 import type { Gender } from '~/utils/types/units'
 import type { Availability } from '~/utils/types/units-availabilities'
 import type { IUnitStatMinMax } from '~/utils/types/units-stats'
 import type { UnitTheme } from '~/utils/types/units-themes'
+import {
+  SKILL_CATEGORIES_FOR_PRF,
+  type SkillCategory,
+} from '~/utils/types/skills'
 
 export const ELEMENT_FIRE = 'Fire'
 export const ELEMENT_WATER = 'Water'
@@ -105,8 +110,9 @@ export interface IFilters {
   isTT: boolean | null
   isGHB: boolean | null
 
-  hasPrfWeapon: boolean | null
-  hasPrfSkill: boolean | null
+  hasPrf: {
+    [key in SkillCategory]: boolean | null
+  }
 
   stats: IUnitStatMinMax
 }
@@ -135,8 +141,7 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   isTT: null,
   isGHB: null,
 
-  hasPrfWeapon: null,
-  hasPrfSkill: null,
+  hasPrf: objectFromEntries(SKILL_CATEGORIES_FOR_PRF.map((cat) => [cat, null])),
 
   stats,
 })

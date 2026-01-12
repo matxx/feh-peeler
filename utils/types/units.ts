@@ -166,9 +166,6 @@ export interface IUnit extends IUnitData {
   sortableWeaponType: number
   sortableMoveType: number
   sortableVersion: string
-
-  hasPrfWeapon: boolean
-  hasPrfSkill: boolean
 }
 
 export interface IUnitWithAvailability extends IUnit {
