@@ -70,6 +70,7 @@
     </ul>
 
     <h3 class="mt-5">{{ t('misc.glossary.abbreviations.suffix.header') }}</h3>
+    <p>{{ t('misc.glossary.abbreviations.suffix.introduction') }}</p>
 
     <ul class="pl-4">
       <li
@@ -99,6 +100,8 @@
         </a>
       </template>
     </i18n-t>
+
+    <p>{{ t('misc.glossary.abbreviations.suffix.asPrefix') }}</p>
   </div>
 </template>
 
@@ -115,6 +118,7 @@ const byTheme = [
   'NY',
   'HSp',
   'De',
+  'I',
   'V',
   'Sp',
   'Y',

@@ -657,7 +657,7 @@ export default {
         prefix: {
           header: 'Prefixes',
           introduction:
-            'Here is a the list of prefixes used on this website (generally the lower case letters are omitted by the community)',
+            'Here is the list of prefixes used on this website (generally the lower case letters are omitted by the community)',
           headers: {
             byTrait: 'By trait',
             byTheme: 'By theme',
@@ -666,7 +666,8 @@ export default {
           byTheme: {
             NY: 'New Year (banners at the beginning of the year)',
             HSp: 'Hostile Spring (january 2019)',
-            De: 'Desert (banners in january) (names on game8 : Plegian, Hatari, Sage, Nabata, Jehanna)',
+            De: 'Desert (banners in january from 2021 to 2025) (names on game8 : Plegian, Hatari, Sage, Nabata, Jehanna)',
+            I: 'Ilia (january 2026)',
             V: 'Valentine (can also be called "DoD", Day of Devotion) (banners in february)',
             Sp: 'Spring (banners in march)',
             Y: 'Young (banners in april)',
@@ -711,7 +712,7 @@ export default {
         },
         suffix: {
           header: 'Suffixes',
-          listOfFEGames: 'The list of Fire Emblem games be found {link}.',
+          introduction: 'Here is the list of suffixes used on this website.',
 
           other: {
             M: 'Male',
@@ -723,6 +724,10 @@ export default {
             SoV: 'Shadow of Valentia (refers to the Fire Emblem game released in 2017)',
             'FE{N}': "Refers to the {'{N}'}-th Fire Emblem game",
           },
+
+          listOfFEGames: 'The list of Fire Emblem games be found {link}.',
+          asPrefix:
+            'The suffix can also be used as prefix by the community (ex: F!F!Corrin ; meaning Fallen Female Corrin)',
         },
       },
     },
