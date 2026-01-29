@@ -27,28 +27,26 @@
 
 <script lang="ts" setup>
 const { t } = useI18n()
-const TAB_UNITS_NAMES = 'units-names'
-const TAB_SKILLS_KEYWORDS = 'skills-keywords'
-const tab = ref(TAB_UNITS_NAMES)
-
 const route = useRoute()
 const router = useRouter()
+
+const TAB_UNITS_NAMES = 'units-names'
+const TAB_SKILLS_KEYWORDS = 'skills-keywords'
+const TABS = [TAB_UNITS_NAMES, TAB_SKILLS_KEYWORDS]
+
+const tab = ref(TAB_UNITS_NAMES)
+watch(tab, (newTab) => {
+  router.replace({ query: { tab: newTab } })
+})
 watch(
   route,
   () => {
-    if (route.hash) {
-      const hashTab = route.hash.substring(1)
-      if (hashTab === TAB_UNITS_NAMES || hashTab === TAB_SKILLS_KEYWORDS) {
-        tab.value = hashTab
-      }
-    }
-  },
-  { immediate: true },
-)
-watch(
-  tab,
-  (newTab) => {
-    router.replace({ hash: `#${newTab}` })
+    if (!route.query.tab) return
+
+    const newTab = String(route.query.tab)
+    if (!TABS.includes(newTab)) return
+
+    tab.value = newTab
   },
   { immediate: true },
 )
