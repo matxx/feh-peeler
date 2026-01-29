@@ -28,7 +28,6 @@ npm run dev
 
 1. display/sort/filter on skills range/might
 1. get any level correct stats
-1. handle window scrollbar in skill owners
 
 1. (PAGE) unit score calculator (like https://arcticsilverfox.com/score_calc/)
 1. (PAGE) add units as "owned" : add skills on owned unit as inherited skills

@@ -2,6 +2,7 @@
   <AppRenderOnceWhileActive :active="storeDataSkillsAvailabilities.isLoaded">
     <RecycleScroller
       v-slot="{ item }"
+      ref="scroller"
       class="scroller"
       :items="sortedOwners"
       :item-size="tileSize"
@@ -65,13 +66,18 @@ const sortedOwners = computed(() =>
   ]),
 )
 
-const tileSizePx = computed(() => `${props.tileSize}px`)
+const scroller = useTemplateRef('scroller')
+const container = computed<HTMLElement | undefined>(() => scroller.value?.$el)
+const { scrollbarHeight } = useScroll(container)
+const totalHeight = computed(() => props.tileSize + scrollbarHeight.value)
+const totalHeightPx = computed(() => `${totalHeight.value}px`)
+
 const maxWidthPx = computed(() => `${props.tileSize * 4.5}px`)
 </script>
 
 <style lang="scss" scoped>
 .scroller {
-  height: v-bind('tileSizePx');
+  height: v-bind('totalHeightPx');
   max-width: v-bind('maxWidthPx');
 }
 </style>
