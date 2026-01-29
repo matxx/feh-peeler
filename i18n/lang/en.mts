@@ -649,7 +649,7 @@ export default {
 
   misc: {
     glossary: {
-      headers: {
+      tabs: {
         unitsNames: "Units' Names",
         skillsKeywords: "Skills' Keywords",
       },
