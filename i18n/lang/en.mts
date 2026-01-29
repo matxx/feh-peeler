@@ -161,6 +161,10 @@ export default {
       youShouldTryToMakeItAvailableForABetterExperience:
         'You should try to make it available for a better experience.',
     },
+
+    skillDuo: 'Duo Skill',
+    skillHarmonized: 'Harmonized Skill',
+    skillEmblem: 'Emblem Effect',
   },
 
   saves: {

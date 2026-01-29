@@ -1,7 +1,8 @@
 <template>
   <v-card class="ma-1">
     <v-card-title class="d-flex justify-space-between align-center">
-      <NuxtLink
+      <AppLink
+        :disabled="SKILL_CATEGORIES_WITHOUT_NAME.includes(skill.category)"
         class="d-flex align-center"
         href="#"
         @click.prevent="storeGlobals.showSkill(skill.id)"
@@ -11,10 +12,19 @@
           :size="size"
           class="mr-2"
         />
-        <span v-show="!SKILL_CATEGORIES_WITHOUT_NAME.includes(skill.category)">
+        <span v-if="skill.category === SKILL_DUO">
+          {{ t('global.skillDuo') }}
+        </span>
+        <span v-else-if="skill.category === SKILL_HARMONIZED">
+          {{ t('global.skillHarmonized') }}
+        </span>
+        <span v-else-if="skill.category === SKILL_EMBLEM">
+          {{ t('global.skillEmblem') }}
+        </span>
+        <span v-else>
           {{ skill.name }}
         </span>
-      </NuxtLink>
+      </AppLink>
       <div>
         <SkillImgCategory
           :category="skill.category"
@@ -32,8 +42,12 @@
 <script setup lang="ts">
 import {
   SKILL_CATEGORIES_WITHOUT_NAME,
+  SKILL_DUO,
+  SKILL_EMBLEM,
+  SKILL_HARMONIZED,
   type ISkill,
 } from '~/utils/types/skills'
 defineProps<{ skill: ISkill; size: number }>()
+const { t } = useI18n()
 const storeGlobals = useStoreGlobals()
 </script>
