@@ -53,7 +53,8 @@
 
           <RecycleScroller
             v-slot="{ item }"
-            class="scroller"
+            ref="catalogScroller"
+            class="scroller scroller--catalog"
             :class="{ 'scroller--centered': mobile }"
             :items="catalogLines"
             :item-size="frameSize"
@@ -275,7 +276,8 @@
 
           <RecycleScroller
             v-slot="{ item }"
-            class="scroller"
+            ref="grailsScroller"
+            class="scroller scroller--grails"
             :class="{ 'scroller--centered': mobile }"
             :items="storeDataUnitsHeroicGrails.heroicGrailsUnitsLines"
             :item-size="frameSize"
@@ -314,11 +316,12 @@
           <!-- where the CSS variable for "v-bind('widthPx')" is not defined -->
           <RecycleScroller
             v-slot="{ item }"
-            :items="shownUnitsByLines"
+            ref="modalScroller"
+            :items="modalUnitsByLines"
             :item-size="frameSize"
             :style="{
-              width: shownUnitsWidthPx,
-              height: shownUnitsHeightPx,
+              width: modalUnitsWidthPx,
+              height: modalUnitsHeightPx,
             }"
           >
             <div class="d-flex">
@@ -393,6 +396,32 @@ const { isLoading: isLoadingStores } = useDataStores([
   storeDataUnitsHeroicGrails,
   storeDataUnitsAvailabilities,
 ])
+
+const catalogScroller = useTemplateRef('catalogScroller')
+const catalogContainer = computed<HTMLElement | undefined>(
+  () => catalogScroller.value?.$el,
+)
+const { scrollbarWidth: catalogScrollbarWidth } = useScroll(catalogContainer)
+const catalogScrollerWidthPx = computed(
+  () =>
+    `${frameSize.value * columnsCount.value + catalogScrollbarWidth.value}px`,
+)
+
+const grailsScroller = useTemplateRef('grailsScroller')
+const grailsContainer = computed<HTMLElement | undefined>(
+  () => grailsScroller.value?.$el,
+)
+const { scrollbarWidth: grailsScrollbarWidth } = useScroll(grailsContainer)
+const grailsScrollerWidthPx = computed(
+  () =>
+    `${frameSize.value * columnsCount.value + grailsScrollbarWidth.value}px`,
+)
+
+const modalScroller = useTemplateRef('modalScroller')
+const modalContainer = computed<HTMLElement | undefined>(
+  () => modalScroller.value?.$el,
+)
+const { scrollbarWidth: modalScrollbarWidth } = useScroll(modalContainer)
 
 const sortOrders = computed(() =>
   SORT_ORDERS.map((order) => ({
@@ -485,7 +514,7 @@ function show(availability?: Availability, color?: WeaponColor) {
   isModalOpen.value = true
 }
 
-const shownUnits = computed(() => {
+const modalUnits = computed(() => {
   if (shownAvailability.value && shownWeaponColor.value) {
     const unitsByWeaponColor =
       storeDataUnits.unitsByWeaponColorByAvailability[shownAvailability.value]
@@ -498,26 +527,27 @@ const shownUnits = computed(() => {
     return storeDataUnits.units
   }
 })
-const shownUnitsByLines = computed(() =>
+const modalUnitsByLines = computed(() =>
   chunkMaxLength(
-    sortBy(shownUnits.value, ['origin', 'id_int']),
+    sortBy(modalUnits.value, ['origin', 'id_int']),
     columnsCount.value,
   ).map((line, index) => ({
     id: index,
     units: line,
   })),
 )
-const shownUnitsColumnsShown = computed(() =>
-  Math.min(columnsCount.value, shownUnits.value.length),
+const modalUnitsColumnsShown = computed(() =>
+  Math.min(columnsCount.value, modalUnits.value.length),
 )
-const shownUnitsWidthPx = computed(
-  () => `${frameSize.value * shownUnitsColumnsShown.value}px`,
+const modalUnitsWidthPx = computed(
+  () =>
+    `${frameSize.value * modalUnitsColumnsShown.value + modalScrollbarWidth.value}px`,
 )
-const shownUnitsLinesShown = computed(() =>
-  Math.min(shownUnitsByLines.value.length, columnsCount.value),
+const modalUnitsLinesShown = computed(() =>
+  Math.min(modalUnitsByLines.value.length, columnsCount.value),
 )
-const shownUnitsHeightPx = computed(
-  () => `${frameSize.value * shownUnitsLinesShown.value}px`,
+const modalUnitsHeightPx = computed(
+  () => `${frameSize.value * modalUnitsLinesShown.value}px`,
 )
 
 // local storage
@@ -553,7 +583,12 @@ function updateData(data: IPayloadToSaveV1) {
 <style lang="scss" scoped>
 .scroller {
   height: v-bind('heightPx');
-  width: v-bind('widthPx');
+}
+.scroller--catalog {
+  width: v-bind('catalogScrollerWidthPx');
+}
+.scroller--grails {
+  width: v-bind('grailsScrollerWidthPx');
 }
 .scroller--centered {
   margin: 0 auto;
