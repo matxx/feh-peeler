@@ -740,7 +740,7 @@ export default {
         },
       },
       skillsKeywords: {
-        note: 'NB : a keyword can appear multiple times if the description is not exactly the same.',
+        note: 'NB : a same keyword can appear multiple times, it is generally due to a little difference in the wording across different skills (a problem inherent to Fandom).',
         headers: {
           name: 'Name',
           text: 'Text',
