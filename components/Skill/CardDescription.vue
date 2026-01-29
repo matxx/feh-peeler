@@ -11,7 +11,9 @@
           :size="size"
           class="mr-2"
         />
-        {{ skill.name }}
+        <span v-show="!SKILL_CATEGORIES_WITHOUT_NAME.includes(skill.category)">
+          {{ skill.name }}
+        </span>
       </NuxtLink>
       <div>
         <SkillImgCategory
@@ -28,7 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import type { ISkill } from '~/utils/types/skills'
+import {
+  SKILL_CATEGORIES_WITHOUT_NAME,
+  type ISkill,
+} from '~/utils/types/skills'
 defineProps<{ skill: ISkill; size: number }>()
 const storeGlobals = useStoreGlobals()
 </script>

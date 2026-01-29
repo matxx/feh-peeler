@@ -280,6 +280,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (!isFilterActiveOnCanUseMoves.value) return true
 
     if (s.is_prf) return false
+    if (!s.restrictions) return true
     if (s.restrictions.moves.none) return true
 
     if (s.restrictions.moves.can_use) {
@@ -300,6 +301,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (!isFilterActiveOnCanUseWeapons.value) return true
 
     if (s.is_prf) return false
+    if (!s.restrictions) return true
     if (s.restrictions.weapons.none) return true
 
     if (s.restrictions.weapons.can_use) {
@@ -435,7 +437,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     if (availability.is_in[GENERIC_SUMMON_POOL]) {
       switch (
-        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![GENERIC_SUMMON_POOL]
       ) {
         case 3:
         case 4:
@@ -451,7 +453,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     if (availability.is_in[SPECIAL_SUMMON_POOL]) {
       switch (
-        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+        availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![SPECIAL_SUMMON_POOL]
       ) {
         case 4:
           if (availabilities.has(a.AV_SPECIAL_POOL_4)) return true
@@ -495,7 +497,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     searchNameText.value ? searchNameText.value.length : 0,
   )
   const searchNameCounter = computed(() =>
-    searchNameTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
+    searchNameTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH
+      ? MINIMAL_TEXT_SEARCH_LENGTH
+      : undefined,
   )
   const searchNameIsActive = computed(
     () => searchNameTextLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
@@ -509,7 +513,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   )
   const searchDescriptionCounter = computed(() =>
     searchDescriptionTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH
-      ? 3
+      ? MINIMAL_TEXT_SEARCH_LENGTH
       : undefined,
   )
   const searchDescriptionIsActive = computed(
@@ -604,7 +608,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
           // case SORT_RESTRICTIONS: // TODO
           case SORT_DESCRIPTION:
             return (skill: ISkill) =>
-              storeDataSkillsDescriptions.byId[skill.id]?.description
+              storeDataSkillsDescriptions.byId[skill.id]?.full
           case SORT_AVAILABILITY:
             return (skill: ISkill) =>
               storeDataSkillsAvailabilities.availabilitySortingValue(skill)
@@ -638,8 +642,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (skill.is_prf) {
       const availability =
         storeDataSkillsAvailabilities.availabilitiesById[skill.id]
-      return availability.owner_ids.includes(unit.id)
+      return (availability.owner_ids || []).includes(unit.id)
     }
+    if (!skill.restrictions) return true
 
     if (!isSkillAvailableToUnitMoveType(skill.restrictions.moves, unit)) {
       return false

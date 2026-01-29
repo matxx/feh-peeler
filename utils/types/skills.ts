@@ -8,6 +8,7 @@ import { objectFromEntries } from '@/utils/functions/typeSafe'
 // only for sorting purposes (when no rating from game8)
 export const RATING_0 = '0'
 
+// from fandom
 export const SKILL_WEAPON = 'weapon'
 export const SKILL_ASSIST = 'assist'
 export const SKILL_SPECIAL = 'special'
@@ -16,6 +17,10 @@ export const SKILL_PASSIVE_B = 'passiveb'
 export const SKILL_PASSIVE_C = 'passivec'
 export const SKILL_PASSIVE_S = 'sacredseal'
 export const SKILL_PASSIVE_X = 'passivex'
+// custom
+export const SKILL_DUO = 'duo'
+export const SKILL_HARMONIZED = 'harmonized'
+export const SKILL_EMBLEM = 'emblem'
 
 export type SkillCategory =
   | typeof SKILL_WEAPON
@@ -26,6 +31,9 @@ export type SkillCategory =
   | typeof SKILL_PASSIVE_C
   | typeof SKILL_PASSIVE_S
   | typeof SKILL_PASSIVE_X
+  | typeof SKILL_DUO
+  | typeof SKILL_HARMONIZED
+  | typeof SKILL_EMBLEM
 
 export type SkillCategoryWithIcon =
   | typeof SKILL_PASSIVE_A
@@ -63,11 +71,18 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 export const CATEGORIES_FOR_SKILLS_FILTERS: SkillCategory[][] = [
   [SKILL_WEAPON, SKILL_ASSIST, SKILL_SPECIAL, SKILL_PASSIVE_X],
   [SKILL_PASSIVE_A, SKILL_PASSIVE_B, SKILL_PASSIVE_C, SKILL_PASSIVE_S],
+  [SKILL_DUO, SKILL_HARMONIZED, SKILL_EMBLEM],
 ]
 
 export const SORTED_SKILL_CATEGORIES = SKILL_CATEGORIES
 export const SORTED_SLOT_INDEXES: { [key in SkillCategory]: number } =
   objectFromEntries(SORTED_SKILL_CATEGORIES.map((type, index) => [type, index]))
+
+export const SKILL_CATEGORIES_WITHOUT_NAME: SkillCategory[] = [
+  SKILL_DUO,
+  SKILL_HARMONIZED,
+  SKILL_EMBLEM,
+]
 
 export const SKILL_CATEGORIES_WITH_ICON: SkillCategory[] = [
   SKILL_WEAPON,
@@ -198,7 +213,7 @@ export interface ISkillData {
   downgrade_ids?: SkillId[]
   upgrade_ids?: SkillId[]
 
-  restrictions: {
+  restrictions?: {
     moves: IRestrictions<MoveType>
     weapons: IRestrictions<ExtendedWeaponType>
   }
@@ -226,7 +241,11 @@ export interface ISkillTree {
 
 export interface ISkillDescription {
   id: SkillId
-  description: string | null
+  full: string
+  base: string
+  base_keywords?: string[]
+  upgrade?: string
+  upgrade_keywords?: string[]
 }
 
 export interface ISkillRatingsGame8 {
@@ -254,7 +273,7 @@ export function filterByDescription(
   r: RegExp | null | undefined,
 ): boolean {
   if (!r) return false
-  if (!skillDescription.description) return false
+  if (!skillDescription.full) return false
 
-  return !!skillDescription.description.match(r)
+  return !!skillDescription.full.match(r)
 }

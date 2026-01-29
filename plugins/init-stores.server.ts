@@ -29,6 +29,13 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     promises.push(storeSearches.asyncSetUseRegExp(session.data.useRegExp))
   }
 
+  const storeSkillsKeywords = useStoreSkillsKeywords()
+  if (hasOwnProp(session.data, 'showSkillsKeywords')) {
+    promises.push(
+      storeSkillsKeywords.asyncSetShowKeywords(session.data.showSkillsKeywords),
+    )
+  }
+
   const storeTheme = useStoreTheme()
   if (session.data.theme) {
     promises.push(

@@ -76,7 +76,7 @@
               :counter="
                 model[i] && model[i].length >= MINIMAL_TEXT_SEARCH_LENGTH
                   ? undefined
-                  : 3
+                  : MINIMAL_TEXT_SEARCH_LENGTH
               "
               :color="
                 model[i] && model[i].length >= MINIMAL_TEXT_SEARCH_LENGTH

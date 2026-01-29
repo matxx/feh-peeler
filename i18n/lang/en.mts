@@ -47,6 +47,9 @@ export default {
     useTextInSearches: 'Use Text in searches',
     typeAtLeastThreeCharacters: 'Type at least three characters',
 
+    skillsKeywordsShown: "Skills' keywords shown",
+    skillsKeywordsHidden: "Skills' keywords hidden",
+
     warningAboutMobile:
       'This page is hard to use at the moment on mobile, you should try it on a desktop',
 
@@ -116,6 +119,9 @@ export default {
             [skills.SKILL_PASSIVE_C]: 'Icon C Passive',
             [skills.SKILL_PASSIVE_S]: 'Icon S Passive',
             [skills.SKILL_PASSIVE_X]: 'Icon X Passive',
+            [skills.SKILL_DUO]: 'Icon Duo Skill',
+            [skills.SKILL_HARMONIZED]: 'Icon Harmonized Skill',
+            [skills.SKILL_EMBLEM]: 'Icon Emblem Skill',
           },
           grades: {
             [grades.GRADE_SS]: 'Icon Grade SS',
@@ -643,8 +649,11 @@ export default {
 
   misc: {
     glossary: {
-      abbreviations: {
-        header: 'Abbreviations of unit names',
+      headers: {
+        unitsNames: "Units' Names",
+        skillsKeywords: "Skills' Keywords",
+      },
+      unitsNames: {
         description:
           'The same character can have multiple titles in game and can be difficult to remember. So the FEH commmunity uses abbreviated names to refer to them.',
 
@@ -728,6 +737,13 @@ export default {
           listOfFEGames: 'The list of Fire Emblem games be found {link}.',
           asPrefix:
             'The suffix can also be used as prefix by the community (ex: F!F!Corrin ; meaning Fallen Female Corrin)',
+        },
+      },
+      skillsKeywords: {
+        note: 'NB : a keyword can appear multiple times if the description is not exactly the same.',
+        headers: {
+          name: 'Name',
+          text: 'Text',
         },
       },
     },

@@ -28,7 +28,10 @@
       </div>
     </div>
 
-    <div class="mb-2 d-flex align-center">
+    <div
+      :class="skill.sp ? 'd-flex' : 'd-none'"
+      class="mb-2 align-center"
+    >
       <h4 class="mr-3">{{ t('skills.show.sp') }}:</h4>
       <div>
         {{ skill.sp }}

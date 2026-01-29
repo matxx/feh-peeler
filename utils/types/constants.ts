@@ -23,4 +23,5 @@ export interface IConstants {
 
   units_genders: Gender[]
   games: string[]
+  keywords: string[]
 }

@@ -21,6 +21,10 @@ import ImgSkillC from '~/assets/icons/skills/c.png'
 import ImgSkillS from '~/assets/icons/skills/s.png'
 import ImgSkillX from '~/assets/icons/skills/x.png'
 
+import ImgSkillDuo from '~/assets/icons/unit_types/duo.png'
+import ImgSkillHarmonized from '~/assets/icons/unit_types/harmonized.png'
+import ImgSkillEmblem from '~/assets/icons/unit_types/emblem.png'
+
 const { t } = useI18n()
 
 const props = defineProps<{
@@ -46,6 +50,12 @@ const img = computed(() => {
       return ImgSkillS
     case skills.SKILL_PASSIVE_X:
       return ImgSkillX
+    case skills.SKILL_DUO:
+      return ImgSkillDuo
+    case skills.SKILL_HARMONIZED:
+      return ImgSkillHarmonized
+    case skills.SKILL_EMBLEM:
+      return ImgSkillEmblem
   }
 
   return undefined

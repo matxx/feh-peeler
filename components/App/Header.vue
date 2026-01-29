@@ -82,6 +82,17 @@
 
     <v-btn
       v-show="!mobile"
+      v-tooltip:bottom="t(storeSkillsKeywords.textKeyToUse)"
+      icon
+      @click="storeSkillsKeywords.toggle"
+    >
+      <v-icon :height="24">
+        {{ storeSkillsKeywords.iconToUse }}
+      </v-icon>
+    </v-btn>
+
+    <v-btn
+      v-show="!mobile"
       v-tooltip:bottom="t('layout.drawer.header.cookieManagement')"
       icon
       :href="URL_HASH_FOR_COOKIE_MANAGEMENT"
@@ -116,6 +127,7 @@ const { t } = useI18n()
 const route = useRoute()
 const storeTheme = useStoreTheme()
 const storeSearches = useStoreSearches()
+const storeSkillsKeywords = useStoreSkillsKeywords()
 const getRouteBaseName = useRouteBaseName()
 
 const title = computed(() =>

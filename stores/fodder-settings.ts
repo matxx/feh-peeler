@@ -11,7 +11,7 @@ export const useStoreFodderSettings = defineStore('fodder-settings', () => {
   )
 
   function storeInSession() {
-    return $fetch('/api/update-fodder-settings', {
+    return $fetch('/api/update-session', {
       method: 'PUT',
       body: {
         fodderAvailabilities: fodderAvailabilities.value,

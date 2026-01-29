@@ -70,8 +70,8 @@ export const DEFAULT_FODDER_AVAILABILITIES = AVAILABILITIES_WO_DC
 export interface ISkillAvailability {
   id: SkillId
 
-  required_slots: { [key in Availability]: number }
-  owner_ids: UnitId[]
+  required_slots?: { [key in Availability]: number }
+  owner_ids?: UnitId[]
 
   is_in: {
     [GENERIC_SUMMON_POOL]: boolean
@@ -81,7 +81,7 @@ export interface ISkillAvailability {
     [LIMITED_DIVINE_CODES]: boolean
     [FOCUS_ONLY]: boolean
   }
-  [OWNER_LOWEST_RARITY_WHEN_OBTAINED]: {
+  [OWNER_LOWEST_RARITY_WHEN_OBTAINED]?: {
     [GENERIC_SUMMON_POOL]?: number
     [SPECIAL_SUMMON_POOL]?: number
     [HEROIC_GRAILS]?: number
@@ -89,7 +89,7 @@ export interface ISkillAvailability {
     [LIMITED_DIVINE_CODES]?: number
     [FOCUS_ONLY]?: number
   }
-  [OWNER_LOWEST_RARITY_FOR_INHERITANCE]: {
+  [OWNER_LOWEST_RARITY_FOR_INHERITANCE]?: {
     [GENERIC_SUMMON_POOL]?: number
     [SPECIAL_SUMMON_POOL]?: number
     [HEROIC_GRAILS]?: number
@@ -97,7 +97,7 @@ export interface ISkillAvailability {
     [LIMITED_DIVINE_CODES]?: number
     [FOCUS_ONLY]?: number
   }
-  divine_codes: {
+  divine_codes?: {
     normal?: IDivineCodeNormal[]
     limited?: IDivineCodeLimited[]
   }

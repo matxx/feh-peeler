@@ -41,6 +41,15 @@
           {{ t(storeSearches.textKeyToUse) }}
         </v-list-item-title>
       </v-list-item>
+
+      <v-list-item @click="storeSkillsKeywords.toggle">
+        <template #prepend>
+          <v-icon :size="SIZE">{{ storeSkillsKeywords.iconToUse }}</v-icon>
+        </template>
+        <v-list-item-title>
+          {{ t(storeSkillsKeywords.textKeyToUse) }}
+        </v-list-item-title>
+      </v-list-item>
     </v-list>
 
     <v-divider v-show="mobile" />
@@ -81,7 +90,7 @@
 import { GITHUB_LINK } from '@/utils/constants'
 
 const SIZE = 24
-const DEFAULT_DRAWER_WIDTH = 250
+const DEFAULT_DRAWER_WIDTH = 260
 const isOpen = defineModel<boolean>('is-open')
 
 const { t } = useI18n()
@@ -91,6 +100,7 @@ const { mobile } = useDisplay()
 const { mounted } = useMounted()
 const storeTheme = useStoreTheme()
 const storeSearches = useStoreSearches()
+const storeSkillsKeywords = useStoreSkillsKeywords()
 
 router.afterEach(() => {
   if (!mobile) return

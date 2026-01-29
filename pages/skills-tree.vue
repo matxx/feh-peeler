@@ -56,7 +56,9 @@ function updateSearchFromRoute() {
 
 const searchLength = computed(() => (search.value ? search.value.length : 0))
 const counter = computed(() =>
-  searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
+  searchLength.value <= MINIMAL_TEXT_SEARCH_LENGTH
+    ? MINIMAL_TEXT_SEARCH_LENGTH
+    : undefined,
 )
 const searchIsActive = computed(
   () => searchLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,

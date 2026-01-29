@@ -9,22 +9,29 @@
         :size="tileSize"
         :disabled="!availability.is_in[GENERIC_SUMMON_POOL]"
         :rarity="
-          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED] &&
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![GENERIC_SUMMON_POOL]
         "
         is-generic-pool
       />
       <CompoAvailability
+        v-if="availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]"
         :size="tileSize"
         :disabled="!availability.is_in[SPECIAL_SUMMON_POOL]"
         :rarity="
-          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED] &&
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![SPECIAL_SUMMON_POOL]
         "
         is-special-pool
       />
       <CompoAvailability
+        v-if="availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]"
         :size="tileSize"
         :disabled="!availability.is_in[FOCUS_ONLY]"
-        :rarity="availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][FOCUS_ONLY]"
+        :rarity="
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED] &&
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![FOCUS_ONLY]
+        "
         is-limited-hero
       />
 
@@ -38,7 +45,10 @@
         :number="divineCodesNormalLowestNumber"
         :disabled="isNormalDivineCodeDisabled"
       >
-        <template #tooltip:append>
+        <template
+          v-if="availability.divine_codes"
+          #tooltip:append
+        >
           <div
             v-for="(desc, index) in availability.divine_codes.normal"
             :key="index"
@@ -104,6 +114,7 @@ const isNormalDivineCodeDisabled = computed(
 const divineCodesNormalLowestNumber = computed(
   () =>
     availability.value &&
+    availability.value.divine_codes &&
     availability.value.divine_codes.normal &&
     minBy(availability.value.divine_codes.normal, 'number')?.number,
 )
@@ -112,7 +123,9 @@ const isLimitedDivineCodeDisabled = computed(
   () => !availability.value || !availability.value.is_in[LIMITED_DIVINE_CODES],
 )
 const divineCodesLimited = computed(() =>
-  availability.value && availability.value.divine_codes.limited
+  availability.value &&
+  availability.value.divine_codes &&
+  availability.value.divine_codes.limited
     ? sortBy(
         uniq(
           availability.value.divine_codes.limited.map(

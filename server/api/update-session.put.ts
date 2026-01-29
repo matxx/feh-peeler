@@ -1,9 +1,12 @@
 import { z } from 'zod'
 
 import getConfig from '~/server/utils/session-config'
+import hasOwnProp from '~/utils/functions/hasOwnProp'
 
 const schema = z.object({
-  useRegExp: z.boolean(),
+  fodderAvailabilities: z.array(z.string()).optional(),
+  showSkillsKeywords: z.boolean().optional(),
+  useRegExp: z.boolean().optional(),
 })
 
 export default defineEventHandler(async (event) => {
@@ -23,6 +26,16 @@ export default defineEventHandler(async (event) => {
   const session = await getSession(event, config)
 
   const update = session.data
-  update.useRegExp = body.useRegExp
+
+  if (hasOwnProp(body, 'fodderAvailabilities')) {
+    update.fodderAvailabilities = body.fodderAvailabilities
+  }
+  if (hasOwnProp(body, 'showSkillsKeywords')) {
+    update.showSkillsKeywords = body.showSkillsKeywords
+  }
+  if (hasOwnProp(body, 'useRegExp')) {
+    update.useRegExp = body.useRegExp
+  }
+
   await updateSession(event, config, update)
 })

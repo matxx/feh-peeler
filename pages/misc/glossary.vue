@@ -1,179 +1,55 @@
 <template>
   <div class="pa-3">
-    <h3>{{ t('misc.glossary.abbreviations.header') }}</h3>
-
-    <p>
-      {{ t('misc.glossary.abbreviations.description') }}<br />
-      {{ t('misc.glossary.abbreviations.exampleHeader') }}<br />
-    </p>
-    <ul class="pl-4">
-      <li>
-        {{ t('misc.glossary.abbreviations.exampleWithPrefix') }}
-      </li>
-      <li>
-        {{ t('misc.glossary.abbreviations.exampleWithSuffix') }}
-      </li>
-    </ul>
-
-    <h3 class="mt-5">{{ t('misc.glossary.abbreviations.prefix.header') }}</h3>
-    <p>{{ t('misc.glossary.abbreviations.prefix.introduction') }}</p>
-
-    <h4 class="mt-3">
-      {{ t('misc.glossary.abbreviations.prefix.headers.byTheme') }}
-    </h4>
-    <ul class="pl-4">
-      <li
-        v-for="data in prefixesByTheme"
-        :key="data.key"
-      >
-        <div class="d-flex">
-          <div class="prefix mr-3">{{ data.prefix }}!</div>
-          <div>
-            {{ data.text }}
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <h4 class="mt-3">
-      {{ t('misc.glossary.abbreviations.prefix.headers.byTrait') }}
-    </h4>
-    <ul class="pl-4">
-      <li
-        v-for="data in prefixesByTrait"
-        :key="data.key"
-      >
-        <div class="d-flex">
-          <div class="prefix mr-3">{{ data.prefix }}!</div>
-          <div>
-            {{ data.text }}
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <h4 class="mt-3">
-      {{ t('misc.glossary.abbreviations.prefix.headers.other') }}
-    </h4>
-    <ul class="pl-4">
-      <li
-        v-for="data in prefixesOther"
-        :key="data.key"
-      >
-        <div class="d-flex">
-          <div class="prefix mr-3">{{ data.prefix }}!</div>
-          <div>
-            {{ data.text }}
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <h3 class="mt-5">{{ t('misc.glossary.abbreviations.suffix.header') }}</h3>
-    <p>{{ t('misc.glossary.abbreviations.suffix.introduction') }}</p>
-
-    <ul class="pl-4">
-      <li
-        v-for="data in suffixesItems"
-        :key="data.key"
-      >
-        <div class="d-flex">
-          <div class="suffix mr-3">({{ data.suffix }})</div>
-          <div>
-            {{ data.text }}
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <i18n-t
-      keypath="misc.glossary.abbreviations.suffix.listOfFEGames"
-      tag="p"
-      scope="global"
+    <v-tabs
+      v-model="tab"
+      color="primary"
     >
-      <template #link>
-        <a
-          :href="LINK"
-          target="_blank"
-        >
-          {{ t('global.here') }}
-        </a>
-      </template>
-    </i18n-t>
+      <v-tab :value="TAB_UNITS_NAMES">
+        {{ t('misc.glossary.tabs.unitsNames') }}
+      </v-tab>
+      <v-tab :value="TAB_SKILLS_KEYWORDS">
+        {{ t('misc.glossary.tabs.skillsKeywords') }}
+      </v-tab>
+    </v-tabs>
 
-    <p>{{ t('misc.glossary.abbreviations.suffix.asPrefix') }}</p>
+    <v-divider class="mb-3" />
+
+    <v-tabs-window v-model="tab">
+      <v-tabs-window-item :value="TAB_UNITS_NAMES">
+        <GlossaryUnitsNames />
+      </v-tabs-window-item>
+      <v-tabs-window-item :value="TAB_SKILLS_KEYWORDS">
+        <GlossarySkillsKeywords />
+      </v-tabs-window-item>
+    </v-tabs-window>
   </div>
 </template>
 
 <script lang="ts" setup>
 const { t } = useI18n()
+const TAB_UNITS_NAMES = 'units-names'
+const TAB_SKILLS_KEYWORDS = 'skills-keywords'
+const tab = ref(TAB_UNITS_NAMES)
 
-const LINK =
-  'https://www.reddit.com/r/fireemblem/comments/1grmnmx/comment/lx79upq/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button'
-
-// TODO: something cleaner than these
-// in order to make sure that
-// changes here and in translations files are synced
-const byTheme = [
-  'NY',
-  'HSp',
-  'De',
-  'I',
-  'V',
-  'Sp',
-  'Y',
-  'Pic',
-  'Gr',
-  'Br',
-  // 'We',
-  'Su',
-  'HSu',
-  'P',
-  'Th',
-  'T',
-  'Da',
-  'S12',
-  'FT',
-  'WT',
-  'IT',
-  'Fe',
-  'H',
-  'N',
-  'W',
-]
-const byTrait = ['Ai', 'As', 'At', 'E', 'Et', 'R', 'F', 'C', 'L', 'M', 'D', 'H']
-const other = ['35', 'B', 'Ad']
-
-const prefixesByTheme = byTheme.map((prefix) => ({
-  key: prefix,
-  prefix,
-  text: t(`misc.glossary.abbreviations.prefix.byTheme.${prefix}`),
-}))
-const prefixesByTrait = byTrait.map((prefix) => ({
-  key: prefix,
-  prefix,
-  text: t(`misc.glossary.abbreviations.prefix.byTrait.${prefix}`),
-}))
-const prefixesOther = other.map((prefix) => ({
-  key: prefix,
-  prefix,
-  text: t(`misc.glossary.abbreviations.prefix.other.${prefix}`),
-}))
-
-const suffixes = ['M', 'F', 'A', 'Y', 'SoV', 'FE{N}']
-
-const suffixesItems = suffixes.map((suffix) => ({
-  key: suffix,
-  suffix,
-  text: t(`misc.glossary.abbreviations.suffix.other.${suffix}`),
-}))
+const route = useRoute()
+const router = useRouter()
+watch(
+  route,
+  () => {
+    if (route.hash) {
+      const hashTab = route.hash.substring(1)
+      if (hashTab === TAB_UNITS_NAMES || hashTab === TAB_SKILLS_KEYWORDS) {
+        tab.value = hashTab
+      }
+    }
+  },
+  { immediate: true },
+)
+watch(
+  tab,
+  (newTab) => {
+    router.replace({ hash: `#${newTab}` })
+  },
+  { immediate: true },
+)
 </script>
-
-<style lang="scss" scoped>
-.prefix {
-  flex: 0 0 50px;
-}
-.suffix {
-  flex: 0 0 75px;
-}
-</style>

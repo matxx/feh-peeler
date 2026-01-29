@@ -26,7 +26,7 @@ export const useStoreSearches = defineStore('searches', () => {
   }
 
   function storeInSession() {
-    return $fetch('/api/update-searches', {
+    return $fetch('/api/update-session', {
       method: 'PUT',
       body: {
         useRegExp: useRegExp.value,

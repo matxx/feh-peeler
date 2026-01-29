@@ -48,7 +48,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
     )
 
     const isFiveStarLocked = (availability?: ISkillAvailability) =>
-      availability
+      availability && availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]
         ? (min(
             compact(
               Object.values(availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]),
@@ -70,6 +70,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
 
       const availability = availabilitiesById.value[skill.id]
       if (!availability) return 0
+      if (!availability.required_slots) return 0
       if (
         isUnitFiveStarLocked &&
         skill.category === SKILL_SPECIAL &&
@@ -83,7 +84,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
 
       const fromAvailabilities = take(selectedAvailabilities, idx + 1)
       return (
-        min(fromAvailabilities.map((av) => availability.required_slots[av])) ||
+        min(fromAvailabilities.map((av) => availability.required_slots![av])) ||
         0
       )
     }
@@ -96,7 +97,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
 
       if (availability.is_in[GENERIC_SUMMON_POOL]) {
         switch (
-          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][GENERIC_SUMMON_POOL]
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![GENERIC_SUMMON_POOL]
         ) {
           case 3:
           case 4:
@@ -124,7 +125,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
       }
       if (availability.is_in[SPECIAL_SUMMON_POOL]) {
         switch (
-          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED][SPECIAL_SUMMON_POOL]
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![SPECIAL_SUMMON_POOL]
         ) {
           case 4:
             availabilities.push(AV_SCORE_SPECIAL_POOL_4)

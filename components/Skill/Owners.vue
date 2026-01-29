@@ -60,7 +60,9 @@ const availability = computed(
 )
 const owners = computed(() =>
   compact(
-    availability.value.owner_ids.map((id) => storeDataUnits.unitsById[id]),
+    (availability.value.owner_ids || []).map(
+      (id) => storeDataUnits.unitsById[id],
+    ),
   ),
 )
 const sortedOwners = computed(() =>

@@ -253,7 +253,9 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     searchNameText.value ? searchNameText.value.length : 0,
   )
   const searchNameCounter = computed(() =>
-    searchNameTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH ? 3 : undefined,
+    searchNameTextLength.value <= MINIMAL_TEXT_SEARCH_LENGTH
+      ? MINIMAL_TEXT_SEARCH_LENGTH
+      : undefined,
   )
   const searchNameIsActive = computed(
     () => searchNameTextLength.value >= MINIMAL_TEXT_SEARCH_LENGTH,
