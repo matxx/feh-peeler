@@ -1,5 +1,5 @@
 <template>
-  <div v-if="description">
+  <div v-if="description && description.full">
     <AppTextWithBrToLines :text="description.base" />
     <div
       v-if="description.base_keywords"
@@ -30,6 +30,9 @@
         />
       </div>
     </div>
+  </div>
+  <div v-else>
+    <v-icon class="text-error"> mdi-cancel </v-icon>
   </div>
 </template>
 

@@ -253,7 +253,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (!r) return true
 
     const desc = storeDataSkillsDescriptions.byId[s.id]
-    if (!desc) return true
+    if (!desc) return false
 
     return filterByDescription(desc, r)
   }
