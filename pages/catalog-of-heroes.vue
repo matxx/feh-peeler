@@ -55,6 +55,26 @@
         >
           <h4>
             {{ t('catalogOfHeroes.headers.catalog') }}
+
+            <v-tooltip
+              location="bottom"
+              :max-width="400"
+            >
+              <template #activator="{ props: tooltipProps }">
+                <sup v-bind="tooltipProps">
+                  <v-icon color="info"> mdi-information-outline </v-icon>
+                </sup>
+              </template>
+
+              <div>
+                <h4>
+                  {{ t('catalogOfHeroes.tipForNewPlayers.title') }}
+                </h4>
+                <p>
+                  {{ t('catalogOfHeroes.tipForNewPlayers.text') }}
+                </p>
+              </div>
+            </v-tooltip>
           </h4>
 
           <RecycleScroller
@@ -126,12 +146,9 @@
                 <th>
                   <div v-if="availability === AV_OTHER">
                     Other
-                    <v-icon
-                      v-tooltip="t('catalogOfHeroes.other')"
-                      color="info"
-                    >
-                      mdi-information-outline
-                    </v-icon>
+                    <sup v-tooltip="t('catalogOfHeroes.other')">
+                      <v-icon color="info"> mdi-information-outline </v-icon>
+                    </sup>
                   </div>
                   <UnitSource
                     v-else

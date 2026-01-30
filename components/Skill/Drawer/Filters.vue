@@ -54,7 +54,7 @@
 
           <v-icon
             v-tooltip="t('skills.filters.hof.tooltip')"
-            color="primary"
+            color="info"
             size="x-small"
             class="ml-3"
             @click.prevent

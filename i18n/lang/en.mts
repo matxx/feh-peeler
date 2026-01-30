@@ -650,6 +650,10 @@ export default {
       [hgs.SORT_BY_MOVE_TYPE]: 'Move Type',
     },
     other: 'Askr Trio & New Heroes not yet in generic summon pool',
+    tipForNewPlayers: {
+      title: 'Tip for new players :',
+      text: 'Units that you have never seen in a fight appear with a question mark at the end of your catalog. If you have a lot of them, it is almost impossible to use this page. First, try to clear up all your story missions and all paralogues (normal difficulty is enough). You should then have unlocked most of the units as shadows in your catalog. You can now work out which units you have never seen and where to find them.',
+    },
   },
 
   misc: {
