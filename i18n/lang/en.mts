@@ -638,6 +638,7 @@ export default {
       catalog: 'Catalog Of Heroes (click on heroes you own)',
       recap: 'Heroes',
       banners: 'Banners',
+      customBanner: 'Custom Banner',
       heroicGrailsShop: 'Heroic Grails Shop',
     },
     order: {

@@ -81,6 +81,7 @@
 // @ts-expect-error not exported by vuetify
 import type { SelectItemKey } from 'vuetify'
 import filter from 'lodash-es/filter'
+import difference from 'lodash-es/difference'
 
 import { type UnitId, filterByName } from '~/utils/types/units'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
@@ -96,12 +97,14 @@ const props = withDefaults(
     thumbnailClickable?: boolean
     clearable?: boolean
     itemTitle?: SelectItemKey
+    forbiddenIds?: UnitId[]
   }>(),
   {
     withoutThumbnail: false,
     thumbnailClickable: false,
     clearable: false,
     itemTitle: undefined,
+    forbiddenIds: () => [],
   },
 )
 
@@ -128,16 +131,22 @@ const searchIsActive = computed(
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
 const unitIds = computed(() => storeDataUnits.sortedUnitIds)
+const availableUnitIds = computed(() =>
+  difference(unitIds.value, props.forbiddenIds),
+)
 
 const unitIdsFiltered = ref<UnitId[]>([])
 const getUnitIdsFiltered = () =>
   regexp.value && searchIsActive.value && storeDataUnits.isLoaded
-    ? filter(unitIds.value, (id) =>
+    ? filter(availableUnitIds.value, (id) =>
         filterByName(storeDataUnits.unitsById[id], regexp.value),
       )
     : []
 const updateUnitIdsFiltered = () => {
   unitIdsFiltered.value = getUnitIdsFiltered()
 }
-const { isUpdating } = useDebounce(updateUnitIdsFiltered, [[regexp], [unitIds]])
+const { isUpdating } = useDebounce(updateUnitIdsFiltered, [
+  [regexp],
+  [availableUnitIds],
+])
 </script>

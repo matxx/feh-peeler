@@ -31,17 +31,28 @@
       />
     </v-sheet>
 
+    <v-btn
+      v-show="removable"
+      icon="mdi-delete"
+      :height="frameSize / 4"
+      :width="frameSize / 4"
+      position="absolute"
+      size="x-small"
+      class="img-unit__icon--bottom img-unit__icon--left z-index-4"
+      @click.stop="$emit('remove')"
+    />
+
     <img
       v-show="checked"
       src="assets/icons/check.png"
       :height="frameSize / 4"
-      class="img-unit__icon img-unit__icon--bottom-right z-index-4"
+      class="img-unit__icon img-unit__icon--top img-unit__icon--right z-index-4"
     />
     <img
       v-show="crossed"
       src="assets/icons/cross.png"
       :height="frameSize / 4"
-      class="img-unit__icon img-unit__icon--bottom-right z-index-4"
+      class="img-unit__icon img-unit__icon--top img-unit__icon--right z-index-4"
     />
 
     <img
@@ -71,6 +82,7 @@ import type { IUnitThumbnail } from '@/utils/types/units.ts'
 
 const { mobile } = useDisplay()
 
+defineEmits(['remove'])
 const props = withDefaults(
   defineProps<{
     unit: IUnitThumbnail
@@ -81,6 +93,7 @@ const props = withDefaults(
     blackened?: boolean
     showWeapon?: boolean
     showMove?: boolean
+    removable?: boolean
   }>(),
   {
     frameSize: 90,
@@ -90,6 +103,7 @@ const props = withDefaults(
     blackened: false,
     showWeapon: false,
     showMove: false,
+    removable: false,
   },
 )
 
@@ -110,10 +124,6 @@ const marginPx = computed(
 .img-unit__icon--full {
   top: 0;
   left: 0;
-}
-.img-unit__icon--bottom-right {
-  top: v-bind('marginPx');
-  right: v-bind('marginPx');
 }
 
 .img-unit__icon--top {

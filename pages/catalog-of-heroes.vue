@@ -46,8 +46,14 @@
       class="flex-grow-1 pa-0"
     >
       <v-row>
-        <v-col>
-          <h4 :class="{ 'text-center': mobile }">
+        <!-- CATALOG OF HEROES -->
+        <v-col
+          cols="12"
+          md="6"
+          xl="3"
+          xxl="2"
+        >
+          <h4>
             {{ t('catalogOfHeroes.headers.catalog') }}
           </h4>
 
@@ -55,7 +61,7 @@
             v-slot="{ item }"
             ref="catalogScroller"
             class="scroller scroller--catalog"
-            :class="{ 'scroller--centered': mobile }"
+            :class="{ 'scroller--centered': mdAndDown }"
             :items="catalogLines"
             :item-size="frameSize"
           >
@@ -78,7 +84,15 @@
             </div>
           </RecycleScroller>
         </v-col>
-        <v-col>
+
+        <!-- RECAP BY COLOR & AVAILABILITY -->
+        <v-col
+          cols="12"
+          md="6"
+          xl="3"
+          xxl="3"
+          class="pl-xxl-16"
+        >
           <h4>
             {{ t('catalogOfHeroes.headers.recap') }} : {{ ownedCount }} /
             {{ storeDataUnits.unitsCount }}
@@ -226,10 +240,15 @@
             </tfoot>
           </v-table>
         </v-col>
-      </v-row>
 
-      <v-row>
-        <v-col>
+        <!-- BANNERS -->
+        <v-col
+          cols="12"
+          md="6"
+          lg="4"
+          xl="3"
+          xxl="2"
+        >
           <h4>{{ t('catalogOfHeroes.headers.banners') }}</h4>
 
           <AppAutocomplete
@@ -247,7 +266,8 @@
             <div
               v-for="line in storeDataBanners.selectedBannerUnitsLines"
               :key="line.id"
-              class="d-flex"
+              class="d-flex justify-center"
+              :class="{ 'justify-center': mdAndDown }"
             >
               <CompoUnitThumbnailCatalog
                 v-for="unit in line.units"
@@ -264,7 +284,77 @@
             </div>
           </div>
         </v-col>
-        <v-col>
+
+        <!-- CUSTOM BANNER -->
+        <v-col
+          cols="12"
+          md="6"
+          lg="3"
+          xl="3"
+          xxl="2"
+        >
+          <h4>{{ t('catalogOfHeroes.headers.customBanner') }}</h4>
+
+          <!--
+          Use two distinct "select" in order to be able
+          to "reset" the "select" once user has selected a unit
+          -->
+          <AppSelectUnit
+            v-if="displaySelect1"
+            density="default"
+            clear-on-select
+            without-thumbnail
+            class="mb-2"
+            clearable
+            :label="t('global.unitName')"
+            :forbidden-ids="selectedUnitIds"
+            @update:model-value="selectUnit($event)"
+          />
+          <AppSelectUnit
+            v-if="displaySelect2"
+            density="default"
+            clear-on-select
+            without-thumbnail
+            class="mb-2"
+            clearable
+            :label="t('global.unitName')"
+            :forbidden-ids="selectedUnitIds"
+            @update:model-value="selectUnit($event)"
+          />
+
+          <div>
+            <div
+              v-for="line in selectedUnitsLines"
+              :key="line.id"
+              class="d-flex justify-center"
+              :class="{ 'justify-center': mdAndDown }"
+            >
+              <CompoUnitThumbnailCatalog
+                v-for="unit in line.units"
+                :key="unit.id"
+                :unit="unit"
+                :frame-size="frameSize"
+                :thumbnail-size="thumbnailSize"
+                :checked="ownedUnitIds.has(unit.id)"
+                :crossed="!ownedUnitIds.has(unit.id)"
+                show-weapon
+                class="cursor-pointer"
+                removable
+                @click="storeGlobals.showUnit(unit.id)"
+                @remove="deleteUnit(unit.id)"
+              />
+            </div>
+          </div>
+        </v-col>
+
+        <!-- GRAILS SHOP -->
+        <v-col
+          cols="12"
+          md="6"
+          lg="5"
+          xl="3"
+          xxl="3"
+        >
           <h4>{{ t('catalogOfHeroes.headers.heroicGrailsShop') }}</h4>
 
           <v-select
@@ -277,8 +367,8 @@
           <RecycleScroller
             v-slot="{ item }"
             ref="grailsScroller"
-            class="scroller scroller--grails"
-            :class="{ 'scroller--centered': mobile }"
+            class="scroller scroller--grails scroller--centered"
+            :class="{ 'scroller--centered': mdAndDown }"
             :items="storeDataUnitsHeroicGrails.heroicGrailsUnitsLines"
             :item-size="frameSize"
           >
@@ -374,7 +464,7 @@ import {
 } from '~/utils/types/units-heroicGrails'
 
 const { t } = useI18n()
-const { mobile } = useDisplay()
+const { mobile, mdAndDown } = useDisplay()
 
 const frameSize = computed(() => (mobile.value ? 60 : 90))
 const thumbnailSize = computed(() => (mobile.value ? 50 : 80))
@@ -382,7 +472,6 @@ const tileSize = 30
 const rowsCount = ref(7)
 
 const heightPx = computed(() => `${frameSize.value * rowsCount.value}px`)
-const widthPx = computed(() => `${frameSize.value * columnsCount.value}px`)
 
 const storeGlobals = useStoreGlobals()
 
@@ -504,6 +593,43 @@ const ownedUnitsCountByWeaponColor = computed(() => {
   })
   return res
 })
+
+const displaySelect1 = ref(true)
+const displaySelect2 = ref(false)
+const selectedUnitIds = ref<UnitId[]>([])
+function selectUnit(unitId?: UnitId | null) {
+  if (!unitId) return
+
+  const index = selectedUnitIds.value.indexOf(unitId)
+  if (index === -1) {
+    selectedUnitIds.value.push(unitId)
+  }
+
+  if (displaySelect1.value) {
+    displaySelect1.value = false
+    displaySelect2.value = true
+  } else {
+    displaySelect1.value = true
+    displaySelect2.value = false
+  }
+}
+function deleteUnit(unitId: UnitId) {
+  const index = selectedUnitIds.value.indexOf(unitId)
+  if (index === -1) return
+
+  selectedUnitIds.value.splice(index, 1)
+}
+const selectedUnits = computed(() =>
+  selectedUnitIds.value.map((id) => storeDataUnits.unitsById[id]),
+)
+const selectedUnitsLines = computed(() =>
+  chunkMaxLength(selectedUnits.value, 4).map((line, index) => ({
+    id: index,
+    units: line,
+  })),
+)
+
+// modal related stuff
 
 const isModalOpen = ref(false)
 const shownAvailability = ref<Availability>()
