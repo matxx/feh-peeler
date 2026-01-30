@@ -1,25 +1,25 @@
 <template>
   <tr v-show="isDisplayed">
-    <th v-show="mobile">
+    <td v-show="mobile">
       <div class="my-1">
-        <div class="text-no-wrap mb-1">
+        <h5 class="text-no-wrap mb-1">
           {{ title }}
-        </div>
-        <div
+        </h5>
+        <p
           v-for="(line, index) in lines"
           :key="index"
         >
           {{ line }}
-        </div>
+        </p>
       </div>
-    </th>
+    </td>
 
-    <th
+    <td
       v-show="!mobile"
       class="text-no-wrap"
     >
       {{ title }}
-    </th>
+    </td>
     <td v-show="!mobile">
       <div
         v-for="(line, index) in lines"
