@@ -72,6 +72,26 @@
       </v-list-item>
 
       <v-list-item
+        :href="DISCORD_LINK"
+        target="_blank"
+      >
+        <template #prepend>
+          <!-- fake use of class "v-tooltip" in order for the text to be aligned -->
+          <v-list-item-media class="v-tooltip">
+            <v-img
+              :src="
+                storeTheme.isDarkApplied ? ImgDiscordWhite : ImgDiscordBlack
+              "
+              :width="SIZE"
+            />
+          </v-list-item-media>
+        </template>
+        <v-list-item-title>
+          {{ t('layout.drawer.header.discord') }}
+        </v-list-item-title>
+      </v-list-item>
+
+      <v-list-item
         :href="GITHUB_LINK"
         target="_blank"
       >
@@ -87,7 +107,10 @@
 </template>
 
 <script setup lang="ts">
-import { GITHUB_LINK } from '@/utils/constants'
+import ImgDiscordBlack from '~/assets/images/Discord-Symbol-Black.svg'
+import ImgDiscordWhite from '~/assets/images/Discord-Symbol-White.svg'
+
+import { GITHUB_LINK, DISCORD_LINK } from '@/utils/constants'
 
 const SIZE = 24
 const DEFAULT_DRAWER_WIDTH = 260

@@ -402,6 +402,7 @@ export default {
       },
       header: {
         cookieManagement: 'Cookie management',
+        discord: 'Discord',
         sourceCode: 'Source code',
       },
     },

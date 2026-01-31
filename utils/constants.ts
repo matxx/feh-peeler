@@ -22,6 +22,7 @@ export const SITE_IMAGE_SIZE = 512
 
 export const MINIMAL_TEXT_SEARCH_LENGTH = 3
 
+export const DISCORD_LINK = 'https://discord.gg/8PXN5q7e'
 export const GITHUB_LINK = 'https://github.com/matxx/feh-peeler'
 export const WEBSITE_NAME_FANDOM = 'Fandom'
 export const WEBSITE_NAME_GAME8 = 'Game8'

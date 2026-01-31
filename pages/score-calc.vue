@@ -21,11 +21,17 @@
           (which is not updated anymore).
           <br />
           If you see a bug (example: difference in final scores), please file a
-          bug report
+          bug report on
+          <a
+            :href="DISCORD_LINK"
+            target="_blank"
+            >Discord</a
+          >
+          or
           <a
             href="https://github.com/matxx/feh-peeler/issues/new"
             target="_blank"
-            >here</a
+            >Github</a
           >. <br />
           Mjolnir Strike is probably not working correctly at the moment because
           not tested (waiting on the event to come back).

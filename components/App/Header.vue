@@ -75,7 +75,7 @@
       icon
       @click="storeSearches.toggle"
     >
-      <v-icon :height="24">
+      <v-icon :height="SIZE">
         {{ storeSearches.iconToUse }}
       </v-icon>
     </v-btn>
@@ -86,7 +86,7 @@
       icon
       @click="storeSkillsKeywords.toggle"
     >
-      <v-icon :height="24">
+      <v-icon :height="SIZE">
         {{ storeSkillsKeywords.iconToUse }}
       </v-icon>
     </v-btn>
@@ -98,6 +98,19 @@
       :href="URL_HASH_FOR_COOKIE_MANAGEMENT"
     >
       <v-icon>mdi-cookie</v-icon>
+    </v-btn>
+
+    <v-btn
+      v-show="!mobile"
+      v-tooltip:bottom="t('layout.drawer.header.discord')"
+      icon
+      :href="DISCORD_LINK"
+      target="_blank"
+    >
+      <img
+        src="assets/images/Discord-Symbol-White.svg"
+        :width="SIZE"
+      />
     </v-btn>
 
     <v-btn
@@ -116,6 +129,7 @@
 import {
   SITE_TITLE,
   GITHUB_LINK,
+  DISCORD_LINK,
   URL_HASH_FOR_COOKIE_MANAGEMENT,
 } from '@/utils/constants'
 import { THEMES } from '~/utils/types/themes'
@@ -133,6 +147,8 @@ const getRouteBaseName = useRouteBaseName()
 const title = computed(() =>
   t(`home.title.${String(getRouteBaseName(route))}`, route.params),
 )
+
+const SIZE = 24
 
 const themes = THEMES.map((theme) => ({
   key: theme,
