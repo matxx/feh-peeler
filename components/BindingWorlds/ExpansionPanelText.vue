@@ -67,7 +67,7 @@
               required
               class="mb-2"
               :error-messages="errors"
-              :label="t('bindingWorlds.labels.unitName')"
+              :label="t('global.unitName')"
               @update:model-value="handleChange"
             />
           </VeeField>

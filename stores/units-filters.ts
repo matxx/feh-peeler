@@ -83,6 +83,12 @@ const filterIsTT = (filters: IFilters, u: IUnit) =>
 const filterIsGHB = (filters: IFilters, u: IUnit) =>
   filterBoolean(filters.isGHB, u.is_ghb)
 
+const filterOwnedUnit = (
+  filters: IFilters,
+  u: IUnit,
+  ownedUnitIds: Set<UnitId>,
+) => filterBoolean(filters.isOwned, ownedUnitIds.has(u.id))
+
 function filterStats(
   filters: IFilters,
   u: IUnit,
@@ -193,6 +199,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const filters = ref<IFilters>(getNewFilters())
   const sorters = ref<ISorters>(createEmptySorters())
 
+  const ownedUnitIds = ref<Set<UnitId>>(new Set())
+
   function $reset() {
     filters.value = getNewFilters()
     sorters.value = createEmptySorters()
@@ -210,6 +218,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.availabilities.size > 0 ||
       filters.value.isRefresher !== null ||
       filters.value.hasResplendent !== null ||
+      filters.value.isOwned !== null ||
       filters.value.isBrave !== null ||
       filters.value.isFallen !== null ||
       filters.value.isStory !== null ||
@@ -345,6 +354,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       f(filter, (u: IUnit) =>
         filterStats(filters.value, u, storeDataUnitsStats.statsById),
       ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filterOwnedUnit(filters.value, u, ownedUnitIds.value),
+      ),
 
       ...objectEntries(filters.value.hasPrf).map(([cat, bool]) =>
         // @ts-expect-error unsafe typings
@@ -418,6 +431,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
   const unitsFilteredCount = computed(() => unitsFiltered.value.length)
 
+  const setOwnedUnitIds = (value: Set<UnitId>) => {
+    ownedUnitIds.value = value
+  }
+
   return {
     $reset,
 
@@ -435,6 +452,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
     updateSorter,
     updateUnits,
+
+    setOwnedUnitIds,
 
     unitsFilteredSorted,
     unitsFilteredCount,

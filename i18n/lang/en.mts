@@ -282,7 +282,6 @@ export default {
     showDescriptions: 'show descriptions',
     linkTo: 'Link to',
     selectUnit: 'Select unit',
-    unitName: 'Unit Name',
   },
 
   bindingWorlds: {
@@ -299,8 +298,6 @@ export default {
       hidingReason: 'Reason for hiding',
       rating: 'Your Rating',
       notes: 'Notes',
-
-      unitName: 'Unit Name',
 
       boon: 'Boon',
       boonAscended: 'Ascended Boon',
@@ -330,9 +327,6 @@ export default {
       filters: 'Filters',
       score: 'Score',
       units: 'Units',
-    },
-    labels: {
-      unitName: "Unit's name",
     },
     alertAboutBPremiumSkills: {
       line1: `
@@ -517,6 +511,7 @@ export default {
       buttons: {
         isGHB: 'GHB',
         isTT: 'TT',
+        isOwned: 'Owned',
       },
       selects: {
         books: 'Books',
@@ -527,6 +522,8 @@ export default {
       tooltips: {
         isGHB: 'Grand Hero Battle',
         isTT: 'Tempest Trial',
+        isOwned:
+          'Based on the heroes you marked as owned on the "Catalog of Heroes" page',
       },
     },
     themes: {

@@ -25,7 +25,7 @@
           required
           class="mb-2"
           :error-messages="errors"
-          :label="t('hallOfForms.unitName')"
+          :label="t('global.unitName')"
           @update:model-value="
             ($event) => {
               $emit('input', $event)

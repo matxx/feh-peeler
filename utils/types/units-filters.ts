@@ -103,6 +103,7 @@ export interface IFilters {
 
   isRefresher: boolean | null
   hasResplendent: boolean | null
+  isOwned: boolean | null
 
   isBrave: boolean | null
   isFallen: boolean | null
@@ -134,6 +135,7 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
 
   isRefresher: null,
   hasResplendent: null,
+  isOwned: null,
 
   isBrave: null,
   isFallen: null,

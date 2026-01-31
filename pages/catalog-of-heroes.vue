@@ -479,6 +479,11 @@ import {
   SORT_ORDERS,
   SORT_BY_MOVE_TYPE,
 } from '~/utils/types/units-heroicGrails'
+import {
+  CURRENT_PAYLOAD_VERSION,
+  LOCAL_STORAGE_KEY,
+  type IPayloadToSaveV1,
+} from '~/utils/types/catalog-of-heroes'
 
 const { t } = useI18n()
 const { mobile, mdAndDown } = useDisplay()
@@ -695,18 +700,11 @@ const modalUnitsHeightPx = computed(
 
 // local storage
 
-const LOCAL_STORAGE_KEY = 'feh-peeler:catalog-of-heroes'
-const CURRENT_PAYLOAD_VERSION = 1
 const {
   isLoading: isLoadingStorage,
   storeOnUpdate,
   updateOnMounted,
 } = useLocalStorage(LOCAL_STORAGE_KEY)
-
-interface IPayloadToSaveV1 {
-  version: 1
-  ownedUnitIds: UnitId[]
-}
 
 const payloadToSave = computed(() => ({
   version: CURRENT_PAYLOAD_VERSION,

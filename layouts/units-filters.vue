@@ -41,7 +41,7 @@
         :counter="storeUnitsFilters.searchNameCounter"
         density="compact"
         clearable
-        :label="t('scores.labels.unitName')"
+        :label="t('global.unitName')"
         :error-messages="storeUnitsFilters.searchNameErrorMessages"
       >
         <template #prepend>
@@ -83,6 +83,10 @@
 
 <script setup lang="ts">
 import LayoutDefault from '~/layouts/default.vue'
+import {
+  LOCAL_STORAGE_KEY,
+  type IPayloadToSaveV1,
+} from '~/utils/types/catalog-of-heroes'
 
 const { t } = useI18n()
 const { mobile } = useDisplay()
@@ -129,4 +133,11 @@ const container = computed<HTMLElement | undefined>(
 )
 const { scrollbarWidth } = useScroll(container)
 const drawerWidth = computed(() => DEFAULT_DRAWER_WIDTH + scrollbarWidth.value)
+
+// retrieve owned units from local storage
+
+const { updateOnMounted } = useLocalStorage(LOCAL_STORAGE_KEY)
+updateOnMounted((data: IPayloadToSaveV1) => {
+  storeUnitsFilters.setOwnedUnitIds(new Set(data.ownedUnitIds))
+})
 </script>

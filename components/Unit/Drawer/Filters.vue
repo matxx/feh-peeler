@@ -12,7 +12,7 @@
         :counter="storeUnitsFilters.searchNameCounter"
         density="compact"
         clearable
-        :label="t('scores.labels.unitName')"
+        :label="t('global.unitName')"
         :error-messages="storeUnitsFilters.searchNameErrorMessages"
       />
     </div>
@@ -269,6 +269,26 @@
             :width="size"
             :height="size"
           />
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          v-tooltip:bottom="t('units.filters.tooltips.isOwned')"
+          size="small"
+          class="text-primary"
+          :active="filters.isOwned !== null"
+          @click="cycleFilter('isOwned')"
+        >
+          <v-icon start>
+            {{ iconForBool(filters.isOwned) }}
+          </v-icon>
+          {{ t('units.filters.buttons.isOwned') }}
         </v-btn>
       </v-btn-group>
     </div>
@@ -715,6 +735,7 @@ function cycleFilter(
   key:
     | 'isRefresher'
     | 'hasResplendent'
+    | 'isOwned'
     | 'isBrave'
     | 'isFallen'
     | 'isStory'
