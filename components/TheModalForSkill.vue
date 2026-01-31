@@ -44,7 +44,7 @@
               v-show="!mobile"
               icon
               flat
-              :href="lFandom(skill.group_name)"
+              :href="lFandom(skill.fandom_id)"
               target="_blank"
             >
               <img
@@ -94,7 +94,7 @@
                 density="compact"
                 variant="text"
                 icon
-                :href="lFandom(skill.group_name)"
+                :href="lFandom(skill.fandom_id)"
                 target="_blank"
                 class="mr-4"
               >

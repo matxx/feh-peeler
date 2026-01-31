@@ -15,6 +15,7 @@ import {
   type WeaponColor,
 } from '~/utils/types/weapons'
 import type { Game8Id } from '~/utils/types/game8'
+import type { FandomId } from '~/utils/types/fandom'
 import { SKILL_CATEGORIES } from '~/utils/types/skills'
 import type { SkillCategory, SkillId } from '~/utils/types/skills'
 import {
@@ -92,6 +93,7 @@ export interface IUnitData {
   id: UnitId
   id_int: number
   game8_id?: Game8Id
+  fandom_id: FandomId
 
   name: string
   title: string

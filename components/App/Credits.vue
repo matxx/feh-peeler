@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { BASE_URL as FANDOM_URL } from '~/composables/useFandom'
 import { BASE_URL as GAME8_URL } from '~/utils/types/game8'
+import { BASE_URL as FANDOM_URL } from '~/utils/types/fandom'
 
 const { t } = useI18n()
 </script>

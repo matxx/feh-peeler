@@ -76,7 +76,7 @@
           >
             > Units with PRF weapon +
             <a
-              :href="l('Category:Duel Passives')"
+              :href="l('Category:Duel Passives' as FandomId)"
               target="_blank"
               class="text-decoration-none"
             >
@@ -85,7 +85,7 @@
             </a>
             +
             <a
-              :href="l('Passives#List of B Passives')"
+              :href="l('Passives#List of B Passives' as FandomId)"
               target="_blank"
               class="text-decoration-none"
             >
@@ -93,7 +93,7 @@
             </a>
             +
             <a
-              :href="l('Sacred Seals')"
+              :href="l('Sacred Seals' as FandomId)"
               target="_blank"
               class="text-decoration-none"
             >
@@ -112,7 +112,7 @@
           >
             > Units with PRF weapon +
             <a
-              :href="l('Category:Duel Passives')"
+              :href="l('Category:Duel Passives' as FandomId)"
               target="_blank"
               class="text-decoration-none"
             >
@@ -120,7 +120,7 @@
             </a>
             +
             <a
-              :href="l('Sacred Seals')"
+              :href="l('Sacred Seals' as FandomId)"
               target="_blank"
               class="text-decoration-none"
             >
@@ -140,7 +140,7 @@
             <div>
               > Units with PRF weapon +
               <a
-                :href="l('Category:Duel Passives')"
+                :href="l('Category:Duel Passives' as FandomId)"
                 target="_blank"
                 class="text-decoration-none"
               >
@@ -148,7 +148,7 @@
               </a>
               +
               <a
-                :href="l('Sacred Seals')"
+                :href="l('Sacred Seals' as FandomId)"
                 target="_blank"
                 class="text-decoration-none"
               >
@@ -158,7 +158,7 @@
             <div>
               > Units without PRF weapon +
               <a
-                :href="l('Category:Duel Passives')"
+                :href="l('Category:Duel Passives' as FandomId)"
                 target="_blank"
                 class="text-decoration-none"
               >
@@ -166,7 +166,7 @@
               </a>
               +
               <a
-                :href="l('Sacred Seals')"
+                :href="l('Sacred Seals' as FandomId)"
                 target="_blank"
                 class="text-decoration-none"
               >
@@ -187,7 +187,7 @@
             <div>
               > Units without PRF weapon +
               <a
-                :href="l('Category:Duel Passives')"
+                :href="l('Category:Duel Passives' as FandomId)"
                 target="_blank"
                 class="text-decoration-none"
               >
@@ -195,7 +195,7 @@
               </a>
               +
               <a
-                :href="l('Sacred Seals')"
+                :href="l('Sacred Seals' as FandomId)"
                 target="_blank"
                 class="text-decoration-none"
               >
@@ -217,6 +217,7 @@ import groupBy from 'lodash-es/groupBy'
 import compact from 'lodash-es/compact'
 
 import { createDefaultSortersForUnitsByMaxScore } from '~/utils/types/units-sorters'
+import type { FandomId } from '~/utils/types/fandom'
 
 definePageMeta({
   layout: 'units-filters',

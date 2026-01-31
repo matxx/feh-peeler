@@ -1,6 +1,7 @@
 import type { Guid } from '~/utils/types/shared'
 import type { Grade } from '@/utils/types/grades'
 import type { Game8Id } from '@/utils/types/game8'
+import type { FandomId } from '~/utils/types/fandom'
 import type { MoveType } from '@/utils/types/moves'
 import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import { objectFromEntries } from '@/utils/functions/typeSafe'
@@ -191,9 +192,9 @@ export interface ISkillData {
   id: SkillId
   base_id?: SkillId
   game8_id?: Game8Id
+  fandom_id: FandomId
 
   name: string
-  group_name: string
   category: SkillCategory
   weapon_type?: ExtendedWeaponType
 

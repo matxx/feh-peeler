@@ -41,7 +41,7 @@
               v-show="!mobile"
               icon
               flat
-              :href="lFandom(unit.full_name)"
+              :href="lFandom(unit.fandom_id)"
               target="_blank"
             >
               <img
@@ -90,7 +90,7 @@
                 density="compact"
                 variant="text"
                 icon
-                :href="lFandom(unit.full_name)"
+                :href="lFandom(unit.fandom_id)"
                 target="_blank"
                 class="mr-4"
               >
