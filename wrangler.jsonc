@@ -10,4 +10,16 @@
   "observability": {
     "enabled": true,
   },
+  "routes": [
+    {
+      "pattern": "feh-peeler.com",
+      "zone_name": "feh-peeler.com",
+      "custom_domain": true,
+    },
+    {
+      "pattern": "www.feh-peeler.com",
+      "zone_name": "feh-peeler.com",
+      "custom_domain": true,
+    },
+  ],
 }
