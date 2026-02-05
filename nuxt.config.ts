@@ -7,7 +7,7 @@ import {
   SITE_IMAGE_URL,
   SITE_IMAGE_SIZE,
 } from './utils/constants'
-import { dsn } from './utils/sentry'
+import { dsn, authToken } from './utils/sentry'
 import { DEFAULT_THEME } from './utils/types/themes'
 
 const DEFAULT_LOCALE = 'en'
@@ -198,6 +198,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    defaultLocale: DEFAULT_LOCALE,
     locales: [
       {
         code: 'en',
@@ -208,9 +209,7 @@ export default defineNuxtConfig({
       //   file: 'fr.mts',
       // },
     ],
-    lazy: true,
     langDir: 'lang',
-    defaultLocale: DEFAULT_LOCALE,
     customRoutes: 'config',
     pages: {
       assets: {
@@ -278,9 +277,10 @@ export default defineNuxtConfig({
   },
 
   sentry: {
+    org: 'me-g7',
+    project: 'feh-peeler',
+    authToken,
     sourceMapsUploadOptions: {
-      org: 'me-g7',
-      project: 'feh-peeler',
       sourcemaps: {
         filesToDeleteAfterUpload: ['.*/**/public/**/*.map'],
       },
