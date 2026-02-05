@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "feh-peeler",
+  "main": "./.output/server/index.mjs",
+  "compatibility_date": "2026-02-05",
+  "assets": {
+    "directory": "./.output/public/",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": true,
+  },
+}

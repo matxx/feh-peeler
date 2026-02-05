@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "@nuxthub/core": "^0.9.0",
+    "@nuxthub/core": "^0.10.6",
     "@pinia/nuxt": "^0.11.2",
     "@sentry/nuxt": "^10.36.0",
     "@vee-validate/nuxt": "^4.15.1",
@@ -54,6 +54,7 @@
     "uuid": "^13.0.0",
     "vee-validate": "^4.15.1",
     "vue-virtual-scroller": "^2.0.0-beta.8",
+    "wrangler": "^4.63.0",
     "zod": "^3.25.48"
   },
   "overrides": {

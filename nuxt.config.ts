@@ -277,8 +277,6 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-10-21',
-
   sentry: {
     sourceMapsUploadOptions: {
       org: 'me-g7',
@@ -289,7 +287,13 @@ export default defineNuxtConfig({
     },
   },
 
+  compatibilityDate: '2026-02-05',
   nitro: {
+    preset: 'cloudflare_module',
+    cloudflare: {
+      deployConfig: true,
+      nodeCompat: true,
+    },
     rollupConfig: {
       output: {
         sourcemap: 'hidden',

@@ -26,7 +26,6 @@ npm run dev
 
 ### Features
 
-1. display/sort/filter on skills range/might
 1. get any level correct stats
 
 1. (PAGE) unit score calculator (like https://arcticsilverfox.com/score_calc/)
@@ -37,7 +36,6 @@ npm run dev
 
 ### QoL
 
-1. modal unit->base kit: add emblem/duo/harmonized special effects
 1. modal unit/skill : update URL on open/close
 1. units: filter on ratings/grades/version
 1. skills: filter on ratings/grades/version/book
@@ -50,5 +48,9 @@ npm run dev
 
 1. staff refines appear as exclusive skills (ex: "In The Fold+")
 1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
+
+### Dev stuff
+
+1. nuxt-highcharts not maintained, use native web component instead (<https://github.com/richardeschloss/nuxt-highcharts/discussions/74>)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`
