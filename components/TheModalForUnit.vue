@@ -1,6 +1,7 @@
 <template>
   <v-dialog v-model="storeGlobals.modalUnitIsOpen">
     <v-card :loading="isLoading">
+      <!-- primary toolbar (mobile & desktop) -->
       <template v-if="unit">
         <v-toolbar
           color="primary"
@@ -21,7 +22,7 @@
           </h3>
 
           <template v-if="!mobile">
-            <UnitAvailability
+            <UnitModalHeaderAvailability
               :unit="unit"
               :tile-size="TOOLBAR_FODDER_SIZE"
             />
@@ -78,8 +79,9 @@
             v-show="mobile"
             class="bg-primary px-3 py-3"
           >
+            <!-- secondary toolbar (mobile only) -->
             <div class="d-flex align-center">
-              <UnitAvailability
+              <UnitModalHeaderAvailability
                 :unit="unit"
                 :tile-size="TOOLBAR_FODDER_SIZE"
               />
