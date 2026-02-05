@@ -45,7 +45,8 @@ export default defineNuxtConfig({
 
   sourcemap: {
     server: true,
-    client: 'hidden',
+    client: true,
+    // client: 'hidden',
   },
 
   app: {
@@ -280,15 +281,13 @@ export default defineNuxtConfig({
     org: 'me-g7',
     project: 'feh-peeler',
     authToken,
-    sourceMapsUploadOptions: {
-      sourcemaps: {
-        filesToDeleteAfterUpload: [
-          './**/*.map',
-          '.*/**/public/**/*.map',
-          '.output/**/public/**/*.map',
-        ],
-      },
-    },
+    // sourcemaps: {
+    //   filesToDeleteAfterUpload: [
+    //     './**/*.map',
+    //     '.*/**/public/**/*.map',
+    //     '.output/**/public/**/*.map',
+    //   ],
+    // },
   },
 
   compatibilityDate: '2026-02-05',
