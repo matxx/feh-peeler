@@ -13,6 +13,8 @@ export const SORT_PRF = 'is_prf'
 export const SORT_SP = 'sp'
 export const SORT_CD = 'cd'
 export const SORT_TIER = 'tier'
+export const SORT_MIGHT = 'might'
+export const SORT_RANGE = 'range'
 export const SORT_RELEASE_DATE = 'release_date'
 export const SORT_VERSION = 'version'
 
@@ -39,6 +41,8 @@ export type SortingField =
   | typeof SORT_SP
   | typeof SORT_CD
   | typeof SORT_TIER
+  | typeof SORT_MIGHT
+  | typeof SORT_RANGE
   | typeof SORT_RELEASE_DATE
   | typeof SORT_VERSION
   // not on unit
@@ -75,6 +79,8 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [skillsColumns.COLUMN_SP]: SORT_SP,
   [skillsColumns.COLUMN_CD]: SORT_CD,
   [skillsColumns.COLUMN_TIER]: SORT_TIER,
+  [skillsColumns.COLUMN_MIGHT]: SORT_MIGHT,
+  [skillsColumns.COLUMN_RANGE]: SORT_RANGE,
   [skillsColumns.COLUMN_RELEASE_DATE]: SORT_RELEASE_DATE,
   [skillsColumns.COLUMN_VERSION]: SORT_VERSION,
   // proxy fields

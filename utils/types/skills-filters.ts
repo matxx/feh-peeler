@@ -8,8 +8,15 @@ import getSortableVersion from '~/utils/functions/getSortableVersion'
 export const TIER = 'tier'
 export const SP = 'sp'
 export const CD = 'cd'
-export type Stat = typeof TIER | typeof SP | typeof CD
-export const STATS: Stat[] = [TIER, SP, CD]
+export const MIGHT = 'might'
+export const RANGE = 'range'
+export type Stat =
+  | typeof TIER
+  | typeof SP
+  | typeof CD
+  | typeof MIGHT
+  | typeof RANGE
+export const STATS: Stat[] = [TIER, SP, CD, MIGHT, RANGE]
 
 export const VERSION_8_0 = getSortableVersion('8.0')
 
@@ -28,6 +35,8 @@ export type ISkillStatMinMax = {
   [TIER]: [number, number]
   [SP]: [number, number]
   [CD]: [number, number]
+  [MIGHT]: [number, number]
+  [RANGE]: [number, number]
 }
 
 export interface IFilters {
@@ -86,6 +95,8 @@ export const getDefaultSkillStatsMinMax = (
       [TIER]: [0, 4],
       [SP]: [0, 500],
       [CD]: [0, 5],
+      [MIGHT]: [0, 16],
+      [RANGE]: [0, 3],
     }
   }
 
@@ -93,5 +104,7 @@ export const getDefaultSkillStatsMinMax = (
     [TIER]: [0, constants.skills_max_tier],
     [SP]: [0, constants.skills_max_sp],
     [CD]: [0, constants.skills_max_cd],
+    [MIGHT]: [0, constants.skills_max_might],
+    [RANGE]: [0, constants.skills_max_range],
   }
 }

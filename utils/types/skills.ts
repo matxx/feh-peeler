@@ -210,6 +210,8 @@ export interface ISkillData {
   cd?: number
   eff?: Effectiveness[]
   tier: number
+  might?: number
+  range?: number
 
   downgrade_ids?: SkillId[]
   upgrade_ids?: SkillId[]

@@ -20,6 +20,8 @@ export interface IConstants {
   skills_max_tier: number
   skills_max_sp: number
   skills_max_cd: number
+  skills_max_might: number
+  skills_max_range: number
 
   units_genders: Gender[]
   games: string[]

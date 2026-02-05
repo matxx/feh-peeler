@@ -6,6 +6,8 @@ export const COLUMN_PRF = 'is_prf'
 export const COLUMN_SP = 'sp'
 export const COLUMN_CD = 'cd'
 export const COLUMN_TIER = 'tier'
+export const COLUMN_MIGHT = 'might'
+export const COLUMN_RANGE = 'range'
 export const COLUMN_EFFECTIVENESS = 'eff'
 export const COLUMN_RELEASE_DATE = 'release_date'
 export const COLUMN_VERSION = 'version'
@@ -40,6 +42,8 @@ export const ALL_COLUMNS = [
   COLUMN_SP,
   COLUMN_CD,
   COLUMN_TIER,
+  COLUMN_MIGHT,
+  COLUMN_RANGE,
   COLUMN_EFFECTIVENESS,
   COLUMN_RATING,
   COLUMN_GRADE,
@@ -60,6 +64,8 @@ export const COLUMNS_IN_FILTERS = [
   COLUMN_SP,
   COLUMN_CD,
   COLUMN_TIER,
+  COLUMN_MIGHT,
+  COLUMN_RANGE,
   COLUMN_EFFECTIVENESS,
   COLUMN_RATING,
   COLUMN_GRADE,

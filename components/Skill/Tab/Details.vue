@@ -29,6 +29,26 @@
     </div>
 
     <div
+      :class="skill.might ? 'd-flex' : 'd-none'"
+      class="mb-2 align-center"
+    >
+      <h4 class="mr-3">{{ t('skills.show.might') }}:</h4>
+      <div>
+        {{ skill.might }}
+      </div>
+    </div>
+
+    <div
+      :class="skill.range ? 'd-flex' : 'd-none'"
+      class="mb-2 align-center"
+    >
+      <h4 class="mr-3">{{ t('skills.show.range') }}:</h4>
+      <div>
+        {{ skill.range }}
+      </div>
+    </div>
+
+    <div
       :class="skill.sp ? 'd-flex' : 'd-none'"
       class="mb-2 align-center"
     >
