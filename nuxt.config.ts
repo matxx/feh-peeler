@@ -282,7 +282,11 @@ export default defineNuxtConfig({
     authToken,
     sourceMapsUploadOptions: {
       sourcemaps: {
-        filesToDeleteAfterUpload: ['.*/**/public/**/*.map'],
+        filesToDeleteAfterUpload: [
+          './**/*.map',
+          '.*/**/public/**/*.map',
+          '.output/**/public/**/*.map',
+        ],
       },
     },
   },
@@ -293,12 +297,6 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
-    },
-    rollupConfig: {
-      output: {
-        sourcemap: 'hidden',
-        sourcemapExcludeSources: true,
-      },
     },
   },
 
