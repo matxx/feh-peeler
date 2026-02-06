@@ -109,6 +109,9 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       if (availability.is_in[SPECIAL_SUMMON_POOL]) {
         return availability.lowest_rarity[SPECIAL_SUMMON_POOL] === 4 ? 4 : 5
       }
+      if (availability.is_in[FOCUS_ONLY]) {
+        return 5
+      }
     }
 
     return {
