@@ -56,7 +56,7 @@
     />
 
     <img
-      src="assets/icons/catalog/frame.png"
+      :src="imgFrame"
       :width="frameSize"
       :height="frameSize"
       class="img-unit__icon img-unit__icon--full z-index-3"
@@ -69,7 +69,7 @@
       :class="{ 'filter-brightness-0': blackened }"
     />
     <img
-      src="assets/icons/catalog/pane.png"
+      :src="imgPane"
       :width="frameSize"
       :height="frameSize"
       class="d-block z-index-1"
@@ -78,6 +78,20 @@
 </template>
 
 <script setup lang="ts">
+import ImgFrame from '~/assets/icons/catalog/frame.png'
+import ImgFrame1 from '~/assets/icons/catalog/Frame_1.png'
+import ImgFrame2 from '~/assets/icons/catalog/Frame_2.png'
+import ImgFrame3 from '~/assets/icons/catalog/Frame_3.png'
+import ImgFrame4 from '~/assets/icons/catalog/Frame_4.png'
+import ImgFrame5 from '~/assets/icons/catalog/Frame_5.png'
+
+import ImgPane from '~/assets/icons/catalog/pane.png'
+import ImgPane1 from '~/assets/icons/catalog/Pane_1.png'
+import ImgPane2 from '~/assets/icons/catalog/Pane_2.png'
+import ImgPane3 from '~/assets/icons/catalog/Pane_3.png'
+import ImgPane4 from '~/assets/icons/catalog/Pane_4.png'
+import ImgPane5 from '~/assets/icons/catalog/Pane_5.png'
+
 import type { IUnitThumbnail } from '@/utils/types/units.ts'
 
 const { mobile } = useDisplay()
@@ -86,6 +100,7 @@ defineEmits(['remove'])
 const props = withDefaults(
   defineProps<{
     unit: IUnitThumbnail
+    rarity?: number
     frameSize?: number
     thumbnailSize?: number
     checked?: boolean
@@ -96,6 +111,7 @@ const props = withDefaults(
     removable?: boolean
   }>(),
   {
+    rarity: undefined,
     frameSize: 90,
     thumbnailSize: 80,
     checked: false,
@@ -106,6 +122,44 @@ const props = withDefaults(
     removable: false,
   },
 )
+
+const imgFrame = computed(() => {
+  if (!props.rarity) return ImgFrame
+
+  switch (props.rarity) {
+    case 1:
+      return ImgFrame1
+    case 2:
+      return ImgFrame2
+    case 3:
+      return ImgFrame3
+    case 4:
+      return ImgFrame4
+    case 5:
+      return ImgFrame5
+    default:
+      return ImgFrame
+  }
+})
+
+const imgPane = computed(() => {
+  if (!props.rarity) return ImgPane
+
+  switch (props.rarity) {
+    case 1:
+      return ImgPane1
+    case 2:
+      return ImgPane2
+    case 3:
+      return ImgPane3
+    case 4:
+      return ImgPane4
+    case 5:
+      return ImgPane5
+    default:
+      return ImgPane
+  }
+})
 
 const marginPx = computed(
   () => `${Math.floor((props.frameSize - props.thumbnailSize) / 2)}px`,

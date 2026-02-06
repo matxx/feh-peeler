@@ -382,29 +382,31 @@
           />
 
           <RecycleScroller
+            v-if="storeDataUnits.isLoaded"
             v-slot="{ item }"
             ref="grailsScroller"
             class="scroller scroller--grails scroller--centered"
             :class="{ 'scroller--centered': mdAndDown }"
-            :items="storeDataUnitsHeroicGrails.heroicGrailsUnitsLines"
+            :items="storeDataUnitsHeroicGrails.heroicGrailsLines"
             :item-size="frameSize"
           >
             <div class="d-flex">
               <!-- prettier-ignore -->
               <CompoUnitThumbnailCatalog
-                v-for="unit in (item.units as IUnit[])"
-                :key="unit.id"
-                :unit="unit"
+                v-for="hg in (item.units as IHeroicGrail[])"
+                :key="hg.unit_id"
+                :unit="storeDataUnits.unitsById[hg.unit_id]"
+                :rarity="hg.rarity"
                 :frame-size="frameSize"
                 :thumbnail-size="thumbnailSize"
-                :checked="ownedUnitIds.has(unit.id)"
-                :crossed="!ownedUnitIds.has(unit.id)"
+                :checked="ownedUnitIds.has(hg.unit_id)"
+                :crossed="!ownedUnitIds.has(hg.unit_id)"
                 show-weapon
                 :show-move="
                   storeDataUnitsHeroicGrails.order === SORT_BY_MOVE_TYPE
                 "
                 class="cursor-pointer"
-                @click="storeGlobals.showUnit(unit.id)"
+                @click="storeGlobals.showUnit(hg.unit_id)"
               />
             </div>
           </RecycleScroller>
@@ -478,6 +480,7 @@ import {
 import {
   SORT_ORDERS,
   SORT_BY_MOVE_TYPE,
+  type IHeroicGrail,
 } from '~/utils/types/units-heroicGrails'
 import {
   CURRENT_PAYLOAD_VERSION,

@@ -3,6 +3,7 @@ import type { UnitId } from '~/utils/types/units'
 export interface IHeroicGrailData {
   start_time: string
   unit_id: UnitId
+  rarity: number
 }
 
 export interface IHeroicGrail extends IHeroicGrailData {
