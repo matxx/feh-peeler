@@ -1,5 +1,5 @@
 export const OWNER_LOWEST_RARITY_WHEN_OBTAINED = 'olrwo'
-export const OWNER_LOWEST_RARITY_FOR_INHERITANCE = 'olrfi'
+// export const OWNER_LOWEST_RARITY_FOR_INHERITANCE = 'olrfi'
 
 export const GENERIC_SUMMON_POOL = 'gsp'
 export const SPECIAL_SUMMON_POOL = 'ssp'

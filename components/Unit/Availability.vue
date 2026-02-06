@@ -37,7 +37,10 @@
       :size="tileSize"
       :number="divineCodesNormalLowestNumber"
     >
-      <template #tooltip:append>
+      <template
+        v-if="availability.divine_codes"
+        #tooltip:append
+      >
         <div
           v-for="(desc, index) in availability.divine_codes.normal"
           :key="index"
@@ -105,11 +108,15 @@ const availability = computed(
 
 const divineCodesNormalLowestNumber = computed(
   () =>
+    availability.value &&
+    availability.value.divine_codes &&
     availability.value.divine_codes.normal &&
     minBy(availability.value.divine_codes.normal, 'number')?.number,
 )
 
 const divineCodesLimited = computed(() =>
+  availability.value &&
+  availability.value.divine_codes &&
   availability.value.divine_codes.limited
     ? sortBy(
         uniq(

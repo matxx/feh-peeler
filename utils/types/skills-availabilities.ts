@@ -7,7 +7,7 @@ import type { UnitId } from '~/utils/types/units'
 
 import {
   type OWNER_LOWEST_RARITY_WHEN_OBTAINED,
-  type OWNER_LOWEST_RARITY_FOR_INHERITANCE,
+  // type OWNER_LOWEST_RARITY_FOR_INHERITANCE,
   type GENERIC_SUMMON_POOL,
   type SPECIAL_SUMMON_POOL,
   type HEROIC_GRAILS,
@@ -89,14 +89,14 @@ export interface ISkillAvailability {
     [LIMITED_DIVINE_CODES]?: number
     [FOCUS_ONLY]?: number
   }
-  [OWNER_LOWEST_RARITY_FOR_INHERITANCE]?: {
-    [GENERIC_SUMMON_POOL]?: number
-    [SPECIAL_SUMMON_POOL]?: number
-    [HEROIC_GRAILS]?: number
-    [NORMAL_DIVINE_CODES]?: number
-    [LIMITED_DIVINE_CODES]?: number
-    [FOCUS_ONLY]?: number
-  }
+  // [OWNER_LOWEST_RARITY_FOR_INHERITANCE]?: {
+  //   [GENERIC_SUMMON_POOL]?: number
+  //   [SPECIAL_SUMMON_POOL]?: number
+  //   [HEROIC_GRAILS]?: number
+  //   [NORMAL_DIVINE_CODES]?: number
+  //   [LIMITED_DIVINE_CODES]?: number
+  //   [FOCUS_ONLY]?: number
+  // }
   divine_codes?: {
     normal?: IDivineCodeNormal[]
     limited?: IDivineCodeLimited[]

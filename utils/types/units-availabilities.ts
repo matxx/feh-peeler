@@ -35,7 +35,7 @@ export interface IUnitAvailability {
     [FOCUS_ONLY]?: number
   }
 
-  divine_codes: {
+  divine_codes?: {
     normal?: IDivineCodeNormal[]
     limited?: IDivineCodeLimited[]
   }
