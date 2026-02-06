@@ -51,10 +51,10 @@ export const useStoreDataUnits = defineStore('data/units', () => {
           weaponFamily: WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
           weaponColor: WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
           nameForLink: escapeName(unit.full_name),
-          nameForSelect: `${unit.abbreviated_name} (${unit.title})`,
+          nameForSelect: `${unit.abbreviated_name} [${unit.title}]`,
           nameForSorting: unit.full_name,
           nameForFiltering: storeDataAccents.transliterate(unit.full_name),
-          nameForDisplay: `${unit.abbreviated_name} (${unit.title})`,
+          nameForDisplay: `${unit.abbreviated_name} [${unit.title}]`,
           sortableType: getSortableType(unit),
           sortableWeaponColor: getSortableWeaponColor(
             WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
