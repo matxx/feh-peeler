@@ -290,6 +290,11 @@
                 v-for="unit in line.units"
                 :key="unit.id"
                 :unit="unit"
+                :rarity="
+                  storeDataUnitsAvailabilities.getUnitMinimumSummonableIntegerRarity(
+                    unit.id,
+                  )
+                "
                 :frame-size="frameSize"
                 :thumbnail-size="thumbnailSize"
                 :checked="ownedUnitIds.has(unit.id)"

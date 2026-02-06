@@ -99,6 +99,18 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       isFiveStarLocked(availabilitiesById.value[unitId])
     const isUnitFiveStarLocked = (unit: IUnit) => isIdFiveStarLocked(unit.id)
 
+    function getUnitMinimumSummonableIntegerRarity(id: UnitId) {
+      const availability = availabilitiesById.value[id]
+      if (!availability) return
+
+      if (availability.is_in[GENERIC_SUMMON_POOL]) {
+        return availability.lowest_rarity[GENERIC_SUMMON_POOL] === 4 ? 4 : 5
+      }
+      if (availability.is_in[SPECIAL_SUMMON_POOL]) {
+        return availability.lowest_rarity[SPECIAL_SUMMON_POOL] === 4 ? 4 : 5
+      }
+    }
+
     return {
       isLoading,
       isLoaded,
@@ -112,6 +124,8 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       isFiveStarLocked,
       isIdFiveStarLocked,
       isUnitFiveStarLocked,
+
+      getUnitMinimumSummonableIntegerRarity,
     }
   },
 )
