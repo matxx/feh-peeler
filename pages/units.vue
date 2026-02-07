@@ -70,6 +70,8 @@
       :sort-by="sortBy"
       @update:options="updateUnits"
     >
+      <!-- CUSTOM HEADERS -->
+
       <template #[`header.${unitsColumns.COLUMN_THUMBNAIL}`]>
         <v-btn
           v-tooltip="t('units.index.resetSorting')"
@@ -88,6 +90,15 @@
           :height="size"
         />
       </template>
+      <template
+        v-for="stat in unitsColumns.COLUMNS_OF_STAT"
+        :key="stat"
+        #[`header.${stat}`]="{ column }"
+      >
+        {{ column.title }}<UnitTooltipStat />
+      </template>
+
+      <!-- CUSTOM CELLS -->
 
       <template #[`item.${unitsColumns.COLUMN_THUMBNAIL}`]="{ item }">
         <NuxtLink
@@ -208,21 +219,13 @@
       </template>
     </v-data-table-server>
 
-    <p
-      v-if="hasStatColumn"
-      class="mt-3"
-    >
-      * {{ t('units.index.statsDisplayedAre5starLevel40plus0') }}
-    </p>
-
-    <!-- TODO: generation / game / element / artist / VA -->
+    <!-- TODO: generation / game / element -->
   </div>
 </template>
 
 <script setup lang="ts">
 import type { DataTableSortItem } from 'vuetify'
 import * as Sentry from '@sentry/nuxt'
-import some from 'lodash-es/some'
 import filter from 'lodash-es/filter'
 
 import { STATS_IVS_COLORS, NULL } from '~/utils/types/units-stats'
@@ -279,14 +282,11 @@ const headers = computed<Header[]>(() =>
     (column) =>
       column == unitsColumns.COLUMN_THUMBNAIL || columns.value.has(column),
   ).map((column) => ({
-    title: `${t(`units.index.headers.${column}`)}${unitsColumns.COLUMNS_OF_STAT.includes(column) ? '*' : ''}`,
+    title: t(`units.index.headers.${column}`),
     key: column,
     align: unitsColumns.COLUMNS_START_ALIGNED.has(column) ? 'start' : 'center',
     sortable: column !== unitsColumns.COLUMN_THUMBNAIL,
   })),
-)
-const hasStatColumn = computed(() =>
-  some(unitsColumns.COLUMNS_OF_STAT, (column) => columns.value.has(column)),
 )
 
 interface Options {
