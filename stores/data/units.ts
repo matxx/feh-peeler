@@ -29,6 +29,7 @@ import {
 import type { Availability } from '~/utils/types/units-availabilities'
 import { getAvailability } from '~/utils/types/units-availabilities'
 import { getSortableMoveType } from '~/utils/types/moves'
+import { getSortableElement } from '~/utils/types/units-filters'
 import getSortableVersion from '~/utils/functions/getSortableVersion'
 
 export const useStoreDataUnits = defineStore('data/units', () => {
@@ -61,6 +62,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
           ),
           sortableWeaponType: getSortableWeaponType(unit),
           sortableMoveType: getSortableMoveType(unit),
+          sortableElement: getSortableElement(unit.element),
           sortableVersion: getSortableVersion(unit.version),
         }))
       : [],

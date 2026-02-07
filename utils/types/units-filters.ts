@@ -147,3 +147,26 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
 
   stats,
 })
+
+export function getSortableElement(element?: Element) {
+  if (!element) return -1
+
+  switch (element) {
+    case ELEMENT_FIRE:
+      return 0
+    case ELEMENT_WATER:
+      return 1
+    case ELEMENT_WIND:
+      return 2
+    case ELEMENT_EARTH:
+      return 3
+    case ELEMENT_LIGHT:
+      return 4
+    case ELEMENT_DARK:
+      return 5
+    case ELEMENT_ASTRA:
+      return 6
+    case ELEMENT_ANIMA:
+      return 7
+  }
+}

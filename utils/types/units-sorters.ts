@@ -17,7 +17,7 @@ export const SORT_RELEASE_DATE = 'release_date'
 // export const SORT_GAME = 'game'
 export const SORT_BST = 'bst'
 export const SORT_MAX_DRAGONFLOWERS = 'max_df'
-// export const SORT_ELEMENT = 'element'
+export const SORT_ELEMENT = 'element'
 // export const SORT_ARTIST = 'artist'
 // export const SORT_VA = 'VA'
 export const SORT_MAX_SCORE = 'max_score'
@@ -51,7 +51,7 @@ export type SortingField =
   // | typeof SORT_GAME
   | typeof SORT_BST
   | typeof SORT_MAX_DRAGONFLOWERS
-  // | typeof SORT_ELEMENT
+  | typeof SORT_ELEMENT
   // | typeof SORT_ARTIST
   // | typeof SORT_VA
   | typeof SORT_MAX_SCORE
@@ -98,6 +98,7 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [unitsColumns.COLUMN_BOOK]: SORT_BOOK,
   [unitsColumns.COLUMN_RELEASE_DATE]: SORT_RELEASE_DATE,
   [unitsColumns.COLUMN_VERSION]: SORT_VERSION,
+  [unitsColumns.COLUMN_ELEMENT]: SORT_ELEMENT,
   [unitsColumns.COLUMN_BST]: SORT_BST,
   [unitsColumns.COLUMN_MAX_DRAGONFLOWERS]: SORT_MAX_DRAGONFLOWERS,
   [unitsColumns.COLUMN_MAX_SCORE]: SORT_MAX_SCORE,

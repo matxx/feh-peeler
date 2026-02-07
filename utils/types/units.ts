@@ -167,6 +167,7 @@ export interface IUnit extends IUnitData {
   sortableWeaponColor: number
   sortableWeaponType: number
   sortableMoveType: number
+  sortableElement: number
   sortableVersion: string
 }
 

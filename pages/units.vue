@@ -210,6 +210,14 @@
         </strong>
       </template>
 
+      <template #[`item.${unitsColumns.COLUMN_ELEMENT}`]="{ item }">
+        <AppIconElement
+          v-if="item.element"
+          :element="item.element"
+          :size="size"
+        />
+      </template>
+
       <template #[`item.${unitsColumns.COLUMN_RATING}`]="{ item }">
         {{ storeDataUnitsRatingsGame8.byId[item.id]?.game8_rating }}
       </template>
@@ -219,7 +227,7 @@
       </template>
     </v-data-table-server>
 
-    <!-- TODO: generation / game / element -->
+    <!-- TODO: generation / game -->
   </div>
 </template>
 

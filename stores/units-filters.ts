@@ -38,6 +38,7 @@ import {
   SORT_STAT_SPD,
   SORT_STAT_DEF,
   SORT_STAT_RES,
+  SORT_ELEMENT,
   SORT_THEME,
   SORT_NOTHING,
   createEmptySorters,
@@ -387,6 +388,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
             return (unit: IUnit) => unit.nameForSorting
           case SORT_VERSION:
             return (unit: IUnit) => unit.sortableVersion
+          case SORT_ELEMENT:
+            return (unit: IUnit) => unit.sortableElement
           case SORT_RATING:
             return (unit: IUnit) =>
               storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating || RATING_0
