@@ -42,6 +42,18 @@
               v-show="!mobile"
               icon
               flat
+              :href="lGuide(unit.guide_id)"
+              target="_blank"
+            >
+              <img
+                src="~/assets/images/logo-guide.png"
+                :height="TOOLBAR_ICON_SIZE"
+              />
+            </v-btn>
+            <v-btn
+              v-show="!mobile"
+              icon
+              flat
               :href="lFandom(unit.fandom_id)"
               target="_blank"
             >
@@ -92,9 +104,22 @@
                 density="compact"
                 variant="text"
                 icon
-                :href="lFandom(unit.fandom_id)"
-                target="_blank"
                 class="mr-4"
+                target="_blank"
+                :href="lGuide(unit.guide_id)"
+              >
+                <img
+                  src="~/assets/images/logo-guide.png"
+                  :height="TOOLBAR_ICON_SIZE"
+                />
+              </v-btn>
+              <v-btn
+                density="compact"
+                variant="text"
+                icon
+                class="mr-4"
+                target="_blank"
+                :href="lFandom(unit.fandom_id)"
               >
                 <img
                   src="~/assets/images/fandom-logo.png"
@@ -106,8 +131,8 @@
                 density="compact"
                 variant="text"
                 icon
-                :href="lGame8(unit.game8_id)"
                 target="_blank"
+                :href="lGame8(unit.game8_id)"
               >
                 <img
                   src="~/assets/images/game8-logo-square.png"
@@ -194,6 +219,7 @@ const FODDERS_TILE_SIZE = 40
 const { t } = useI18n()
 const { mobile, name } = useDisplay()
 const { l: lGame8 } = useGame8()
+const { l: lGuide } = useGuide()
 const { l: lFandom } = useFandom()
 const storeGlobals = useStoreGlobals()
 
