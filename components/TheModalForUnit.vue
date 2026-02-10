@@ -51,6 +51,19 @@
               />
             </v-btn>
             <v-btn
+              v-if="unit.fehpass_id"
+              v-show="!mobile"
+              icon
+              flat
+              :href="lFehPass(unit.fehpass_id)"
+              target="_blank"
+            >
+              <img
+                src="~/assets/icons/fodder/fehpass.png"
+                :height="TOOLBAR_ICON_SIZE"
+              />
+            </v-btn>
+            <v-btn
               v-show="!mobile"
               icon
               flat
@@ -104,7 +117,7 @@
                 density="compact"
                 variant="text"
                 icon
-                class="mr-4"
+                class="ml-4"
                 target="_blank"
                 :href="lGuide(unit.guide_id)"
               >
@@ -114,10 +127,24 @@
                 />
               </v-btn>
               <v-btn
+                v-if="unit.fehpass_id"
                 density="compact"
                 variant="text"
                 icon
-                class="mr-4"
+                class="ml-4"
+                target="_blank"
+                :href="lFehPass(unit.fehpass_id)"
+              >
+                <img
+                  src="~/assets/icons/fodder/fehpass.png"
+                  :height="TOOLBAR_ICON_SIZE"
+                />
+              </v-btn>
+              <v-btn
+                density="compact"
+                variant="text"
+                icon
+                class="ml-4"
                 target="_blank"
                 :href="lFandom(unit.fandom_id)"
               >
@@ -131,6 +158,7 @@
                 density="compact"
                 variant="text"
                 icon
+                class="ml-4"
                 target="_blank"
                 :href="lGame8(unit.game8_id)"
               >
@@ -221,6 +249,7 @@ const { mobile, name } = useDisplay()
 const { l: lGame8 } = useGame8()
 const { l: lGuide } = useGuide()
 const { l: lFandom } = useFandom()
+const { l: lFehPass } = useFehPass()
 const storeGlobals = useStoreGlobals()
 
 const storeDataUnits = useStoreDataUnits()
