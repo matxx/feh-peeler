@@ -768,6 +768,6 @@ const itemsForBooks = Array.from({ length: BOOKS_COUNT }).map(
 
 <style lang="scss" scoped>
 .width-stat-headers {
-  flex: 0 0 30px;
+  flex: 0 0 40px;
 }
 </style>

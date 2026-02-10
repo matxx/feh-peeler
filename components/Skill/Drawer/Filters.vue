@@ -426,6 +426,6 @@ function cycleFilter(key: 'isMax' | 'isPrf' | 'isArcane') {
 
 <style lang="scss" scoped>
 .width-stat-headers {
-  flex: 0 0 30px;
+  flex: 0 0 50px;
 }
 </style>
