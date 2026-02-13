@@ -74,31 +74,35 @@
             class="mt-2 mb-2"
             density="compact"
           >
-            > Units with PRF weapon +
-            <a
-              :href="l('Category:Duel Passives' as FandomId)"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              Duel (A Passive)
-              <!-- <v-icon size="x-small">mdi-open-in-new</v-icon> -->
-            </a>
-            +
-            <a
-              :href="l('Passives#List of B Passives' as FandomId)"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              400SP B Passive
-            </a>
-            +
-            <a
-              :href="l('Sacred Seals' as FandomId)"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              300 SP seal
-            </a>
+            <ul class="pl-5">
+              <li>
+                Units with PRF weapon +
+                <a
+                  :href="l('Category:Duel Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  Duel (A Passive)
+                  <!-- <v-icon size="x-small">mdi-open-in-new</v-icon> -->
+                </a>
+                +
+                <a
+                  :href="l('Passives#List of B Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  400SP B Passive
+                </a>
+                +
+                <a
+                  :href="l('Sacred Seals' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  300 SP seal
+                </a>
+              </li>
+            </ul>
           </v-alert>
 
           <v-alert
@@ -110,22 +114,60 @@
             class="mt-2 mb-2"
             density="compact"
           >
-            > Units with PRF weapon +
-            <a
-              :href="l('Category:Duel Passives' as FandomId)"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              Duel (A Passive)
-            </a>
-            +
-            <a
-              :href="l('Sacred Seals' as FandomId)"
-              target="_blank"
-              class="text-decoration-none"
-            >
-              300 SP seal
-            </a>
+            <ul class="pl-5">
+              <li>
+                Units with PRF weapon +
+                <a
+                  :href="l('Category:Duel Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  Duel (A Passive)
+                </a>
+                +
+                <a
+                  :href="l('Passives#List of B Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  400SP B Passive
+                </a>
+                +
+                <a
+                  :href="l('Sacred Seals' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  240 SP seal
+                </a>
+              </li>
+              <li>
+                Units without PRF weapon +
+                <a
+                  :href="l('Category:Duel Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  Duel (A Passive)
+                </a>
+                +
+                <a
+                  :href="l('Passives#List of B Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  400SP B Passive
+                </a>
+                +
+                <a
+                  :href="l('Sacred Seals' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  300 SP seal
+                </a>
+              </li>
+            </ul>
           </v-alert>
 
           <v-alert
@@ -137,71 +179,34 @@
             class="mt-2 mb-2"
             density="compact"
           >
-            <div>
-              > Units with PRF weapon +
-              <a
-                :href="l('Category:Duel Passives' as FandomId)"
-                target="_blank"
-                class="text-decoration-none"
-              >
-                Duel (A Passive)
-              </a>
-              +
-              <a
-                :href="l('Sacred Seals' as FandomId)"
-                target="_blank"
-                class="text-decoration-none"
-              >
-                240 SP seal
-              </a>
-            </div>
-            <div>
-              > Units without PRF weapon +
-              <a
-                :href="l('Category:Duel Passives' as FandomId)"
-                target="_blank"
-                class="text-decoration-none"
-              >
-                Duel (A Passive)
-              </a>
-              +
-              <a
-                :href="l('Sacred Seals' as FandomId)"
-                target="_blank"
-                class="text-decoration-none"
-              >
-                300 SP seal
-              </a>
-            </div>
-          </v-alert>
-
-          <v-alert
-            v-else-if="score === '754'"
-            border="start"
-            type="warning"
-            variant="tonal"
-            elevation="2"
-            class="mt-2 mb-2"
-            density="compact"
-          >
-            <div>
-              > Units without PRF weapon +
-              <a
-                :href="l('Category:Duel Passives' as FandomId)"
-                target="_blank"
-                class="text-decoration-none"
-              >
-                Duel (A Passive)
-              </a>
-              +
-              <a
-                :href="l('Sacred Seals' as FandomId)"
-                target="_blank"
-                class="text-decoration-none"
-              >
-                240 SP seal
-              </a>
-            </div>
+            <ul class="pl-5">
+              <li>
+                Units without PRF weapon +
+                <a
+                  :href="l('Category:Duel Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  Duel (A Passive)
+                </a>
+                +
+                <a
+                  :href="l('Passives#List of B Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  400SP B Passive
+                </a>
+                +
+                <a
+                  :href="l('Sacred Seals' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  240 SP seal
+                </a>
+              </li>
+            </ul>
           </v-alert>
         </div>
       </div>
