@@ -26,6 +26,7 @@ import {
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
 import type { IndexedBy } from '~/utils/functions/typeSafe'
+import type { IHeroicGrail } from '~/utils/types/units-heroicGrails'
 
 export const useStoreDataUnitsAvailabilities = defineStore(
   'data/units-availabilities',
@@ -99,19 +100,37 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       isFiveStarLocked(availabilitiesById.value[unitId])
     const isUnitFiveStarLocked = (unit: IUnit) => isIdFiveStarLocked(unit.id)
 
-    function getUnitMinimumSummonableIntegerRarity(id: UnitId) {
+    function getUnitMinimumObtainableIntegerRarity(
+      id: UnitId,
+      hg?: IHeroicGrail,
+    ) {
       const availability = availabilitiesById.value[id]
       if (!availability) return
 
+      const availabilities = []
+
       if (availability.is_in[GENERIC_SUMMON_POOL]) {
-        return availability.lowest_rarity[GENERIC_SUMMON_POOL] === 4 ? 4 : 5
+        if (availability.lowest_rarity[GENERIC_SUMMON_POOL] === 4.5) {
+          availabilities.push(5)
+        } else {
+          availabilities.push(availability.lowest_rarity[GENERIC_SUMMON_POOL])
+        }
       }
       if (availability.is_in[SPECIAL_SUMMON_POOL]) {
-        return availability.lowest_rarity[SPECIAL_SUMMON_POOL] === 4 ? 4 : 5
+        if (availability.lowest_rarity[SPECIAL_SUMMON_POOL] === 4.5) {
+          availabilities.push(5)
+        } else {
+          availabilities.push(availability.lowest_rarity[SPECIAL_SUMMON_POOL])
+        }
       }
       if (availability.is_in[FOCUS_ONLY]) {
-        return 5
+        availabilities.push(5)
       }
+      if (availability.is_in[HEROIC_GRAILS] && hg) {
+        availabilities.push(hg.rarity)
+      }
+
+      return min(availabilities)
     }
 
     return {
@@ -128,7 +147,7 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       isIdFiveStarLocked,
       isUnitFiveStarLocked,
 
-      getUnitMinimumSummonableIntegerRarity,
+      getUnitMinimumObtainableIntegerRarity,
     }
   },
 )

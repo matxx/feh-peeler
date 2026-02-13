@@ -290,7 +290,7 @@
                 :key="unit.id"
                 :unit="unit"
                 :rarity="
-                  storeDataUnitsAvailabilities.getUnitMinimumSummonableIntegerRarity(
+                  storeDataUnitsAvailabilities.getUnitMinimumObtainableIntegerRarity(
                     unit.id,
                   )
                 "
@@ -354,6 +354,12 @@
                 v-for="unit in line.units"
                 :key="unit.id"
                 :unit="unit"
+                :rarity="
+                  storeDataUnitsAvailabilities.getUnitMinimumObtainableIntegerRarity(
+                    unit.id,
+                    storeDataUnitsHeroicGrails.byId[unit.id],
+                  )
+                "
                 :frame-size="frameSize"
                 :thumbnail-size="thumbnailSize"
                 :checked="ownedUnitIds.has(unit.id)"
@@ -443,6 +449,12 @@
                 v-for="unit in (item.units as IUnit[])"
                 :key="unit.id"
                 :unit="unit"
+                :rarity="
+                  storeDataUnitsAvailabilities.getUnitMinimumObtainableIntegerRarity(
+                    unit.id,
+                    storeDataUnitsHeroicGrails.byId[unit.id],
+                  )
+                "
                 :frame-size="frameSize"
                 :thumbnail-size="thumbnailSize"
                 :checked="ownedUnitIds.has(unit.id)"

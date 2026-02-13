@@ -1,6 +1,8 @@
+import keyBy from 'lodash-es/keyBy'
 import orderBy from 'lodash-es/orderBy'
 
-import { chunkMaxLength } from '~/utils/functions/typeSafe'
+import { chunkMaxLength, type IndexedBy } from '~/utils/functions/typeSafe'
+import type { UnitId } from '~/utils/types/units'
 import * as hgs from '~/utils/types/units-heroicGrails'
 
 export const useStoreDataUnitsHeroicGrails = defineStore(
@@ -23,6 +25,10 @@ export const useStoreDataUnitsHeroicGrails = defineStore(
         ...hg,
         startTime: new Date(hg.start_time),
       })),
+    )
+
+    const byId = computed<IndexedBy<UnitId, hgs.IHeroicGrail>>(() =>
+      keyBy(heroicGrails.value, 'unit_id'),
     )
 
     const heroicGrailsSorted = computed(() => {
@@ -107,6 +113,7 @@ export const useStoreDataUnitsHeroicGrails = defineStore(
 
       order,
       heroicGrailsLines,
+      byId,
     }
   },
 )

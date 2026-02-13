@@ -145,6 +145,8 @@ export function getAvailability(availability: IUnitAvailability): Availability {
         return AV_GENERIC_POOL_5
     }
   }
+  // "special pool" must appear before "HG"
+  // (because of new TT units behing special pool heroes)
   if (availability.is_in[SPECIAL_SUMMON_POOL]) {
     switch (availability.lowest_rarity[SPECIAL_SUMMON_POOL]) {
       case 4:
