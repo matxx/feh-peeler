@@ -40,6 +40,7 @@ import {
   SORT_STAT_RES,
   SORT_ELEMENT,
   SORT_THEME,
+  SORT_OWNED,
   SORT_NOTHING,
   createEmptySorters,
   type ISorter,
@@ -418,6 +419,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
               storeDataUnitsStats.statsById[unit.id].level40_res
           case SORT_THEME:
             return (unit: IUnit) => t(`units.themes.${unit.theme}`)
+          case SORT_OWNED:
+            return (unit: IUnit) => ownedUnitIds.value.has(unit.id)
           case SORT_NOTHING:
             return () => 0
         }
@@ -456,6 +459,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     updateSorter,
     updateUnits,
 
+    ownedUnitIds,
     setOwnedUnitIds,
 
     unitsFilteredSorted,

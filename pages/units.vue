@@ -121,9 +121,7 @@
         </NuxtLink>
       </template>
       <template #[`item.${unitsColumns.COLUMN_HAS_RESPLENDENT}`]="{ item }">
-        <v-icon :color="item.has_respl ? 'green' : 'red'">
-          {{ item.has_respl ? 'mdi-check-circle' : 'mdi-close-circle' }}
-        </v-icon>
+        <AppDisplayBool :bool="!!item.has_respl" />
       </template>
       <template #[`item.${unitsColumns.COLUMN_AVAILABILITY}`]="{ item }">
         <UnitAvailability
@@ -224,6 +222,10 @@
 
       <template #[`item.${unitsColumns.COLUMN_THEME}`]="{ item }">
         {{ item.theme && t(`units.themes.${item.theme}`) }}
+      </template>
+
+      <template #[`item.${unitsColumns.COLUMN_OWNED}`]="{ item }">
+        <AppDisplayBool :bool="storeUnitsFilters.ownedUnitIds.has(item.id)" />
       </template>
     </v-data-table-server>
 

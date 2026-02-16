@@ -26,6 +26,7 @@ export const COLUMN_ORIGIN = 'origin'
 export const COLUMN_ID_INT = 'id_int'
 export const COLUMN_THEME = 'theme'
 export const COLUMN_MAX_DRAGONFLOWERS = 'max_df'
+export const COLUMN_OWNED = 'owned'
 
 export const COLUMNS_OF_STAT = [
   COLUMN_STAT_HP,
@@ -77,6 +78,7 @@ export const ALL_COLUMNS = [
   COLUMN_MAX_SCORE,
   COLUMN_RATING,
   COLUMN_THEME,
+  COLUMN_OWNED,
 ]
 
 export const COLUMNS_IN_FILTERS = [
@@ -106,6 +108,7 @@ export const COLUMNS_IN_FILTERS = [
   COLUMN_MAX_SCORE,
   COLUMN_RATING,
   COLUMN_THEME,
+  COLUMN_OWNED,
 ]
 
 export const COLUMNS_START_ALIGNED = new Set([

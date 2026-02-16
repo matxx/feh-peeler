@@ -25,6 +25,7 @@ export const SORT_RATING = 'game8_rating'
 export const SORT_ORIGIN = 'origin'
 export const SORT_ID_INT = 'id_int'
 export const SORT_THEME = 'theme'
+export const SORT_OWNED = 'owned'
 
 // keys not on unit data
 
@@ -68,6 +69,7 @@ export type SortingField =
   | typeof SORT_STAT_SPD
   | typeof SORT_STAT_DEF
   | typeof SORT_STAT_RES
+  | typeof SORT_OWNED
   // special
   | typeof SORT_NOTHING
 
@@ -115,4 +117,5 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [unitsColumns.COLUMN_STAT_RES]: SORT_STAT_RES,
   [unitsColumns.COLUMN_ORIGIN]: SORT_ORIGIN,
   [unitsColumns.COLUMN_ID_INT]: SORT_ID_INT,
+  [unitsColumns.COLUMN_OWNED]: SORT_OWNED,
 }

@@ -469,6 +469,7 @@ export default {
         [unitsColumns.COLUMN_ID_INT]: 'ID',
         [unitsColumns.COLUMN_MAX_SCORE]: 'Max Score',
         [unitsColumns.COLUMN_THEME]: 'Theme',
+        [unitsColumns.COLUMN_OWNED]: 'Owned',
       },
     },
     show: {
