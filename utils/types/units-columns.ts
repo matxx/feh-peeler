@@ -122,3 +122,8 @@ export const COLUMNS_START_ALIGNED = new Set([
   // COLUMN_RATING,
   COLUMN_THEME,
 ])
+
+export const COLUMNS_WITH_TOOLTIP = new Set([
+  COLUMN_MAX_DRAGONFLOWERS,
+  COLUMN_OWNED,
+])

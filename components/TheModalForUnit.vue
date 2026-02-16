@@ -180,7 +180,9 @@
               :key="tab"
               v-tooltip="{
                 disabled: !UNIT_TABS_WITH_TOOLTIP.includes(tab),
-                text: t(`units.show.tooltips.${tab}`),
+                text: UNIT_TABS_WITH_TOOLTIP.includes(tab)
+                  ? t(`units.show.tooltips.${tab}`)
+                  : undefined,
               }"
               :value="tab"
             >

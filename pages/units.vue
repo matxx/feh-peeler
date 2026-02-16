@@ -40,6 +40,12 @@
         <v-btn
           v-for="column in unitsColumns.COLUMNS_IN_FILTERS"
           :key="column"
+          v-tooltip="{
+            disabled: !unitsColumns.COLUMNS_WITH_TOOLTIP.has(column),
+            text: unitsColumns.COLUMNS_WITH_TOOLTIP.has(column)
+              ? t(`units.index.tooltips.${column}`)
+              : undefined,
+          }"
           size="x-small"
           class="text-primary mr-1 mb-1"
           :active="columns.has(column)"
