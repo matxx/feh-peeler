@@ -163,6 +163,10 @@ export default defineNuxtConfig({
       // styles: {
       //   configFile: 'assets/styles/vuetify/settings.scss',
       // },
+      ssrClientHints: {
+        reloadOnFirstRequest: true,
+        viewportSize: true,
+      },
     },
     vuetifyOptions: {
       labComponents: ['VTreeview'],
