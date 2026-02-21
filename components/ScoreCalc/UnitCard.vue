@@ -73,6 +73,8 @@
               <CompoUnitThumbnail
                 v-if="unit"
                 :unit="unit"
+                :chosen-hero-element="chosenHero?.element"
+                :chosen-hero-merges="unitInstance.chosenHeroMerges"
                 :blessing="unitInstance.blessing"
                 :size="THUMBNAIL_SIZE"
                 :size-corner="25"
@@ -442,6 +444,7 @@ const {
 
   isChosenInSeason,
 
+  chosenHero,
   // chosenHeroBaseScore,
   chosenHeroFinalScore,
   chosenHeroIsInSeason,

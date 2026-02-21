@@ -95,6 +95,20 @@
     </v-sheet>
 
     <v-sheet
+      v-if="chosenHeroElement"
+      :height="sizeCorner"
+      :width="sizeCorner"
+      color="transparent"
+      class="img-unit__icon img-unit__icon--legend-bis d-flex justify-center align-center"
+    >
+      <AppIconElementChosen
+        v-if="chosenHeroElement"
+        :element="chosenHeroElement"
+        :height="sizeCornerSmall"
+      />
+    </v-sheet>
+
+    <v-sheet
       :height="sizeCorner"
       :width="sizeCorner"
       color="transparent"
@@ -157,6 +171,8 @@ const props = withDefaults(
   defineProps<{
     unit: IUnitThumbnail
     blessing?: Element | null
+    chosenHeroElement?: Element
+    chosenHeroMerges?: number
     size?: number
     sizeCorner?: number
     margin?: number
@@ -164,6 +180,8 @@ const props = withDefaults(
   }>(),
   {
     blessing: undefined,
+    chosenHeroElement: undefined,
+    chosenHeroMerges: undefined,
     size: 80,
     sizeCorner: 30,
     margin: 10,
@@ -171,10 +189,18 @@ const props = withDefaults(
   },
 )
 
+const sizeCornerSmall = computed(() => props.sizeCorner * 0.8)
+
 const marginPx = computed(() => `${props.margin}px`)
-const marginIconPx = computed(() => `${props.marginIcon}px`)
-const bottomIconAsset = computed(() => props.marginIcon + props.sizeCorner)
-const bottomIconAssetPx = computed(() => `${bottomIconAsset.value}px`)
+const offsetForIconLine1Px = computed(() => `${props.marginIcon}px`)
+
+const offsetForIconLine2 = computed(() => props.marginIcon + props.sizeCorner)
+const offsetForIconLine2Px = computed(() => `${offsetForIconLine2.value}px`)
+
+const offsetForIconRow2 = computed(
+  () => props.marginIcon + props.sizeCorner / 2,
+)
+const offsetForIconRow2Px = computed(() => `${offsetForIconRow2.value}px`)
 </script>
 
 <style lang="scss" scoped>
@@ -188,24 +214,29 @@ const bottomIconAssetPx = computed(() => `${bottomIconAsset.value}px`)
 }
 
 .img-unit__icon--top {
-  top: v-bind('marginIconPx');
+  top: v-bind('offsetForIconLine1Px');
 }
 .img-unit__icon--bottom {
-  bottom: v-bind('marginIconPx');
+  bottom: v-bind('offsetForIconLine1Px');
 }
 .img-unit__icon--left {
-  left: v-bind('marginIconPx');
+  left: v-bind('offsetForIconLine1Px');
 }
 .img-unit__icon--right {
-  right: v-bind('marginIconPx');
+  right: v-bind('offsetForIconLine1Px');
 }
 
 .img-unit__icon--legend {
-  top: v-bind('bottomIconAssetPx');
-  left: v-bind('marginIconPx');
+  top: v-bind('offsetForIconLine2Px');
+  left: v-bind('offsetForIconLine1Px');
 }
+.img-unit__icon--legend-bis {
+  top: v-bind('offsetForIconLine2Px');
+  left: v-bind('offsetForIconRow2Px');
+}
+
 .img-unit__icon--asset {
-  bottom: v-bind('bottomIconAssetPx');
-  right: v-bind('marginIconPx');
+  bottom: v-bind('offsetForIconLine2Px');
+  right: v-bind('offsetForIconLine1Px');
 }
 </style>
