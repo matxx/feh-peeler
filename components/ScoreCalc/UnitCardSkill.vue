@@ -24,7 +24,7 @@
         v-if="availableSp"
         :model-value="unitInstance.skillSPs[category]"
         :items="availableSp"
-        :item-title="(item) => `${item} SP`"
+        :item-title="(item) => t('scoreCalc.labels.sp', { value: item })"
         :item-value="(item) => item"
         class="mb-2"
         density="compact"
@@ -48,6 +48,8 @@ const props = defineProps<{
   category: SkillCategory
   availableSp?: number[]
 }>()
+
+const { t } = useI18n()
 
 const isFocused = ref(false)
 const displaySelect = computed(() => !!props.availableSp && !isFocused.value)

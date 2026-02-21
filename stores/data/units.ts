@@ -1,4 +1,5 @@
 import keyBy from 'lodash-es/keyBy'
+import filter from 'lodash-es/filter'
 import sortBy from 'lodash-es/sortBy'
 import _groupBy from 'lodash-es/groupBy'
 import { DateTime } from 'luxon'
@@ -115,6 +116,9 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   const sortedUnitIds = computed<UnitId[]>(() =>
     sortedUnits.value.map((unit) => unit.id),
   )
+  const sortedChosenIds = computed<UnitId[]>(() =>
+    filter(sortedUnits.value, 'is_chosen').map((unit) => unit.id),
+  )
 
   const unitsByReleaseYearMonth = computed<
     GroupedBy<string, IUnitWithReleaseDate>
@@ -157,6 +161,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
 
     sortedUnits,
     sortedUnitIds,
+    sortedChosenIds,
   }
 })
 

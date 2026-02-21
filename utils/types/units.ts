@@ -148,6 +148,8 @@ export interface IUnitData {
   duel_score: number
   clash_score: number
   // visible_bst: number
+  skills_max_sp: number
+
   max_score: number
   max_df: number
   theme?: UnitTheme

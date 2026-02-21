@@ -816,12 +816,18 @@ export default {
 
       bst: 'BST',
       totalSP: 'Total SP',
+      chosenHero: 'Chosen Hero',
+      chosenHeroNotInSeason: 'Not in season',
     },
     tooltips: {
       scoreExact:
         'Score not rounded (in order to see how close you are from the next step)',
+      visibleFinalScore:
+        'Visible score : chosen hero score is used (since its higher)',
       visibleBst:
         'Visible BST : adjusted BST based on "Duel" A skill or duo/legendary unit standard effect "Duel"',
+      visibleTotalSP:
+        'Visible total SP : in season chosen heroes always have max SP',
     },
     labels: {
       hasBonusUnit: 'Bonus unit ?',
@@ -838,11 +844,11 @@ export default {
       boon: 'Boon',
       bane: 'Bane',
       blessing: 'Blessing',
+      sp: '{value} SP',
     },
     cta: {
       loadMaxScore: 'Load Max Score',
-      showDetails: 'Show Details',
-      hideDetails: 'Hide Details',
+      details: 'Details',
     },
     tips: {
       header: 'Tips to increase your score:',

@@ -14,12 +14,14 @@ import {
   MAX_RARITY,
   // MAX_MERGES,
   GROWTH_RATE_DIFF,
+  getEmptyUnitInstanceSkillSPs,
   type IUnitInstanceInScoreCalc,
   type ScoreContext,
 } from '~/utils/types/score-calc'
 import { SKILL_PASSIVE_A } from '~/utils/types/skills'
 import { BANE, BOON, STATS } from '~/utils/types/units-stats'
 import { MOVE_A } from '~/utils/types/moves'
+import { getEmptyUnitInstanceSkillIds } from '~/utils/types/units'
 
 // https://feheroes.fandom.com/wiki/Stat_growth#General_level_up_formula
 const statAtLevel = (
@@ -51,6 +53,17 @@ export default function useUnitScore(
       : undefined,
   )
 
+  const isChosenInSeason = computed(() => {
+    if (!unit.value) return false
+    if (!unit.value.is_chosen) return false
+
+    const element = unit.value.element
+    if (!element) return false
+
+    // @ts-expect-error ElementMythic handled here
+    return scoreContext.value.seasonElements.includes(element)
+  })
+
   const rarityConstants = computed(
     () => SCORE_RARITY_CONSTANTS[unitInstance.value.rarity - 1],
   )
@@ -59,6 +72,11 @@ export default function useUnitScore(
 
   const totalSkillSPs = computed(() =>
     sum(objectEntries(unitInstance.value.skillSPs).map(([_, sp]) => sp || 0)),
+  )
+  const visibleSkillSPs = computed(() =>
+    isChosenInSeason.value
+      ? unit.value?.skills_max_sp || 0
+      : totalSkillSPs.value,
   )
 
   const superBoons = computed(() =>
@@ -125,7 +143,9 @@ export default function useUnitScore(
 
     return unit.value?.duel_score
   })
-  const clashEffectVisibleBst = computed(() => unit.value?.clash_score)
+  const clashEffectVisibleBst = computed(() =>
+    isChosenInSeason.value ? unit.value?.clash_score : undefined,
+  )
   const duelSkillVisibleBst = computed(() => {
     if (!isMaxLevelRarity.value) return
 
@@ -205,7 +225,7 @@ export default function useUnitScore(
   const scorePartMerges = computed(
     () => (unitInstance.value.merges + bonusMergesCount.value) * 2,
   )
-  const scorePartSPs = computed(() => Math.floor(totalSkillSPs.value / 100))
+  const scorePartSPs = computed(() => Math.floor(visibleSkillSPs.value / 100))
   const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
   const scorePartBlessing = computed(() => blessingScore.value)
   const baseScore = computed(() =>
@@ -226,6 +246,58 @@ export default function useUnitScore(
       : 0,
   )
 
+  const chosenHeroScoreData = computed(() => {
+    if (!unitInstance.value.chosenHeroId) return
+
+    const chosenHeroInstance: IUnitInstanceInScoreCalc = {
+      id: unitInstance.value.chosenHeroId,
+
+      skillIds: getEmptyUnitInstanceSkillIds(),
+      skillSPs: getEmptyUnitInstanceSkillSPs(),
+
+      level: MAX_LEVEL,
+      rarity: MAX_RARITY,
+      merges: unitInstance.value.chosenHeroMerges,
+      boon: null,
+      bane: null,
+      blessing: null,
+
+      chosenHeroId: null,
+      chosenHeroMerges: 0,
+    }
+    const data = useUnitScore(ref(chosenHeroInstance), scoreContext)
+    console.log('data', data)
+
+    // MONKEY PATCH :
+    // recursive use of `useUnitScore` does not work correctly
+    // so we need to type cast those values
+    const baseScore = data.baseScore.value as number
+    const finalScore = data.finalScore.value as number
+    const inSeason = data.isChosenInSeason.value as boolean
+
+    return {
+      baseScore,
+      finalScore,
+      inSeason,
+    }
+  })
+  const chosenHeroBaseScore = computed(
+    () => chosenHeroScoreData.value?.baseScore,
+  )
+  const chosenHeroFinalScore = computed(
+    () => chosenHeroScoreData.value?.finalScore,
+  )
+  const chosenHeroIsInSeason = computed(
+    () => !!chosenHeroScoreData.value?.inSeason,
+  )
+
+  const visibleBaseScore = computed(
+    () => max(compact([baseScore.value, chosenHeroBaseScore.value])) || 0,
+  )
+  const visibleFinalScore = computed(
+    () => max(compact([finalScore.value, chosenHeroFinalScore.value])) || 0,
+  )
+
   return {
     unit,
     superBoons,
@@ -235,7 +307,10 @@ export default function useUnitScore(
     bst,
     visibleBst,
     totalSkillSPs,
+    visibleSkillSPs,
     bonusMergesCount,
+
+    isChosenInSeason,
 
     scorePartRarity,
     scorePartLevel,
@@ -244,8 +319,14 @@ export default function useUnitScore(
     scorePartBST,
     scorePartBlessing,
 
+    chosenHeroBaseScore,
+    chosenHeroFinalScore,
+    chosenHeroIsInSeason,
+
     baseScore,
     finalScore,
+    visibleBaseScore,
+    visibleFinalScore,
 
     hasAccessToDuelSkill,
     needsDuelSkill,

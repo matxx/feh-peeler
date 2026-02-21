@@ -1,6 +1,10 @@
 import { objectFromEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { SKILL_CATEGORIES, type SkillCategory } from '~/utils/types/skills'
-import { getEmptyUnitInstance, type IUnitInstance } from '~/utils/types/units'
+import {
+  getEmptyUnitInstance,
+  type IUnitInstance,
+  type UnitId,
+} from '~/utils/types/units'
 import type {
   Element,
   ElementLegendary,
@@ -16,7 +20,7 @@ export const MAX_MERGES = 10
 
 export const GROWTH_RATE_DIFF = 5
 
-export interface IUnitInstanceInScoreCalc extends IUnitInstance {
+export interface IUnitInstanceInScoreCalcV1 extends IUnitInstance {
   rarity: number
   level: number
   merges: number
@@ -26,8 +30,13 @@ export interface IUnitInstanceInScoreCalc extends IUnitInstance {
 
   skillSPs: IndexedBy<SkillCategory, number | undefined>
 }
+export interface IUnitInstanceInScoreCalcV2 extends IUnitInstanceInScoreCalcV1 {
+  chosenHeroId: null | UnitId
+  chosenHeroMerges: number
+}
+export type IUnitInstanceInScoreCalc = IUnitInstanceInScoreCalcV2
 
-export type ScoreContext = {
+export interface ScoreContext {
   bonusFactor: number
   seasonElements: ElementLegendary[]
   legendaryCounts: IndexedBy<ElementLegendary, number>
@@ -46,6 +55,8 @@ export type EditableKey =
   | 'boon'
   | 'bane'
   | 'blessing'
+  | 'chosenHeroId'
+  | 'chosenHeroMerges'
 
 export type TeamInScoreCalc = [
   IUnitInstanceInScoreCalc,
@@ -74,14 +85,17 @@ export function getEmptyUnitInstanceInScoreCalc(): IUnitInstanceInScoreCalc {
   return {
     ...getEmptyUnitInstance(),
 
-    rarity: 5,
-    level: 40,
+    rarity: MAX_RARITY,
+    level: MAX_RARITY,
     merges: 0,
     boon: null,
     bane: null,
     blessing: null,
 
     skillSPs: getEmptyUnitInstanceSkillSPs(),
+
+    chosenHeroId: null,
+    chosenHeroMerges: 0,
   }
 }
 

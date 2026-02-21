@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- https://feheroes.fandom.com/wiki/Game_assets_collection#UI_Sprite_sheets -->
     <v-row>
       <v-col>
         <v-text-field

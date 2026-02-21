@@ -20,6 +20,16 @@
             <div class="d-flex flex-column">
               <v-card-title>
                 {{ t('scoreCalc.headers.score') }}: {{ finalScore }}
+
+                <span
+                  v-if="visibleFinalScore !== finalScore"
+                  v-tooltip:bottom="t('scoreCalc.tooltips.visibleFinalScore')"
+                >
+                  ({{ visibleFinalScore }})<!--
+                --><sup>
+                    <v-icon size="x-small">mdi-information-outline</v-icon>
+                  </sup>
+                </span>
               </v-card-title>
 
               <v-card-subtitle>
@@ -37,6 +47,16 @@
               </v-card-subtitle>
               <v-card-subtitle>
                 {{ t('scoreCalc.headers.totalSP') }}: {{ totalSkillSPs }}
+
+                <span
+                  v-if="visibleSkillSPs !== totalSkillSPs"
+                  v-tooltip:bottom="t('scoreCalc.tooltips.visibleTotalSP')"
+                >
+                  ({{ visibleSkillSPs }})<!--
+                --><sup>
+                    <v-icon size="x-small">mdi-information-outline</v-icon>
+                  </sup>
+                </span>
               </v-card-subtitle>
 
               <!-- <DevOnly>
@@ -124,6 +144,22 @@
         />
       </v-overlay>
 
+      <div>
+        <v-select
+          :disabled="isBlessingDisabled"
+          :model-value="unitInstance.blessing"
+          :items="itemsForElements"
+          clearable
+          density="compact"
+          hide-details
+          :label="t('scoreCalc.labels.blessing')"
+          @update:model-value="updateUnit('blessing', $event)"
+        />
+      </div>
+
+      <h6 class="mt-2">
+        {{ t('scoreCalc.headers.bst') }}
+      </h6>
       <v-container
         fluid
         class="pa-0"
@@ -142,7 +178,7 @@
                 type="number"
                 step="1"
                 min="1"
-                max="5"
+                :max="MAX_RARITY"
                 pattern="[0-9]+"
                 density="compact"
                 hide-details
@@ -170,7 +206,7 @@
                 type="number"
                 step="1"
                 min="1"
-                max="40"
+                :max="MAX_LEVEL"
                 pattern="[0-9]+"
                 density="compact"
                 hide-details
@@ -198,7 +234,7 @@
                 type="number"
                 step="1"
                 min="0"
-                max="10"
+                :max="MAX_MERGES"
                 pattern="[0-9]+"
                 density="compact"
                 hide-details
@@ -236,26 +272,16 @@
               @update:model-value="updateUnit('bane', $event)"
             />
           </v-col>
-
-          <v-col cols="12">
-            <v-select
-              :disabled="isBlessingDisabled"
-              :model-value="unitInstance.blessing"
-              :items="itemsForElements"
-              clearable
-              density="compact"
-              hide-details
-              :label="t('scoreCalc.labels.blessing')"
-              @update:model-value="updateUnit('blessing', $event)"
-            />
-          </v-col>
         </v-row>
       </v-container>
 
+      <h5 class="mt-2">
+        {{ t('scoreCalc.headers.totalSP') }}
+      </h5>
       <AppRenderOnceWhileActive :active="isLoaded">
         <v-container
           fluid
-          class="mt-2 pa-0"
+          class="pa-0"
         >
           <v-row no-gutters>
             <v-col
@@ -275,6 +301,64 @@
           </v-row>
         </v-container>
       </AppRenderOnceWhileActive>
+
+      <h5 class="mt-2">
+        {{ t('scoreCalc.headers.chosenHero') }}
+      </h5>
+      <v-container
+        fluid
+        class="pa-0"
+      >
+        <v-row dense>
+          <v-col cols="8">
+            <AppSelectUnit
+              :model-value="unitInstance.chosenHeroId"
+              only-chosen
+              clearable
+              @update:model-value="updateUnit('chosenHeroId', $event)"
+            />
+          </v-col>
+          <v-col cols="4">
+            <VeeField
+              v-slot="{ handleChange, errors }"
+              :value="unitInstance.chosenHeroMerges"
+              name="chosenHeroMerges"
+            >
+              <v-text-field
+                :model-value="unitInstance.chosenHeroMerges"
+                required
+                type="number"
+                step="1"
+                min="0"
+                :max="MAX_MERGES"
+                pattern="[0-9]+"
+                density="compact"
+                hide-details
+                :label="t('scoreCalc.labels.merges')"
+                :error-messages="errors"
+                @update:model-value="
+                  ($event) => {
+                    updateUnit('chosenHeroMerges', parseInt($event, 10))
+                    handleChange($event)
+                  }
+                "
+              />
+            </VeeField>
+          </v-col>
+        </v-row>
+      </v-container>
+      <h6>
+        <span v-if="chosenHeroIsInSeason">
+          {{ t('scoreCalc.headers.score') }}: {{ chosenHeroFinalScore }}
+        </span>
+        <span
+          v-else-if="unitInstance.chosenHeroId"
+          class="text-error"
+        >
+          {{ t('scoreCalc.headers.chosenHeroNotInSeason') }}
+        </span>
+        <span v-else> &nbsp; </span>
+      </h6>
     </v-card-text>
   </v-card>
 </template>
@@ -346,6 +430,7 @@ const {
   bst,
   visibleBst,
   totalSkillSPs,
+  visibleSkillSPs,
 
   // for debug
   // scorePartRarity,
@@ -355,14 +440,23 @@ const {
   // scorePartBST,
   // scorePartBlessing,
 
-  baseScore,
+  // isChosenInSeason,
+
+  // chosenHeroBaseScore,
+  chosenHeroFinalScore,
+  chosenHeroIsInSeason,
+
+  // baseScore,
   finalScore,
+  visibleBaseScore,
+  visibleFinalScore,
+
   superBoons,
   hasAccessToDuelSkill,
   needsDuelSkill,
 } = useUnitScore(toRef(props, 'unitInstance'), toRef(props, 'scoreContext'))
-watch(baseScore, () => {
-  emit('update-score', baseScore.value)
+watch(visibleBaseScore, () => {
+  emit('update-score', visibleBaseScore.value)
 })
 
 const storeGlobals = useStoreGlobals()
@@ -397,6 +491,9 @@ function loadMaxScore() {
     boon: superBoons.value[0],
     bane: null,
     blessing: props.unitInstance.blessing || unit.value.element || null,
+
+    chosenHeroId: props.unitInstance.chosenHeroId,
+    chosenHeroMerges: props.unitInstance.chosenHeroMerges,
   }
 
   SORTED_SKILL_CATEGORIES.forEach((category) => {

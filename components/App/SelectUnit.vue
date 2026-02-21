@@ -71,6 +71,7 @@
             :text="itemTitleFinal(item.raw)"
             :regexp="regexp"
           />
+          <span v-else>{{ itemTitleFinal(item.raw) }}</span>
         </v-list-item-title>
       </v-list-item>
     </template>
@@ -98,6 +99,7 @@ const props = withDefaults(
     clearable?: boolean
     itemTitle?: SelectItemKey
     forbiddenIds?: UnitId[]
+    onlyChosen?: boolean
   }>(),
   {
     withoutThumbnail: false,
@@ -105,6 +107,7 @@ const props = withDefaults(
     clearable: false,
     itemTitle: undefined,
     forbiddenIds: () => [],
+    onlyChosen: false,
   },
 )
 
@@ -130,7 +133,11 @@ const searchIsActive = computed(
 )
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
-const unitIds = computed(() => storeDataUnits.sortedUnitIds)
+const unitIds = computed(() =>
+  props.onlyChosen
+    ? storeDataUnits.sortedChosenIds
+    : storeDataUnits.sortedUnitIds,
+)
 const availableUnitIds = computed(() =>
   difference(unitIds.value, props.forbiddenIds),
 )
@@ -141,7 +148,9 @@ const getUnitIdsFiltered = () =>
     ? filter(availableUnitIds.value, (id) =>
         filterByName(storeDataUnits.unitsById[id], regexp.value),
       )
-    : []
+    : props.onlyChosen
+      ? availableUnitIds.value
+      : []
 const updateUnitIdsFiltered = () => {
   unitIdsFiltered.value = getUnitIdsFiltered()
 }

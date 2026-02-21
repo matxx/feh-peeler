@@ -4,7 +4,7 @@
       <v-col>
         <TheWarningAboutLocalStorage class="mb-3" />
 
-        <v-alert
+        <!-- <v-alert
           type="warning"
           border="start"
           variant="tonal"
@@ -35,7 +35,7 @@
           >. <br />
           Mjolnir Strike is probably not working correctly at the moment because
           not tested (waiting on the event to come back).
-        </v-alert>
+        </v-alert> -->
       </v-col>
     </v-row>
 
@@ -103,8 +103,8 @@
             <v-container fluid>
               <v-row>
                 <v-col
-                  cols="6"
-                  md="3"
+                  cols="12"
+                  md="4"
                 >
                   <v-checkbox
                     v-model="hasBonusUnit"
@@ -113,7 +113,7 @@
                     hide-details
                   />
                 </v-col>
-                <v-col
+                <!-- <v-col
                   cols="6"
                   md="3"
                 >
@@ -127,7 +127,7 @@
                         : t('scoreCalc.labels.arena')
                     "
                   />
-                </v-col>
+                </v-col> -->
 
                 <template v-if="isMjolnirStrike">
                   <v-col
@@ -160,7 +160,7 @@
                 <template v-else>
                   <v-col
                     cols="6"
-                    md="3"
+                    md="4"
                   >
                     <v-select
                       v-model="seasonElements[0]"
@@ -175,7 +175,7 @@
                   </v-col>
                   <v-col
                     cols="6"
-                    md="3"
+                    md="4"
                   >
                     <v-select
                       v-model="seasonElements[1]"
@@ -276,6 +276,8 @@ import {
   TEAM_BASE_SCORE,
   type EditableKey,
   type IUnitInstanceInScoreCalc,
+  // type IUnitInstanceInScoreCalcV1,
+  // type IUnitInstanceInScoreCalcV2,
   type ScoreContext,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
@@ -440,15 +442,15 @@ const offenseScoreMax = computed(
 // local storage
 
 const LOCAL_STORAGE_KEY = 'feh-peeler:score-calc'
-const CURRENT_PAYLOAD_VERSION = 1
+const CURRENT_PAYLOAD_VERSION = 2
 const {
   isLoading: isLoadingStorage,
   storeOnUpdate,
   updateOnMounted,
 } = useLocalStorage(LOCAL_STORAGE_KEY)
 
-interface IPayloadToSaveV1 {
-  version: 1
+interface IPayloadToSave {
+  version: number
   units: IUnitInstanceInScoreCalc[]
   hasBonusUnit: boolean
   seasonElements: ElementLegendary[]
@@ -456,6 +458,14 @@ interface IPayloadToSaveV1 {
   mjolnirStrikeMajor: ElementMythic | null
   mjolnirStrikeMinor: ElementMythic | null
 }
+// interface IPayloadToSaveV1 extends IPayloadToSave {
+//   version: 1
+//   units: IUnitInstanceInScoreCalcV1[]
+// }
+// interface IPayloadToSaveV2 extends IPayloadToSave {
+//   version: 2
+//   units: IUnitInstanceInScoreCalcV2[]
+// }
 
 const payloadToSave = computed(() => ({
   version: CURRENT_PAYLOAD_VERSION,
@@ -469,9 +479,13 @@ const payloadToSave = computed(() => ({
 storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
 
-function updateData(data: IPayloadToSaveV1) {
-  if (data.version !== CURRENT_PAYLOAD_VERSION) {
-    throw new Error('unknown version')
+function updateData(data: IPayloadToSave) {
+  switch (data.version) {
+    case 1:
+    case 2:
+      break
+    default:
+      throw new Error('unknown version')
   }
 
   units.value = data.units || []
@@ -480,5 +494,12 @@ function updateData(data: IPayloadToSaveV1) {
   isMjolnirStrike.value = data.isMjolnirStrike
   mjolnirStrikeMajor.value = data.mjolnirStrikeMajor
   mjolnirStrikeMinor.value = data.mjolnirStrikeMinor
+
+  if (data.version === 1) {
+    units.value.forEach((u) => {
+      u.chosenHeroId = null
+      u.chosenHeroMerges = 0
+    })
+  }
 }
 </script>
