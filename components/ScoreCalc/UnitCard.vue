@@ -49,7 +49,7 @@
                 {{ t('scoreCalc.headers.totalSP') }}: {{ totalSkillSPs }}
 
                 <span
-                  v-if="visibleSkillSPs !== totalSkillSPs"
+                  v-if="isChosenInSeason"
                   v-tooltip:bottom="t('scoreCalc.tooltips.visibleTotalSP')"
                 >
                   ({{ visibleSkillSPs }})<!--
@@ -440,7 +440,7 @@ const {
   // scorePartBST,
   // scorePartBlessing,
 
-  // isChosenInSeason,
+  isChosenInSeason,
 
   // chosenHeroBaseScore,
   chosenHeroFinalScore,

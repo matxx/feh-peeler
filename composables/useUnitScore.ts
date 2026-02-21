@@ -47,6 +47,12 @@ export default function useUnitScore(
       ? storeDataUnits.unitsById[unitInstance.value.id]
       : undefined
   })
+  const chosenHero = computed(() => {
+    return unitInstance.value.chosenHeroId
+      ? storeDataUnits.unitsById[unitInstance.value.chosenHeroId]
+      : undefined
+  })
+
   const unitStat = computed(() =>
     unitInstance.value.id
       ? storeDataUnitsStats.statsById[unitInstance.value.id]
@@ -206,7 +212,9 @@ export default function useUnitScore(
     if (!unit.value) return 0
     if (unit.value.is_legendary) return 0
 
-    const element = unitInstance.value.blessing
+    const element = chosenHeroIsInSeason.value
+      ? chosenHero.value?.element
+      : unit.value.element || unitInstance.value.blessing
     if (!element) return 0
 
     // @ts-expect-error ElementMythic handled here
@@ -260,13 +268,12 @@ export default function useUnitScore(
       merges: unitInstance.value.chosenHeroMerges,
       boon: null,
       bane: null,
-      blessing: null,
+      blessing: chosenHero.value?.element || null,
 
       chosenHeroId: null,
       chosenHeroMerges: 0,
     }
     const data = useUnitScore(ref(chosenHeroInstance), scoreContext)
-    console.log('data', data)
 
     // MONKEY PATCH :
     // recursive use of `useUnitScore` does not work correctly
@@ -319,6 +326,7 @@ export default function useUnitScore(
     scorePartBST,
     scorePartBlessing,
 
+    chosenHero,
     chosenHeroBaseScore,
     chosenHeroFinalScore,
     chosenHeroIsInSeason,

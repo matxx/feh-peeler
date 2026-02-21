@@ -32,7 +32,7 @@ npm run dev
 1. (PAGE) add units as "owned" : add skills on owned unit as inherited skills
 1. (PAGE) list all rearmed/attuned, and a skill of skills, when you select a skill, show which rearmed/attuned can inherit it
 1. (PAGE) event "see's snare" (skill pool, recommendations, ...)
-1. (PAGE) complex pre-inheritance planner/helper
+1. (PAGE) complex pre-inheritance planner/helper (im not the only one thinking about it : <https://www.reddit.com/r/FireEmblemHeroes/comments/1r4tedk/thinking_about_making_a_skill_inheritance/>, damn he made it <https://www.reddit.com/r/FireEmblemHeroes/comments/1raga4y/i_made_a_tool_to_plan_out_skill_inheritance_for/>)
 
 ### QoL
 

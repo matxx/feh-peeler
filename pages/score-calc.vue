@@ -36,11 +36,7 @@
           Mjolnir Strike is probably not working correctly at the moment because
           not tested (waiting on the event to come back).
         </v-alert> -->
-      </v-col>
-    </v-row>
 
-    <v-row>
-      <v-col>
         <div class="d-flex align-center">
           <v-btn
             v-tooltip="t('global.reset')"
@@ -407,10 +403,15 @@ const scoreContext = computed<ScoreContext>(() => ({
   legendaryCounts: objectFromEntries(
     SORTED_LEGENDARY_ELEMENTS.map((element) => [
       element,
-      filter(
-        units.value,
-        (u) => u.id && storeDataUnits.unitsById[u.id]?.element === element,
-      ).length,
+      filter(units.value, (u) => {
+        if (!u.id) return false
+
+        const unit = storeDataUnits.unitsById[u.id]
+        if (!unit) return false
+        if (!unit.is_legendary) return false
+
+        return unit.element === element
+      }).length,
     ]),
   ),
   mjolnirStrike: {
