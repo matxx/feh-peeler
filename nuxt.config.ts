@@ -169,6 +169,7 @@ export default defineNuxtConfig({
       },
     },
     vuetifyOptions: {
+      labComponents: ['VTreeview'],
       display: {
         mobileBreakpoint: 'sm',
       },
