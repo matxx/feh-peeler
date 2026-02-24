@@ -1,6 +1,13 @@
 <template>
   <v-container>
     <!-- https://feheroes.fandom.com/wiki/Game_assets_collection#UI_Sprite_sheets -->
+
+    <v-row>
+      <v-col>
+        <AppSpriteSheetsBlessing name="Icon_BlessingHeaven.png" />
+      </v-col>
+    </v-row>
+
     <v-row>
       <v-col>
         <v-text-field

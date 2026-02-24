@@ -1,0 +1,274 @@
+[
+  {
+    "name": "Icon_Blessing_Dark.png",
+    "x": 583,
+    "y": 889,
+    "width": 90,
+    "height": 86,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Dark_L.png",
+    "x": 293,
+    "y": 629,
+    "width": 300,
+    "height": 288,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Blessing_Heaven.png",
+    "x": 675,
+    "y": 889,
+    "width": 90,
+    "height": 86,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Heaven_L.png",
+    "x": 585,
+    "y": 327,
+    "width": 300,
+    "height": 288,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Light.png",
+    "x": 767,
+    "y": 889,
+    "width": 90,
+    "height": 86,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Light_L.png",
+    "x": 887,
+    "y": 327,
+    "width": 300,
+    "height": 288,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Logic.png",
+    "x": 859,
+    "y": 889,
+    "width": 90,
+    "height": 86,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Logic_L.png",
+    "x": 1189,
+    "y": 327,
+    "width": 300,
+    "height": 288,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ConnectBonds.png",
+    "x": 951,
+    "y": 889,
+    "width": 88,
+    "height": 86,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ConnectBonds_L.png",
+    "x": 1473,
+    "y": 617,
+    "width": 272,
+    "height": 272,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ConnectBonds_Light.png",
+    "x": 1301,
+    "y": 893,
+    "width": 78,
+    "height": 82,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ConnectBonds_Light_L.png",
+    "x": 1189,
+    "y": 617,
+    "width": 274,
+    "height": 282,
+    "rotated": true
+  },
+  {
+    "name": "Icon_IdolTower_Light.png",
+    "x": 1041,
+    "y": 889,
+    "width": 74,
+    "height": 86,
+    "rotated": false
+  },
+  {
+    "name": "Icon_IdolTower_Light_L.png",
+    "x": 1767,
+    "y": 303,
+    "width": 240,
+    "height": 286,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MjolnirArrow.png",
+    "x": 1565,
+    "y": 891,
+    "width": 80,
+    "height": 76,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MjolnirArrow_L.png",
+    "x": 1747,
+    "y": 605,
+    "width": 264,
+    "height": 254,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MjolnirStone.png",
+    "x": 1473,
+    "y": 891,
+    "width": 84,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MjolnirStone_L.png",
+    "x": 1491,
+    "y": 303,
+    "width": 274,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_PiecePaper.png",
+    "x": 1117,
+    "y": 893,
+    "width": 82,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_PiecePaper_L.png",
+    "x": 585,
+    "y": 617,
+    "width": 270,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_PiecePaper_N_Blue.png",
+    "x": 1,
+    "y": 1,
+    "width": 1316,
+    "height": 161,
+    "rotated": false
+  },
+  {
+    "name": "Icon_PiecePaper_N_Red.png",
+    "x": 1,
+    "y": 164,
+    "width": 1316,
+    "height": 161,
+    "rotated": false
+  },
+  {
+    "name": "Icon_PiecePaper_Red.png",
+    "x": 1209,
+    "y": 893,
+    "width": 82,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_PiecePaper_Red_L.png",
+    "x": 887,
+    "y": 617,
+    "width": 270,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Shinryu_Fly.png",
+    "x": 1907,
+    "y": 1,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Fly_L.png",
+    "x": 1,
+    "y": 327,
+    "width": 290,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Heavy.png",
+    "x": 1907,
+    "y": 93,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Heavy_L.png",
+    "x": 1615,
+    "y": 1,
+    "width": 290,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Knight.png",
+    "x": 1907,
+    "y": 185,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Knight_L.png",
+    "x": 1,
+    "y": 629,
+    "width": 290,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Toho.png",
+    "x": 1747,
+    "y": 871,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shinryu_Toho_L.png",
+    "x": 293,
+    "y": 327,
+    "width": 290,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TimeSand.png",
+    "x": 1839,
+    "y": 871,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TimeSand_L.png",
+    "x": 1319,
+    "y": 1,
+    "width": 294,
+    "height": 300,
+    "rotated": false
+  }
+]

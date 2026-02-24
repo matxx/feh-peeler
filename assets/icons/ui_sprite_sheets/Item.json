@@ -1,0 +1,738 @@
+[
+  {
+    "name": "Icon_ArenaCrown.png",
+    "x": 1959,
+    "y": 1883,
+    "width": 76,
+    "height": 72,
+    "rotated": true
+  },
+  {
+    "name": "Icon_ArenaCrown_L.png",
+    "x": 605,
+    "y": 1,
+    "width": 300,
+    "height": 294,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ArenaMedal.png",
+    "x": 1813,
+    "y": 261,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ArenaMedal_L.png",
+    "x": 1,
+    "y": 1203,
+    "width": 292,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ArenaSword.png",
+    "x": 1957,
+    "y": 1127,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ArenaSword_L.png",
+    "x": 291,
+    "y": 1505,
+    "width": 264,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Earth.png",
+    "x": 1813,
+    "y": 445,
+    "width": 90,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Earth_L.png",
+    "x": 1,
+    "y": 1505,
+    "width": 300,
+    "height": 288,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Blessing_Fire.png",
+    "x": 1905,
+    "y": 353,
+    "width": 90,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Fire_L.png",
+    "x": 1511,
+    "y": 1,
+    "width": 300,
+    "height": 288,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Water.png",
+    "x": 1293,
+    "y": 1885,
+    "width": 90,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Water_L.png",
+    "x": 295,
+    "y": 1203,
+    "width": 300,
+    "height": 288,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Blessing_Wind.png",
+    "x": 1905,
+    "y": 443,
+    "width": 90,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Blessing_Wind_L.png",
+    "x": 557,
+    "y": 1505,
+    "width": 300,
+    "height": 288,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalB.png",
+    "x": 1971,
+    "y": 1403,
+    "width": 68,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalBL.png",
+    "x": 1385,
+    "y": 1895,
+    "width": 90,
+    "height": 84,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalBL_L.png",
+    "x": 303,
+    "y": 299,
+    "width": 300,
+    "height": 272,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalB_L.png",
+    "x": 1,
+    "y": 1807,
+    "width": 218,
+    "height": 258,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalG.png",
+    "x": 1971,
+    "y": 1485,
+    "width": 68,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalGL.png",
+    "x": 1957,
+    "y": 1219,
+    "width": 90,
+    "height": 82,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalGL_L.png",
+    "x": 597,
+    "y": 857,
+    "width": 300,
+    "height": 268,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalG_L.png",
+    "x": 261,
+    "y": 1807,
+    "width": 218,
+    "height": 258,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalR.png",
+    "x": 1971,
+    "y": 1567,
+    "width": 68,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalRL.png",
+    "x": 1923,
+    "y": 717,
+    "width": 90,
+    "height": 84,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalRL_L.png",
+    "x": 591,
+    "y": 1127,
+    "width": 300,
+    "height": 272,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalR_L.png",
+    "x": 521,
+    "y": 1807,
+    "width": 218,
+    "height": 258,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalW.png",
+    "x": 1971,
+    "y": 1649,
+    "width": 68,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalWL.png",
+    "x": 1957,
+    "y": 1311,
+    "width": 90,
+    "height": 82,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalWL_L.png",
+    "x": 899,
+    "y": 579,
+    "width": 300,
+    "height": 268,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalW_L.png",
+    "x": 781,
+    "y": 1807,
+    "width": 218,
+    "height": 258,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalY.png",
+    "x": 1661,
+    "y": 1731,
+    "width": 68,
+    "height": 80,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalYL.png",
+    "x": 1473,
+    "y": 1803,
+    "width": 90,
+    "height": 82,
+    "rotated": true
+  },
+  {
+    "name": "Icon_CrystalYL_L.png",
+    "x": 899,
+    "y": 881,
+    "width": 300,
+    "height": 268,
+    "rotated": false
+  },
+  {
+    "name": "Icon_CrystalY_L.png",
+    "x": 1813,
+    "y": 1,
+    "width": 218,
+    "height": 258,
+    "rotated": false
+  },
+  {
+    "name": "Icon_DefenderSheild_Item.png",
+    "x": 847,
+    "y": 1687,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_DefenderSheild_Item_L.png",
+    "x": 1,
+    "y": 303,
+    "width": 298,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Feather.png",
+    "x": 1293,
+    "y": 1701,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Feather_L.png",
+    "x": 303,
+    "y": 1,
+    "width": 300,
+    "height": 296,
+    "rotated": false
+  },
+  {
+    "name": "Icon_GodRefineDrop.png",
+    "x": 585,
+    "y": 1401,
+    "width": 90,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_GodRefineDrop_L.png",
+    "x": 301,
+    "y": 871,
+    "width": 300,
+    "height": 288,
+    "rotated": true
+  },
+  {
+    "name": "Icon_HeavenlyShootingStar.png",
+    "x": 1557,
+    "y": 1801,
+    "width": 88,
+    "height": 84,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeavenlyShootingStar_L.png",
+    "x": 847,
+    "y": 1411,
+    "width": 296,
+    "height": 274,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeroHolyGrail.png",
+    "x": 1883,
+    "y": 1887,
+    "width": 74,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeroHolyGrail_L.png",
+    "x": 1195,
+    "y": 1173,
+    "width": 246,
+    "height": 260,
+    "rotated": true
+  },
+  {
+    "name": "Icon_HolyCoin.png",
+    "x": 1813,
+    "y": 353,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HolyCoin_L.png",
+    "x": 1,
+    "y": 1,
+    "width": 300,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_IdolSoul.png",
+    "x": 1477,
+    "y": 1895,
+    "width": 80,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_IdolSoul_L.png",
+    "x": 893,
+    "y": 1151,
+    "width": 258,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_IndividualityFruit.png",
+    "x": 1385,
+    "y": 1713,
+    "width": 88,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_IndividualityFruit_L.png",
+    "x": 301,
+    "y": 573,
+    "width": 294,
+    "height": 296,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalB.png",
+    "x": 769,
+    "y": 1401,
+    "width": 76,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalBL.png",
+    "x": 1477,
+    "y": 1713,
+    "width": 86,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalBL_L.png",
+    "x": 605,
+    "y": 297,
+    "width": 280,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalB_L.png",
+    "x": 1201,
+    "y": 879,
+    "width": 246,
+    "height": 292,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalG.png",
+    "x": 1647,
+    "y": 1801,
+    "width": 76,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalGL.png",
+    "x": 1385,
+    "y": 1803,
+    "width": 86,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalGL_L.png",
+    "x": 907,
+    "y": 295,
+    "width": 280,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalG_L.png",
+    "x": 1449,
+    "y": 877,
+    "width": 246,
+    "height": 292,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalR.png",
+    "x": 1743,
+    "y": 1729,
+    "width": 76,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalRL.png",
+    "x": 1569,
+    "y": 1713,
+    "width": 86,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalRL_L.png",
+    "x": 1209,
+    "y": 293,
+    "width": 280,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalR_L.png",
+    "x": 1457,
+    "y": 1171,
+    "width": 246,
+    "height": 292,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalSecret.png",
+    "x": 1905,
+    "y": 261,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalSecret_L.png",
+    "x": 1,
+    "y": 905,
+    "width": 298,
+    "height": 296,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalW.png",
+    "x": 1835,
+    "y": 1729,
+    "width": 76,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalWL.png",
+    "x": 1923,
+    "y": 625,
+    "width": 86,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MedalWL_L.png",
+    "x": 1511,
+    "y": 291,
+    "width": 280,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MedalW_L.png",
+    "x": 1435,
+    "y": 1465,
+    "width": 246,
+    "height": 292,
+    "rotated": true
+  },
+  {
+    "name": "Icon_OccupationSpear.png",
+    "x": 1559,
+    "y": 1887,
+    "width": 80,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_OccupationSpear_L.png",
+    "x": 1169,
+    "y": 577,
+    "width": 262,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Orb.png",
+    "x": 939,
+    "y": 1687,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Orb_L.png",
+    "x": 1,
+    "y": 605,
+    "width": 298,
+    "height": 298,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Phoenix.png",
+    "x": 1293,
+    "y": 1793,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Phoenix_L.png",
+    "x": 907,
+    "y": 1,
+    "width": 300,
+    "height": 292,
+    "rotated": false
+  },
+  {
+    "name": "Icon_RefineStone.png",
+    "x": 1807,
+    "y": 1887,
+    "width": 74,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_RefineStone_L.png",
+    "x": 1729,
+    "y": 1429,
+    "width": 240,
+    "height": 298,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shadow_Ax.png",
+    "x": 1641,
+    "y": 1893,
+    "width": 86,
+    "height": 84,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Shadow_Ax_L.png",
+    "x": 1145,
+    "y": 1421,
+    "width": 288,
+    "height": 278,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkyCastleDrop.png",
+    "x": 677,
+    "y": 1401,
+    "width": 90,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkyCastleDrop_L.png",
+    "x": 1209,
+    "y": 1,
+    "width": 300,
+    "height": 290,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkyCastleStone.png",
+    "x": 1927,
+    "y": 1731,
+    "width": 74,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_SkyCastleStone_L.png",
+    "x": 1433,
+    "y": 575,
+    "width": 242,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkyCastleThrone0.png",
+    "x": 1909,
+    "y": 1807,
+    "width": 74,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_SkyCastleThrone0_L.png",
+    "x": 1677,
+    "y": 573,
+    "width": 244,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkyCastleThrone1.png",
+    "x": 1729,
+    "y": 1887,
+    "width": 76,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkyCastleThrone1_L.png",
+    "x": 1697,
+    "y": 875,
+    "width": 250,
+    "height": 300,
+    "rotated": true
+  },
+  {
+    "name": "Icon_SkyCastleThrone2.png",
+    "x": 1725,
+    "y": 1807,
+    "width": 78,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_SkyCastleThrone2_L.png",
+    "x": 1705,
+    "y": 1127,
+    "width": 250,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Stamina.png",
+    "x": 1817,
+    "y": 1807,
+    "width": 78,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Stamina_L.png",
+    "x": 1041,
+    "y": 1701,
+    "width": 250,
+    "height": 300,
+    "rotated": false
+  },
+  {
+    "name": "Icon_VotingFlag.png",
+    "x": 1923,
+    "y": 533,
+    "width": 84,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_VotingFlag_L.png",
+    "x": 597,
+    "y": 579,
+    "width": 276,
+    "height": 300,
+    "rotated": true
+  }
+]

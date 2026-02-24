@@ -1,0 +1,418 @@
+[
+  {
+    "name": "Icon_Blessing.png",
+    "x": 1,
+    "y": 1,
+    "width": 440,
+    "height": 222,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingDark.png",
+    "x": 1,
+    "y": 225,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingDarkS.png",
+    "x": 805,
+    "y": 355,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingEarth.png",
+    "x": 443,
+    "y": 1,
+    "width": 220,
+    "height": 238,
+    "rotated": true
+  },
+  {
+    "name": "Icon_BlessingEarthS.png",
+    "x": 805,
+    "y": 447,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingFire.png",
+    "x": 1,
+    "y": 465,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingFireS.png",
+    "x": 805,
+    "y": 539,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingHeaven.png",
+    "x": 683,
+    "y": 1,
+    "width": 220,
+    "height": 238,
+    "rotated": true
+  },
+  {
+    "name": "Icon_BlessingHeavenS.png",
+    "x": 805,
+    "y": 631,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingLight.png",
+    "x": 1,
+    "y": 705,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingLightS.png",
+    "x": 805,
+    "y": 723,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingLogic.png",
+    "x": 223,
+    "y": 225,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingLogicS.png",
+    "x": 805,
+    "y": 815,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWater.png",
+    "x": 223,
+    "y": 465,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWaterS.png",
+    "x": 889,
+    "y": 449,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWind.png",
+    "x": 223,
+    "y": 705,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWindS.png",
+    "x": 889,
+    "y": 541,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Dance.png",
+    "x": 925,
+    "y": 161,
+    "width": 66,
+    "height": 68,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeroDark.png",
+    "x": 923,
+    "y": 1,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeroHeaven.png",
+    "x": 923,
+    "y": 81,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeroLight.png",
+    "x": 1,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_HeroLogic.png",
+    "x": 71,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendDarkPairS.png",
+    "x": 445,
+    "y": 223,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendDarkTwinWorldS.png",
+    "x": 445,
+    "y": 355,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendEarthPairS.png",
+    "x": 565,
+    "y": 223,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendEarthTwinWorldS.png",
+    "x": 445,
+    "y": 487,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendFirePairS.png",
+    "x": 565,
+    "y": 355,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendFireTwinWorldS.png",
+    "x": 685,
+    "y": 223,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendHeavenPairS.png",
+    "x": 445,
+    "y": 619,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendHeavenTwinWorldS.png",
+    "x": 565,
+    "y": 487,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendLightPairS.png",
+    "x": 685,
+    "y": 355,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendLightTwinWorldS.png",
+    "x": 445,
+    "y": 751,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendLogicPairS.png",
+    "x": 565,
+    "y": 619,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendLogicTwinWorldS.png",
+    "x": 685,
+    "y": 487,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendPairS.png",
+    "x": 889,
+    "y": 633,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendWaterPairS.png",
+    "x": 565,
+    "y": 751,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendWaterTwinWorldS.png",
+    "x": 685,
+    "y": 619,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendWindPairS.png",
+    "x": 685,
+    "y": 751,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendWindTwinWorldS.png",
+    "x": 805,
+    "y": 223,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonChaos.png",
+    "x": 889,
+    "y": 355,
+    "width": 80,
+    "height": 92,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonDark.png",
+    "x": 141,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonEarth.png",
+    "x": 211,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonFire.png",
+    "x": 281,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonFire_Legend.png",
+    "x": 889,
+    "y": 725,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonHeaven.png",
+    "x": 351,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonLight.png",
+    "x": 421,
+    "y": 945,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonLight_Legend.png",
+    "x": 889,
+    "y": 817,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonLogic.png",
+    "x": 575,
+    "y": 883,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonNone.png",
+    "x": 645,
+    "y": 883,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonWater.png",
+    "x": 715,
+    "y": 883,
+    "width": 68,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SeasonWind.png",
+    "x": 785,
+    "y": 907,
+    "width": 68,
+    "height": 78,
+    "rotated": true
+  },
+  {
+    "name": "Icon_TwinWorldS.png",
+    "x": 491,
+    "y": 883,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  }
+]
