@@ -34,7 +34,7 @@
     "tsx": "^4.21.0",
     "vue": "^3.5.28",
     "vue-router": "^4.6.4",
-    "vuetify-nuxt-module": "^0.18.7"
+    "vuetify-nuxt-module": "^0.19.5"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -58,6 +58,7 @@
     "zod": "^3.25.48"
   },
   "overrides": {
-    "@vercel/nft": "^0.27.4"
+    "@vercel/nft": "^0.27.4",
+    "vuetify": "< 4"
   }
 }
