@@ -32,7 +32,7 @@
     "prettier": "3.7.4",
     "sass": "^1.97.3",
     "tsx": "^4.21.0",
-    "vue": "^3.5.22",
+    "vue": "^3.5.28",
     "vue-router": "^4.6.4",
     "vuetify-nuxt-module": "^0.18.7"
   },
