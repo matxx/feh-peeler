@@ -104,7 +104,7 @@ export const useStoreTheme = defineStore('theme', () => {
   function applyTheme() {
     if (!vuetifyTheme) return
 
-    vuetifyTheme.global.name.value = appliedTheme.value
+    vuetifyTheme.change(appliedTheme.value)
   }
 
   function storeThemeInSession() {
