@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="sprite"
     :style="style"
     :title="sprite.name"
   />
@@ -37,8 +36,6 @@ const style = computed(() => {
    * 3. We use transform-origin to ensure it stays in its box.
    */
   return {
-    display: 'inline-block',
-    flex: `0 0 ${realWidth}px`,
     width: `${realWidth}px`,
     height: `${realHeight}px`,
     backgroundImage: `url(${props.img})`,

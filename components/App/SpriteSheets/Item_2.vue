@@ -1,5 +1,5 @@
 <template>
-  <AppSpriteSheets
+  <AppSpriteSheet
     :sprite-sheet="spriteDataRaw"
     :img="spriteImg"
     :name="frame"

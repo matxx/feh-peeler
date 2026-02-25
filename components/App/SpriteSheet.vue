@@ -4,12 +4,14 @@
     class="wrapper"
     :style="style"
   >
-    <AppSpriteIcon
-      :sprite="sprite"
-      :width="resolvedWidth"
-      :height="resolvedHeight"
-      :img="img"
-    />
+    <div>
+      <AppSpriteSheetContent
+        :sprite="sprite"
+        :width="resolvedWidth"
+        :height="resolvedHeight"
+        :img="img"
+      />
+    </div>
   </div>
 </template>
 
