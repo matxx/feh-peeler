@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Icon_Diabolos_Mweapon.png",
+    "x": 727,
+    "y": 1,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_FlowerBudPlayer.png",
+    "x": 1,
+    "y": 1,
+    "width": 220,
+    "height": 240,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MweaponPlayer1.png",
+    "x": 243,
+    "y": 1,
+    "width": 220,
+    "height": 240,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MweaponPlayer2.png",
+    "x": 485,
+    "y": 1,
+    "width": 220,
+    "height": 240,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Mweapon_s1.png",
+    "x": 727,
+    "y": 93,
+    "width": 52,
+    "height": 50,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Mweapon_s2.png",
+    "x": 727,
+    "y": 145,
+    "width": 52,
+    "height": 50,
+    "rotated": true
+  }
+]

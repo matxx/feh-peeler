@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import spriteDataRaw from '~/assets/icons/ui_sprite_sheets/Item_2.json'
-import spriteImg from '~/assets/icons/ui_sprite_sheets/Item_2.png'
+import spriteDataRaw from '~/assets/sprite-sheets/Item_2.json'
+import spriteImg from '~/assets/sprite-sheets/Item_2.png'
 
 const props = defineProps<{
   frame: string

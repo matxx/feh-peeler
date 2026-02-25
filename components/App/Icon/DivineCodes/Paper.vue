@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 const imageUrl = new URL(
-  '../../../../assets/icons/ui_sprite_sheets/Item_2.png',
+  '../../../../assets/sprite-sheets/Item_2.png',
   import.meta.url,
 ).href
 

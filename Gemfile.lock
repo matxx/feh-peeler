@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    plist (3.7.2)
+
+PLATFORMS
+  ruby
+  x86_64-darwin-22
+
+DEPENDENCIES
+  plist
+
+RUBY VERSION
+   ruby 3.4.1p0
+
+BUNDLED WITH
+   2.6.6

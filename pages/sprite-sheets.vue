@@ -24,6 +24,10 @@
       >
         <v-container fluid>
           <v-row>
+            <v-col cols="12">
+              <AppSpriteSheetImg :name="name" />
+            </v-col>
+
             <template
               v-for="frame in data"
               :key="frame.name"
@@ -50,8 +54,8 @@
 </template>
 
 <script setup lang="ts">
-import * as sheets from '~/assets/icons/ui_sprite_sheets/all'
-import * as components from '~/components/App/SpriteSheets/all'
+import * as sheets from '~/assets/sprite-sheets'
+import * as components from '~/components/App/SpriteSheets'
 
 const tab = ref()
 </script>

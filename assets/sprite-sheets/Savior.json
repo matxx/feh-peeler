@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Icon_BlessingEarthSavior.png",
+    "x": 1,
+    "y": 1,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingEarthSaviorS.png",
+    "x": 1039,
+    "y": 1,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingFireSavior.png",
+    "x": 1,
+    "y": 241,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingFireSaviorS.png",
+    "x": 1039,
+    "y": 93,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWaterSavior.png",
+    "x": 223,
+    "y": 1,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWaterSaviorS.png",
+    "x": 1039,
+    "y": 185,
+    "width": 82,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWindSavior.png",
+    "x": 223,
+    "y": 241,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_BlessingWindSaviorS.png",
+    "x": 1021,
+    "y": 277,
+    "width": 82,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendEarthSaviorS.png",
+    "x": 907,
+    "y": 1,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendFireSaviorS.png",
+    "x": 907,
+    "y": 121,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendWaterSaviorS.png",
+    "x": 889,
+    "y": 241,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendWindSaviorS.png",
+    "x": 889,
+    "y": 361,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SaviorPlayerEarth.png",
+    "x": 445,
+    "y": 1,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SaviorPlayerFire.png",
+    "x": 445,
+    "y": 241,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SaviorPlayerWater.png",
+    "x": 667,
+    "y": 1,
+    "width": 220,
+    "height": 238,
+    "rotated": true
+  },
+  {
+    "name": "Icon_SaviorPlayerWind.png",
+    "x": 667,
+    "y": 223,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SaviorS.png",
+    "x": 1009,
+    "y": 361,
+    "width": 82,
+    "height": 90,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Savior_s.png",
+    "x": 1009,
+    "y": 445,
+    "width": 54,
+    "height": 54,
+    "rotated": false
+  }
+]

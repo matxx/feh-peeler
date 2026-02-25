@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Icon_Summon_Category_00.png",
+    "x": 1,
+    "y": 429,
+    "width": 178,
+    "height": 178,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_01.png",
+    "x": 1,
+    "y": 609,
+    "width": 178,
+    "height": 178,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_02.png",
+    "x": 1,
+    "y": 1,
+    "width": 208,
+    "height": 212,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_03.png",
+    "x": 1,
+    "y": 215,
+    "width": 208,
+    "height": 212,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_04.png",
+    "x": 1,
+    "y": 1329,
+    "width": 178,
+    "height": 176,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_05.png",
+    "x": 1,
+    "y": 1507,
+    "width": 178,
+    "height": 176,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_06.png",
+    "x": 1,
+    "y": 789,
+    "width": 178,
+    "height": 178,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_07.png",
+    "x": 1,
+    "y": 969,
+    "width": 178,
+    "height": 178,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Summon_Category_08.png",
+    "x": 1,
+    "y": 1149,
+    "width": 178,
+    "height": 178,
+    "rotated": false
+  }
+]

@@ -1,0 +1,1242 @@
+[
+  {
+    "name": "Arrow2_L.0.png",
+    "x": 151,
+    "y": 1067,
+    "width": 130,
+    "height": 220,
+    "rotated": false
+  },
+  {
+    "name": "Arrow2_L.1.png",
+    "x": 499,
+    "y": 645,
+    "width": 140,
+    "height": 230,
+    "rotated": true
+  },
+  {
+    "name": "Arrow2_R.0.png",
+    "x": 1,
+    "y": 1821,
+    "width": 130,
+    "height": 220,
+    "rotated": false
+  },
+  {
+    "name": "Arrow2_R.1.png",
+    "x": 731,
+    "y": 645,
+    "width": 140,
+    "height": 230,
+    "rotated": true
+  },
+  {
+    "name": "Arrow3_L.0.png",
+    "x": 933,
+    "y": 985,
+    "width": 94,
+    "height": 160,
+    "rotated": true
+  },
+  {
+    "name": "Arrow3_L.1.png",
+    "x": 279,
+    "y": 865,
+    "width": 94,
+    "height": 160,
+    "rotated": false
+  },
+  {
+    "name": "Arrow3_R.0.png",
+    "x": 375,
+    "y": 847,
+    "width": 92,
+    "height": 160,
+    "rotated": false
+  },
+  {
+    "name": "Arrow3_R.1.png",
+    "x": 283,
+    "y": 1027,
+    "width": 92,
+    "height": 160,
+    "rotated": false
+  },
+  {
+    "name": "Arrow_L.0.png",
+    "x": 313,
+    "y": 1789,
+    "width": 104,
+    "height": 162,
+    "rotated": false
+  },
+  {
+    "name": "Arrow_L.1.png",
+    "x": 499,
+    "y": 827,
+    "width": 104,
+    "height": 162,
+    "rotated": true
+  },
+  {
+    "name": "Arrow_R.0.png",
+    "x": 663,
+    "y": 827,
+    "width": 104,
+    "height": 162,
+    "rotated": false
+  },
+  {
+    "name": "Arrow_R.1.png",
+    "x": 769,
+    "y": 967,
+    "width": 104,
+    "height": 162,
+    "rotated": true
+  },
+  {
+    "name": "Btn_Appeal.0.png",
+    "x": 77,
+    "y": 645,
+    "width": 218,
+    "height": 218,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Appeal.1.png",
+    "x": 1181,
+    "y": 1,
+    "width": 218,
+    "height": 218,
+    "rotated": false
+  },
+  {
+    "name": "Btn_EditSkillSet.0.png",
+    "x": 153,
+    "y": 1471,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_EditSkillSet.1.png",
+    "x": 299,
+    "y": 1471,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_EditTeams.0.png",
+    "x": 963,
+    "y": 645,
+    "width": 178,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Btn_EditTeams.1.png",
+    "x": 1181,
+    "y": 435,
+    "width": 178,
+    "height": 180,
+    "rotated": true
+  },
+  {
+    "name": "Btn_FullView.0.png",
+    "x": 377,
+    "y": 1009,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_FullView.1.png",
+    "x": 377,
+    "y": 1155,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_LoadTroop.0.png",
+    "x": 333,
+    "y": 1301,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_LoadTroop.1.png",
+    "x": 479,
+    "y": 1301,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Lock.0.png",
+    "x": 445,
+    "y": 1447,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Lock.1.png",
+    "x": 591,
+    "y": 1447,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Lock.2.png",
+    "x": 537,
+    "y": 1593,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Lock_Pink.0.png",
+    "x": 683,
+    "y": 1593,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Lock_Pink.1.png",
+    "x": 537,
+    "y": 1739,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Map.0.png",
+    "x": 1143,
+    "y": 615,
+    "width": 178,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Map.1.png",
+    "x": 77,
+    "y": 1625,
+    "width": 178,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Mission.0.png",
+    "x": 133,
+    "y": 1807,
+    "width": 178,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Mission.1.png",
+    "x": 153,
+    "y": 1289,
+    "width": 178,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Btn_PairTalk.0.png",
+    "x": 683,
+    "y": 1739,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_PairTalk.1.png",
+    "x": 533,
+    "y": 1885,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Priority.0.png",
+    "x": 679,
+    "y": 1885,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Priority.1.png",
+    "x": 523,
+    "y": 1039,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Priority.2.png",
+    "x": 669,
+    "y": 1073,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_Priority.3.png",
+    "x": 921,
+    "y": 1081,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SelectTroop.0.png",
+    "x": 921,
+    "y": 1227,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SelectTroop.1.png",
+    "x": 629,
+    "y": 1219,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SkillLock.0.png",
+    "x": 1323,
+    "y": 615,
+    "width": 96,
+    "height": 96,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SkillLock.1.png",
+    "x": 1323,
+    "y": 713,
+    "width": 96,
+    "height": 96,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SkillSet.0.png",
+    "x": 1143,
+    "y": 797,
+    "width": 178,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SkillSet.1.png",
+    "x": 769,
+    "y": 787,
+    "width": 178,
+    "height": 180,
+    "rotated": true
+  },
+  {
+    "name": "Btn_SkillUnlock.0.png",
+    "x": 1323,
+    "y": 811,
+    "width": 96,
+    "height": 96,
+    "rotated": false
+  },
+  {
+    "name": "Btn_SkillUnlock.1.png",
+    "x": 1323,
+    "y": 909,
+    "width": 96,
+    "height": 96,
+    "rotated": false
+  },
+  {
+    "name": "Cursor.png",
+    "x": 77,
+    "y": 865,
+    "width": 200,
+    "height": 200,
+    "rotated": false
+  },
+  {
+    "name": "Cursor_Shine_Yellow.png",
+    "x": 297,
+    "y": 645,
+    "width": 200,
+    "height": 200,
+    "rotated": false
+  },
+  {
+    "name": "Empty.png",
+    "x": 369,
+    "y": 1617,
+    "width": 166,
+    "height": 166,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Attribute.png",
+    "x": 499,
+    "y": 787,
+    "width": 268,
+    "height": 38,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Lock.png",
+    "x": 1133,
+    "y": 1,
+    "width": 512,
+    "height": 46,
+    "rotated": true
+  },
+  {
+    "name": "Frm_SkillLock.png",
+    "x": 77,
+    "y": 1369,
+    "width": 254,
+    "height": 74,
+    "rotated": true
+  },
+  {
+    "name": "Icon_1.png",
+    "x": 859,
+    "y": 1377,
+    "width": 68,
+    "height": 68,
+    "rotated": false
+  },
+  {
+    "name": "Icon_2.png",
+    "x": 461,
+    "y": 1947,
+    "width": 68,
+    "height": 68,
+    "rotated": false
+  },
+  {
+    "name": "Icon_3.png",
+    "x": 1307,
+    "y": 1951,
+    "width": 68,
+    "height": 68,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Accessory.png",
+    "x": 1365,
+    "y": 221,
+    "width": 220,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Accessory_Avatar.png",
+    "x": 829,
+    "y": 1871,
+    "width": 68,
+    "height": 68,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Accessory_L.png",
+    "x": 77,
+    "y": 1067,
+    "width": 300,
+    "height": 72,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Btn_Lock.0.png",
+    "x": 1147,
+    "y": 1727,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.1.png",
+    "x": 1147,
+    "y": 1807,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.2.png",
+    "x": 1253,
+    "y": 1643,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.3.png",
+    "x": 1147,
+    "y": 1887,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.4.png",
+    "x": 1333,
+    "y": 1643,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.5.png",
+    "x": 313,
+    "y": 1953,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.6.png",
+    "x": 1227,
+    "y": 1727,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.7.png",
+    "x": 1227,
+    "y": 1807,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.8.png",
+    "x": 1227,
+    "y": 1887,
+    "width": 78,
+    "height": 78,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Btn_Lock.9.png",
+    "x": 625,
+    "y": 1365,
+    "width": 80,
+    "height": 82,
+    "rotated": true
+  },
+  {
+    "name": "Icon_DefenseTeam.png",
+    "x": 469,
+    "y": 933,
+    "width": 76,
+    "height": 74,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Double_s.png",
+    "x": 1133,
+    "y": 515,
+    "width": 46,
+    "height": 52,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Exchange.png",
+    "x": 929,
+    "y": 1373,
+    "width": 72,
+    "height": 72,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Filter.png",
+    "x": 393,
+    "y": 1953,
+    "width": 72,
+    "height": 66,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Friend.png",
+    "x": 775,
+    "y": 1285,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_GodWear_s.png",
+    "x": 987,
+    "y": 1989,
+    "width": 52,
+    "height": 50,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Illustration.png",
+    "x": 775,
+    "y": 1219,
+    "width": 38,
+    "height": 38,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Lock.1.png",
+    "x": 1363,
+    "y": 499,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Lock.2.png",
+    "x": 133,
+    "y": 1989,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Lock.3.png",
+    "x": 1363,
+    "y": 555,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Lock.4.png",
+    "x": 189,
+    "y": 1989,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Lock.5.png",
+    "x": 245,
+    "y": 1989,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Lock.6.png",
+    "x": 825,
+    "y": 1941,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Lock.7.png",
+    "x": 879,
+    "y": 1941,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Lock.8.png",
+    "x": 933,
+    "y": 1939,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Love.0.png",
+    "x": 987,
+    "y": 1933,
+    "width": 52,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Love.1.png",
+    "x": 1041,
+    "y": 1939,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Love.2.png",
+    "x": 1097,
+    "y": 1967,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Love.3.png",
+    "x": 1153,
+    "y": 1967,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Love.4.png",
+    "x": 1209,
+    "y": 1967,
+    "width": 52,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_NameSearch.png",
+    "x": 709,
+    "y": 1365,
+    "width": 76,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Playback.png",
+    "x": 1003,
+    "y": 1373,
+    "width": 62,
+    "height": 62,
+    "rotated": false
+  },
+  {
+    "name": "Icon_SkillLock.png",
+    "x": 283,
+    "y": 1189,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Skill_All.png",
+    "x": 669,
+    "y": 991,
+    "width": 84,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Stock.png",
+    "x": 1363,
+    "y": 443,
+    "width": 56,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Talk.0.png",
+    "x": 1307,
+    "y": 1723,
+    "width": 76,
+    "height": 74,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Talk.1.png",
+    "x": 1307,
+    "y": 1799,
+    "width": 76,
+    "height": 74,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num1.png",
+    "x": 547,
+    "y": 933,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num10.png",
+    "x": 523,
+    "y": 1185,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num2.png",
+    "x": 815,
+    "y": 1073,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num3.png",
+    "x": 815,
+    "y": 1179,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num4.png",
+    "x": 737,
+    "y": 1447,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num5.png",
+    "x": 1095,
+    "y": 985,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num6.png",
+    "x": 1201,
+    "y": 979,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num7.png",
+    "x": 1067,
+    "y": 1091,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num8.png",
+    "x": 1067,
+    "y": 1197,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2Num9.png",
+    "x": 1067,
+    "y": 1303,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2_Default.png",
+    "x": 1385,
+    "y": 1219,
+    "width": 34,
+    "height": 34,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team2_Select.png",
+    "x": 1383,
+    "y": 1875,
+    "width": 36,
+    "height": 36,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3Num1.png",
+    "x": 1307,
+    "y": 1007,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3Num2.png",
+    "x": 1201,
+    "y": 1085,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3Num3.png",
+    "x": 1173,
+    "y": 1191,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3Num4.png",
+    "x": 1173,
+    "y": 1297,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3Num5.png",
+    "x": 1307,
+    "y": 1113,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3_Default.png",
+    "x": 1385,
+    "y": 1255,
+    "width": 34,
+    "height": 34,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team3_Select.png",
+    "x": 1383,
+    "y": 1913,
+    "width": 36,
+    "height": 36,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team4_Default.png",
+    "x": 1385,
+    "y": 1291,
+    "width": 34,
+    "height": 34,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team4_Select.png",
+    "x": 1133,
+    "y": 569,
+    "width": 36,
+    "height": 36,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team5_Default.png",
+    "x": 1385,
+    "y": 1327,
+    "width": 34,
+    "height": 34,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team5_Select.png",
+    "x": 779,
+    "y": 1553,
+    "width": 36,
+    "height": 36,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamLock.png",
+    "x": 829,
+    "y": 1285,
+    "width": 90,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum1.png",
+    "x": 1279,
+    "y": 1219,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum10.png",
+    "x": 1279,
+    "y": 1325,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum11.png",
+    "x": 1173,
+    "y": 1403,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum12.png",
+    "x": 1279,
+    "y": 1431,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum13.png",
+    "x": 843,
+    "y": 1447,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum14.png",
+    "x": 829,
+    "y": 1553,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum15.png",
+    "x": 829,
+    "y": 1659,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum16.png",
+    "x": 829,
+    "y": 1765,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum17.png",
+    "x": 1067,
+    "y": 1409,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum18.png",
+    "x": 949,
+    "y": 1447,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum19.png",
+    "x": 935,
+    "y": 1553,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum2.png",
+    "x": 935,
+    "y": 1659,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum20.png",
+    "x": 935,
+    "y": 1765,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum3.png",
+    "x": 1173,
+    "y": 1509,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum4.png",
+    "x": 1279,
+    "y": 1537,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum5.png",
+    "x": 1055,
+    "y": 1515,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum6.png",
+    "x": 1041,
+    "y": 1621,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum7.png",
+    "x": 1041,
+    "y": 1727,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum8.png",
+    "x": 1041,
+    "y": 1833,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TeamNum9.png",
+    "x": 1147,
+    "y": 1621,
+    "width": 104,
+    "height": 104,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team_Default.png",
+    "x": 1385,
+    "y": 1363,
+    "width": 34,
+    "height": 34,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Team_Select.png",
+    "x": 1377,
+    "y": 1951,
+    "width": 36,
+    "height": 36,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Voice.png",
+    "x": 737,
+    "y": 1553,
+    "width": 40,
+    "height": 38,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Weapon_Blue.png",
+    "x": 965,
+    "y": 1871,
+    "width": 58,
+    "height": 60,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Weapon_Gray.png",
+    "x": 899,
+    "y": 1871,
+    "width": 64,
+    "height": 66,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Weapon_Green.png",
+    "x": 787,
+    "y": 1377,
+    "width": 70,
+    "height": 68,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Weapon_L.png",
+    "x": 1,
+    "y": 1,
+    "width": 1818,
+    "height": 74,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Weapon_Red.png",
+    "x": 1307,
+    "y": 1875,
+    "width": 74,
+    "height": 74,
+    "rotated": false
+  },
+  {
+    "name": "Img_Arrow.png",
+    "x": 257,
+    "y": 1617,
+    "width": 170,
+    "height": 110,
+    "rotated": true
+  },
+  {
+    "name": "Img_ArrowBoth.png",
+    "x": 419,
+    "y": 1785,
+    "width": 160,
+    "height": 112,
+    "rotated": true
+  },
+  {
+    "name": "Img_ArrowExchange.png",
+    "x": 951,
+    "y": 827,
+    "width": 180,
+    "height": 156,
+    "rotated": false
+  },
+  {
+    "name": "None.png",
+    "x": 1181,
+    "y": 221,
+    "width": 182,
+    "height": 212,
+    "rotated": false
+  },
+  {
+    "name": "Unset.png",
+    "x": 369,
+    "y": 1617,
+    "width": 166,
+    "height": 166,
+    "rotated": false
+  },
+  {
+    "name": "Up_Arrow.png",
+    "x": 825,
+    "y": 1997,
+    "width": 44,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Wdw_Team_Select.2.png",
+    "x": 77,
+    "y": 1,
+    "width": 1054,
+    "height": 258,
+    "rotated": false
+  },
+  {
+    "name": "Wdw_Team_Select.3.png",
+    "x": 77,
+    "y": 261,
+    "width": 1054,
+    "height": 190,
+    "rotated": false
+  },
+  {
+    "name": "Wdw_Team_Select.png",
+    "x": 77,
+    "y": 453,
+    "width": 1054,
+    "height": 190,
+    "rotated": false
+  }
+]

@@ -1,0 +1,218 @@
+[
+  {
+    "name": "Attack.png",
+    "x": 1217,
+    "y": 375,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Attack2.png",
+    "x": 1399,
+    "y": 281,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Bln_L.png",
+    "x": 1207,
+    "y": 557,
+    "width": 136,
+    "height": 108,
+    "rotated": false
+  },
+  {
+    "name": "Bln_R.png",
+    "x": 281,
+    "y": 603,
+    "width": 136,
+    "height": 108,
+    "rotated": false
+  },
+  {
+    "name": "Bln_Slice1_T.png",
+    "x": 1,
+    "y": 603,
+    "width": 278,
+    "height": 90,
+    "rotated": false
+  },
+  {
+    "name": "Bln_T.png",
+    "x": 419,
+    "y": 581,
+    "width": 122,
+    "height": 122,
+    "rotated": false
+  },
+  {
+    "name": "FehOrb1.png",
+    "x": 1345,
+    "y": 645,
+    "width": 78,
+    "height": 80,
+    "rotated": true
+  },
+  {
+    "name": "Font_HPGauge.png",
+    "x": 1,
+    "y": 525,
+    "width": 350,
+    "height": 76,
+    "rotated": false
+  },
+  {
+    "name": "Frm_WinRule.png",
+    "x": 1,
+    "y": 375,
+    "width": 1214,
+    "height": 148,
+    "rotated": false
+  },
+  {
+    "name": "HPGauge.png",
+    "x": 1207,
+    "y": 667,
+    "width": 126,
+    "height": 56,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Advantage.png",
+    "x": 575,
+    "y": 525,
+    "width": 156,
+    "height": 156,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Attack.png",
+    "x": 1945,
+    "y": 227,
+    "width": 70,
+    "height": 70,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Crit.png",
+    "x": 1339,
+    "y": 227,
+    "width": 562,
+    "height": 52,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Disadvantage.png",
+    "x": 733,
+    "y": 525,
+    "width": 156,
+    "height": 156,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Enhance.png",
+    "x": 1,
+    "y": 1,
+    "width": 2014,
+    "height": 224,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MiniUnit_Head.png",
+    "x": 1,
+    "y": 227,
+    "width": 1336,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Move.png",
+    "x": 353,
+    "y": 525,
+    "width": 220,
+    "height": 54,
+    "rotated": false
+  },
+  {
+    "name": "Icon_PositionChange.png",
+    "x": 1945,
+    "y": 299,
+    "width": 62,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Reliance.png",
+    "x": 891,
+    "y": 525,
+    "width": 156,
+    "height": 156,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Support.png",
+    "x": 1945,
+    "y": 381,
+    "width": 64,
+    "height": 72,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Target.png",
+    "x": 1049,
+    "y": 525,
+    "width": 156,
+    "height": 156,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Weapon.png",
+    "x": 1,
+    "y": 317,
+    "width": 1338,
+    "height": 56,
+    "rotated": false
+  },
+  {
+    "name": "Player.png",
+    "x": 1581,
+    "y": 281,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Player_Pair.png",
+    "x": 1763,
+    "y": 281,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Player_Special.png",
+    "x": 1399,
+    "y": 463,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Support.png",
+    "x": 1581,
+    "y": 463,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Support2.png",
+    "x": 1763,
+    "y": 463,
+    "width": 180,
+    "height": 180,
+    "rotated": false
+  }
+]

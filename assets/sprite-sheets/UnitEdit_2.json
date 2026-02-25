@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Frm_Name_1.png",
+    "x": 855,
+    "y": 1,
+    "width": 594,
+    "height": 316,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Name_2.png",
+    "x": 1,
+    "y": 481,
+    "width": 662,
+    "height": 436,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Name_3.png",
+    "x": 1,
+    "y": 1,
+    "width": 852,
+    "height": 478,
+    "rotated": false
+  },
+  {
+    "name": "Icon_DoublePlayer.png",
+    "x": 665,
+    "y": 723,
+    "width": 220,
+    "height": 238,
+    "rotated": true
+  },
+  {
+    "name": "Icon_GodWear_L.png",
+    "x": 1673,
+    "y": 1,
+    "width": 128,
+    "height": 126,
+    "rotated": false
+  },
+  {
+    "name": "Icon_PairPlayer.png",
+    "x": 1571,
+    "y": 485,
+    "width": 220,
+    "height": 238,
+    "rotated": false
+  },
+  {
+    "name": "Icon_RelianceBlank_L.png",
+    "x": 1451,
+    "y": 1,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonA.png",
+    "x": 1451,
+    "y": 243,
+    "width": 50,
+    "height": 52,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonA_L.png",
+    "x": 665,
+    "y": 481,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonB.png",
+    "x": 1757,
+    "y": 129,
+    "width": 44,
+    "height": 52,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonB_L.png",
+    "x": 887,
+    "y": 319,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonC.png",
+    "x": 1325,
+    "y": 803,
+    "width": 46,
+    "height": 52,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonC_L.png",
+    "x": 1109,
+    "y": 319,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePersonS.png",
+    "x": 1373,
+    "y": 803,
+    "width": 40,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_ReliancePersonS_L.png",
+    "x": 1331,
+    "y": 319,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePlayerA.png",
+    "x": 905,
+    "y": 887,
+    "width": 50,
+    "height": 50,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePlayerA_L.png",
+    "x": 905,
+    "y": 561,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePlayerB.png",
+    "x": 957,
+    "y": 887,
+    "width": 44,
+    "height": 52,
+    "rotated": true
+  },
+  {
+    "name": "Icon_ReliancePlayerB_L.png",
+    "x": 1127,
+    "y": 561,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePlayerC.png",
+    "x": 1503,
+    "y": 243,
+    "width": 46,
+    "height": 52,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePlayerC_L.png",
+    "x": 1349,
+    "y": 561,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ReliancePlayerS.png",
+    "x": 1011,
+    "y": 887,
+    "width": 40,
+    "height": 54,
+    "rotated": true
+  },
+  {
+    "name": "Icon_ReliancePlayerS_L.png",
+    "x": 1553,
+    "y": 243,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_TwinWorld.png",
+    "x": 1571,
+    "y": 725,
+    "width": 220,
+    "height": 238,
+    "rotated": true
+  },
+  {
+    "name": "Star_1.png",
+    "x": 905,
+    "y": 803,
+    "width": 82,
+    "height": 82,
+    "rotated": false
+  },
+  {
+    "name": "Star_2.png",
+    "x": 1673,
+    "y": 129,
+    "width": 82,
+    "height": 82,
+    "rotated": false
+  },
+  {
+    "name": "Star_3.png",
+    "x": 989,
+    "y": 803,
+    "width": 82,
+    "height": 82,
+    "rotated": false
+  },
+  {
+    "name": "Star_4.png",
+    "x": 1073,
+    "y": 803,
+    "width": 82,
+    "height": 82,
+    "rotated": false
+  },
+  {
+    "name": "Star_5.png",
+    "x": 1157,
+    "y": 803,
+    "width": 82,
+    "height": 82,
+    "rotated": false
+  },
+  {
+    "name": "Star_5_Idol.png",
+    "x": 1241,
+    "y": 803,
+    "width": 82,
+    "height": 82,
+    "rotated": false
+  }
+]

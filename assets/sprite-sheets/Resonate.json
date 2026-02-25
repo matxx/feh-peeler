@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Frm_InfoEdit_Resonate.png",
+    "x": 1,
+    "y": 289,
+    "width": 168,
+    "height": 80,
+    "rotated": true
+  },
+  {
+    "name": "Icon_PassiveX.png",
+    "x": 83,
+    "y": 437,
+    "width": 36,
+    "height": 38,
+    "rotated": false
+  },
+  {
+    "name": "Icon_PassiveX_L.png",
+    "x": 83,
+    "y": 379,
+    "width": 46,
+    "height": 56,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Resonate.png",
+    "x": 83,
+    "y": 289,
+    "width": 88,
+    "height": 88,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ResonatePlayer1.png",
+    "x": 287,
+    "y": 1,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_ResonatePlayer2.png",
+    "x": 287,
+    "y": 243,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Resonate_L.png",
+    "x": 1,
+    "y": 1,
+    "width": 284,
+    "height": 286,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Resonate_s1.png",
+    "x": 131,
+    "y": 379,
+    "width": 50,
+    "height": 50,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Resonate_s2.png",
+    "x": 131,
+    "y": 431,
+    "width": 50,
+    "height": 50,
+    "rotated": false
+  }
+]

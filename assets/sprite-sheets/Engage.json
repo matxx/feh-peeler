@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Icon_EngagePlayer.png",
+    "x": 1,
+    "y": 1,
+    "width": 220,
+    "height": 240,
+    "rotated": false
+  },
+  {
+    "name": "Icon_Engage_s.png",
+    "x": 305,
+    "y": 133,
+    "width": 50,
+    "height": 46,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendDarkEngageS.png",
+    "x": 1,
+    "y": 243,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendEarthEngageS.png",
+    "x": 133,
+    "y": 243,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendEngageS.png",
+    "x": 223,
+    "y": 133,
+    "width": 80,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendFireEngageS.png",
+    "x": 223,
+    "y": 1,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendHeavenEngageS.png",
+    "x": 265,
+    "y": 215,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendLightEngageS.png",
+    "x": 265,
+    "y": 347,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendLogicEngageS.png",
+    "x": 343,
+    "y": 1,
+    "width": 118,
+    "height": 130,
+    "rotated": false
+  },
+  {
+    "name": "Icon_LegendWaterEngageS.png",
+    "x": 1,
+    "y": 363,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  },
+  {
+    "name": "Icon_LegendWindEngageS.png",
+    "x": 133,
+    "y": 363,
+    "width": 118,
+    "height": 130,
+    "rotated": true
+  }
+]

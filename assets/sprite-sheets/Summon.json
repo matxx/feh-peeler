@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Error.png",
+    "x": 643,
+    "y": 361,
+    "width": 270,
+    "height": 270,
+    "rotated": false
+  },
+  {
+    "name": "Error_L.png",
+    "x": 1,
+    "y": 361,
+    "width": 640,
+    "height": 642,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Ribbon.png",
+    "x": 1,
+    "y": 1,
+    "width": 900,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Ribbon_Fes.png",
+    "x": 1,
+    "y": 183,
+    "width": 898,
+    "height": 176,
+    "rotated": false
+  },
+  {
+    "name": "Stone_B.png",
+    "x": 643,
+    "y": 633,
+    "width": 140,
+    "height": 140,
+    "rotated": false
+  },
+  {
+    "name": "Stone_G.png",
+    "x": 785,
+    "y": 633,
+    "width": 140,
+    "height": 140,
+    "rotated": false
+  },
+  {
+    "name": "Stone_R.png",
+    "x": 643,
+    "y": 775,
+    "width": 140,
+    "height": 140,
+    "rotated": false
+  },
+  {
+    "name": "Stone_W.png",
+    "x": 785,
+    "y": 775,
+    "width": 140,
+    "height": 140,
+    "rotated": false
+  }
+]

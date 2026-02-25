@@ -111,8 +111,6 @@ const rotation = ref(0)
 
 const ephemera = ref(false)
 
-const imageUrl = new URL(
-  '../assets/icons/ui_sprite_sheets/Item_2.png',
-  import.meta.url,
-).href
+const imageUrl = new URL('../assets/sprite-sheets/Item_2.png', import.meta.url)
+  .href
 </script>
