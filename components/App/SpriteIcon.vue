@@ -1,37 +1,33 @@
 <template>
   <div
     v-if="sprite"
-    class="sprite-icon"
-    :style="spriteStyle"
+    :style="style"
     :title="sprite.name"
   />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import type { SpriteFrame } from '~/utils/types/spriteSheets'
 
-interface SpriteFrame {
-  name: string
-  x: number
-  y: number
-  width: number
-  height: number
-  rotated: boolean
-}
+const props = defineProps<{
+  sprite: SpriteFrame
+  img: string
+  width?: number
+  height?: number
+}>()
 
-const props = withDefaults(
-  defineProps<{
-    sprite: SpriteFrame
-    img: string
-    scale?: number
-  }>(),
-  {
-    scale: 1,
-  },
-)
-
-const spriteStyle = computed(() => {
+const style = computed(() => {
   const { x, y, width, height, rotated } = props.sprite
+
+  let scale = 1
+  if (props.width) {
+    scale = props.width / width
+  } else if (props.height) {
+    scale = props.height / height
+  }
+
+  const realWidth = rotated ? height : width
+  const realHeight = rotated ? width : height
 
   /**
    * When 'textureRotated' is true in the .plist, the sprite is rotated
@@ -42,20 +38,15 @@ const spriteStyle = computed(() => {
    */
   return {
     display: 'inline-block',
-    width: `${rotated ? height : width}px`,
-    height: `${rotated ? width : height}px`,
+    flex: `0 0 ${realWidth}px`,
+    width: `${realWidth}px`,
+    height: `${realHeight}px`,
     backgroundImage: `url(${props.img})`,
     backgroundPosition: `-${x}px -${y}px`,
-    transform: `scale(${props.scale}) ${rotated ? 'rotate(-90deg)' : ''}`,
+    backgroundRepeat: 'no-repeat',
+    transform: `scale(${scale}) ${rotated ? 'rotate(-90deg)' : ''}`,
     transformOrigin: 'center',
     imageRendering: 'crisp-edges' as const,
   }
 })
 </script>
-
-<style scoped>
-.sprite-icon {
-  overflow: hidden;
-  background-repeat: no-repeat;
-}
-</style>

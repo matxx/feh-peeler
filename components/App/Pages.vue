@@ -9,14 +9,13 @@
           <v-list-subheader>
             {{ t(`home.subheader.devOnly`) }}
           </v-list-subheader>
-          <v-list-item :to="localePath('/assets')">
+          <v-list-item
+            v-for="item in devLinks"
+            :key="item.link"
+            :to="localePath(item.link)"
+          >
             <v-list-item-title class="pl-5 text-primary">
-              {{ t('home.title.assets') }}
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item :to="localePath('/skills-tree')">
-            <v-list-item-title class="pl-5 text-primary">
-              {{ t('home.title.skills-tree') }}
+              {{ t(`home.title.${item.link}`) }}
             </v-list-item-title>
           </v-list-item>
         </DevOnly>
@@ -72,6 +71,12 @@ withDefaults(
 const { t, te } = useI18n()
 const localePath = useLocalePath()
 const { xs } = useDisplay()
+
+const devLinks = [
+  { link: 'assets' },
+  { link: 'sprite-sheets' },
+  { link: 'skills-tree' },
+]
 
 const COLUMNS = [
   [

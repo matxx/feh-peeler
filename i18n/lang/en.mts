@@ -349,6 +349,7 @@ export default {
     title: {
       index: 'Home',
       assets: 'Assets',
+      'sprite-sheets': 'Sprite Sheets',
       'skills-tree': 'Skills Tree',
 
       units: 'Units',

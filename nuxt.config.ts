@@ -220,6 +220,10 @@ export default defineNuxtConfig({
         // fr: '/assets',
         en: '/assets',
       },
+      'sprite-sheets': {
+        // fr: '/sprite-sheets',
+        en: '/sprite-sheets',
+      },
 
       units: {
         // fr: '/unites',

@@ -4,12 +4,6 @@
 
     <v-row>
       <v-col>
-        <AppSpriteSheetsBlessing name="Icon_BlessingHeaven.png" />
-      </v-col>
-    </v-row>
-
-    <v-row>
-      <v-col>
         <v-text-field
           v-model.number="rotation"
           label="rotation"
