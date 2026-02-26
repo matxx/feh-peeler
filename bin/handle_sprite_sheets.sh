@@ -7,8 +7,6 @@
 require 'plist'
 require 'json'
 
-sprite_sheets_lines = []
-components_lines = []
 Dir['assets/sprite-sheets/*.plist'].map do |input_file|
   json_file = input_file.gsub(/\.plist\Z/, '.json')
   begin
@@ -41,7 +39,11 @@ Dir['assets/sprite-sheets/*.plist'].map do |input_file|
     puts "Error: #{e.message}"
     next
   end
+end
 
+sprite_sheets_lines = []
+components_lines = []
+Dir['assets/sprite-sheets/*.plist'].map do |input_file|
   name = File.basename(input_file, '.plist')
   sprite_sheets_lines << "export { default as #{name} } from './#{name}.json'"
   components_lines << "export { default as #{name} } from './#{name}.vue'"
