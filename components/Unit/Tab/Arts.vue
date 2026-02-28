@@ -1,10 +1,22 @@
 <template>
   <AppRenderOnceWhileActive :active="storeDataUnitsArts.isLoaded">
+    <v-fab
+      v-if="unit.has_respl"
+      color="primary"
+      variant="text"
+      absolute
+      location="top end"
+      :icon="sync ? 'mdi-lock' : 'mdi-lock-open-variant'"
+      size="small"
+      @click="sync = !sync"
+    />
+
     <v-container fluid>
       <v-row>
         <v-col :cols="unit.has_respl && onTwoColumns ? 6 : 12">
           <v-carousel
-            transition-duration="700"
+            v-model="left"
+            :transition-duration="700"
             crossfade
           >
             <h3 v-if="unit.has_respl && onTwoColumns">
@@ -22,7 +34,8 @@
           :cols="onTwoColumns ? 6 : 12"
         >
           <v-carousel
-            transition-duration="700"
+            v-model="right"
+            :transition-duration="700"
             crossfade
           >
             <h3>
@@ -50,6 +63,21 @@ const props = defineProps<{
 const { t } = useI18n()
 const { smAndUp } = useDisplay()
 const storeDataUnitsArts = useStoreDataUnitsArts()
+
+const left = ref()
+const right = ref()
+const sync = ref(true)
+
+watch(left, () => {
+  if (!sync.value) return
+
+  right.value = left.value
+})
+watch(right, () => {
+  if (!sync.value) return
+
+  left.value = right.value
+})
 
 const arts = computed(() => storeDataUnitsArts.artsById[props.unit.id])
 
