@@ -164,7 +164,7 @@ export default defineNuxtConfig({
       //   configFile: 'assets/styles/vuetify/settings.scss',
       // },
       ssrClientHints: {
-        reloadOnFirstRequest: true,
+        // reloadOnFirstRequest: true, // not working with brave browser (it creates an infinite reload loop)
         viewportSize: true,
       },
     },
