@@ -1,5 +1,6 @@
 import max from 'lodash-es/max'
 import sum from 'lodash-es/sum'
+import uniq from 'lodash-es/uniq'
 import filter from 'lodash-es/filter'
 import compact from 'lodash-es/compact'
 
@@ -208,22 +209,32 @@ export default function useUnitScore(
     return 0
   })
 
+  // both blessings (normal blessing and chosen hero blessing)
+  // can increase score with resp. legendary units
   const blessingScore = computed(() => {
     if (!unit.value) return 0
     if (unit.value.is_legendary) return 0
 
-    const element = chosenHeroIsInSeason.value
-      ? chosenHero.value?.element
-      : unit.value.element || unitInstance.value.blessing
-    if (!element) return 0
+    return (
+      sum(
+        uniq(
+          compact([
+            unit.value.is_chosen
+              ? unit.value.element
+              : unitInstance.value.blessing,
+            chosenHeroIsInSeason.value ? chosenHero.value?.element : null,
+          ]),
+        ).map((element) => {
+          // @ts-expect-error ElementMythic handled here
+          if (!scoreContext.value.seasonElements.includes(element)) {
+            return 0
+          }
 
-    // @ts-expect-error ElementMythic handled here
-    if (!scoreContext.value.seasonElements.includes(element)) {
-      return 0
-    }
-
-    // @ts-expect-error ElementMythic handled here
-    return (scoreContext.value.legendaryCounts[element] || 0) * 4
+          // @ts-expect-error ElementMythic handled here
+          return scoreContext.value.legendaryCounts[element] || 0
+        }),
+      ) * 4
+    )
   })
 
   const scorePartRarity = computed(() => rarityBaseValue.value)
