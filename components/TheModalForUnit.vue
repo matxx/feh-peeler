@@ -39,6 +39,7 @@
             </DevOnly>
 
             <v-btn
+              v-if="unit.guide_id"
               v-show="!mobile"
               icon
               flat
@@ -114,6 +115,7 @@
               <v-spacer />
 
               <v-btn
+                v-if="unit.guide_id"
                 density="compact"
                 variant="text"
                 icon

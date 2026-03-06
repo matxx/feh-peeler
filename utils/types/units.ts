@@ -96,7 +96,7 @@ export interface IUnitData {
   id_int: number
   game8_id?: Game8Id
   fandom_id: FandomId
-  guide_id: GuideId
+  guide_id?: GuideId
   fehpass_id?: FehPassId
 
   name: string
