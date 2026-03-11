@@ -46,54 +46,35 @@ export const useStoreDataUnitsHeroicGrails = defineStore(
             ['desc', 'desc', 'desc'],
           )
         case hgs.SORT_BY_ADDED:
-          return orderBy(
-            heroicGrails.value,
-            [
-              'start_time',
-              'rarity',
-              (hg) => storeDataUnits.unitsById[hg.unit_id].release_date,
-            ],
-            ['asc', 'asc', 'asc'],
-          )
+          return orderBy(heroicGrails.value, [
+            'start_time',
+            'rarity',
+            (hg) => storeDataUnits.unitsById[hg.unit_id].release_date,
+          ])
         case hgs.SORT_BY_ORIGIN:
           return orderBy(
             heroicGrails.value,
             (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
           )
         case hgs.SORT_BY_TYPE:
-          return orderBy(
-            heroicGrails.value,
-            [
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableWeaponColor,
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableType,
-              'rarity',
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableMoveType,
-              (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
-            ],
-            ['asc', 'asc', 'desc', 'asc', 'asc'],
-          )
+          return orderBy(heroicGrails.value, [
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableWeaponColor,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableType,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableMoveType,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
+          ])
         case hgs.SORT_BY_WEAPON_TYPE:
-          return orderBy(
-            heroicGrails.value,
-            [
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableWeaponType,
-              'rarity',
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableMoveType,
-              (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
-            ],
-            ['asc', 'desc', 'asc', 'asc'],
-          )
+          return orderBy(heroicGrails.value, [
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableWeaponType,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableMoveType,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
+          ])
         case hgs.SORT_BY_MOVE_TYPE:
-          return orderBy(
-            heroicGrails.value,
-            [
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableMoveType,
-              (hg) => storeDataUnits.unitsById[hg.unit_id].sortableType,
-              'rarity',
-              (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
-            ],
-            ['asc', 'asc', 'desc', 'asc'],
-          )
+          return orderBy(heroicGrails.value, [
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableMoveType,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].sortableType,
+            (hg) => storeDataUnits.unitsById[hg.unit_id].origin,
+          ])
       }
     })
 
