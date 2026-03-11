@@ -45,7 +45,8 @@
               required
               type="number"
               step="1"
-              min="0"
+              :min="ENCLOSURE_MIN"
+              :max="ENCLOSURE_MAX"
               pattern="[0-9]+"
               density="compact"
               hide-details
@@ -192,6 +193,8 @@ import { SKILL_CATEGORIES_FOR_BINDING_WORLDS } from '~/utils/types/skills'
 import type { UnitInBindingWorlds } from '~/utils/events/binding-worlds'
 import {
   HIDING_REASONS,
+  ENCLOSURE_MIN,
+  ENCLOSURE_MAX,
   getEmptyUnitInstanceInBindingWorlds,
 } from '~/utils/events/binding-worlds'
 
