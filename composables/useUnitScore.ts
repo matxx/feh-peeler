@@ -284,7 +284,16 @@ export default function useUnitScore(
       chosenHeroId: null,
       chosenHeroMerges: 0,
     }
-    const data = useUnitScore(ref(chosenHeroInstance), scoreContext)
+    // a chosen hero attached onto a legendary
+    // will not have score boost from that legendary
+    let adjustedScoreContext
+    if (unit.value?.is_legendary) {
+      adjustedScoreContext = ref(JSON.parse(JSON.stringify(scoreContext.value)))
+      adjustedScoreContext.value.legendaryCounts[unit.value.element!] -= 1
+    } else {
+      adjustedScoreContext = scoreContext
+    }
+    const data = useUnitScore(ref(chosenHeroInstance), adjustedScoreContext)
 
     // MONKEY PATCH :
     // recursive use of `useUnitScore` does not work correctly
