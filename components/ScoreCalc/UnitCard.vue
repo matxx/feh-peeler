@@ -173,22 +173,20 @@
               :value="unitInstance.rarity"
               name="rarity"
             >
-              <v-text-field
+              <v-number-input
                 :model-value="unitInstance.rarity"
                 disabled
                 required
-                type="number"
-                step="1"
-                min="1"
+                :min="1"
                 :max="MAX_RARITY"
-                pattern="[0-9]+"
+                control-variant="stacked"
                 density="compact"
                 hide-details
                 :label="t('scoreCalc.labels.rarity')"
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('rarity', parseInt($event, 10))
+                    updateUnit('rarity', $event)
                     handleChange($event)
                   }
                 "
@@ -201,22 +199,20 @@
               :value="unitInstance.level"
               name="level"
             >
-              <v-text-field
+              <v-number-input
                 :model-value="unitInstance.level"
                 disabled
                 required
-                type="number"
-                step="1"
-                min="1"
+                :min="1"
                 :max="MAX_LEVEL"
-                pattern="[0-9]+"
+                control-variant="stacked"
                 density="compact"
                 hide-details
                 :label="t('scoreCalc.labels.level')"
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('level', parseInt($event, 10))
+                    updateUnit('level', $event)
                     handleChange($event)
                   }
                 "
@@ -229,22 +225,20 @@
               :value="unitInstance.merges"
               name="merges"
             >
-              <v-text-field
+              <v-number-input
                 :model-value="unitInstance.merges"
                 :disabled="unit?.is_story"
                 required
-                type="number"
-                step="1"
-                min="0"
+                :min="0"
                 :max="MAX_MERGES"
-                pattern="[0-9]+"
+                control-variant="stacked"
                 density="compact"
                 hide-details
                 :label="t('scoreCalc.labels.merges')"
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('merges', parseInt($event, 10))
+                    updateUnit('merges', $event)
                     handleChange($event)
                   }
                 "
@@ -326,21 +320,19 @@
               :value="unitInstance.chosenHeroMerges"
               name="chosenHeroMerges"
             >
-              <v-text-field
+              <v-number-input
                 :model-value="unitInstance.chosenHeroMerges"
                 required
-                type="number"
-                step="1"
-                min="0"
+                :min="0"
                 :max="MAX_MERGES"
-                pattern="[0-9]+"
+                control-variant="stacked"
                 density="compact"
                 hide-details
                 :label="t('scoreCalc.labels.merges')"
                 :error-messages="errors"
                 @update:model-value="
                   ($event) => {
-                    updateUnit('chosenHeroMerges', parseInt($event, 10))
+                    updateUnit('chosenHeroMerges', $event)
                     handleChange($event)
                   }
                 "

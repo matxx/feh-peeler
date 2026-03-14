@@ -39,15 +39,13 @@
             v-model="localUnit.enclosure"
             name="enclosure"
           >
-            <v-text-field
-              v-model.number="localUnit.enclosure"
+            <v-number-input
+              v-model="localUnit.enclosure"
               :disabled="disabled"
               required
-              type="number"
-              step="1"
               :min="ENCLOSURE_MIN"
               :max="ENCLOSURE_MAX"
-              pattern="[0-9]+"
+              control-variant="stacked"
               density="compact"
               hide-details
               class="mb-2"
