@@ -146,18 +146,51 @@
         />
       </v-overlay>
 
-      <div>
-        <v-select
-          :disabled="isBlessingDisabled"
-          :model-value="unitInstance.blessing"
-          :items="itemsForElements"
-          clearable
-          density="compact"
-          hide-details
-          :label="t('scoreCalc.labels.blessing')"
-          @update:model-value="updateUnit('blessing', $event)"
-        />
-      </div>
+      <v-container
+        fluid
+        class="pa-0"
+      >
+        <v-row dense>
+          <v-col cols="6">
+            <VeeField
+              v-slot="{ handleChange, errors }"
+              :value="unitInstance.merges"
+              name="merges"
+            >
+              <v-number-input
+                :model-value="unitInstance.merges"
+                :disabled="unit?.is_story"
+                required
+                :min="0"
+                :max="MAX_MERGES"
+                control-variant="stacked"
+                density="compact"
+                hide-details
+                :label="t('scoreCalc.labels.merges')"
+                :error-messages="errors"
+                @update:model-value="
+                  ($event) => {
+                    updateUnit('merges', $event)
+                    handleChange($event)
+                  }
+                "
+              />
+            </VeeField>
+          </v-col>
+          <v-col cols="6">
+            <v-select
+              :disabled="isBlessingDisabled"
+              :model-value="unitInstance.blessing"
+              :items="itemsForElements"
+              clearable
+              density="compact"
+              hide-details
+              :label="t('scoreCalc.labels.blessing')"
+              @update:model-value="updateUnit('blessing', $event)"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
 
       <h6 class="mt-2">
         {{ t('scoreCalc.headers.bst') }}
@@ -167,7 +200,7 @@
         class="pa-0"
       >
         <v-row dense>
-          <v-col cols="4">
+          <v-col cols="6">
             <VeeField
               v-slot="{ handleChange, errors }"
               :value="unitInstance.rarity"
@@ -193,7 +226,7 @@
               />
             </VeeField>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="6">
             <VeeField
               v-slot="{ handleChange, errors }"
               :value="unitInstance.level"
@@ -213,32 +246,6 @@
                 @update:model-value="
                   ($event) => {
                     updateUnit('level', $event)
-                    handleChange($event)
-                  }
-                "
-              />
-            </VeeField>
-          </v-col>
-          <v-col cols="4">
-            <VeeField
-              v-slot="{ handleChange, errors }"
-              :value="unitInstance.merges"
-              name="merges"
-            >
-              <v-number-input
-                :model-value="unitInstance.merges"
-                :disabled="unit?.is_story"
-                required
-                :min="0"
-                :max="MAX_MERGES"
-                control-variant="stacked"
-                density="compact"
-                hide-details
-                :label="t('scoreCalc.labels.merges')"
-                :error-messages="errors"
-                @update:model-value="
-                  ($event) => {
-                    updateUnit('merges', $event)
                     handleChange($event)
                   }
                 "
