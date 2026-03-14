@@ -28,6 +28,7 @@
     </v-app-bar-title>
 
     <v-spacer v-show="!mobile" />
+
     <DevOnly>
       <v-app-bar-title>
         {{ name }}
@@ -90,6 +91,13 @@
         {{ storeSkillsKeywords.iconToUse }}
       </v-icon>
     </v-btn>
+
+    <v-divider
+      v-show="!mobile"
+      vertical
+      inset
+      class="mx-2 border-opacity-0"
+    />
 
     <v-btn
       v-show="!mobile"
