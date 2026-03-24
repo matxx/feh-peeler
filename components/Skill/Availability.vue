@@ -15,7 +15,6 @@
         is-generic-pool
       />
       <CompoAvailability
-        v-if="availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]"
         :size="tileSize"
         :disabled="!availability.is_in[SPECIAL_SUMMON_POOL]"
         :rarity="
@@ -25,7 +24,6 @@
         is-special-pool
       />
       <CompoAvailability
-        v-if="availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]"
         :size="tileSize"
         :disabled="!availability.is_in[FOCUS_ONLY]"
         :rarity="
