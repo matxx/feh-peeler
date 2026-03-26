@@ -624,6 +624,7 @@ export default {
         abbr: 'HoF',
         name: 'Hall of Forms',
         tooltip: 'filters skills based on version and SP thresholds',
+        tooltipVersion: 'skills up to v{version} are available',
         title: {
           [skillsFilters.HOF_13_20]: 'Chambers 13 to 20',
           [skillsFilters.HOF_21_24]: 'Chambers 21 to 24',

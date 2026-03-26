@@ -709,6 +709,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
 
     isSkillAvailableToUnit,
     isSkillIdAvailableToUnit,
+
+    versionThreshold,
   }
 })
 
