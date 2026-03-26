@@ -1,3 +1,4 @@
+import last from 'lodash-es/last'
 import keyBy from 'lodash-es/keyBy'
 import sumBy from 'lodash-es/sumBy'
 import sortBy from 'lodash-es/sortBy'
@@ -11,7 +12,12 @@ import {
   type GroupedBy,
   type IndexedBy,
 } from '~/utils/functions/typeSafe'
-import getSortableVersion from '~/utils/functions/getSortableVersion'
+import {
+  getSortableVersion,
+  getTrimmedVersion,
+  getPrevVersion,
+  getNextVersion,
+} from '~/utils/functions/sortableVersion'
 import { getSortableName } from '~/utils/functions/skillSortingVector'
 
 import type {
@@ -118,6 +124,23 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     groupBy(refines.value, 'baseId'),
   )
 
+  const currentVersion = computed(() =>
+    skills.value.length === 0
+      ? undefined
+      : getTrimmedVersion(
+          last(sortBy(skills.value.map((s) => s.sortableVersion)))!,
+        ),
+  )
+  const currentVersions = computed(() =>
+    currentVersion.value
+      ? compact([
+          getNextVersion(currentVersion.value),
+          currentVersion.value,
+          getPrevVersion(currentVersion.value),
+        ])
+      : [],
+  )
+
   return {
     isLoading,
     isLoaded,
@@ -139,6 +162,9 @@ export const useStoreDataSkills = defineStore('data/skills', () => {
     refinesByBaseId,
 
     sumSP,
+
+    currentVersion,
+    currentVersions,
   }
 })
 

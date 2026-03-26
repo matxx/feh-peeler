@@ -50,10 +50,12 @@
         hide-details
       >
         <template #label>
-          {{ t('skills.filters.hof.name') }}
+          <span v-tooltip:bottom="t('skills.filters.hof.name')">
+            {{ t('skills.filters.hof.abbr') }}
+          </span>
 
           <v-icon
-            v-tooltip="t('skills.filters.hof.tooltip')"
+            v-tooltip:bottom="t('skills.filters.hof.tooltip')"
             color="info"
             size="x-small"
             class="ml-3"
@@ -91,6 +93,37 @@
                 <v-list-item-title>
                   {{ t(`skills.filters.hof.title.${item}`) }}
                 </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <v-menu location="bottom">
+            <template #activator="{ props }">
+              <v-btn-group
+                v-show="filters.hof === HOF_25 && filters.version !== undefined"
+                color="primary"
+                density="compact"
+                variant="outlined"
+                class="ml-3"
+              >
+                <v-btn
+                  size="small"
+                  class="text-primary"
+                  v-bind="props"
+                >
+                  v{{ filters.version }}
+                </v-btn>
+              </v-btn-group>
+            </template>
+
+            <v-list color="primary">
+              <v-list-item
+                v-for="version in storeDataSkills.currentVersions"
+                :key="version"
+                :value="version"
+                @click="filters.version = version"
+              >
+                <v-list-item-title> v{{ version }} </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -346,6 +379,7 @@ const { t } = useI18n()
 const { mobile } = useDisplay()
 const storeDataConstants = useStoreDataConstants()
 const storeSkillsFilters = useStoreSkillsFilters()
+const storeDataSkills = useStoreDataSkills()
 
 const isHofSelected = ref(!!filters.value && filters.value.hof !== HOF_DISABLED)
 watch(isHofSelected, () => {

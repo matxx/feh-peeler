@@ -3,7 +3,7 @@ import type { ExtendedWeaponType } from '@/utils/types/weapons'
 import type { Availability } from '@/utils/types/units-availabilities'
 import type { IConstants } from '~/utils/types/constants'
 import type { SkillCategory } from './skills'
-import getSortableVersion from '~/utils/functions/getSortableVersion'
+import { getSortableVersion } from '~/utils/functions/sortableVersion'
 
 export const TIER = 'tier'
 export const SP = 'sp'
@@ -18,7 +18,7 @@ export type Stat =
   | typeof RANGE
 export const STATS: Stat[] = [TIER, SP, CD, MIGHT, RANGE]
 
-export const VERSION_8_0 = getSortableVersion('8.0')
+export const SORTABLE_VERSION_8_0 = getSortableVersion('8.0')
 
 export const HOF_DISABLED = 'DISABLED'
 export const HOF_13_20 = '13_20'
@@ -52,6 +52,7 @@ export interface IFilters {
   }
 
   hof: HoFChamber
+  version: string | undefined
 
   availabilities: Set<Availability>
   preInheritance: Set<Availability>
@@ -63,7 +64,10 @@ export interface IFilters {
   stats: ISkillStatMinMax
 }
 
-export const createFilters = (stats: ISkillStatMinMax): IFilters => ({
+export const createFilters = (
+  stats: ISkillStatMinMax,
+  version?: string,
+): IFilters => ({
   name: null,
   description: null,
 
@@ -76,6 +80,7 @@ export const createFilters = (stats: ISkillStatMinMax): IFilters => ({
   },
 
   hof: HOF_DISABLED,
+  version,
 
   availabilities: new Set(),
   preInheritance: new Set(),

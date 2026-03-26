@@ -101,9 +101,10 @@ watch(
 )
 
 const storeGlobals = useStoreGlobals()
+const storeDataSkills = useStoreDataSkills()
 
 const { isLoading } = useDataStores([
-  useStoreDataSkills(),
+  storeDataSkills,
   useStoreDataSkillsAvailabilities(),
 ])
 
@@ -114,6 +115,17 @@ const sizeFilters = 20
 
 const storeSkillsFilters = useStoreSkillsFilters()
 const { filters, sorters } = storeToRefs(storeSkillsFilters)
+
+// update version filter when skills are loaded
+watch(
+  () => storeDataSkills.isLoaded,
+  (val) => {
+    if (!val) return
+
+    filters.value.version = storeDataSkills.currentVersion
+  },
+  { immediate: true },
+)
 
 const showSorters = false
 // const route = useRoute()

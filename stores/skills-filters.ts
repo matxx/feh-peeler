@@ -28,7 +28,7 @@ import {
   HOF_13_20,
   HOF_21_24,
   HOF_25,
-  VERSION_8_0,
+  SORTABLE_VERSION_8_0,
   type IFilters,
 } from '~/utils/types/skills-filters'
 import {
@@ -58,12 +58,17 @@ import {
   type ISkill,
   type ISkillData,
   type IRestrictions,
+  SKILL_WEAPON,
 } from '~/utils/types/skills'
 import type { IUnitData } from '~/utils/types/units'
 import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
 import * as w from '~/utils/types/weapons'
 import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
+import {
+  getPrevVersion,
+  getSortableVersion,
+} from '~/utils/functions/sortableVersion'
 
 const filterIsPrf = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isPrf, s.is_prf)
@@ -72,28 +77,33 @@ const filterIsMax = (filters: IFilters, s: ISkill) =>
 const filterIsArcane = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isArcane, s.is_arcane)
 
-const filterHoF = (filters: IFilters, s: ISkill) => {
+const filterHoF = (
+  filters: IFilters,
+  s: ISkill,
+  versionThreshold: string | undefined,
+) => {
+  if (filters.hof === HOF_DISABLED) return true
+
+  if (s.is_prf) return false
+  if (versionThreshold && s.sortableVersion > versionThreshold) return false
+  if (s.category === SKILL_WEAPON && !!s.upgrade_ids) return false
+
   switch (filters.hof) {
     case HOF_13_20:
       return (
-        !s.is_prf &&
-        (!SKILL_PASSIVE_ABC.includes(s.category) || s.sp >= 240) &&
-        true
+        (SKILL_PASSIVE_ABC.includes(s.category) ? s.sp >= 240 : true) && true
       )
     case HOF_21_24:
       return (
-        !s.is_prf &&
-        (!SKILL_PASSIVE_ABC.includes(s.category) || s.sp >= 300) && // special >= 200 sp ?
+        (SKILL_PASSIVE_ABC.includes(s.category) ? s.sp >= 300 : true) && // special >= 200 sp ?
         true
       )
     case HOF_25:
       return (
-        !s.is_prf &&
-        (!SKILL_PASSIVE_ABC.includes(s.category) || s.sp >= 300) &&
-        s.sortableVersion >= VERSION_8_0 &&
+        (SKILL_PASSIVE_ABC.includes(s.category) ? s.sp >= 300 : true) &&
+        s.sortableVersion >= SORTABLE_VERSION_8_0 &&
         true
       )
-    case HOF_DISABLED:
     default:
       return true
   }
@@ -179,6 +189,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   function getNewFilters() {
     return createFilters(
       getDefaultSkillStatsMinMax(storeDataConstants.constants),
+      storeDataSkills.currentVersion,
     )
   }
   function resetFilters() {
@@ -524,6 +535,16 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     errorMessages: searchDescriptionErrorMessages,
   } = useSearch(searchDescriptionText)
 
+  const versionPrevious = computed(
+    () => filters.value.version && getPrevVersion(filters.value.version),
+  )
+  const versionThreshold = computed(
+    () => versionPrevious.value && getPrevVersion(versionPrevious.value),
+  )
+  const sortableVersionThreshold = computed(
+    () => versionThreshold.value && getSortableVersion(versionThreshold.value),
+  )
+
   const filterSkills = (skills: ISkill[]) =>
     flow(
       // @ts-expect-error unsafe typings
@@ -543,7 +564,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         ),
       ),
       // @ts-expect-error unsafe typings
-      f(filter, (s: ISkill) => filterHoF(filters.value, s)),
+      f(filter, (s: ISkill) =>
+        filterHoF(filters.value, s, sortableVersionThreshold.value),
+      ),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterAvailability(filters.value, s)),
       // @ts-expect-error unsafe typings
