@@ -417,6 +417,7 @@ export default {
     skillName: 'Skill name',
     availability: 'Availability',
     preInheritance: 'Pre-Inheritance',
+    canUse: 'Can use',
     totals: 'Totals',
     explanationOnSpecial:
       'Not counted in totals : this special is not 5★ locked',

@@ -7,6 +7,10 @@
           <th>
             {{ t('unitsFodder.skillName') }}
           </th>
+
+          <th>
+            {{ t('unitsFodder.canUse') }}
+          </th>
           <th>
             {{ t('unitsFodder.availability') }}
           </th>
@@ -49,6 +53,13 @@
                 {{ skill.name }}
               </NuxtLink>
             </th>
+
+            <td>
+              <SkillRestrictions
+                :skill="skill"
+                :size="size"
+              />
+            </td>
             <td>
               <SkillAvailability
                 v-if="!skill.is_prf"
