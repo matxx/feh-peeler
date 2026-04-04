@@ -54,7 +54,7 @@
     "uuid": "^13.0.0",
     "vee-validate": "^4.15.1",
     "vue-virtual-scroller": "^2.0.0-beta.8",
-    "wrangler": "^4.63.0",
+    "wrangler": "^4.75.0",
     "zod": "^3.25.48"
   },
   "overrides": {
