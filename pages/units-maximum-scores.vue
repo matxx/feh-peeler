@@ -1,39 +1,5 @@
 <template>
   <div>
-    <v-alert
-      type="warning"
-      border="start"
-      variant="tonal"
-      class="mb-3"
-    >
-      {{ t('scores.alertAboutBPremiumSkills.line1') }}
-      <br />
-      {{ t('scores.alertAboutBPremiumSkills.line2') }}
-    </v-alert>
-
-    <div class="d-flex align-center mb-3">
-      <div>
-        {{ t('global.inpiredBy') }}
-        <!-- eslint-disable vue/html-closing-bracket-newline -->
-        <a
-          href="https://www.reddit.com/user/TiniestManatee/"
-          target="_blank"
-          class="text-decoration-none"
-        >
-          @TiniestManatee</a
-        >
-        Reddit
-        <!-- eslint-enable vue/html-closing-bracket-newline -->
-        <a
-          href="https://www.reddit.com/r/FireEmblemHeroes/comments/1h1ct31/f2p_arena_scoring_options_up_to_november_27_2024/"
-          target="_blank"
-          class="text-decoration-none"
-        >
-          {{ t('global.post') }}
-        </a>
-      </div>
-    </div>
-
     <div ref="mobile-units-filter-name" />
 
     <div class="scores__line">
@@ -116,32 +82,6 @@
           >
             <ul class="pl-5">
               <li>
-                Units with PRF weapon +
-                <a
-                  :href="l('Category:Duel Passives' as FandomId)"
-                  target="_blank"
-                  class="text-decoration-none"
-                >
-                  Duel (A Passive)
-                </a>
-                +
-                <a
-                  :href="l('Passives#List of B Passives' as FandomId)"
-                  target="_blank"
-                  class="text-decoration-none"
-                >
-                  400SP B Passive
-                </a>
-                +
-                <a
-                  :href="l('Sacred Seals' as FandomId)"
-                  target="_blank"
-                  class="text-decoration-none"
-                >
-                  240 SP seal
-                </a>
-              </li>
-              <li>
                 Units without PRF weapon +
                 <a
                   :href="l('Category:Duel Passives' as FandomId)"
@@ -166,6 +106,33 @@
                 >
                   300 SP seal
                 </a>
+              </li>
+              <li>
+                Units with PRF weapon +
+                <a
+                  :href="l('Category:Duel Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  Duel (A Passive)
+                </a>
+                +
+                <a
+                  :href="l('Passives#List of B Passives' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  400SP B Passive
+                </a>
+                +
+                <a
+                  :href="l('Sacred Seals' as FandomId)"
+                  target="_blank"
+                  class="text-decoration-none"
+                >
+                  240 SP seal
+                </a>
+                (only applicable to beasts now)
               </li>
             </ul>
           </v-alert>
@@ -205,6 +172,7 @@
                 >
                   240 SP seal
                 </a>
+                (only applicable to beasts now)
               </li>
             </ul>
           </v-alert>
@@ -212,6 +180,29 @@
       </div>
 
       <v-divider />
+    </div>
+
+    <div class="d-flex align-center mt-5">
+      <div>
+        * {{ t('global.inpiredBy') }}
+        <!-- eslint-disable vue/html-closing-bracket-newline -->
+        <a
+          href="https://www.reddit.com/user/TiniestManatee/"
+          target="_blank"
+          class="text-decoration-none"
+        >
+          @TiniestManatee</a
+        >
+        Reddit
+        <!-- eslint-enable vue/html-closing-bracket-newline -->
+        <a
+          href="https://www.reddit.com/r/FireEmblemHeroes/comments/1h1ct31/f2p_arena_scoring_options_up_to_november_27_2024/"
+          target="_blank"
+          class="text-decoration-none"
+        >
+          {{ t('global.post') }}
+        </a>
+      </div>
     </div>
   </div>
 </template>

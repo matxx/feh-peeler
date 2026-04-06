@@ -328,15 +328,6 @@ export default {
       score: 'Score',
       units: 'Units',
     },
-    alertAboutBPremiumSkills: {
-      line1: `
-        All units can now inherit 400SP B passives
-        (Conjuring Breath, Execution Breath, Preempt Amplify, ...)
-      `,
-      line2: `
-        But those are premium, rare skills. Not using them will just reduce your score by 2.
-      `,
-    },
   },
 
   home: {
