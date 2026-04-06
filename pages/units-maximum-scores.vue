@@ -182,7 +182,10 @@
       <v-divider />
     </div>
 
-    <div class="d-flex align-center mt-5">
+    <div
+      v-if="storeDataUnits.isLoaded"
+      class="d-flex align-center mt-5"
+    >
       <div>
         * {{ t('global.inpiredBy') }}
         <!-- eslint-disable vue/html-closing-bracket-newline -->
