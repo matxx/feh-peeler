@@ -8,7 +8,13 @@
         :rarity="rarity"
       >
         <template #kind>
-          <v-img :src="image" />
+          <v-img
+            :src="image"
+            :class="{
+              'filter-grayscale-1': disabled,
+              'opacity-50': disabled,
+            }"
+          />
         </template>
       </CompoAvailabilityLayout>
     </template>

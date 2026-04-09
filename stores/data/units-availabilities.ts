@@ -26,7 +26,7 @@ import {
   FOCUS_ONLY,
 } from '@/utils/types/obfuscated-keys'
 import type { IndexedBy } from '~/utils/functions/typeSafe'
-import type { IHeroicGrail } from '~/utils/types/units-heroicGrails'
+// import type { IHeroicGrail } from '~/utils/types/units-heroicGrails'
 
 export const useStoreDataUnitsAvailabilities = defineStore(
   'data/units-availabilities',
@@ -102,7 +102,7 @@ export const useStoreDataUnitsAvailabilities = defineStore(
 
     function getUnitMinimumObtainableIntegerRarity(
       id: UnitId,
-      hg?: IHeroicGrail,
+      // hg?: IHeroicGrail,
     ) {
       const availability = availabilitiesById.value[id]
       if (!availability) return
@@ -126,8 +126,12 @@ export const useStoreDataUnitsAvailabilities = defineStore(
       if (availability.is_in[FOCUS_ONLY]) {
         availabilities.push(5)
       }
-      if (availability.is_in[HEROIC_GRAILS] && hg) {
-        availabilities.push(hg.rarity)
+      if (availability.is_in[HEROIC_GRAILS]) {
+        // if (hg) {
+        //   availabilities.push(hg.rarity)
+        // } else {
+        availabilities.push(availability.lowest_rarity[HEROIC_GRAILS])
+        // }
       }
 
       return min(availabilities)

@@ -1,20 +1,23 @@
 <template>
   <v-tooltip :location="tooltipLocation">
     <template #activator="{ props: tooltipProps }">
-      <v-sheet
+      <CompoAvailabilityLayoutInverse
         v-bind="tooltipProps"
-        :height="size"
-        :width="size"
-        color="transparent"
+        :disabled="disabled"
+        :size="size"
+        :rarity="rarity"
+        :show-rarity="showRarity"
       >
-        <v-img
-          src="assets/icons/fodder/heroic_grail.png"
-          :class="{
-            'filter-grayscale-1': disabled,
-            'opacity-50': disabled,
-          }"
-        />
-      </v-sheet>
+        <template #kind>
+          <v-img
+            src="assets/icons/fodder/heroic_grail.png"
+            :class="{
+              'filter-grayscale-1': disabled,
+              'opacity-50': disabled,
+            }"
+          />
+        </template>
+      </CompoAvailabilityLayoutInverse>
     </template>
 
     {{ t('skillsOwners.availability.heroicGrails') }}
@@ -26,11 +29,15 @@ import type { Anchor } from 'vuetify'
 const { t } = useI18n()
 withDefaults(
   defineProps<{
+    rarity?: number
+    showRarity?: boolean
     size: number
     disabled?: boolean
     tooltipLocation?: Anchor
   }>(),
   {
+    rarity: undefined,
+    showRarity: false,
     disabled: false,
     tooltipLocation: 'top',
   },

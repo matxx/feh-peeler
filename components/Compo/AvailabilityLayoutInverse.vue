@@ -5,19 +5,19 @@
     class="availability"
     color="transparent"
   >
-    <div class="availability__sub">
+    <div class="availability__main">
       <slot name="kind" />
     </div>
 
-    <div class="availability__main">
+    <div class="availability__sub">
       <AppIconRarity
         v-if="rarity"
         :rarity="rarity"
-        :size="`${mainSize}px`"
+        :size="`${subSize}px`"
         :class="{ 'filter-grayscale-1': disabled }"
       />
       <v-img
-        v-else
+        v-else-if="showRarity"
         src="assets/icons/fodder/5stars-off.png"
         class="opacity-50"
       />
@@ -31,19 +31,21 @@ const props = withDefaults(
     disabled?: boolean
     rarity?: number
     size: number
+    showRarity?: boolean
   }>(),
   {
     disabled: false,
     rarity: undefined,
+    showRarity: false,
   },
 )
 
-const mainRatio = 3 / 4
-const mainSize = computed(() => props.size * mainRatio)
-const mainSizePercent = computed(() => `${100 * mainRatio}%`)
+const mainRatio = 1
+// const mainSize = computed(() => props.size * mainRatio)
+const mainPercent = computed(() => `${100 * mainRatio}%`)
 
 const subRatio = 1 / 2
-// const subSize = computed(() => props.size * subRatio)
+const subSize = computed(() => props.size * subRatio)
 const subSizePercent = computed(() => `${100 * subRatio}%`)
 </script>
 
@@ -56,8 +58,8 @@ const subSizePercent = computed(() => `${100 * subRatio}%`)
 .availability__main {
   @include mixins.pos-abso-center;
 
-  width: v-bind('mainSizePercent');
-  height: v-bind('mainSizePercent');
+  width: v-bind('mainPercent');
+  height: v-bind('mainPercent');
 
   display: flex;
   justify-content: center;

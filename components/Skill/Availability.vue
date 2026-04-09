@@ -36,6 +36,11 @@
       <CompoHeroicGrails
         :disabled="!availability.is_in[HEROIC_GRAILS]"
         :size="tileSize"
+        :rarity="
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED] &&
+          availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![HEROIC_GRAILS]
+        "
+        show-rarity
       />
 
       <CompoDivineCodes

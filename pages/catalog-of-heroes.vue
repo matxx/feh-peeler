@@ -357,7 +357,7 @@
                 :rarity="
                   storeDataUnitsAvailabilities.getUnitMinimumObtainableIntegerRarity(
                     unit.id,
-                    storeDataUnitsHeroicGrails.byId[unit.id],
+                    // storeDataUnitsHeroicGrails.byId[unit.id],
                   )
                 "
                 :frame-size="frameSize"
@@ -452,7 +452,7 @@
                 :rarity="
                   storeDataUnitsAvailabilities.getUnitMinimumObtainableIntegerRarity(
                     unit.id,
-                    storeDataUnitsHeroicGrails.byId[unit.id],
+                    // storeDataUnitsHeroicGrails.byId[unit.id],
                   )
                 "
                 :frame-size="frameSize"
