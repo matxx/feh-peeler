@@ -421,27 +421,39 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     const availability = storeDataSkillsAvailabilities.availabilitiesById[s.id]
     if (!availability) return false
 
-    if (
-      availability.is_in[HEROIC_GRAILS] &&
-      availabilities.has(a.AV_HEROIC_GRAILS)
-    ) {
-      return true
+    // if (
+    //   availability.is_in[HEROIC_GRAILS] &&
+    //   availabilities.has(a.U_AV_HEROIC_GRAILS)
+    // ) {
+    //   return true
+    // }
+    if (availability.is_in[HEROIC_GRAILS]) {
+      switch (availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![HEROIC_GRAILS]) {
+        case 4:
+          if (availabilities.has(a.U_AV_HEROIC_GRAILS_4)) return true
+          break
+        case 5:
+          if (availabilities.has(a.U_AV_HEROIC_GRAILS_5)) return true
+          break
+      }
     }
+
     // if (
     //   availability.is_in[LIMITED_DIVINE_CODES] &&
-    //   availabilities.has(a.AV_LIMITED_DIVINE_CODES)
+    //   availabilities.has(a.U_AV_LIMITED_DIVINE_CODES)
     // ) {
     //   return true
     // }
     // if (
     //   availability.is_in[NORMAL_DIVINE_CODES] &&
-    //   availabilities.has(a.AV_NORMAL_DIVINE_CODES)
+    //   availabilities.has(a.U_AV_NORMAL_DIVINE_CODES)
     // ) {
     //   return true
     // }
+
     if (
       availability.is_in[FOCUS_ONLY] &&
-      availabilities.has(a.AV_LIMITED_HEROES)
+      availabilities.has(a.U_AV_LIMITED_HEROES)
     ) {
       return true
     }
@@ -452,13 +464,13 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       ) {
         case 3:
         case 4:
-          if (availabilities.has(a.AV_GENERIC_POOL_3_4)) return true
+          if (availabilities.has(a.U_AV_GENERIC_POOL_3_4)) return true
           break
         case 4.5:
-          if (availabilities.has(a.AV_GENERIC_POOL_45)) return true
+          if (availabilities.has(a.U_AV_GENERIC_POOL_45)) return true
           break
         case 5:
-          if (availabilities.has(a.AV_GENERIC_POOL_5)) return true
+          if (availabilities.has(a.U_AV_GENERIC_POOL_5)) return true
       }
     }
 
@@ -467,13 +479,13 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
         availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![SPECIAL_SUMMON_POOL]
       ) {
         case 4:
-          if (availabilities.has(a.AV_SPECIAL_POOL_4)) return true
+          if (availabilities.has(a.U_AV_SPECIAL_POOL_4)) return true
           break
         case 4.5:
-          if (availabilities.has(a.AV_SPECIAL_POOL_45)) return true
+          if (availabilities.has(a.U_AV_SPECIAL_POOL_45)) return true
           break
         case 5:
-          if (availabilities.has(a.AV_SPECIAL_POOL_5)) return true
+          if (availabilities.has(a.U_AV_SPECIAL_POOL_5)) return true
       }
     }
 

@@ -144,7 +144,7 @@
                 :key="availability"
               >
                 <th>
-                  <div v-if="availability === AV_OTHER">
+                  <div v-if="availability === U_AV_OTHER">
                     Other
                     <sup v-tooltip="t('catalogOfHeroes.other')">
                       <v-icon color="info"> mdi-information-outline </v-icon>
@@ -164,6 +164,7 @@
                   <AppLink
                     :disabled="
                       isLoading ||
+                      !allUnitsCountByWeaponColorByAvailability[availability] ||
                       !allUnitsCountByWeaponColorByAvailability[availability][
                         color
                       ]
@@ -182,9 +183,13 @@
                     {{
                       isLoading
                         ? t('global.NA')
-                        : allUnitsCountByWeaponColorByAvailability[
+                        : (allUnitsCountByWeaponColorByAvailability[
                             availability
-                          ][color] || 0
+                          ] &&
+                            allUnitsCountByWeaponColorByAvailability[
+                              availability
+                            ][color]) ||
+                          0
                     }}
                   </AppLink>
                 </td>
@@ -484,7 +489,7 @@ import {
 } from '~/utils/types/units'
 import {
   SORTED_AVAILABILITIES,
-  AV_OTHER,
+  U_AV_OTHER,
   type Availability,
 } from '~/utils/types/units-availabilities'
 import { SORTED_WEAPON_COLORS, type WeaponColor } from '~/utils/types/weapons'

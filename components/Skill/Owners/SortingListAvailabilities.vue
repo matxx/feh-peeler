@@ -8,13 +8,23 @@
         class="d-flex align-center mb-2"
       >
         <div>
-          <CompoHeroicGrails
-            v-if="availabilty === availabilties.AV_SCORE_HEROIC_GRAILS"
+          <!-- <CompoHeroicGrails
+            v-if="availabilty === availabilties.U_AV_SCORE_HEROIC_GRAILS"
             :size="tileSize"
+          /> -->
+          <CompoHeroicGrails
+            v-if="availabilty === availabilties.U_AV_SCORE_HEROIC_GRAILS_4"
+            :size="tileSize"
+            :rarity="4"
+          />
+          <CompoHeroicGrails
+            v-if="availabilty === availabilties.U_AV_SCORE_HEROIC_GRAILS_5"
+            :size="tileSize"
+            :rarity="5"
           />
 
           <div
-            v-if="availabilty === availabilties.AV_SCORE_GENERIC_POOL_3_4"
+            v-if="availabilty === availabilties.U_AV_SCORE_GENERIC_POOL_3_4"
             class="d-flex align-center"
           >
             <CompoAvailability
@@ -30,39 +40,39 @@
           </div>
 
           <CompoAvailability
-            v-if="availabilty === availabilties.AV_SCORE_GENERIC_POOL_45"
+            v-if="availabilty === availabilties.U_AV_SCORE_GENERIC_POOL_45"
             :size="tileSize"
             :rarity="4.5"
             is-generic-pool
           />
           <CompoAvailability
-            v-if="availabilty === availabilties.AV_SCORE_GENERIC_POOL_5"
+            v-if="availabilty === availabilties.U_AV_SCORE_GENERIC_POOL_5"
             :size="tileSize"
             :rarity="5"
             is-generic-pool
           />
 
           <CompoAvailability
-            v-if="availabilty === availabilties.AV_SCORE_SPECIAL_POOL_4"
+            v-if="availabilty === availabilties.U_AV_SCORE_SPECIAL_POOL_4"
             :size="tileSize"
             :rarity="4"
             is-special-pool
           />
           <CompoAvailability
-            v-if="availabilty === availabilties.AV_SCORE_SPECIAL_POOL_45"
+            v-if="availabilty === availabilties.U_AV_SCORE_SPECIAL_POOL_45"
             :size="tileSize"
             :rarity="4.5"
             is-special-pool
           />
           <CompoAvailability
-            v-if="availabilty === availabilties.AV_SCORE_SPECIAL_POOL_5"
+            v-if="availabilty === availabilties.U_AV_SCORE_SPECIAL_POOL_5"
             :size="tileSize"
             :rarity="5"
             is-special-pool
           />
 
           <CompoAvailability
-            v-if="availabilty === availabilties.AV_SCORE_LIMITED_HEROES"
+            v-if="availabilty === availabilties.U_AV_SCORE_LIMITED_HEROES"
             :size="tileSize"
             :rarity="5"
             is-limited-hero

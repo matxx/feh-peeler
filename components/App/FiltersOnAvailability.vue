@@ -18,53 +18,63 @@
         @click="$emit('toggle-availability', availability)"
       >
         <CompoAvailability
-          v-if="availability === a.AV_GENERIC_POOL_3_4"
+          v-if="availability === a.U_AV_GENERIC_POOL_3_4"
           :size="size"
           :rarity="3"
           is-generic-pool
         />
         <CompoAvailability
-          v-if="availability === a.AV_GENERIC_POOL_45"
+          v-if="availability === a.U_AV_GENERIC_POOL_45"
           :size="size"
           :rarity="4.5"
           is-generic-pool
         />
         <CompoAvailability
-          v-if="availability === a.AV_GENERIC_POOL_5"
+          v-if="availability === a.U_AV_GENERIC_POOL_5"
           :size="size"
           :rarity="5"
           is-generic-pool
         />
         <CompoAvailability
-          v-if="availability === a.AV_SPECIAL_POOL_4"
+          v-if="availability === a.U_AV_SPECIAL_POOL_4"
           :size="size"
           :rarity="4"
           is-special-pool
         />
         <CompoAvailability
-          v-if="availability === a.AV_SPECIAL_POOL_45"
+          v-if="availability === a.U_AV_SPECIAL_POOL_45"
           :size="size"
           :rarity="4.5"
           is-special-pool
         />
         <CompoAvailability
-          v-if="availability === a.AV_SPECIAL_POOL_5"
+          v-if="availability === a.U_AV_SPECIAL_POOL_5"
           :size="size"
           :rarity="5"
           is-special-pool
         />
         <CompoAvailability
-          v-if="availability === a.AV_LIMITED_HEROES"
+          v-if="availability === a.U_AV_LIMITED_HEROES"
           :size="size"
           :rarity="5"
           is-limited-hero
         />
-        <CompoHeroicGrails
+        <!-- <CompoHeroicGrails
           v-if="availability === a.AV_HEROIC_GRAILS"
           :size="size"
+        /> -->
+        <CompoHeroicGrails
+          v-if="availability === a.U_AV_HEROIC_GRAILS_4"
+          :size="size"
+          :rarity="4"
+        />
+        <CompoHeroicGrails
+          v-if="availability === a.U_AV_HEROIC_GRAILS_5"
+          :size="size"
+          :rarity="5"
         />
         <!-- <CompoDivineCodes
-          v-if="availability === a.AV_NORMAL_DIVINE_CODES"
+          v-if="availability === a.U_AV_NORMAL_DIVINE_CODES"
           :size="size"
         /> -->
       </v-btn>
