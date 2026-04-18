@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { updateSession } from 'h3'
 
 import getConfig from '~/server/utils/session-config'
 
@@ -27,10 +28,11 @@ export default defineEventHandler(async (event) => {
   const config = getConfig()
   const session = await getSession(event, config)
 
-  const update = session.data
+  const update = { ...session.data }
   update.theme = {
     selected: body.selected,
     applied: body.applied,
   }
+
   await updateSession(event, config, update)
 })

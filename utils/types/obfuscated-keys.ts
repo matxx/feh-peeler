@@ -9,7 +9,7 @@ export const LIMITED_DIVINE_CODES = 'ldc'
 export const FOCUS_ONLY = 'foc'
 
 export const AV_GENERIC_POOL_34 = 'g4'
-// export const AV_HEROIC_GRAILS = 'hg'
+export const AV_HEROIC_GRAILS = 'hg' // deprecated
 export const AV_HEROIC_GRAILS_4 = 'hg4'
 export const AV_HEROIC_GRAILS_5 = 'hg5'
 export const AV_DIVINE_CODES = 'dc'

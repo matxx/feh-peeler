@@ -15,7 +15,7 @@ import {
   type LIMITED_DIVINE_CODES,
   type FOCUS_ONLY,
   AV_GENERIC_POOL_34,
-  // AV_HEROIC_GRAILS,
+  type AV_HEROIC_GRAILS,
   AV_HEROIC_GRAILS_4,
   AV_HEROIC_GRAILS_5,
   AV_DIVINE_CODES,
@@ -26,13 +26,14 @@ import {
 
 export type Availability =
   | typeof AV_GENERIC_POOL_34
-  // | typeof AV_HEROIC_GRAILS
   | typeof AV_HEROIC_GRAILS_4
   | typeof AV_HEROIC_GRAILS_5
   | typeof AV_DIVINE_CODES
   | typeof AV_SPECIAL_POOL_4
   | typeof AV_GENERIC_POOL_45
   | typeof AV_SPECIAL_POOL_45
+
+export type AvailabilityWithDeprecated = Availability | typeof AV_HEROIC_GRAILS
 
 export const AVAILABILITIES: Availability[] = [
   AV_GENERIC_POOL_34,

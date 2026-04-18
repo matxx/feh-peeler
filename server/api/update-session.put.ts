@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { updateSession } from 'h3'
 
 import getConfig from '~/server/utils/session-config'
 import hasOwnProp from '~/utils/functions/hasOwnProp'
@@ -25,8 +26,7 @@ export default defineEventHandler(async (event) => {
   const config = getConfig()
   const session = await getSession(event, config)
 
-  const update = session.data
-
+  const update = { ...session.data }
   if (hasOwnProp(body, 'fodderAvailabilities')) {
     update.fodderAvailabilities = body.fodderAvailabilities
   }
