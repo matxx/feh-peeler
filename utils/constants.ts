@@ -38,15 +38,10 @@ export const ITEMS_PER_PAGE_OPTIONS = [
 
 export const INHERIT_SLOTS = 5
 export const HALL_OF_FORMS_RESOURCES = {
+  // HoF 77
   PM1: null,
-  // PM1: 'https://www.youtube.com/watch?v=uYQ8FVa-IoQ',
-  // FEHOLOGY: null,
-  FEHOLOGY: 'https://www.youtube.com/watch?v=qWjPkzM2ylo',
-  // TACHO: null,
-  TACHO: 'https://www.youtube.com/watch?v=8DubHApIn7M',
+  FEHOLOGY: 'https://www.youtube.com/watch?v=w-yT3623wto',
+  TACHO: 'https://www.youtube.com/watch?v=mGAGxv3FxLs',
   SATACHI: null,
-  // SATACHI: 'https://www.youtube.com/watch?v=RbMUtD7uuM8',
-  // COOLEST_MAGICAL_CAT: null,
-  COOLEST_MAGICAL_CAT:
-    'https://www.reddit.com/r/FireEmblemHeroes/comments/1s3u2ve/recommended_forma_skills_infographic_hall_of/',
+  COOLEST_MAGICAL_CAT: null,
 }
