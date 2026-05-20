@@ -43,6 +43,6 @@ export const HALL_OF_FORMS_RESOURCES = {
   FEHOLOGY: 'https://www.youtube.com/watch?v=d73yhAhBkIA',
   TACHO: 'https://www.youtube.com/watch?v=YFy3zEV7EBc',
   SATACHI: null,
-  // COOLEST_MAGICAL_CAT:
-  //   'https://www.reddit.com/r/FireEmblemHeroes/comments/1ssyy8x/recommended_forma_skills_infographic_hall_of/',
+  COOLEST_MAGICAL_CAT:
+    'https://www.reddit.com/r/FireEmblemHeroes/comments/1tioxxa/recommended_forma_skills_infographic_hall_of/',
 }
