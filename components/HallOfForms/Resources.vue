@@ -1,48 +1,48 @@
 <template>
   <v-alert
-    v-if="HALL_OF_FORMS_RESOURCES"
+    v-if="HALL_OF_FORMS_DETAILS.resources"
     type="info"
     border="start"
     variant="tonal"
   >
     <p>{{ t('hallOfForms.resources.usefullResources') }}:</p>
     <ul>
-      <li v-if="HALL_OF_FORMS_RESOURCES.PM1">
+      <li v-if="HALL_OF_FORMS_DETAILS.resources.PM1">
         <a
-          :href="HALL_OF_FORMS_RESOURCES.PM1"
+          :href="HALL_OF_FORMS_DETAILS.resources.PM1"
           target="_blank"
         >
           @Pheonixmaster1 Youtube {{ t('global.video') }}
         </a>
       </li>
-      <li v-if="HALL_OF_FORMS_RESOURCES.FEHOLOGY">
+      <li v-if="HALL_OF_FORMS_DETAILS.resources.FEHOLOGY">
         <a
-          :href="HALL_OF_FORMS_RESOURCES.FEHOLOGY"
+          :href="HALL_OF_FORMS_DETAILS.resources.FEHOLOGY"
           target="_blank"
         >
           @Fehology Youtube {{ t('global.video') }}
         </a>
       </li>
-      <li v-if="HALL_OF_FORMS_RESOURCES.SATACHI">
+      <li v-if="HALL_OF_FORMS_DETAILS.resources.SATACHI">
         <a
-          :href="HALL_OF_FORMS_RESOURCES.SATACHI"
+          :href="HALL_OF_FORMS_DETAILS.resources.SATACHI"
           target="_blank"
         >
           @SatachiFEH Youtube {{ t('global.video') }}
         </a>
       </li>
-      <li v-if="HALL_OF_FORMS_RESOURCES.TACHO">
+      <li v-if="HALL_OF_FORMS_DETAILS.resources.TACHO">
         <a
-          :href="HALL_OF_FORMS_RESOURCES.TACHO"
+          :href="HALL_OF_FORMS_DETAILS.resources.TACHO"
           target="_blank"
         >
           @TACHO Youtube {{ t('global.video') }}
         </a>
       </li>
 
-      <li v-if="HALL_OF_FORMS_RESOURCES.COOLEST_MAGICAL_CAT">
+      <li v-if="HALL_OF_FORMS_DETAILS.resources.COOLEST_MAGICAL_CAT">
         <a
-          :href="HALL_OF_FORMS_RESOURCES.COOLEST_MAGICAL_CAT"
+          :href="HALL_OF_FORMS_DETAILS.resources.COOLEST_MAGICAL_CAT"
           target="_blank"
         >
           @CoolestMagicalCat Reddit {{ t('global.post') }}
@@ -101,6 +101,6 @@
 </template>
 
 <script setup lang="ts">
-import { HALL_OF_FORMS_RESOURCES } from '~/utils/constants'
+import { HALL_OF_FORMS_DETAILS } from '~/utils/constants'
 const { t } = useI18n()
 </script>

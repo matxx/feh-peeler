@@ -37,12 +37,15 @@ export const ITEMS_PER_PAGE_OPTIONS = [
 // game related
 
 export const INHERIT_SLOTS = 5
-export const HALL_OF_FORMS_RESOURCES = {
-  // HoF 77
-  PM1: null,
-  FEHOLOGY: 'https://www.youtube.com/watch?v=d73yhAhBkIA',
-  TACHO: 'https://www.youtube.com/watch?v=YFy3zEV7EBc',
-  SATACHI: null,
-  COOLEST_MAGICAL_CAT:
-    'https://www.reddit.com/r/FireEmblemHeroes/comments/1tioxxa/recommended_forma_skills_infographic_hall_of/',
+export const HALL_OF_FORMS_DETAILS = {
+  number: 78,
+  is_revival: false,
+  resources: {
+    PM1: 'https://www.youtube.com/watch?v=ZxgIF_8Shkw',
+    FEHOLOGY: 'https://www.youtube.com/watch?v=d73yhAhBkIA',
+    TACHO: 'https://www.youtube.com/watch?v=YFy3zEV7EBc',
+    SATACHI: null,
+    COOLEST_MAGICAL_CAT:
+      'https://www.reddit.com/r/FireEmblemHeroes/comments/1tioxxa/recommended_forma_skills_infographic_hall_of/',
+  },
 }
