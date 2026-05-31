@@ -257,11 +257,217 @@
       </div>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 d-flex align-center">
       <h4>
         {{ t('skills.filters.headers.whoCanInheritOrEquip') }}
       </h4>
+      <v-btn
+        icon
+        size="x-small"
+        variant="text"
+        class="ml-1"
+        @click="canUseModeDialog = true"
+      >
+        <v-icon size="small">mdi-cog</v-icon>
+      </v-btn>
     </div>
+
+    <v-dialog
+      v-model="canUseModeDialog"
+      max-width="450"
+    >
+      <v-card>
+        <v-card-title>
+          {{ t('skills.filters.canUseMode.title') }}
+          <v-btn
+            icon
+            size="small"
+            variant="text"
+            class="float-right"
+            @click="canUseModeDialog = false"
+          >
+            <v-icon> mdi-close </v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <div class="mb-3">
+            <div class="d-flex align-center">
+              <span
+                class="text-body-2"
+                style="width: 110px"
+              >
+                {{ t('skills.filters.canUseMode.moveTypes') }}:
+              </span>
+              <v-switch
+                v-if="filters"
+                v-model="filters.canUseMode.moves"
+                :true-value="CAN_USE_INTERSECTION"
+                :false-value="CAN_USE_UNION"
+                :label="
+                  filters.canUseMode.moves === CAN_USE_INTERSECTION
+                    ? t('skills.filters.canUseMode.intersection')
+                    : t('skills.filters.canUseMode.union')
+                "
+                color="primary"
+                density="compact"
+                hide-details
+                class="ml-2 flex-grow-0"
+              />
+            </div>
+            <div
+              v-if="filters"
+              class="d-flex align-center ga-1 mt-2 text-caption text-medium-emphasis"
+            >
+              <v-btn-group
+                density="compact"
+                color="primary"
+                variant="outlined"
+                class="pointer-events-none mr-2"
+              >
+                <v-btn
+                  size="x-small"
+                  :active="false"
+                >
+                  <AppIconMoveType
+                    :move-type="MOVE_I"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+                <v-btn
+                  size="x-small"
+                  :active="false"
+                >
+                  <AppIconMoveType
+                    :move-type="MOVE_A"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+                <v-btn
+                  size="x-small"
+                  :active="true"
+                >
+                  <AppIconMoveType
+                    :move-type="MOVE_C"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+                <v-btn
+                  size="x-small"
+                  :active="true"
+                >
+                  <AppIconMoveType
+                    :move-type="MOVE_F"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+              </v-btn-group>
+
+              {{ t('skills.filters.canUseMode.examplePrefix') }}
+              <AppIconMoveType
+                :move-type="MOVE_C"
+                :size="EXAMPLE_ICON_SIZE"
+              />
+              {{
+                filters.canUseMode.moves === CAN_USE_INTERSECTION
+                  ? t('skills.filters.canUseMode.and')
+                  : t('skills.filters.canUseMode.or')
+              }}
+              <AppIconMoveType
+                :move-type="MOVE_F"
+                :size="EXAMPLE_ICON_SIZE"
+              />
+            </div>
+          </div>
+          <div>
+            <div class="d-flex align-center">
+              <span
+                class="text-body-2"
+                style="width: 110px"
+              >
+                {{ t('skills.filters.canUseMode.weaponTypes') }}:
+              </span>
+              <v-switch
+                v-if="filters"
+                v-model="filters.canUseMode.weapons"
+                :true-value="CAN_USE_INTERSECTION"
+                :false-value="CAN_USE_UNION"
+                :label="
+                  filters.canUseMode.weapons === CAN_USE_INTERSECTION
+                    ? t('skills.filters.canUseMode.intersection')
+                    : t('skills.filters.canUseMode.union')
+                "
+                color="primary"
+                density="compact"
+                hide-details
+                class="ml-2 flex-grow-0"
+              />
+            </div>
+            <div
+              v-if="filters"
+              class="d-flex align-center ga-1 mt-2 text-caption text-medium-emphasis"
+            >
+              <v-btn-group
+                density="compact"
+                color="primary"
+                variant="outlined"
+                class="pointer-events-none mr-2"
+              >
+                <v-btn
+                  size="x-small"
+                  :active="true"
+                >
+                  <AppIconWeaponType
+                    :weapon-type="WEAPON_R_SW"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+                <v-btn
+                  size="x-small"
+                  :active="true"
+                >
+                  <AppIconWeaponType
+                    :weapon-type="WEAPON_B_LA"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+                <v-btn
+                  size="x-small"
+                  :active="false"
+                >
+                  <AppIconWeaponType
+                    :weapon-type="WEAPON_G_AX"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+                <v-btn
+                  size="x-small"
+                  :active="false"
+                >
+                  <AppIconWeaponType
+                    :weapon-type="WEAPON_C_ST"
+                    :size="EXAMPLE_ICON_SIZE"
+                  />
+                </v-btn>
+              </v-btn-group>
+              {{ t('skills.filters.canUseMode.examplePrefix') }}
+              <AppIconWeaponType
+                :weapon-type="WEAPON_R_SW"
+                :size="EXAMPLE_ICON_SIZE"
+              />
+              {{
+                filters.canUseMode.weapons === CAN_USE_INTERSECTION
+                  ? t('skills.filters.canUseMode.and')
+                  : t('skills.filters.canUseMode.or')
+              }}
+              <AppIconWeaponType
+                :weapon-type="WEAPON_B_LA"
+                :size="EXAMPLE_ICON_SIZE"
+              />
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <div class="mt-1">
       <v-btn-group
@@ -359,11 +565,24 @@ import {
   HOF_FILTER_LIST,
   HOF_DISABLED,
   HOF_25,
+  CAN_USE_UNION,
+  CAN_USE_INTERSECTION,
   type IFilters,
 } from '~/utils/types/skills-filters'
-import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
+import {
+  SORTED_MOVE_TYPES,
+  MOVE_I,
+  MOVE_A,
+  MOVE_C,
+  MOVE_F,
+  type MoveType,
+} from '~/utils/types/moves'
 import {
   WEAPONS_FOR_SKILLS_FILTERS,
+  WEAPON_R_SW,
+  WEAPON_B_LA,
+  WEAPON_G_AX,
+  WEAPON_C_ST,
   type ExtendedWeaponType,
 } from '@/utils/types/weapons'
 import type { Availability } from '~/utils/types/units-availabilities'
@@ -375,6 +594,7 @@ import { cycleState } from '~/utils/functions/cycleState'
 import { iconForBool } from '~/utils/functions/iconFor'
 
 const SIZE = 24
+const EXAMPLE_ICON_SIZE = 18
 
 const filters = defineModel<IFilters>('filters')
 defineProps<{
@@ -385,6 +605,8 @@ const { mobile } = useDisplay()
 const storeDataConstants = useStoreDataConstants()
 const storeSkillsFilters = useStoreSkillsFilters()
 const storeDataSkills = useStoreDataSkills()
+
+const canUseModeDialog = ref(false)
 
 const isHofSelected = ref(!!filters.value && filters.value.hof !== HOF_DISABLED)
 watch(isHofSelected, () => {

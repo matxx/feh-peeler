@@ -29,6 +29,7 @@ import {
   HOF_21_24,
   HOF_25,
   SORTABLE_VERSION_8_0,
+  CAN_USE_INTERSECTION,
   type IFilters,
 } from '~/utils/types/skills-filters'
 import {
@@ -287,115 +288,109 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     return false
   }
 
-  function filterCanUseMoveType(filters: IFilters, s: ISkill) {
-    if (!isFilterActiveOnCanUseMoves.value) return true
-
+  function filterCanUseMoveType(moveType: MoveType, s: ISkill) {
     if (s.is_prf) return false
     if (!s.restrictions) return true
     if (s.restrictions.moves.none) return true
 
     if (s.restrictions.moves.can_use) {
-      return !new Set(s.restrictions.moves.can_use).isDisjointFrom(
-        filters.canUse.moves,
-      )
+      return s.restrictions.moves.can_use.includes(moveType)
     }
     if (s.restrictions.moves.can_not_use) {
-      return new Set(s.restrictions.moves.can_not_use).isDisjointFrom(
-        filters.canUse.moves,
-      )
+      return !s.restrictions.moves.can_not_use.includes(moveType)
     }
 
     return false
   }
 
-  function filterCanUseWeaponType(filters: IFilters, s: ISkill) {
-    if (!isFilterActiveOnCanUseWeapons.value) return true
-
+  function filterCanUseWeaponType(weaponType: ExtendedWeaponType, s: ISkill) {
     if (s.is_prf) return false
     if (!s.restrictions) return true
     if (s.restrictions.weapons.none) return true
 
     if (s.restrictions.weapons.can_use) {
       const canUse = new Set(s.restrictions.weapons.can_use)
-      if (filters.canUse.weapons.has(w.WEAPON_R_SW)) {
-        return canUse.has(w.WEAPON_R_SW) || canUse.has(w.WEAPON_A_ME)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_B_LA)) {
-        return canUse.has(w.WEAPON_B_LA) || canUse.has(w.WEAPON_A_ME)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_G_AX)) {
-        return canUse.has(w.WEAPON_G_AX) || canUse.has(w.WEAPON_A_ME)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_C_ST)) {
-        return canUse.has(w.WEAPON_C_ST)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_R_TO)) {
-        return canUse.has(w.WEAPON_R_TO) || canUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_B_TO)) {
-        return canUse.has(w.WEAPON_B_TO) || canUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_G_TO)) {
-        return canUse.has(w.WEAPON_G_TO) || canUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_C_TO)) {
-        return canUse.has(w.WEAPON_C_TO) || canUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_BO)) {
-        return canUse.has(w.WEAPON_A_BO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_DA)) {
-        return canUse.has(w.WEAPON_A_DA)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_BR)) {
-        return canUse.has(w.WEAPON_A_BR)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_BE)) {
-        return canUse.has(w.WEAPON_A_BE)
+      switch (weaponType) {
+        case w.WEAPON_R_SW:
+          return canUse.has(w.WEAPON_R_SW) || canUse.has(w.WEAPON_A_ME)
+        case w.WEAPON_B_LA:
+          return canUse.has(w.WEAPON_B_LA) || canUse.has(w.WEAPON_A_ME)
+        case w.WEAPON_G_AX:
+          return canUse.has(w.WEAPON_G_AX) || canUse.has(w.WEAPON_A_ME)
+        case w.WEAPON_C_ST:
+          return canUse.has(w.WEAPON_C_ST)
+        case w.WEAPON_R_TO:
+          return canUse.has(w.WEAPON_R_TO) || canUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_B_TO:
+          return canUse.has(w.WEAPON_B_TO) || canUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_G_TO:
+          return canUse.has(w.WEAPON_G_TO) || canUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_C_TO:
+          return canUse.has(w.WEAPON_C_TO) || canUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_A_BO:
+          return canUse.has(w.WEAPON_A_BO)
+        case w.WEAPON_A_DA:
+          return canUse.has(w.WEAPON_A_DA)
+        case w.WEAPON_A_BR:
+          return canUse.has(w.WEAPON_A_BR)
+        case w.WEAPON_A_BE:
+          return canUse.has(w.WEAPON_A_BE)
+        default:
+          return false
       }
     }
 
     if (s.restrictions.weapons.can_not_use) {
       const canNotUse = new Set(s.restrictions.weapons.can_not_use)
-      if (filters.canUse.weapons.has(w.WEAPON_R_SW)) {
-        return !canNotUse.has(w.WEAPON_R_SW) && !canNotUse.has(w.WEAPON_A_ME)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_B_LA)) {
-        return !canNotUse.has(w.WEAPON_B_LA) && !canNotUse.has(w.WEAPON_A_ME)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_G_AX)) {
-        return !canNotUse.has(w.WEAPON_G_AX) && !canNotUse.has(w.WEAPON_A_ME)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_C_ST)) {
-        return !canNotUse.has(w.WEAPON_C_ST)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_R_TO)) {
-        return !canNotUse.has(w.WEAPON_R_TO) && !canNotUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_B_TO)) {
-        return !canNotUse.has(w.WEAPON_B_TO) && !canNotUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_G_TO)) {
-        return !canNotUse.has(w.WEAPON_G_TO) && !canNotUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_C_TO)) {
-        return !canNotUse.has(w.WEAPON_C_TO) && !canNotUse.has(w.WEAPON_A_TO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_BO)) {
-        return !canNotUse.has(w.WEAPON_A_BO)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_DA)) {
-        return !canNotUse.has(w.WEAPON_A_DA)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_BR)) {
-        return !canNotUse.has(w.WEAPON_A_BR)
-      }
-      if (filters.canUse.weapons.has(w.WEAPON_A_BE)) {
-        return !canNotUse.has(w.WEAPON_A_BE)
+      switch (weaponType) {
+        case w.WEAPON_R_SW:
+          return !canNotUse.has(w.WEAPON_R_SW) && !canNotUse.has(w.WEAPON_A_ME)
+        case w.WEAPON_B_LA:
+          return !canNotUse.has(w.WEAPON_B_LA) && !canNotUse.has(w.WEAPON_A_ME)
+        case w.WEAPON_G_AX:
+          return !canNotUse.has(w.WEAPON_G_AX) && !canNotUse.has(w.WEAPON_A_ME)
+        case w.WEAPON_C_ST:
+          return !canNotUse.has(w.WEAPON_C_ST)
+        case w.WEAPON_R_TO:
+          return !canNotUse.has(w.WEAPON_R_TO) && !canNotUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_B_TO:
+          return !canNotUse.has(w.WEAPON_B_TO) && !canNotUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_G_TO:
+          return !canNotUse.has(w.WEAPON_G_TO) && !canNotUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_C_TO:
+          return !canNotUse.has(w.WEAPON_C_TO) && !canNotUse.has(w.WEAPON_A_TO)
+        case w.WEAPON_A_BO:
+          return !canNotUse.has(w.WEAPON_A_BO)
+        case w.WEAPON_A_DA:
+          return !canNotUse.has(w.WEAPON_A_DA)
+        case w.WEAPON_A_BR:
+          return !canNotUse.has(w.WEAPON_A_BR)
+        case w.WEAPON_A_BE:
+          return !canNotUse.has(w.WEAPON_A_BE)
+        default:
+          return false
       }
     }
 
     return false
+  }
+
+  function filterCanUseMoveTypes(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnCanUseMoves.value) return true
+
+    const moves = [...filters.canUse.moves]
+    return filters.canUseMode.moves === CAN_USE_INTERSECTION
+      ? every(moves, (m) => filterCanUseMoveType(m, s))
+      : some(moves, (m) => filterCanUseMoveType(m, s))
+  }
+
+  function filterCanUseWeaponTypes(filters: IFilters, s: ISkill) {
+    if (!isFilterActiveOnCanUseWeapons.value) return true
+
+    const weapons = [...filters.canUse.weapons]
+    return filters.canUseMode.weapons === CAN_USE_INTERSECTION
+      ? every(weapons, (wt) => filterCanUseWeaponType(wt, s))
+      : some(weapons, (wt) => filterCanUseWeaponType(wt, s))
   }
 
   function filterStats(filters: IFilters, s: ISkill) {
@@ -590,9 +585,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterCategoryAndWeaponType(filters.value, s)),
       // @ts-expect-error unsafe typings
-      f(filter, (s: ISkill) => filterCanUseMoveType(filters.value, s)),
+      f(filter, (s: ISkill) => filterCanUseMoveTypes(filters.value, s)),
       // @ts-expect-error unsafe typings
-      f(filter, (s: ISkill) => filterCanUseWeaponType(filters.value, s)),
+      f(filter, (s: ISkill) => filterCanUseWeaponTypes(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterStats(filters.value, s)),
       // @ts-expect-error unsafe typings

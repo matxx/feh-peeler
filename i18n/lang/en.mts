@@ -609,6 +609,16 @@ export default {
         availability: 'Availability',
         preInheritance: 'Pre-Inheritance',
       },
+      canUseMode: {
+        title: 'Filter mode',
+        moveTypes: 'Move types',
+        weaponTypes: 'Weapon types',
+        union: 'Union',
+        intersection: 'Intersection',
+        examplePrefix: 'displays skills usable by',
+        or: 'or',
+        and: 'and',
+      },
       stats: {
         [skillsFilters.TIER]: 'Tier',
         [skillsFilters.SP]: 'SP',

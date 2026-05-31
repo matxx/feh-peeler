@@ -39,6 +39,10 @@ export type ISkillStatMinMax = {
   [RANGE]: [number, number]
 }
 
+export const CAN_USE_UNION = 'union' as const
+export const CAN_USE_INTERSECTION = 'intersection' as const
+export type CanUseMode = typeof CAN_USE_UNION | typeof CAN_USE_INTERSECTION
+
 export interface IFilters {
   name: string | null
   description: string | null
@@ -49,6 +53,11 @@ export interface IFilters {
   canUse: {
     weapons: Set<ExtendedWeaponType>
     moves: Set<MoveType>
+  }
+
+  canUseMode: {
+    moves: CanUseMode
+    weapons: CanUseMode
   }
 
   hof: HoFChamber
@@ -77,6 +86,11 @@ export const createFilters = (
   canUse: {
     weapons: new Set(),
     moves: new Set(),
+  },
+
+  canUseMode: {
+    moves: CAN_USE_UNION,
+    weapons: CAN_USE_UNION,
   },
 
   hof: HOF_DISABLED,
