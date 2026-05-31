@@ -150,11 +150,8 @@ const route = useRoute()
 const storeTheme = useStoreTheme()
 const storeSearches = useStoreSearches()
 const storeSkillsKeywords = useStoreSkillsKeywords()
-const getRouteBaseName = useRouteBaseName()
 
-const title = computed(() =>
-  t(`home.title.${String(getRouteBaseName(route))}`, route.params),
-)
+const { title } = usePageTitle(t)
 
 const SIZE = 24
 
