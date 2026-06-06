@@ -145,8 +145,8 @@ export interface IUnitData {
   is_chosen?: true
 
   bst: number
-  duel_score: number
-  clash_score: number
+  duel_score?: number
+  clash_score?: number
   // visible_bst: number
   skills_max_sp: number
 

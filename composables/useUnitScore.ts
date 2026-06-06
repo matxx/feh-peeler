@@ -188,11 +188,14 @@ export default function useUnitScore(
   })
   const needsDuelSkill = computed(() => {
     if (!unit.value) return false
-    if (unit.value.is_legendary) {
-      return unit.value.duel_score < DUEL_SKILL_SCORES_TIER4.min
-    }
-    if (unit.value.is_duo) {
-      return unit.value.duel_score < DUEL_SKILL_SCORES_TIER4.max
+
+    if (unit.value.duel_score) {
+      if (unit.value.is_legendary) {
+        return unit.value.duel_score < DUEL_SKILL_SCORES_TIER4.min
+      }
+      if (unit.value.is_duo) {
+        return unit.value.duel_score < DUEL_SKILL_SCORES_TIER4.max
+      }
     }
 
     return maxBst.value < DUEL_SKILL_SCORES_TIER4.max
