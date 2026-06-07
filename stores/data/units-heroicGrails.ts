@@ -31,6 +31,16 @@ export const useStoreDataUnitsHeroicGrails = defineStore(
       keyBy(heroicGrails.value, 'unit_id'),
     )
 
+    function hgAdjustedReleaseDate(hg: hgs.IHeroicGrail) {
+      const dateStr = storeDataUnits.unitsById[hg.unit_id].release_date
+      if (hg.rarity !== 5) return dateStr
+
+      // 5* HG units have been released 3 years ago,
+      // need to adjust the "release date" for that
+      const [year, month, day] = dateStr.split('-')
+      return `${parseInt(year) + 3}-${month}-${day}`
+    }
+
     const heroicGrailsSorted = computed(() => {
       if (!storeDataUnits.isLoaded) return heroicGrails.value
 
@@ -38,18 +48,13 @@ export const useStoreDataUnitsHeroicGrails = defineStore(
         case hgs.SORT_BY_NEWEST:
           return orderBy(
             heroicGrails.value,
-            [
-              'start_time',
-              'rarity',
-              (hg) => storeDataUnits.unitsById[hg.unit_id].release_date,
-            ],
-            ['desc', 'desc', 'desc'],
+            ['start_time', hgAdjustedReleaseDate],
+            ['desc', 'desc'],
           )
         case hgs.SORT_BY_ADDED:
           return orderBy(heroicGrails.value, [
             'start_time',
-            'rarity',
-            (hg) => storeDataUnits.unitsById[hg.unit_id].release_date,
+            hgAdjustedReleaseDate,
           ])
         case hgs.SORT_BY_ORIGIN:
           return orderBy(
