@@ -1,9 +1,12 @@
 <template>
   <v-app>
-    <AppHeader v-model:is-drawer-open="isDrawerOpen" />
+    <AppHeader
+      v-model:is-drawer-open="isDrawerOpen"
+      :class="{ 'v-head--before-mounted': !mounted }"
+    />
     <AppNavigationDrawer v-model:is-open="isDrawerOpen" />
 
-    <v-main :class="{ 'before-mounted': !mounted }">
+    <v-main :class="{ 'v-main--before-mounted': !mounted }">
       <slot />
     </v-main>
 
@@ -33,7 +36,15 @@ onMounted(useStoreGlobals().updateScrollbarSizes)
 
 <style scoped>
 /* MONKEY PATCH: before mounted, padding for header is not set causing some UI shifting to the bottom at mount time */
-.before-mounted {
+.v-main--before-mounted {
   padding-top: 64px;
+}
+
+.v-head--before-mounted {
+  z-index: 1006;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
 }
 </style>
