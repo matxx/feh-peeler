@@ -34,22 +34,10 @@ useHead(() => ({
 onMounted(useStoreGlobals().updateScrollbarSizes)
 </script>
 
+<!-- do not use "scoped" for this, or header/navbar is fucked up during loading -->
 <style lang="scss">
 /* MONKEY PATCH: before mounted, padding for header is not set causing some UI shifting to the bottom at mount time */
 .v-main--before-mounted {
   padding-top: 64px;
-}
-
-.v-head--before-mounted {
-  z-index: 1006;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-
-  &::v-deep .v-toolbar__content {
-    align-items: center;
-    display: flex;
-  }
 }
 </style>
