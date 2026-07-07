@@ -19,6 +19,7 @@ export const THEME_TEA = 'tea'
 export const THEME_THIEVES = 'thieves'
 export const THEME_S12 = 's12'
 export const THEME_NATIONS = 'nations'
+export const THEME_CHEERLEADERS = 'cheerleaders'
 
 export type UnitTheme =
   | typeof THEME_NEW_YEAR
@@ -40,6 +41,7 @@ export type UnitTheme =
   | typeof THEME_THIEVES
   | typeof THEME_S12
   | typeof THEME_NATIONS
+  | typeof THEME_CHEERLEADERS
 
 export const ALL_THEMES: UnitTheme[] = [
   THEME_NEW_YEAR,
@@ -61,4 +63,5 @@ export const ALL_THEMES: UnitTheme[] = [
   THEME_THIEVES,
   THEME_S12,
   THEME_NATIONS,
+  THEME_CHEERLEADERS,
 ]

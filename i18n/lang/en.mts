@@ -546,6 +546,7 @@ export default {
       [unitThemes.THEME_THIEVES]: 'Thieves',
       [unitThemes.THEME_S12]: 'S12',
       [unitThemes.THEME_NATIONS]: 'Nations',
+      [unitThemes.THEME_CHEERLEADERS]: 'Cheerleaders',
     },
   },
 
@@ -707,7 +708,8 @@ export default {
             Gr: 'Groom (males in wedding banners) (banners in mai)',
             Br: 'Bride (females in wedding banners) (banners in mai)',
             // We: 'Wedding (non binary in wedding banners) (banners in mai)',
-            Su: 'Summer (banners in july & august)',
+            Su: 'Summer (banners in june & july)',
+            Ch: 'Cheerleaders (banner in july 2026)',
             HSu: 'Hoshidan Summer (august 2018 & 2024)',
             P: 'Pirate (august 2020 & 2021)',
             Th: 'Thieves (august 2022)',
