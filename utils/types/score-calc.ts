@@ -1,3 +1,4 @@
+import { base64ToJson, jsonToBase64 } from '~/utils/functions/base64'
 import { objectFromEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { SKILL_CATEGORIES, type SkillCategory } from '~/utils/types/skills'
 import {
@@ -96,6 +97,80 @@ export function getEmptyUnitInstanceInScoreCalc(): IUnitInstanceInScoreCalc {
 
     chosenHeroId: null,
     chosenHeroMerges: 0,
+  }
+}
+
+// save/load codes for a single unit ("SCU" = Score Calc Unit) or a full team ("SCT" = Score Calc Team)
+
+export const SCU_CODE_PREFIX = 'SCUv1:'
+export const SCT_CODE_PREFIX = 'SCTv1:'
+
+export type ScoreCalcCodeErrorReason =
+  | 'expectedUnitGotTeam'
+  | 'expectedTeamGotUnit'
+  | 'invalidCode'
+
+export class ScoreCalcCodeError extends Error {
+  reason: ScoreCalcCodeErrorReason
+
+  constructor(reason: ScoreCalcCodeErrorReason) {
+    super(reason)
+    this.reason = reason
+  }
+}
+
+export function encodeUnitInstanceInScoreCalc(
+  unitInstance: IUnitInstanceInScoreCalc,
+): string {
+  return `${SCU_CODE_PREFIX}${jsonToBase64(unitInstance)}`
+}
+
+export function decodeUnitInstanceInScoreCalc(
+  code: string,
+): IUnitInstanceInScoreCalc {
+  if (code.startsWith(SCT_CODE_PREFIX)) {
+    throw new ScoreCalcCodeError('expectedUnitGotTeam')
+  }
+  if (!code.startsWith(SCU_CODE_PREFIX)) {
+    throw new ScoreCalcCodeError('invalidCode')
+  }
+
+  try {
+    return base64ToJson<IUnitInstanceInScoreCalc>(
+      code.slice(SCU_CODE_PREFIX.length),
+    )
+  } catch {
+    throw new ScoreCalcCodeError('invalidCode')
+  }
+}
+
+export function encodeTeamInScoreCalc(
+  units: IUnitInstanceInScoreCalc[],
+): string {
+  return `${SCT_CODE_PREFIX}${jsonToBase64(units)}`
+}
+
+export function decodeTeamInScoreCalc(
+  code: string,
+): IUnitInstanceInScoreCalc[] {
+  if (code.startsWith(SCU_CODE_PREFIX)) {
+    throw new ScoreCalcCodeError('expectedTeamGotUnit')
+  }
+  if (!code.startsWith(SCT_CODE_PREFIX)) {
+    throw new ScoreCalcCodeError('invalidCode')
+  }
+
+  try {
+    const units = base64ToJson<IUnitInstanceInScoreCalc[]>(
+      code.slice(SCT_CODE_PREFIX.length),
+    )
+    if (!Array.isArray(units) || units.length !== 4) {
+      throw new ScoreCalcCodeError('invalidCode')
+    }
+    return units
+  } catch (e) {
+    if (e instanceof ScoreCalcCodeError) throw e
+    throw new ScoreCalcCodeError('invalidCode')
   }
 }
 

@@ -115,14 +115,30 @@
             />
           </v-btn>
 
-          <v-spacer v-show="isClosable" />
-
           <v-btn
             :disabled="!unit"
             size="small"
-            :text="t('scoreCalc.cta.loadMaxScore')"
+            :text="
+              isClosable
+                ? t('scoreCalc.cta.maxScore')
+                : t('scoreCalc.cta.loadMaxScore')
+            "
             variant="outlined"
             @click="loadMaxScore"
+          />
+
+          <v-spacer />
+
+          <ScoreCalcSaveLoadCode
+            button-variant="outlined"
+            :code="unitCode"
+            :decode="decodeUnitInstanceInScoreCalc"
+            :save-tooltip="t('scoreCalc.cta.saveUnit')"
+            :load-tooltip="t('scoreCalc.cta.loadUnit')"
+            :save-explanation="t('scoreCalc.labels.saveUnitExplanation')"
+            :load-explanation="t('scoreCalc.labels.loadUnitExplanation')"
+            :code-placeholder="`${SCU_CODE_PREFIX}...`"
+            @load="emit('replace-unit', $event)"
           />
         </v-card-actions>
       </v-card>
@@ -372,10 +388,13 @@ import compact from 'lodash-es/compact'
 import orderBy from 'lodash-es/orderBy'
 
 import {
+  decodeUnitInstanceInScoreCalc,
+  encodeUnitInstanceInScoreCalc,
   getEmptyUnitInstanceSkillSPs,
   MAX_LEVEL,
   MAX_RARITY,
   MAX_MERGES,
+  SCU_CODE_PREFIX,
   DUEL_SKILL_IDS_BY_MOVE_BY_COLOR,
   type IUnitInstanceInScoreCalc,
   type ScoreContext,
@@ -472,6 +491,10 @@ const isLoaded = computed(
 
 const isClosable = computed(() => smAndDown.value)
 const isBlessingDisabled = computed(() => !unit.value || !!unit.value.element)
+
+const unitCode = computed(() =>
+  encodeUnitInstanceInScoreCalc(props.unitInstance),
+)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function updateUnit(key: keyof IUnitInstanceInScoreCalc, value: any) {

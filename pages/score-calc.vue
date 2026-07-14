@@ -50,6 +50,18 @@
 
           <v-spacer />
 
+          <ScoreCalcSaveLoadCode
+            :code="teamCode"
+            :decode="decodeTeamInScoreCalc"
+            :save-tooltip="t('scoreCalc.cta.saveTeam')"
+            :load-tooltip="t('scoreCalc.cta.loadTeam')"
+            :save-explanation="t('scoreCalc.labels.saveTeamExplanation')"
+            :load-explanation="t('scoreCalc.labels.loadTeamExplanation')"
+            :code-placeholder="`${SCT_CODE_PREFIX}...`"
+            class="mr-2"
+            @load="units = $event"
+          />
+
           <AppDownloadUpload
             :payload="payloadToSave"
             file-name="Score.json"
@@ -265,10 +277,13 @@ import compact from 'lodash-es/compact'
 
 import type { SkillCategory, SkillId } from '~/utils/types/skills'
 import {
+  decodeTeamInScoreCalc,
+  encodeTeamInScoreCalc,
   getEmptyTeamInScoreCalc,
   getEmptyUnitInstanceSkillSPs,
   OFFENSE_SCORE_DIFF_MAX,
   OFFENSE_SCORE_DIFF_MIN,
+  SCT_CODE_PREFIX,
   TEAM_BASE_SCORE,
   type EditableKey,
   type IUnitInstanceInScoreCalc,
@@ -327,6 +342,7 @@ onMounted(() => {
 })
 
 const noUnit = computed(() => filter(units.value, 'id').length === 0)
+const teamCode = computed(() => encodeTeamInScoreCalc(units.value))
 
 function selectUnit(unit: IUnitInstanceInScoreCalc, id: UnitId) {
   unit.id = id

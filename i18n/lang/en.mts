@@ -855,10 +855,32 @@ export default {
       bane: 'Bane',
       blessing: 'Blessing',
       sp: '{value} SP',
+
+      saveUnitExplanation: 'Copy the text below to save this unit.',
+      loadUnitExplanation: 'Paste the copied unit text.',
+      saveTeamExplanation: 'Copy the text below to save the current team.',
+      loadTeamExplanation: 'Paste the copied team text.',
     },
     cta: {
-      loadMaxScore: 'Load Max Score',
       details: 'Details',
+      maxScore: 'Max Score',
+      loadMaxScore: 'Load Max Score',
+
+      saveUnit: 'Save unit',
+      loadUnit: 'Load unit',
+      saveTeam: 'Save team',
+      loadTeam: 'Load team',
+      copy: 'Copy',
+      paste: 'Paste',
+      load: 'Load',
+      close: 'Close',
+    },
+    errors: {
+      expectedUnitGotTeam:
+        'This is a team code (SCTv1), not a unit code (SCUv1)',
+      expectedTeamGotUnit:
+        'This is a unit code (SCUv1), not a team code (SCTv1)',
+      invalidCode: 'This code is invalid',
     },
     tips: {
       header: 'Tips to increase your score:',
