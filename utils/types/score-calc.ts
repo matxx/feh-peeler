@@ -86,8 +86,8 @@ export function getEmptyUnitInstanceInScoreCalc(): IUnitInstanceInScoreCalc {
   return {
     ...getEmptyUnitInstance(),
 
+    level: MAX_LEVEL,
     rarity: MAX_RARITY,
-    level: MAX_RARITY,
     merges: 0,
     boon: null,
     bane: null,
