@@ -38,6 +38,7 @@ const statAtLevel = (
 export default function useUnitScore(
   unitInstance: Ref<IUnitInstanceInScoreCalc>,
   scoreContext: Ref<ScoreContext>,
+  isAttachedChosenHero: boolean = false,
 ) {
   const storeDataUnits = useStoreDataUnits()
   const storeDataUnitsStats = useStoreDataUnitsStats()
@@ -216,7 +217,10 @@ export default function useUnitScore(
   // can increase score with resp. legendary units
   const blessingScore = computed(() => {
     if (!unit.value) return 0
+    // legendaries do not get bonuses from other legendaries
     if (unit.value.is_legendary) return 0
+    // attached chosen heroes do not get bonuses from legendaries
+    if (isAttachedChosenHero) return 0
 
     return (
       sum(
@@ -296,10 +300,14 @@ export default function useUnitScore(
     } else {
       adjustedScoreContext = scoreContext
     }
-    const data = useUnitScore(ref(chosenHeroInstance), adjustedScoreContext)
+    const data = useUnitScore(
+      ref(chosenHeroInstance),
+      adjustedScoreContext,
+      true,
+    )
 
     // MONKEY PATCH :
-    // recursive use of `useUnitScore` does not work correctly
+    // typings do not seem to work with recursive use of `useUnitScore`
     // so we need to type cast those values
     const baseScore = data.baseScore.value as number
     const finalScore = data.finalScore.value as number
