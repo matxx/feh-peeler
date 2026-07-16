@@ -289,15 +289,12 @@ import {
   type IUnitInstanceInScoreCalc,
   // type IUnitInstanceInScoreCalcV1,
   // type IUnitInstanceInScoreCalcV2,
-  type ScoreContext,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
-import {
-  SORTED_LEGENDARY_ELEMENTS,
-  type ElementLegendary,
-  type ElementMythic,
+import type {
+  ElementLegendary,
+  ElementMythic,
 } from '~/utils/types/units-filters'
-import { objectFromEntries } from '~/utils/functions/typeSafe'
 import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
@@ -413,29 +410,17 @@ function confirmReset() {
   mjolnirStrikeMinor.value = DEFAULT_VALUES.mjolnirStrikeMinor
 }
 
-const scoreContext = computed<ScoreContext>(() => ({
-  bonusFactor: hasBonusUnit.value ? 2 : 1,
-  seasonElements: seasonElements.value,
-  legendaryCounts: objectFromEntries(
-    SORTED_LEGENDARY_ELEMENTS.map((element) => [
-      element,
-      filter(units.value, (u) => {
-        if (!u.id) return false
-
-        const unit = storeDataUnits.unitsById[u.id]
-        if (!unit) return false
-        if (!unit.is_legendary) return false
-
-        return unit.element === element
-      }).length,
-    ]),
-  ),
-  mjolnirStrike: {
-    isActive: isMjolnirStrike.value,
-    minor: mjolnirStrikeMinor.value,
-    major: mjolnirStrikeMajor.value,
-  },
+const mjolnirStrike = computed(() => ({
+  isActive: isMjolnirStrike.value,
+  minor: mjolnirStrikeMinor.value,
+  major: mjolnirStrikeMajor.value,
 }))
+const scoreContext = useScoreContext(
+  units,
+  hasBonusUnit,
+  seasonElements,
+  mjolnirStrike,
+)
 
 const averageScore = computed(() => TEAM_BASE_SCORE + mean(unitsScores.value))
 const scoreRounded = computed(
