@@ -100,7 +100,7 @@ export default function useUnitScore(
   const hasSuperBoon = computed(() => superBoons.value.length > 0)
 
   const maxBst = computed(() =>
-    unit.value ? unit.value.bst + (hasSuperBoon ? 4 : 3) : 0,
+    unit.value ? unit.value.bst + (hasSuperBoon.value ? 4 : 3) : 0,
   )
 
   // TODO: stats are only correct at level40...
@@ -199,7 +199,9 @@ export default function useUnitScore(
       }
     }
 
-    return maxBst.value < DUEL_SKILL_SCORES_TIER4.max
+    return unit.value.is_mythic
+      ? maxBst.value < DUEL_SKILL_SCORES_TIER4.min
+      : maxBst.value < DUEL_SKILL_SCORES_TIER4.max
   })
 
   const bonusMergesCount = computed(() => {
