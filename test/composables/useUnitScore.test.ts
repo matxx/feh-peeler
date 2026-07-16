@@ -75,8 +75,8 @@ const TEAM_BONUS_FACTOR: TeamCase = {
     hasBonusUnit: true,
     seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
   },
-  expectedVisibleFinalScores: [582, 668, 684, 736],
-  expectedTeamFinalScore: 667,
+  expectedVisibleFinalScores: [582, 670, 686, 736],
+  expectedTeamFinalScore: 668,
 }
 
 // Covers the fix in 360db5b: a legendary bonus unit (Legendary Camilla) with

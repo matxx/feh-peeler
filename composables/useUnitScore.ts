@@ -108,7 +108,7 @@ export default function useUnitScore(
   // https://feheroes.fandom.com/wiki/module:StatTable?action=edit
   // but needs to have BVIDs in the data...
   // https://feheroes.fandom.com/wiki/Special:CargoTables/HeroBVIDs
-  const stats = computed(() =>
+  const rawStats = computed(() =>
     objectFromEntries(
       STATS.map((stat) => {
         if (!unitStat.value) return [stat, 0]
@@ -139,6 +139,30 @@ export default function useUnitScore(
       }),
     ),
   )
+
+  // neutral (no boon, no bane) units merged at least once
+  // get +1 on their 3 highest stats
+  const isNeutralAndMerged = computed(
+    () =>
+      unitInstance.value.merges >= 1 &&
+      !unitInstance.value.boon &&
+      !unitInstance.value.bane,
+  )
+  const stats = computed(() => {
+    if (!isNeutralAndMerged.value) return rawStats.value
+
+    const top3Stats = [...STATS]
+      .sort((a, b) => rawStats.value[b] - rawStats.value[a])
+      .slice(0, 3)
+
+    return objectFromEntries(
+      STATS.map((stat) => [
+        stat,
+        rawStats.value[stat] + (top3Stats.includes(stat) ? 1 : 0),
+      ]),
+    )
+  })
+
   const bst = computed(() => sum(objectEntries(stats.value).map(([, v]) => v)))
 
   const isMaxLevelRarity = computed(
