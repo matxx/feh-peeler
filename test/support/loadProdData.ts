@@ -21,7 +21,7 @@ let cachedSnapshotPromise: Promise<ProdDataSnapshot> | null = null
 // composables/useData.ts, pinned to a fixed commit hash, so the payload is
 // immutable) once per test run, so useUnitScore() tests exercise real
 // units/stats/skills instead of hand-made fixtures.
-function fetchProdDataSnapshot(): Promise<ProdDataSnapshot> {
+export function fetchProdDataSnapshot(): Promise<ProdDataSnapshot> {
   if (!cachedSnapshotPromise) {
     cachedSnapshotPromise = (async () => {
       setActivePinia(createPinia())

@@ -9,7 +9,7 @@
 // currently computes for its 4 units. If a future change to the scoring
 // formula alters these numbers, these tests will fail - update the expected
 // scores deliberately, don't just make them pass.
-import { describe, expect, it, beforeEach } from 'vitest'
+import { describe, expect, it, beforeAll, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 
 import useUnitScore from '~/composables/useUnitScore'
@@ -22,7 +22,14 @@ import {
 } from '~/utils/types/units-filters'
 import { mean } from '~/utils/functions/math'
 
-import { loadProdDataStores } from '../support/loadProdData'
+import {
+  fetchProdDataSnapshot,
+  loadProdDataStores,
+} from '../support/loadProdData'
+
+beforeAll(async () => {
+  await fetchProdDataSnapshot()
+})
 
 beforeEach(async () => {
   setActivePinia(createPinia())
@@ -123,12 +130,7 @@ const TEAM_CASES: TeamCase[] = [
 describe('useUnitScore', () => {
   it.each(TEAM_CASES)(
     'computes the expected visibleFinalScore for: $name',
-    ({
-      code,
-      context,
-      expectedVisibleFinalScores,
-      expectedTeamFinalScore,
-    }) => {
+    ({ code, context, expectedVisibleFinalScores, expectedTeamFinalScore }) => {
       const units = decodeTeamInScoreCalc(code)
       const scoreContext = useScoreContext(
         ref(units),
