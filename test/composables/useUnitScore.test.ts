@@ -15,7 +15,12 @@ import { setActivePinia, createPinia } from 'pinia'
 import useUnitScore from '~/composables/useUnitScore'
 import useScoreContext from '~/composables/useScoreContext'
 import { decodeTeamInScoreCalc } from '~/utils/types/score-calc'
-import type { ElementLegendary } from '~/utils/types/units-filters'
+import {
+  ELEMENT_FIRE,
+  ELEMENT_WATER,
+  type ElementLegendary,
+} from '~/utils/types/units-filters'
+import { mean } from '~/utils/functions/math'
 
 import { loadProdDataStores } from '../support/loadProdData'
 
@@ -32,6 +37,7 @@ interface TeamCase {
     seasonElements: ElementLegendary[]
   }
   expectedVisibleFinalScores: number[]
+  expectedTeamFinalScore: number
 }
 
 // Covers: boon/bane, a manual blessing, a tier-1 duel skill (Alfonse); a
@@ -45,9 +51,10 @@ const TEAM_STANDARD: TeamCase = {
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Or44OV44Kp44Oz44K5Iiwic2tpbGxJZHMiOnsicGFzc2l2ZWEiOiJTSURf6LWk44Gu5q276ZeY44O75q2p6KGMMSJ9LCJyYXJpdHkiOjUsImxldmVsIjo0MCwibWVyZ2VzIjoyLCJib29uIjoiYXRrIiwiYmFuZSI6ImRlZiIsImJsZXNzaW5nIjoiRmlyZSIsInNraWxsU1BzIjp7InBhc3NpdmVhIjo3MCwicGFzc2l2ZWIiOjEyMCwicGFzc2l2ZWMiOjgwLCJzYWNyZWRzZWFsIjo1MH0sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/mvIbpu5Ljga7pqI7lo6siLCJza2lsbElkcyI6e30sInJhcml0eSI6NSwibGV2ZWwiOjQwLCJtZXJnZXMiOjQsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6eyJ3ZWFwb24iOjEwMCwic3BlY2lhbCI6MTAwLCJzYWNyZWRzZWFsIjo1MH0sImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjg5XjgqPjg6jjg6vjg6AiLCJjaG9zZW5IZXJvTWVyZ2VzIjozfSx7ImlkIjoiUElEX+aVkeS4luODleOCo+ODqOODq+ODoCIsInNraWxsSWRzIjp7fSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MSwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODq+ODvOODsyIsInNraWxsSWRzIjp7InBhc3NpdmVhIjoiU0lEX+eEoeOBruatu+mXmOODu+atqeihjDQifSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7InBhc3NpdmVhIjozMDB9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
     hasBonusUnit: false,
-    seasonElements: ['Fire', 'Water'],
+    seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
   },
   expectedVisibleFinalScores: [341, 374, 370, 338],
+  expectedTeamFinalScore: 355,
 }
 
 // Covers: sub-max level/rarity (no duel effects), the bonus-unit factor x2,
@@ -59,9 +66,10 @@ const TEAM_BONUS_FACTOR: TeamCase = {
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Or44OV44Kp44Oz44K5Iiwic2tpbGxJZHMiOnt9LCJyYXJpdHkiOjQsImxldmVsIjozMCwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiZGVmIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+elnumajuOCveODhuOCo+OCuSIsInNraWxsSWRzIjp7fSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MSwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODq+ODvOODsyIsInNraWxsSWRzIjp7InBhc3NpdmVhIjoiU0lEX+eEoeOBruatu+mXmOODu+atqeihjDQifSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MiwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7InBhc3NpdmVhIjozMDB9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwic2tpbGxJZHMiOnt9LCJyYXJpdHkiOjUsImxldmVsIjo0MCwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6bnVsbCwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
     hasBonusUnit: true,
-    seasonElements: ['Fire', 'Water'],
+    seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
   },
   expectedVisibleFinalScores: [582, 668, 684, 736],
+  expectedTeamFinalScore: 667,
 }
 
 // Covers the fix in 360db5b: a legendary bonus unit (Legendary Camilla) with
@@ -76,9 +84,10 @@ const TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY: TeamCase = {
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/mr5Tnv7zjg5jjgq/jg4jjg6siLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg6zjg7zjgq7jg6Pjg6vjg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
     hasBonusUnit: true,
-    seasonElements: ['Water'],
+    seasonElements: [ELEMENT_WATER],
   },
   expectedVisibleFinalScores: [744, 670, 676, 664],
+  expectedTeamFinalScore: 688,
 }
 
 const TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY: TeamCase = {
@@ -86,9 +95,10 @@ const TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY: TeamCase = {
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/kvJ3mib/jg5njg6zjg4giLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg6zjg7zjgq7jg6Pjg6vjg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
     hasBonusUnit: true,
-    seasonElements: ['Water'],
+    seasonElements: [ELEMENT_WATER],
   },
   expectedVisibleFinalScores: [744, 670, 676, 664],
+  expectedTeamFinalScore: 688,
 }
 
 const TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES: TeamCase = {
@@ -96,9 +106,10 @@ const TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES: TeamCase = {
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/kvJ3mib/jg5njg6zjg4giLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgq7jg43jg7TjgqPjgqIiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
     hasBonusUnit: true,
-    seasonElements: ['Water'],
+    seasonElements: [ELEMENT_WATER],
   },
   expectedVisibleFinalScores: [744, 670, 676, 664],
+  expectedTeamFinalScore: 688,
 }
 
 const TEAM_CASES: TeamCase[] = [
@@ -112,7 +123,12 @@ const TEAM_CASES: TeamCase[] = [
 describe('useUnitScore', () => {
   it.each(TEAM_CASES)(
     'computes the expected visibleFinalScore for: $name',
-    ({ code, context, expectedVisibleFinalScores }) => {
+    ({
+      code,
+      context,
+      expectedVisibleFinalScores,
+      expectedTeamFinalScore,
+    }) => {
       const units = decodeTeamInScoreCalc(code)
       const scoreContext = useScoreContext(
         ref(units),
@@ -129,6 +145,7 @@ describe('useUnitScore', () => {
       })
 
       expect(scores).toEqual(expectedVisibleFinalScores)
+      expect(Math.floor(mean(scores))).toEqual(expectedTeamFinalScore)
     },
   )
 
