@@ -64,7 +64,50 @@ const TEAM_BONUS_FACTOR: TeamCase = {
   expectedVisibleFinalScores: [582, 668, 684, 736],
 }
 
-const TEAM_CASES: TeamCase[] = [TEAM_STANDARD, TEAM_BONUS_FACTOR]
+// Covers the fix in 360db5b: a legendary bonus unit (Legendary Camilla) with
+// a chosen hero attached (Fjorm) must not have that chosen hero's score
+// inflated by legendaryCounts, regardless of how many other Water-blessed
+// legendaries (Legendary Byleth, Legendary Guinevere) sit on the team.
+// The 3 team codes below only differ by that Water legendary count (0/1/2);
+// Fjorm's visible score (units index 0, via the chosen hero) must stay
+// identical across all 3 - a regression would make it grow with the count.
+const TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY: TeamCase = {
+  name: 'L!Camilla as bonus unit w/o other legendaries',
+  code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/mr5Tnv7zjg5jjgq/jg4jjg6siLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg6zjg7zjgq7jg6Pjg6vjg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
+  context: {
+    hasBonusUnit: true,
+    seasonElements: ['Water'],
+  },
+  expectedVisibleFinalScores: [744, 670, 676, 664],
+}
+
+const TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY: TeamCase = {
+  name: 'L!Camilla as bonus unit w/ 1 other legendary',
+  code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/kvJ3mib/jg5njg6zjg4giLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg6zjg7zjgq7jg6Pjg6vjg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
+  context: {
+    hasBonusUnit: true,
+    seasonElements: ['Water'],
+  },
+  expectedVisibleFinalScores: [744, 670, 676, 664],
+}
+
+const TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES: TeamCase = {
+  name: 'L!Camilla as bonus unit w/ 2 other legendaries',
+  code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/kvJ3mib/jg5njg6zjg4giLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgq7jg43jg7TjgqPjgqIiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
+  context: {
+    hasBonusUnit: true,
+    seasonElements: ['Water'],
+  },
+  expectedVisibleFinalScores: [744, 670, 676, 664],
+}
+
+const TEAM_CASES: TeamCase[] = [
+  TEAM_STANDARD,
+  TEAM_BONUS_FACTOR,
+  TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY,
+  TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY,
+  TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES,
+]
 
 describe('useUnitScore', () => {
   it.each(TEAM_CASES)(
@@ -88,4 +131,34 @@ describe('useUnitScore', () => {
       expect(scores).toEqual(expectedVisibleFinalScores)
     },
   )
+
+  // The 3 cases above (TEAM_BONUS_LEGENDARY_*) only differ in
+  // legendaryCounts.Water (0/1/2 other Water legendaries on the team besides
+  // L!Camilla herself, who is already excluded since she's legendary). Per
+  // the fix in 360db5b, Fjorm - attached as L!Camilla's chosen hero - must
+  // not gain any score from those legendaries: its visibleFinalScore must
+  // stay identical across all 3 contexts.
+  it('does not increase an attached chosen hero score with legendaryCounts (360db5b)', () => {
+    const fjormScores = [
+      TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY,
+      TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY,
+      TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES,
+    ].map(({ code, context }) => {
+      const units = decodeTeamInScoreCalc(code)
+      const scoreContext = useScoreContext(
+        ref(units),
+        ref(context.hasBonusUnit),
+        ref(context.seasonElements),
+      )
+      const { chosenHeroFinalScore } = useUnitScore(ref(units[0]), scoreContext)
+      return chosenHeroFinalScore.value
+    })
+
+    expect(fjormScores[0]).toBeGreaterThan(0)
+    expect(fjormScores).toEqual([
+      fjormScores[0],
+      fjormScores[1],
+      fjormScores[2],
+    ])
+  })
 })
