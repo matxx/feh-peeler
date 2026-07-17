@@ -46,6 +46,10 @@ export default function useUnitScore(
   const storeDataUnitsStats = useStoreDataUnitsStats()
   const storeDataSkills = useStoreDataSkills()
 
+  function baseToFinalScore(baseScore: number) {
+    return (TEAM_BASE_SCORE + baseScore) * scoreContext.value.bonusFactor
+  }
+
   const unit = computed(() => {
     return unitInstance.value.id
       ? storeDataUnits.unitsById[unitInstance.value.id]
@@ -313,7 +317,7 @@ export default function useUnitScore(
   const scorePartSPs = computed(() => Math.floor(visibleSkillSPs.value / 100))
   const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
   const scorePartBlessing = computed(() => blessingScore.value)
-  const baseScoreWithoutBlessing = computed(() =>
+  const baseScoreBeforeBlessing = computed(() =>
     unit.value
       ? sum([
           scorePartRarity.value,
@@ -325,12 +329,13 @@ export default function useUnitScore(
       : 0,
   )
   const baseScore = computed(
-    () => baseScoreWithoutBlessing.value + scorePartBlessing.value,
+    () => baseScoreBeforeBlessing.value + scorePartBlessing.value,
+  )
+  const finalScoreBeforeBlessing = computed(() =>
+    unit.value ? baseToFinalScore(baseScoreBeforeBlessing.value) : 0,
   )
   const finalScore = computed(() =>
-    unit.value
-      ? (TEAM_BASE_SCORE + baseScore.value) * scoreContext.value.bonusFactor
-      : 0,
+    unit.value ? baseToFinalScore(baseScore.value) : 0,
   )
 
   // a chosen hero attached onto a legendary only has its score used/compared
@@ -382,14 +387,16 @@ export default function useUnitScore(
     // typings do not seem to work with recursive use of `useUnitScore`
     // so we need to type cast those values
     const baseScore = data.baseScore.value as number
-    const baseScoreWithoutBlessing = data.baseScoreWithoutBlessing
+    const baseScoreBeforeBlessing = data.baseScoreBeforeBlessing.value as number
+    const finalScoreBeforeBlessing = data.finalScoreBeforeBlessing
       .value as number
     const finalScore = data.finalScore.value as number
     const inSeason = data.isChosenInSeason.value as boolean
 
     return {
       baseScore,
-      baseScoreWithoutBlessing,
+      baseScoreBeforeBlessing,
+      finalScoreBeforeBlessing,
       finalScore,
       inSeason,
     }
@@ -397,8 +404,11 @@ export default function useUnitScore(
   const chosenHeroBaseScore = computed(
     () => chosenHeroScoreData.value?.baseScore,
   )
-  const chosenHeroBaseScoreWithoutBlessing = computed(
-    () => chosenHeroScoreData.value?.baseScoreWithoutBlessing,
+  const chosenHeroBaseScoreBeforeBlessing = computed(
+    () => chosenHeroScoreData.value?.baseScoreBeforeBlessing,
+  )
+  const chosenHeroFinalScoreBeforeBlessing = computed(
+    () => chosenHeroScoreData.value?.finalScoreBeforeBlessing,
   )
   const chosenHeroFinalScore = computed(
     () => chosenHeroScoreData.value?.finalScore,
@@ -411,23 +421,20 @@ export default function useUnitScore(
   // *without* the blessing bonus, which is then added on top of whichever of
   // the two wins - a blessing shouldn't let a lower base score win the
   // comparison against a higher one it wouldn't otherwise have beaten
-  const visibleBaseScoreWithoutBlessing = computed(
+  const visibleBaseScoreBeforeBlessing = computed(
     () =>
       max(
         compact([
-          baseScoreWithoutBlessing.value,
-          chosenHeroBaseScoreWithoutBlessing.value,
+          baseScoreBeforeBlessing.value,
+          chosenHeroBaseScoreBeforeBlessing.value,
         ]),
       ) || 0,
   )
   const visibleBaseScore = computed(
-    () => visibleBaseScoreWithoutBlessing.value + scorePartBlessing.value,
+    () => visibleBaseScoreBeforeBlessing.value + scorePartBlessing.value,
   )
   const visibleFinalScore = computed(() =>
-    unit.value
-      ? (TEAM_BASE_SCORE + visibleBaseScore.value) *
-        scoreContext.value.bonusFactor
-      : 0,
+    unit.value ? baseToFinalScore(visibleBaseScore.value) : 0,
   )
 
   return {
@@ -437,7 +444,11 @@ export default function useUnitScore(
 
     stats,
     bst,
+    duelEffectVisibleBst,
+    clashEffectVisibleBst,
+    duelSkillVisibleBst,
     visibleBst,
+
     totalSkillSPs,
     visibleSkillSPs,
     bonusMergesCount,
@@ -453,13 +464,15 @@ export default function useUnitScore(
 
     chosenHero,
     chosenHeroBaseScore,
-    chosenHeroBaseScoreWithoutBlessing,
+    chosenHeroBaseScoreBeforeBlessing,
+    chosenHeroFinalScoreBeforeBlessing,
     chosenHeroFinalScore,
     chosenHeroIsInSeason,
     chosenHeroElementMismatch,
 
     baseScore,
-    baseScoreWithoutBlessing,
+    baseScoreBeforeBlessing,
+    finalScoreBeforeBlessing,
     finalScore,
     visibleBaseScore,
     visibleFinalScore,

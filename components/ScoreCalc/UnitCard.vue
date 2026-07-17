@@ -18,46 +18,87 @@
         <v-card-text class="pb-0">
           <div class="d-flex flex-no-wrap justify-space-between">
             <div class="d-flex flex-column">
-              <v-card-title>
-                {{ t('scoreCalc.headers.score') }}: {{ finalScore }}
+              <v-tooltip location="bottom">
+                <template #activator="{ props: tooltipProps }">
+                  <v-card-title v-bind="tooltipProps">
+                    {{ t('scoreCalc.headers.score') }}: {{ visibleFinalScore }}
+                    <sup>
+                      <v-icon size="x-small">mdi-information-outline</v-icon>
+                    </sup>
+                  </v-card-title>
+                </template>
 
-                <span
-                  v-if="visibleFinalScore !== finalScore"
-                  v-tooltip:bottom="t('scoreCalc.tooltips.visibleFinalScore')"
-                >
-                  ({{ visibleFinalScore }})<!--
-                --><sup>
-                    <v-icon size="x-small">mdi-information-outline</v-icon>
-                  </sup>
-                </span>
-              </v-card-title>
+                <div>
+                  <div>
+                    {{ t('scoreCalc.tooltips.scoreBeforeBlessing') }}:
+                    {{ finalScoreBeforeBlessing }}
+                  </div>
+                  <div v-if="chosenHeroFinalScoreBeforeBlessing">
+                    {{ t('scoreCalc.tooltips.chosenHeroScoreBeforeBlessing') }}:
+                    {{ chosenHeroFinalScoreBeforeBlessing }}
+                  </div>
+                </div>
+              </v-tooltip>
 
-              <v-card-subtitle>
-                {{ t('scoreCalc.headers.bst') }}: {{ bst }}
+              <v-tooltip location="bottom">
+                <template #activator="{ props: tooltipProps }">
+                  <v-card-subtitle v-bind="tooltipProps">
+                    {{ t('scoreCalc.headers.visibleBst') }}: {{ visibleBst }}
+                    <sup>
+                      <v-icon size="x-small">mdi-information-outline</v-icon>
+                    </sup>
+                  </v-card-subtitle>
+                </template>
 
-                <span
-                  v-if="visibleBst !== bst"
-                  v-tooltip:bottom="t('scoreCalc.tooltips.visibleBst')"
-                >
-                  ({{ visibleBst }})<!--
-                --><sup>
-                    <v-icon size="x-small">mdi-information-outline</v-icon>
-                  </sup>
-                </span>
-              </v-card-subtitle>
-              <v-card-subtitle>
-                {{ t('scoreCalc.headers.totalSP') }}: {{ totalSkillSPs }}
+                <div>
+                  <div>{{ t('scoreCalc.tooltips.realBST') }}: {{ bst }}</div>
+                  <div v-if="duelEffectVisibleBst">
+                    {{
+                      unit?.is_legendary
+                        ? t('scoreCalc.tooltips.legendaryDuelEffectVisibleBst')
+                        : unit?.is_duo
+                          ? t('scoreCalc.tooltips.duoDuelEffectVisibleBst')
+                          : t('scoreCalc.tooltips.duelEffectVisibleBst')
+                    }}:
+                    {{ duelEffectVisibleBst }}
+                  </div>
+                  <div v-if="clashEffectVisibleBst">
+                    {{ t('scoreCalc.tooltips.clashEffectVisibleBst') }}:
+                    {{ clashEffectVisibleBst }}
+                  </div>
+                  <div v-if="duelSkillVisibleBst">
+                    {{ t('scoreCalc.tooltips.duelSkillVisibleBst') }}:
+                    {{ duelSkillVisibleBst }}
+                  </div>
+                </div>
+              </v-tooltip>
 
-                <span
-                  v-if="isChosenInSeason"
-                  v-tooltip:bottom="t('scoreCalc.tooltips.visibleTotalSP')"
-                >
-                  ({{ visibleSkillSPs }})<!--
-                --><sup>
-                    <v-icon size="x-small">mdi-information-outline</v-icon>
-                  </sup>
-                </span>
-              </v-card-subtitle>
+              <v-tooltip
+                location="bottom"
+                :disabled="!isChosenInSeason"
+              >
+                <template #activator="{ props: tooltipProps }">
+                  <v-card-subtitle v-bind="tooltipProps">
+                    {{
+                      isChosenInSeason
+                        ? t('scoreCalc.headers.visibleSP')
+                        : t('scoreCalc.headers.totalSP')
+                    }}: {{ visibleSkillSPs }}
+
+                    <sup v-if="isChosenInSeason">
+                      <v-icon size="x-small">mdi-information-outline</v-icon>
+                    </sup>
+                  </v-card-subtitle>
+                </template>
+
+                <div>
+                  <div>{{ t('scoreCalc.tooltips.visibleTotalSP') }}</div>
+                  <div>
+                    {{ t('scoreCalc.tooltips.realTotalSP') }}:
+                    {{ totalSkillSPs }}
+                  </div>
+                </div>
+              </v-tooltip>
 
               <!-- <DevOnly>
               <v-card-subtitle
@@ -454,11 +495,16 @@ const { smAndDown } = useDisplay()
 const { itemsForStats, itemsForElements } = useSelects()
 const {
   unit,
+
   // stats,
   bst,
+  duelEffectVisibleBst,
+  clashEffectVisibleBst,
+  duelSkillVisibleBst,
   visibleBst,
-  totalSkillSPs,
+
   visibleSkillSPs,
+  totalSkillSPs,
 
   // for debug
   // scorePartRarity,
@@ -472,14 +518,16 @@ const {
 
   chosenHero,
   // chosenHeroBaseScore,
-  // chosenHeroBaseScoreWithoutBlessing,
+  // chosenHeroBaseScoreBeforeBlessing,
+  chosenHeroFinalScoreBeforeBlessing,
   chosenHeroFinalScore,
   chosenHeroIsInSeason,
   chosenHeroElementMismatch,
 
   // baseScore,
-  // baseScoreWithoutBlessing,
-  finalScore,
+  // baseScoreBeforeBlessing,
+  finalScoreBeforeBlessing,
+  // finalScore,
   visibleBaseScore,
   visibleFinalScore,
 

@@ -826,8 +826,12 @@ export default {
       offenseRange: 'Offense Range',
       defenseScore: 'Defense Score',
 
+      visibleBst: 'Visible BST',
       bst: 'BST',
+
+      visibleSP: 'Visible SP',
       totalSP: 'Total SP',
+
       chosenHero: 'Chosen Hero',
       chosenHeroNotInSeason: 'Not in season',
       chosenHeroDifferentElement: 'Different element',
@@ -835,12 +839,19 @@ export default {
     tooltips: {
       scoreExact:
         'Score not rounded (in order to see how close you are from the next step)',
-      visibleFinalScore:
-        'Visible score : chosen hero score is used (since its higher)',
-      visibleBst:
-        'Visible BST : adjusted BST based on "Duel" A skill or duo/legendary unit standard effect "Duel"',
-      visibleTotalSP:
-        'Visible total SP : in season chosen heroes always have max SP',
+
+      realBST: 'Real BST',
+      duoDuelEffectVisibleBst: 'Duel (as Duo)',
+      legendaryDuelEffectVisibleBst: 'Duel (as Legendary)',
+      duelSkillVisibleBst: 'Duel (from skill)',
+      duelEffectVisibleBst: 'Duel (from ?)',
+      clashEffectVisibleBst: 'Clash',
+
+      scoreBeforeBlessing: 'Score before blessing',
+      chosenHeroScoreBeforeBlessing: 'Chosen hero score before blessing',
+
+      visibleTotalSP: 'In season chosen heroes always have max SP',
+      realTotalSP: 'Real Total SP',
     },
     labels: {
       hasBonusUnit: 'Bonus unit ?',
