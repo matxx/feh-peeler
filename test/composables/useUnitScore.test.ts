@@ -53,10 +53,11 @@ interface TeamCase {
 
 // Covers: boon/bane, a manual blessing, a tier-1 duel skill (Alfonse); a
 // legendary Armored unit (no access to duel skills) with a duel_score-based
-// visible BST and a chosen hero attached (recursive useUnitScore call,
-// Black Knight -> Fjorm); a chosen unit picking up its clash_score-based
-// visible BST and in-season blessing (Fjorm); a mythic unit with a tier-4
-// duel skill (Rune).
+// visible BST and a chosen hero attached whose element differs from its own
+// (recursive useUnitScore call, Fire Black Knight -> Water C!Fjorm - the
+// attached score must not be used/compared, per the element-match fix); a
+// chosen unit picking up its clash_score-based visible BST and in-season
+// blessing (Fjorm); a mythic unit with a tier-4 duel skill (Rune).
 const TEAM_STANDARD: TeamCase = {
   name: 'standard team (boons/banes, chosen hero, duel skills)',
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Or44OV44Kp44Oz44K5Iiwic2tpbGxJZHMiOnsicGFzc2l2ZWEiOiJTSURf6LWk44Gu5q276ZeY44O75q2p6KGMMSJ9LCJyYXJpdHkiOjUsImxldmVsIjo0MCwibWVyZ2VzIjoyLCJib29uIjoiYXRrIiwiYmFuZSI6ImRlZiIsImJsZXNzaW5nIjoiRmlyZSIsInNraWxsU1BzIjp7InBhc3NpdmVhIjo3MCwicGFzc2l2ZWIiOjEyMCwicGFzc2l2ZWMiOjgwLCJzYWNyZWRzZWFsIjo1MH0sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/mvIbpu5Ljga7pqI7lo6siLCJza2lsbElkcyI6e30sInJhcml0eSI6NSwibGV2ZWwiOjQwLCJtZXJnZXMiOjQsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6eyJ3ZWFwb24iOjEwMCwic3BlY2lhbCI6MTAwLCJzYWNyZWRzZWFsIjo1MH0sImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjg5XjgqPjg6jjg6vjg6AiLCJjaG9zZW5IZXJvTWVyZ2VzIjozfSx7ImlkIjoiUElEX+aVkeS4luODleOCo+ODqOODq+ODoCIsInNraWxsSWRzIjp7fSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MSwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODq+ODvOODsyIsInNraWxsSWRzIjp7InBhc3NpdmVhIjoiU0lEX+eEoeOBruatu+mXmOODu+atqeihjDQifSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7InBhc3NpdmVhIjozMDB9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
@@ -64,8 +65,8 @@ const TEAM_STANDARD: TeamCase = {
     hasBonusUnit: false,
     seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
   },
-  expectedVisibleFinalScores: [341, 374, 370, 338],
-  expectedTeamFinalScore: 355,
+  expectedVisibleFinalScores: [341, 351, 370, 338],
+  expectedTeamFinalScore: 350,
 }
 
 // My current water arena team
@@ -73,6 +74,20 @@ const TEAM_STANDARD: TeamCase = {
 const TEAM_BONUS_FACTOR: TeamCase = {
   name: 'team with the bonus-unit x2 factor',
   code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzcGVjaWFsIjoiU0lEX+absuWwhCIsInBhc3NpdmVhIjoiU0lEX+msvOelnumjm+eHleOBruaOqeaSgyIsInBhc3NpdmViIjoiU0lEX+mAn+OBleWuiOWCmeOBrueci+egtCIsInBhc3NpdmVjIjoiU0lEX+S4jeayu+OBruW5u+eFmTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Op44OV44Kh44Ko44OrIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+mtlOWZqOODu+ODqOODiOOCpeODs+OBruaWpyIsImFzc2lzdCI6IlNJRF/lhaXjgozmm7/jgYjjg7vmranms5UiLCJzcGVjaWFsIjoiU0lEX+mHjeijheOBruWPjOeCjiIsInBhc3NpdmVhIjoiU0lEX+eBq+WcsOawtOOBruWRveiEiCIsInBhc3NpdmViIjoiU0lEX+W+jOOBruWFiCIsInBhc3NpdmVjIjoiU0lEX+mOp+OBruitt+OCiuaJi+ODu+eQhuODu+iMqCIsInNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq7jg6Djg6zjg7znlLciLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf6a2U5Zmo44O75bm856We44Gu44OW44Os44K5IiwiYXNzaXN0IjoiU0lEX+WFpeOCjOabv+OBiOODu+atqeazlSIsInNwZWNpYWwiOiJTSURf6YeN6KOF44Gu5Y+M5rC3IiwicGFzc2l2ZWEiOiJTSURf54Gr5Zyw5rC044Gu5ZG96ISIIiwicGFzc2l2ZWIiOiJTSURf5b6M44Gu5YWIIiwicGFzc2l2ZWMiOiJTSURf6KGj44Gu6K2344KK5omL44O76a2U44O76IyoIiwic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+ODi+ODi+OCouODsyIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/npZ7oiJ7jga7jg5bjg6zjgrlf5LiAIiwiYXNzaXN0IjoiU0lEX+WwiuOBjeernOOBruihgOOCkuKApuODu+aJvyIsInNwZWNpYWwiOiJTSURf56uc44Gu5ZKG5ZOuIiwicGFzc2l2ZWEiOiJTSURf5pS75pKD6YCf44GV44Gu56qB56C0IiwicGFzc2l2ZWIiOiJTSURf56uc6bGX6Zqc5aOB44O75a++6Lui56e7IiwicGFzc2l2ZWMiOiJTSURf5b2x5Yqp44O75byV44GN5oi744GXNCIsInNhY3JlZHNlYWwiOiJTU0lEX+aUu+aSg+mAn+OBleOBrua/gOeqgTMifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjI0MCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxLCJib29uIjoic3BkIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
+  context: {
+    hasBonusUnit: true,
+    seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
+  },
+  expectedVisibleFinalScores: [780, 780, 778, 726],
+  expectedTeamFinalScore: 766,
+}
+// Same team, but C!Alfonse (Wind) is attached as chosen hero to L!Ninian (Water).
+// Since their elements differ, C!Alfonse's score must not be used/compared at all,
+// and the team's scores must stay identical to TEAM_BONUS_FACTOR -
+// as if no chosen hero were attached.
+const TEAM_BONUS_FACTOR_CHOSEN_HERO_DIFFERENT_ELEMENT: TeamCase = {
+  name: 'team with the bonus-unit x2 factor, chosen hero of a different element attached to the legendary',
+  code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzcGVjaWFsIjoiU0lEX+absuWwhCIsInBhc3NpdmVhIjoiU0lEX+msvOelnumjm+eHleOBruaOqeaSgyIsInBhc3NpdmViIjoiU0lEX+mAn+OBleWuiOWCmeOBrueci+egtCIsInBhc3NpdmVjIjoiU0lEX+S4jeayu+OBruW5u+eFmTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Op44OV44Kh44Ko44OrIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+mtlOWZqOODu+ODqOODiOOCpeODs+OBruaWpyIsImFzc2lzdCI6IlNJRF/lhaXjgozmm7/jgYjjg7vmranms5UiLCJzcGVjaWFsIjoiU0lEX+mHjeijheOBruWPjOeCjiIsInBhc3NpdmVhIjoiU0lEX+eBq+WcsOawtOOBruWRveiEiCIsInBhc3NpdmViIjoiU0lEX+W+jOOBruWFiCIsInBhc3NpdmVjIjoiU0lEX+mOp+OBruitt+OCiuaJi+ODu+eQhuODu+iMqCIsInNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq7jg6Djg6zjg7znlLciLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf6a2U5Zmo44O75bm856We44Gu44OW44Os44K5IiwiYXNzaXN0IjoiU0lEX+WFpeOCjOabv+OBiOODu+atqeazlSIsInNwZWNpYWwiOiJTSURf6YeN6KOF44Gu5Y+M5rC3IiwicGFzc2l2ZWEiOiJTSURf54Gr5Zyw5rC044Gu5ZG96ISIIiwicGFzc2l2ZWIiOiJTSURf5b6M44Gu5YWIIiwicGFzc2l2ZWMiOiJTSURf6KGj44Gu6K2344KK5omL44O76a2U44O76IyoIiwic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+ODi+ODi+OCouODsyIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/npZ7oiJ7jga7jg5bjg6zjgrlf5LiAIiwiYXNzaXN0IjoiU0lEX+WwiuOBjeernOOBruihgOOCkuKApuODu+aJvyIsInNwZWNpYWwiOiJTSURf56uc44Gu5ZKG5ZOuIiwicGFzc2l2ZWEiOiJTSURf5pS75pKD6YCf44GV44Gu56qB56C0IiwicGFzc2l2ZWIiOiJTSURf56uc6bGX6Zqc5aOB44O75a++6Lui56e7IiwicGFzc2l2ZWMiOiJTSURf5b2x5Yqp44O75byV44GN5oi744GXNCIsInNhY3JlZHNlYWwiOiJTU0lEX+aUu+aSg+mAn+OBleOBrua/gOeqgTMifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjI0MCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxLCJib29uIjoic3BkIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjgqLjg6vjg5Xjgqnjg7PjgrkiLCJjaG9zZW5IZXJvTWVyZ2VzIjo1fV0=',
   context: {
     hasBonusUnit: true,
     seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
@@ -162,7 +177,9 @@ const TEAM_ANNA_WITH_CHOSEN_HERO_AND_BLESSING: TeamCase = {
 
 const TEAM_CASES: TeamCase[] = [
   TEAM_STANDARD,
+
   TEAM_BONUS_FACTOR,
+  TEAM_BONUS_FACTOR_CHOSEN_HERO_DIFFERENT_ELEMENT,
 
   TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY,
   TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY,
@@ -208,34 +225,4 @@ describe('useUnitScore', () => {
       expect(teamScore).toEqual(expectedTeamFinalScore)
     },
   )
-
-  // The 3 cases above (TEAM_BONUS_LEGENDARY_*) only differ in
-  // legendaryCounts.Water (0/1/2 other Water legendaries on the team besides
-  // L!Camilla herself, who is already excluded since she's legendary). Per
-  // the fix in 360db5b, Fjorm - attached as L!Camilla's chosen hero - must
-  // not gain any score from those legendaries: its visibleFinalScore must
-  // stay identical across all 3 contexts.
-  it('does not increase an attached chosen hero score with legendaryCounts (360db5b)', () => {
-    const fjormScores = [
-      TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY,
-      TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY,
-      TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES,
-    ].map(({ code, context }) => {
-      const units = decodeTeamInScoreCalc(code)
-      const scoreContext = useScoreContext(
-        ref(units),
-        ref(context.hasBonusUnit),
-        ref(context.seasonElements),
-      )
-      const { chosenHeroFinalScore } = useUnitScore(ref(units[0]), scoreContext)
-      return chosenHeroFinalScore.value
-    })
-
-    expect(fjormScores[0]).toBeGreaterThan(0)
-    expect(fjormScores).toEqual([
-      fjormScores[0],
-      fjormScores[1],
-      fjormScores[2],
-    ])
-  })
 })

@@ -365,15 +365,23 @@
         </v-row>
       </v-container>
       <h6>
-        <span v-if="chosenHeroIsInSeason">
-          {{ t('scoreCalc.headers.score') }}: {{ chosenHeroFinalScore }}
-        </span>
-        <span
-          v-else-if="unitInstance.chosenHeroId"
-          class="text-error"
-        >
-          {{ t('scoreCalc.headers.chosenHeroNotInSeason') }}
-        </span>
+        <template v-if="unitInstance.chosenHeroId">
+          <span
+            v-if="chosenHeroElementMismatch"
+            class="text-error"
+          >
+            {{ t('scoreCalc.headers.chosenHeroDifferentElement') }}
+          </span>
+          <span v-else-if="chosenHeroIsInSeason">
+            {{ t('scoreCalc.headers.score') }}: {{ chosenHeroFinalScore }}
+          </span>
+          <span
+            v-else
+            class="text-error"
+          >
+            {{ t('scoreCalc.headers.chosenHeroNotInSeason') }}
+          </span>
+        </template>
         <span v-else> &nbsp; </span>
       </h6>
     </v-card-text>
@@ -467,6 +475,7 @@ const {
   // chosenHeroBaseScoreWithoutBlessing,
   chosenHeroFinalScore,
   chosenHeroIsInSeason,
+  chosenHeroElementMismatch,
 
   // baseScore,
   // baseScoreWithoutBlessing,

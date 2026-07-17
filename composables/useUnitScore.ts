@@ -301,8 +301,19 @@ export default function useUnitScore(
       : 0,
   )
 
+  // a chosen hero attached onto a legendary only has its score used/compared
+  // if it shares the same element as that legendary
+  const chosenHeroElementMismatch = computed(() => {
+    if (!unitInstance.value.chosenHeroId) return false
+    if (!unit.value?.is_legendary) return false
+    if (!chosenHero.value) return false
+
+    return chosenHero.value.element !== unit.value.element
+  })
+
   const chosenHeroScoreData = computed(() => {
     if (!unitInstance.value.chosenHeroId) return
+    if (chosenHeroElementMismatch.value) return
 
     const chosenHeroInstance: IUnitInstanceInScoreCalc = {
       id: unitInstance.value.chosenHeroId,
@@ -413,6 +424,7 @@ export default function useUnitScore(
     chosenHeroBaseScoreWithoutBlessing,
     chosenHeroFinalScore,
     chosenHeroIsInSeason,
+    chosenHeroElementMismatch,
 
     baseScore,
     baseScoreWithoutBlessing,

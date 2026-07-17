@@ -828,6 +828,7 @@ export default {
       totalSP: 'Total SP',
       chosenHero: 'Chosen Hero',
       chosenHeroNotInSeason: 'Not in season',
+      chosenHeroDifferentElement: 'Different element',
     },
     tooltips: {
       scoreExact:
