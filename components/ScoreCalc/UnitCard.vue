@@ -464,10 +464,12 @@ const {
 
   chosenHero,
   // chosenHeroBaseScore,
+  // chosenHeroBaseScoreWithoutBlessing,
   chosenHeroFinalScore,
   chosenHeroIsInSeason,
 
   // baseScore,
+  // baseScoreWithoutBlessing,
   finalScore,
   visibleBaseScore,
   visibleFinalScore,

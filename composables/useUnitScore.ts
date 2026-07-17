@@ -280,7 +280,7 @@ export default function useUnitScore(
   const scorePartSPs = computed(() => Math.floor(visibleSkillSPs.value / 100))
   const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
   const scorePartBlessing = computed(() => blessingScore.value)
-  const baseScore = computed(() =>
+  const baseScoreWithoutBlessing = computed(() =>
     unit.value
       ? sum([
           scorePartRarity.value,
@@ -288,9 +288,11 @@ export default function useUnitScore(
           scorePartMerges.value,
           scorePartSPs.value,
           scorePartBST.value,
-          scorePartBlessing.value,
         ])
       : 0,
+  )
+  const baseScore = computed(
+    () => baseScoreWithoutBlessing.value + scorePartBlessing.value,
   )
   const finalScore = computed(() =>
     unit.value
@@ -336,17 +338,23 @@ export default function useUnitScore(
     // typings do not seem to work with recursive use of `useUnitScore`
     // so we need to type cast those values
     const baseScore = data.baseScore.value as number
+    const baseScoreWithoutBlessing = data.baseScoreWithoutBlessing
+      .value as number
     const finalScore = data.finalScore.value as number
     const inSeason = data.isChosenInSeason.value as boolean
 
     return {
       baseScore,
+      baseScoreWithoutBlessing,
       finalScore,
       inSeason,
     }
   })
   const chosenHeroBaseScore = computed(
     () => chosenHeroScoreData.value?.baseScore,
+  )
+  const chosenHeroBaseScoreWithoutBlessing = computed(
+    () => chosenHeroScoreData.value?.baseScoreWithoutBlessing,
   )
   const chosenHeroFinalScore = computed(
     () => chosenHeroScoreData.value?.finalScore,
@@ -355,11 +363,27 @@ export default function useUnitScore(
     () => !!chosenHeroScoreData.value?.inSeason,
   )
 
-  const visibleBaseScore = computed(
-    () => max(compact([baseScore.value, chosenHeroBaseScore.value])) || 0,
+  // the unit's own score and its attached chosen hero's score are compared
+  // *without* the blessing bonus, which is then added on top of whichever of
+  // the two wins - a blessing shouldn't let a lower base score win the
+  // comparison against a higher one it wouldn't otherwise have beaten
+  const visibleBaseScoreWithoutBlessing = computed(
+    () =>
+      max(
+        compact([
+          baseScoreWithoutBlessing.value,
+          chosenHeroBaseScoreWithoutBlessing.value,
+        ]),
+      ) || 0,
   )
-  const visibleFinalScore = computed(
-    () => max(compact([finalScore.value, chosenHeroFinalScore.value])) || 0,
+  const visibleBaseScore = computed(
+    () => visibleBaseScoreWithoutBlessing.value + scorePartBlessing.value,
+  )
+  const visibleFinalScore = computed(() =>
+    unit.value
+      ? (TEAM_BASE_SCORE + visibleBaseScore.value) *
+        scoreContext.value.bonusFactor
+      : 0,
   )
 
   return {
@@ -385,10 +409,12 @@ export default function useUnitScore(
 
     chosenHero,
     chosenHeroBaseScore,
+    chosenHeroBaseScoreWithoutBlessing,
     chosenHeroFinalScore,
     chosenHeroIsInSeason,
 
     baseScore,
+    baseScoreWithoutBlessing,
     finalScore,
     visibleBaseScore,
     visibleFinalScore,
