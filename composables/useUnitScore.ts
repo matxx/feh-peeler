@@ -142,6 +142,7 @@ export default function useUnitScore(
 
   // neutral (no boon, no bane) units merged at least once
   // get +1 on their 3 highest stats
+  // https://feheroes.fandom.com/wiki/Merge_Allies
   const isNeutralAndMerged = computed(
     () =>
       unitInstance.value.merges >= 1 &&
