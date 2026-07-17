@@ -26,6 +26,8 @@ export const SORT_ORIGIN = 'origin'
 export const SORT_ID_INT = 'id_int'
 export const SORT_THEME = 'theme'
 export const SORT_OWNED = 'owned'
+export const SORT_DUEL_SCORE = 'duel_score'
+export const SORT_CLASH_SCORE = 'clash_score'
 
 // keys not on unit data
 
@@ -60,6 +62,8 @@ export type SortingField =
   | typeof SORT_ORIGIN
   | typeof SORT_ID_INT
   | typeof SORT_THEME // but order should
+  | typeof SORT_DUEL_SCORE
+  | typeof SORT_CLASH_SCORE
   // not on unit
   | typeof SORT_MOVE
   | typeof SORT_WEAP
@@ -106,6 +110,8 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [unitsColumns.COLUMN_MAX_SCORE]: SORT_MAX_SCORE,
   [unitsColumns.COLUMN_RATING]: SORT_RATING,
   [unitsColumns.COLUMN_THEME]: SORT_THEME,
+  [unitsColumns.COLUMN_DUEL_SCORE]: SORT_DUEL_SCORE,
+  [unitsColumns.COLUMN_CLASH_SCORE]: SORT_CLASH_SCORE,
   // proxy fields
   [unitsColumns.COLUMN_MOVE]: SORT_MOVE,
   [unitsColumns.COLUMN_WEAPON]: SORT_WEAP,

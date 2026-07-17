@@ -467,6 +467,8 @@ export default {
         [unitsColumns.COLUMN_MAX_SCORE]: 'Max Score',
         [unitsColumns.COLUMN_THEME]: 'Theme',
         [unitsColumns.COLUMN_OWNED]: 'Owned',
+        [unitsColumns.COLUMN_DUEL_SCORE]: 'Duel Score',
+        [unitsColumns.COLUMN_CLASH_SCORE]: 'Clash Score',
       },
       tooltips: {
         [unitsColumns.COLUMN_MAX_DRAGONFLOWERS]: 'Max dragonflowers',
