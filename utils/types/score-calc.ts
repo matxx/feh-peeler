@@ -39,7 +39,7 @@ export type IUnitInstanceInScoreCalc = IUnitInstanceInScoreCalcV2
 
 export interface ScoreContext {
   bonusFactor: number
-  seasonElements: ElementLegendary[]
+  seasonElements: Element[]
   legendaryCounts: IndexedBy<ElementLegendary, number>
   mjolnirStrike: {
     isActive: boolean

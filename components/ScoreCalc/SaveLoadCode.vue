@@ -20,6 +20,7 @@
           <span class="text-primary">{{ saveTooltip }}</span>
           <v-btn
             icon="mdi-close"
+            variant="text"
             size="small"
             @click="isSaveDialogOpen = false"
           />

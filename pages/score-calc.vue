@@ -110,10 +110,7 @@
           <v-card-text class="pa-0">
             <v-container fluid>
               <v-row>
-                <v-col
-                  cols="12"
-                  md="4"
-                >
+                <v-col cols="12">
                   <v-checkbox
                     v-model="hasBonusUnit"
                     :label="t('scoreCalc.labels.hasBonusUnit')"
@@ -168,7 +165,7 @@
                 <template v-else>
                   <v-col
                     cols="6"
-                    md="4"
+                    md="3"
                   >
                     <v-select
                       v-model="seasonElements[0]"
@@ -183,7 +180,7 @@
                   </v-col>
                   <v-col
                     cols="6"
-                    md="4"
+                    md="3"
                   >
                     <v-select
                       v-model="seasonElements[1]"
@@ -193,6 +190,36 @@
                       hide-details
                       :label="
                         t('scoreCalc.labels.seasonElements', { index: 2 })
+                      "
+                    />
+                  </v-col>
+                  <v-col
+                    cols="6"
+                    md="3"
+                  >
+                    <v-select
+                      v-model="seasonElements[2]"
+                      :items="itemsForElementsMythic"
+                      clearable
+                      density="compact"
+                      hide-details
+                      :label="
+                        t('scoreCalc.labels.seasonElements', { index: 3 })
+                      "
+                    />
+                  </v-col>
+                  <v-col
+                    cols="6"
+                    md="3"
+                  >
+                    <v-select
+                      v-model="seasonElements[3]"
+                      :items="itemsForElementsMythic"
+                      clearable
+                      density="compact"
+                      hide-details
+                      :label="
+                        t('scoreCalc.labels.seasonElements', { index: 4 })
                       "
                     />
                   </v-col>
@@ -291,10 +318,7 @@ import {
   // type IUnitInstanceInScoreCalcV2,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
-import type {
-  ElementLegendary,
-  ElementMythic,
-} from '~/utils/types/units-filters'
+import type { Element, ElementMythic } from '~/utils/types/units-filters'
 import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
@@ -323,7 +347,7 @@ const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
 
 const units = ref<IUnitInstanceInScoreCalc[]>(getEmptyTeamInScoreCalc())
 const hasBonusUnit = ref(DEFAULT_VALUES.hasBonusUnit)
-const seasonElements = ref<ElementLegendary[]>(DEFAULT_VALUES.seasonElements)
+const seasonElements = ref<Element[]>(DEFAULT_VALUES.seasonElements)
 const isMjolnirStrike = ref(DEFAULT_VALUES.isMjolnirStrike)
 const mjolnirStrikeMajor = ref<ElementMythic | null>(
   DEFAULT_VALUES.mjolnirStrikeMajor,
@@ -455,7 +479,7 @@ interface IPayloadToSave {
   version: number
   units: IUnitInstanceInScoreCalc[]
   hasBonusUnit: boolean
-  seasonElements: ElementLegendary[]
+  seasonElements: Element[]
   isMjolnirStrike: boolean
   mjolnirStrikeMajor: ElementMythic | null
   mjolnirStrikeMinor: ElementMythic | null

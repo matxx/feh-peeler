@@ -3,6 +3,7 @@ import sum from 'lodash-es/sum'
 import uniq from 'lodash-es/uniq'
 import filter from 'lodash-es/filter'
 import compact from 'lodash-es/compact'
+import intersection from 'lodash-es/intersection'
 
 import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import {
@@ -23,6 +24,7 @@ import { SKILL_PASSIVE_A } from '~/utils/types/skills'
 import { BANE, BOON, STATS } from '~/utils/types/units-stats'
 import { MOVE_A } from '~/utils/types/moves'
 import { getEmptyUnitInstanceSkillIds } from '~/utils/types/units'
+import { SORTED_LEGENDARY_ELEMENTS } from '~/utils/types/units-filters'
 
 // https://feheroes.fandom.com/wiki/Stat_growth#General_level_up_formula
 const statAtLevel = (
@@ -68,7 +70,6 @@ export default function useUnitScore(
     const element = unit.value.element
     if (!element) return false
 
-    // @ts-expect-error ElementMythic handled here
     return scoreContext.value.seasonElements.includes(element)
   })
 
@@ -249,6 +250,8 @@ export default function useUnitScore(
     // attached chosen heroes do not get bonuses from legendaries
     if (isAttachedChosenHero) return 0
 
+    if (unit.value.is_mythic) return mythicBlessingScore.value
+
     return (
       sum(
         uniq(
@@ -259,7 +262,6 @@ export default function useUnitScore(
             chosenHeroIsInSeason.value ? chosenHero.value?.element : null,
           ]),
         ).map((element) => {
-          // @ts-expect-error ElementMythic handled here
           if (!scoreContext.value.seasonElements.includes(element)) {
             return 0
           }
@@ -267,6 +269,28 @@ export default function useUnitScore(
           // @ts-expect-error ElementMythic handled here
           return scoreContext.value.legendaryCounts[element] || 0
         }),
+      ) * 4
+    )
+  })
+  // an in-season mythic unit receives bonuses from all in season legendaries
+  // an out-of-season mythic receives no bonuses
+  const mythicBlessingScore = computed(() => {
+    if (!unit.value) return 0
+    if (!unit.value.is_mythic) return 0
+    if (!unit.value.element) return 0
+    if (!scoreContext.value.seasonElements.includes(unit.value.element)) {
+      return 0
+    }
+
+    return (
+      sum(
+        compact(
+          intersection(
+            scoreContext.value.seasonElements,
+            SORTED_LEGENDARY_ELEMENTS,
+            // @ts-expect-error ElementMythic handled here
+          ).map((element) => scoreContext.value.legendaryCounts[element]),
+        ),
       ) * 4
     )
   })

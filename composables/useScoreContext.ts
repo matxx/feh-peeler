@@ -7,13 +7,13 @@ import type {
 } from '~/utils/types/score-calc'
 import {
   SORTED_LEGENDARY_ELEMENTS,
-  type ElementLegendary,
+  type Element,
 } from '~/utils/types/units-filters'
 
 export default function useScoreContext(
   units: Ref<IUnitInstanceInScoreCalc[]>,
   hasBonusUnit: Ref<boolean>,
-  seasonElements: Ref<ElementLegendary[]>,
+  seasonElements: Ref<Element[]>,
   mjolnirStrike?: Ref<ScoreContext['mjolnirStrike']>,
 ) {
   const storeDataUnits = useStoreDataUnits()
