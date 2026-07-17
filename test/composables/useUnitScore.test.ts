@@ -279,6 +279,79 @@ const TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_BOTH: TeamCase = {
   expectedTeamFinalScore: 674,
 }
 
+// Covers out-of-season mythics with an in-season chosen hero attached:
+// M!Heimdallr (Anima, out of season) has C!Alfonse (Wind, in season)
+// attached as chosen hero. Unlike the TEAM_MYTHIC_OUT_OF_SEASON_*
+// group above, Heimdallr must now receive a blessing bonus - but scaled
+// only by the count of in-season legendaries sharing C!Alfonse's element
+// (Wind), not by all in-season legendaries regardless of element. So adding
+// L!Caeda (Water) below must NOT move Heimdallr's score, while adding
+// L!Shez (Wind) must.
+const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_2_DUOS: TeamCase = {
+  name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): 2 duo teammates',
+  code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/mr5Tnv7zjgrfjg6Pjg63jg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJzcGQiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+avlOe/vOODlOOCouODi+ODvCIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJocCIsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
+  context: {
+    hasBonusUnit: true,
+    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+  },
+  expectedVisibleFinalScores: [676, 756, 678, 672],
+  expectedTeamFinalScore: 694,
+}
+// same team, one duo swapped for L!Shez (Wind, same element as C!Alfonse) -
+// Heimdallr's score must move
+const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_1: TeamCase =
+  {
+    name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): + L!Shez',
+    code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/kvJ3mib/jgrfjgqfjgrrnlLciLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJkZWYiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6IldpbmQiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg5TjgqLjg4vjg7wiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJyZXMiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6bnVsbCwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
+    context: {
+      hasBonusUnit: true,
+      seasonElements: [
+        ELEMENT_WATER,
+        ELEMENT_WIND,
+        ELEMENT_LIGHT,
+        ELEMENT_DARK,
+      ],
+    },
+    expectedVisibleFinalScores: [676, 764, 678, 672],
+    expectedTeamFinalScore: 696,
+  }
+// same team, the other duo swapped for L!Caeda (Water, different element
+// from C!Alfonse) instead - Heimdallr's score must NOT move
+const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_2: TeamCase =
+  {
+    name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): + L!Caeda',
+    code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/mr5Tnv7zjgrfjg6Pjg63jg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJzcGQiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+OCt+ODvOODgCIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfV0=',
+    context: {
+      hasBonusUnit: true,
+      seasonElements: [
+        ELEMENT_WATER,
+        ELEMENT_WIND,
+        ELEMENT_LIGHT,
+        ELEMENT_DARK,
+      ],
+    },
+    expectedVisibleFinalScores: [676, 756, 678, 672],
+    expectedTeamFinalScore: 694,
+  }
+// same team, both duos swapped (L!Shez AND L!Caeda) - only L!Shez (Wind)
+// counts toward Heimdallr's bonus, L!Caeda (Water) doesn't
+const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_BOTH: TeamCase =
+  {
+    name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): + L!Shez + L!Caeda',
+    code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/kvJ3mib/jgrfjgqfjgrrnlLciLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJkZWYiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6IldpbmQiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgrfjg7zjg4AiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
+    context: {
+      hasBonusUnit: true,
+      seasonElements: [
+        ELEMENT_WATER,
+        ELEMENT_WIND,
+        ELEMENT_LIGHT,
+        ELEMENT_DARK,
+      ],
+    },
+    expectedVisibleFinalScores: [676, 764, 678, 672],
+    expectedTeamFinalScore: 696,
+  }
+
 const TEAM_CASES: TeamCase[] = [
   TEAM_STANDARD,
 
@@ -302,6 +375,11 @@ const TEAM_CASES: TeamCase[] = [
   TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_1,
   TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_2,
   TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_BOTH,
+
+  TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_2_DUOS,
+  TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_1,
+  TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_2,
+  TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_BOTH,
 ]
 
 describe('useUnitScore', () => {

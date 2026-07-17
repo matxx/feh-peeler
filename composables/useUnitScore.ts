@@ -272,24 +272,32 @@ export default function useUnitScore(
       ) * 4
     )
   })
-  // an in-season mythic unit receives bonuses from all in season legendaries
-  // an out-of-season mythic receives no bonuses
   const mythicBlessingScore = computed(() => {
     if (!unit.value) return 0
     if (!unit.value.is_mythic) return 0
     if (!unit.value.element) return 0
-    if (!scoreContext.value.seasonElements.includes(unit.value.element)) {
-      return 0
-    }
+
+    const relevantElements = scoreContext.value.seasonElements.includes(
+      unit.value.element,
+    )
+      ? // an in-season mythic unit receives bonuses from all in season legendaries
+        intersection(
+          scoreContext.value.seasonElements,
+          SORTED_LEGENDARY_ELEMENTS,
+        )
+      : chosenHero.value && chosenHeroIsInSeason.value
+        ? // an out-of-season mythic w/ in-season chosen hero receives bonuses from that season only
+          [chosenHero.value.element]
+        : // an out-of-season mythic w/o in-season chosen hero receives no bonuses
+          []
 
     return (
       sum(
         compact(
-          intersection(
-            scoreContext.value.seasonElements,
-            SORTED_LEGENDARY_ELEMENTS,
+          relevantElements.map(
             // @ts-expect-error ElementMythic handled here
-          ).map((element) => scoreContext.value.legendaryCounts[element]),
+            (element) => scoreContext.value.legendaryCounts[element],
+          ),
         ),
       ) * 4
     )
