@@ -14,7 +14,7 @@
     "test:watch": "vitest"
   },
   "engines": {
-    "node": "^20.19.4"
+    "node": "^22.20.0"
   },
   "devDependencies": {
     "@kgierke/nuxt-basic-auth": "^1.7.0",
