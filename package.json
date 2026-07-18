@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@kgierke/nuxt-basic-auth": "^1.7.0",
-    "@nuxt/eslint": "^1.15.2",
+    "@nuxt/eslint": "^1.16.0",
     "@nuxt/eslint-config": "^1.12.1",
     "@nuxt/test-utils": "^4.0.3",
     "@nuxtjs/device": "^4.0.0",
