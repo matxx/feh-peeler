@@ -40,7 +40,13 @@
                 </div>
               </v-tooltip>
 
-              <v-tooltip location="bottom">
+              <v-card-subtitle v-if="visibleBst === bst">
+                {{ t('scoreCalc.headers.bst') }}: {{ bst }}
+              </v-card-subtitle>
+              <v-tooltip
+                v-else
+                location="bottom"
+              >
                 <template #activator="{ props: tooltipProps }">
                   <v-card-subtitle v-bind="tooltipProps">
                     {{ t('scoreCalc.headers.visibleBst') }}: {{ visibleBst }}
