@@ -306,6 +306,17 @@ export default defineNuxtConfig({
     },
   },
 
+  vite: {
+    resolve: {
+      alias: {
+        // esbuild fails to detect the minified UMD `highcharts.js` bundle as
+        // CommonJS, so Vite serves it unbundled and the `export named default`
+        // interop is missing. Point at Highcharts' real ESM build instead.
+        highcharts: 'highcharts/es-modules/masters/highcharts.src.js',
+      },
+    },
+  },
+
   highcharts: {
     chartOptions: {
       exporting: true,
