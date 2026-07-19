@@ -51,6 +51,5 @@ npm run dev
 
 ### Dev stuff
 
-1. nuxt-highcharts not maintained, use native web component instead (<https://github.com/richardeschloss/nuxt-highcharts/discussions/74>)
 1. properly type all the `// eslint-disable-next-line @typescript-eslint/no-explicit-any`
 1. properly type all the `// @ts-expect-error unsafe typings`

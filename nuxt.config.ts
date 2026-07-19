@@ -131,7 +131,6 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@sentry/nuxt/module',
     'vuetify-nuxt-module',
-    'nuxt-highcharts',
     '@vueuse/nuxt',
   ],
 
@@ -303,12 +302,6 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
-    },
-  },
-
-  highcharts: {
-    chartOptions: {
-      exporting: true,
     },
   },
 })

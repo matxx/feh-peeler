@@ -32,11 +32,12 @@
             class="mb-8"
             elevation="4"
           >
-            <highchart
-              :options="graph.chartOptions"
-              :modules="['accessibility', 'exporting', 'export-data']"
-              :class="`highcharts-${storeTheme.appliedTheme}`"
-            />
+            <client-only>
+              <highcharts
+                :options="graph.chartOptions"
+                :class="`highcharts-${storeTheme.appliedTheme}`"
+              />
+            </client-only>
           </v-card>
         </template>
       </v-col>
