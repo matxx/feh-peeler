@@ -5,10 +5,7 @@ import type {
   IUnitInstanceInScoreCalc,
   ScoreContext,
 } from '~/utils/types/score-calc'
-import {
-  SORTED_LEGENDARY_ELEMENTS,
-  type Element,
-} from '~/utils/types/units-filters'
+import { SORTED_LEGENDARY_ELEMENTS, type Element } from '~/utils/types/elements'
 
 export default function useScoreContext(
   units: Ref<IUnitInstanceInScoreCalc[]>,

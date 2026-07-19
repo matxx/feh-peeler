@@ -24,7 +24,7 @@ import { SKILL_PASSIVE_A } from '~/utils/types/skills'
 import { BANE, BOON, STATS } from '~/utils/types/units-stats'
 import { MOVE_A } from '~/utils/types/moves'
 import { getEmptyUnitInstanceSkillIds } from '~/utils/types/units'
-import { SORTED_LEGENDARY_ELEMENTS } from '~/utils/types/units-filters'
+import { SORTED_LEGENDARY_ELEMENTS } from '~/utils/types/elements'
 
 // https://feheroes.fandom.com/wiki/Stat_growth#General_level_up_formula
 const statAtLevel = (

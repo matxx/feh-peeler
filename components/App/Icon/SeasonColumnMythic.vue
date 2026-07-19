@@ -24,7 +24,7 @@ import {
   ELEMENT_ANIMA,
   ELEMENT_CHAOS,
   type ElementMythicOffensiveOrChaos,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 import { numberToPx } from '~/utils/functions/numberToPx'
 
 const WIDTH_DEFAULT = 30

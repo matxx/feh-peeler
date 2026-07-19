@@ -18,7 +18,7 @@ import {
   ELEMENT_ASTRA,
   ELEMENT_ANIMA,
   type Element,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 
 import ImgFire from '~/assets/icons/elements/fire.png'
 import ImgWater from '~/assets/icons/elements/water.png'

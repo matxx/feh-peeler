@@ -26,7 +26,7 @@ import {
   ELEMENT_LIGHT,
   ELEMENT_DARK,
   type Element,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 import { mean } from '~/utils/functions/math'
 
 import {

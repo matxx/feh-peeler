@@ -14,7 +14,7 @@ import {
   ELEMENT_WIND,
   ELEMENT_EARTH,
   type Element,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 
 import ImgFire from '~/assets/icons/elements/chosen/fire.png'
 import ImgWater from '~/assets/icons/elements/chosen/water.png'

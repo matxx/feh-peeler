@@ -30,7 +30,7 @@ import {
 import type { Availability } from '~/utils/types/units-availabilities'
 import { getAvailability } from '~/utils/types/units-availabilities'
 import { getSortableMoveType } from '~/utils/types/moves'
-import { getSortableElement } from '~/utils/types/units-filters'
+import { getSortableElement } from '~/utils/types/elements'
 import { getSortableVersion } from '~/utils/functions/sortableVersion'
 
 export const useStoreDataUnits = defineStore('data/units', () => {

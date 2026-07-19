@@ -1,11 +1,11 @@
 import * as availability from '~/utils/types/units-availabilities'
+import * as elements from '~/utils/types/elements'
 import * as grades from '~/utils/types/grades'
 import * as skills from '~/utils/types/skills'
 import * as skillsColumns from '~/utils/types/skills-columns'
 import * as skillsFilters from '~/utils/types/skills-filters'
 import * as units from '~/utils/types/units'
 import * as unitsColumns from '~/utils/types/units-columns'
-import * as unitsFilters from '~/utils/types/units-filters'
 import * as bindingWorlds from '~/utils/events/binding-worlds'
 import * as obfuscatedKeys from '~/utils/types/obfuscated-keys'
 import * as themes from '~/utils/types/themes'
@@ -89,14 +89,14 @@ export default {
     },
 
     elements: {
-      [unitsFilters.ELEMENT_FIRE]: 'Fire',
-      [unitsFilters.ELEMENT_WATER]: 'Water',
-      [unitsFilters.ELEMENT_WIND]: 'Wind',
-      [unitsFilters.ELEMENT_EARTH]: 'Earth',
-      [unitsFilters.ELEMENT_LIGHT]: 'Light',
-      [unitsFilters.ELEMENT_DARK]: 'Dark',
-      [unitsFilters.ELEMENT_ASTRA]: 'Astra',
-      [unitsFilters.ELEMENT_ANIMA]: 'Anima',
+      [elements.ELEMENT_FIRE]: 'Fire',
+      [elements.ELEMENT_WATER]: 'Water',
+      [elements.ELEMENT_WIND]: 'Wind',
+      [elements.ELEMENT_EARTH]: 'Earth',
+      [elements.ELEMENT_LIGHT]: 'Light',
+      [elements.ELEMENT_DARK]: 'Dark',
+      [elements.ELEMENT_ASTRA]: 'Astra',
+      [elements.ELEMENT_ANIMA]: 'Anima',
     },
 
     assets: {
@@ -137,14 +137,14 @@ export default {
             [moves.MOVE_F]: 'Icon dragonflowers blue (flying)',
           },
           elements: {
-            [unitsFilters.ELEMENT_FIRE]: 'Icon Fire',
-            [unitsFilters.ELEMENT_WATER]: 'Icon Water',
-            [unitsFilters.ELEMENT_WIND]: 'Icon Wind',
-            [unitsFilters.ELEMENT_EARTH]: 'Icon Earth',
-            [unitsFilters.ELEMENT_LIGHT]: 'Icon Light',
-            [unitsFilters.ELEMENT_DARK]: 'Icon Dark',
-            [unitsFilters.ELEMENT_ASTRA]: 'Icon Astra',
-            [unitsFilters.ELEMENT_ANIMA]: 'Icon Anima',
+            [elements.ELEMENT_FIRE]: 'Icon Fire',
+            [elements.ELEMENT_WATER]: 'Icon Water',
+            [elements.ELEMENT_WIND]: 'Icon Wind',
+            [elements.ELEMENT_EARTH]: 'Icon Earth',
+            [elements.ELEMENT_LIGHT]: 'Icon Light',
+            [elements.ELEMENT_DARK]: 'Icon Dark',
+            [elements.ELEMENT_ASTRA]: 'Icon Astra',
+            [elements.ELEMENT_ANIMA]: 'Icon Anima',
           },
         },
       },

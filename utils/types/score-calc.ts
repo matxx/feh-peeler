@@ -10,7 +10,7 @@ import type {
   Element,
   ElementLegendary,
   ElementMythic,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 import type { Stat } from '~/utils/types/units-stats'
 import { WEAPON_R, WEAPON_B, WEAPON_G, WEAPON_C } from '~/utils/types/weapons'
 import { MOVE_I, MOVE_C, MOVE_F } from '~/utils/types/moves'
@@ -106,9 +106,7 @@ export const SCU_CODE_PREFIX = 'SCUv1:'
 export const SCT_CODE_PREFIX = 'SCTv1:'
 
 export type ScoreCalcCodeErrorReason =
-  | 'expectedUnitGotTeam'
-  | 'expectedTeamGotUnit'
-  | 'invalidCode'
+  'expectedUnitGotTeam' | 'expectedTeamGotUnit' | 'invalidCode'
 
 export class ScoreCalcCodeError extends Error {
   reason: ScoreCalcCodeErrorReason

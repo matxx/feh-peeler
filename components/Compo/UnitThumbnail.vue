@@ -163,7 +163,7 @@
 
 <script setup lang="ts">
 import type { IUnitThumbnail } from '~/utils/types/units'
-import type { Element } from '~/utils/types/units-filters'
+import type { Element } from '~/utils/types/elements'
 import { numberToPx } from '~/utils/functions/numberToPx'
 
 const { mobile } = useDisplay()

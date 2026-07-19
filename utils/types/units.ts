@@ -24,7 +24,7 @@ import {
   SORTED_AVAILABILITIES,
   type Availability,
 } from '~/utils/types/units-availabilities'
-import type { Element } from '~/utils/types/units-filters'
+import type { Element } from '~/utils/types/elements'
 import type { StatOrNone } from '~/utils/types/units-stats'
 import type { UnitTheme } from '~/utils/types/units-themes'
 

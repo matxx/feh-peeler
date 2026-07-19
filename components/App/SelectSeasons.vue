@@ -83,7 +83,7 @@ import {
   ELEMENT_ASTRA,
   ELEMENT_ANIMA,
   ELEMENT_CHAOS,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 import { numberToPx } from '~/utils/functions/numberToPx'
 
 const WIDTH = 20

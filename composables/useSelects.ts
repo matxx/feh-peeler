@@ -3,7 +3,7 @@ import {
   SORTED_LEGENDARY_ELEMENTS,
   SORTED_MYTHIC_ELEMENTS,
   SORTED_ELEMENTS,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 
 export default function useSelects() {
   const { t } = useI18n()

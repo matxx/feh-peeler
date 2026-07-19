@@ -18,7 +18,7 @@ import {
   ELEMENT_ANIMA,
   ELEMENT_CHAOS,
   type ElementOrChaos,
-} from '~/utils/types/units-filters'
+} from '~/utils/types/elements'
 
 const props = defineProps<{
   element?: ElementOrChaos

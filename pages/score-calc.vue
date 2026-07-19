@@ -274,7 +274,7 @@ import {
   // type IUnitInstanceInScoreCalcV2,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
-import type { Element, ElementMythic } from '~/utils/types/units-filters'
+import type { Element, ElementMythic } from '~/utils/types/elements'
 import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
