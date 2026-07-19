@@ -53,7 +53,7 @@
     "maska": "^3.2.0",
     "nuxt-highcharts": "^3.1.1",
     "pinia": "^4.0.2",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.0",
     "vee-validate": "^4.15.1",
     "vue-virtual-scroller": "^2.0.1",
     "wrangler": "^4.75.0",
