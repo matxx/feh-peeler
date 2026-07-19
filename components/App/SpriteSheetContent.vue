@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import type { SpriteFrame } from '~/utils/types/spriteSheets'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const props = defineProps<{
   sprite: SpriteFrame
@@ -36,10 +37,10 @@ const style = computed(() => {
    * 3. We use transform-origin to ensure it stays in its box.
    */
   return {
-    width: `${realWidth}px`,
-    height: `${realHeight}px`,
+    width: numberToPx(realWidth),
+    height: numberToPx(realHeight),
     backgroundImage: `url(${props.img})`,
-    backgroundPosition: `-${x}px -${y}px`,
+    backgroundPosition: `-${numberToPx(x)} -${numberToPx(y)}`,
     backgroundRepeat: 'no-repeat',
     transform: `scale(${scale}) ${rotated ? 'rotate(-90deg)' : ''}`,
     transformOrigin: 'center',

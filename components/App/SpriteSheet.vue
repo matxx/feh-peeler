@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import type { SpriteFrame } from '~/utils/types/spriteSheets'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const props = defineProps<{
   spriteSheet: SpriteFrame[]
@@ -52,10 +53,14 @@ const resolvedHeight = computed(() => {
   return sprite.value?.height
 })
 
-const style = computed(() => ({
-  width: `${resolvedWidth.value}px`,
-  height: `${resolvedHeight.value}px`,
-}))
+const style = computed(() =>
+  resolvedWidth.value && resolvedHeight.value
+    ? {
+        width: numberToPx(resolvedWidth.value),
+        height: numberToPx(resolvedHeight.value),
+      }
+    : {},
+)
 </script>
 
 <style lang="scss" scoped>

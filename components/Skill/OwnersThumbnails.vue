@@ -28,7 +28,8 @@
 import sortBy from 'lodash-es/sortBy'
 import compact from 'lodash-es/compact'
 
-import type { ISkill } from '@/utils/types/skills'
+import type { ISkill } from '~/utils/types/skills'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const storeGlobals = useStoreGlobals()
 const storeDataUnits = useStoreDataUnits()
@@ -70,9 +71,9 @@ const scroller = useTemplateRef('scroller')
 const container = computed<HTMLElement | undefined>(() => scroller.value?.$el)
 const { scrollbarHeight } = useScroll(container)
 const totalHeight = computed(() => props.tileSize + scrollbarHeight.value)
-const totalHeightPx = computed(() => `${totalHeight.value}px`)
+const totalHeightPx = computed(() => numberToPx(totalHeight.value))
 
-const maxWidthPx = computed(() => `${props.tileSize * 4.5}px`)
+const maxWidthPx = computed(() => numberToPx(props.tileSize * 4.5))
 </script>
 
 <style lang="scss" scoped>

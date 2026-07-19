@@ -13,7 +13,7 @@
       <AppIconRarity
         v-if="rarity"
         :rarity="rarity"
-        :size="`${mainSize}px`"
+        :size="numberToPx(mainSize)"
         :class="{ 'filter-grayscale-1': disabled }"
       />
       <v-img
@@ -26,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+import { numberToPx } from '~/utils/functions/numberToPx'
+
 const props = withDefaults(
   defineProps<{
     disabled?: boolean

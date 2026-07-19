@@ -508,6 +508,7 @@ import {
   LOCAL_STORAGE_KEY,
   type IPayloadToSaveV1,
 } from '~/utils/types/catalog-of-heroes'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const { t } = useI18n()
 const { mobile, mdAndDown } = useDisplay()
@@ -517,7 +518,7 @@ const thumbnailSize = computed(() => (mobile.value ? 50 : 80))
 const tileSize = 30
 const rowsCount = ref(7)
 
-const heightPx = computed(() => `${frameSize.value * rowsCount.value}px`)
+const heightPx = computed(() => numberToPx(frameSize.value * rowsCount.value))
 
 const storeGlobals = useStoreGlobals()
 
@@ -537,9 +538,10 @@ const catalogContainer = computed<HTMLElement | undefined>(
   () => catalogScroller.value?.$el,
 )
 const { scrollbarWidth: catalogScrollbarWidth } = useScroll(catalogContainer)
-const catalogScrollerWidthPx = computed(
-  () =>
-    `${frameSize.value * columnsCount.value + catalogScrollbarWidth.value}px`,
+const catalogScrollerWidthPx = computed(() =>
+  numberToPx(
+    frameSize.value * columnsCount.value + catalogScrollbarWidth.value,
+  ),
 )
 
 const grailsScroller = useTemplateRef('grailsScroller')
@@ -547,9 +549,8 @@ const grailsContainer = computed<HTMLElement | undefined>(
   () => grailsScroller.value?.$el,
 )
 const { scrollbarWidth: grailsScrollbarWidth } = useScroll(grailsContainer)
-const grailsScrollerWidthPx = computed(
-  () =>
-    `${frameSize.value * columnsCount.value + grailsScrollbarWidth.value}px`,
+const grailsScrollerWidthPx = computed(() =>
+  numberToPx(frameSize.value * columnsCount.value + grailsScrollbarWidth.value),
 )
 
 const modalScroller = useTemplateRef('modalScroller')
@@ -711,15 +712,16 @@ const modalUnitsByLines = computed(() =>
 const modalUnitsColumnsShown = computed(() =>
   Math.min(columnsCount.value, modalUnits.value.length),
 )
-const modalUnitsWidthPx = computed(
-  () =>
-    `${frameSize.value * modalUnitsColumnsShown.value + modalScrollbarWidth.value}px`,
+const modalUnitsWidthPx = computed(() =>
+  numberToPx(
+    frameSize.value * modalUnitsColumnsShown.value + modalScrollbarWidth.value,
+  ),
 )
 const modalUnitsLinesShown = computed(() =>
   Math.min(modalUnitsByLines.value.length, columnsCount.value),
 )
-const modalUnitsHeightPx = computed(
-  () => `${frameSize.value * modalUnitsLinesShown.value}px`,
+const modalUnitsHeightPx = computed(() =>
+  numberToPx(frameSize.value * modalUnitsLinesShown.value),
 )
 
 // local storage

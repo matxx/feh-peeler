@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import type { IUnit } from '~/utils/types/units'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 defineProps<{
   units: IUnit[]
@@ -38,7 +39,7 @@ const scroller = useTemplateRef('scroller')
 const container = computed<HTMLElement | undefined>(() => scroller.value?.$el)
 const { scrollbarHeight } = useScroll(container)
 const totalHeight = computed(() => ITEM_HEIGHT + scrollbarHeight.value)
-const totalHeightPx = computed(() => `${totalHeight.value}px`)
+const totalHeightPx = computed(() => numberToPx(totalHeight.value))
 </script>
 
 <style lang="scss" scoped>

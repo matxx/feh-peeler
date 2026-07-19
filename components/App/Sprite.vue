@@ -3,6 +3,8 @@
 </template>
 
 <script setup lang="ts">
+import { numberToPx } from '~/utils/functions/numberToPx'
+
 const props = defineProps({
   spritesheet: {
     type: String,
@@ -39,15 +41,15 @@ const props = defineProps({
   },
 })
 
-const cssWidth = computed(() => `${props.width}px`)
-const cssHeight = computed(() => `${props.height}px`)
+const cssWidth = computed(() => numberToPx(props.width))
+const cssHeight = computed(() => numberToPx(props.height))
 const cssRotation = computed(() => `rotate(${props.rotation}deg)`)
 const cssBackground = computed(() => `url(${props.spritesheet}) 0 0`)
 
 const left = computed(() => -props.offsetLeft)
 const top = computed(() => -props.offsetTop)
-const leftPx = computed(() => `${left.value}px`)
-const topPx = computed(() => `${top.value}px`)
+const leftPx = computed(() => numberToPx(left.value))
+const topPx = computed(() => numberToPx(top.value))
 </script>
 
 <style scoped lang="scss">

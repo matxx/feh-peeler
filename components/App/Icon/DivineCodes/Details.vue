@@ -20,6 +20,8 @@
 </template>
 
 <script setup lang="ts">
+import { numberToPx } from '~/utils/functions/numberToPx'
+
 const props = defineProps({
   width: {
     type: [Number, String],
@@ -77,8 +79,8 @@ const computedHeight = computed<number>(() => {
   return 0
 })
 
-const widthForCss = computed(() => `${computedWidth.value}px`)
-const heightForCss = computed(() => `${computedHeight.value}px`)
+const widthForCss = computed(() => numberToPx(computedWidth.value))
+const heightForCss = computed(() => numberToPx(computedHeight.value))
 </script>
 
 <style scoped lang="scss">

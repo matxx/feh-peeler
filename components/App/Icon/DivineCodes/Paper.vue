@@ -16,6 +16,8 @@
 </template>
 
 <script setup lang="ts">
+import { numberToPx } from '~/utils/functions/numberToPx'
+
 const imageUrl = new URL(
   '../../../../assets/sprite-sheets/Item_2.png',
   import.meta.url,
@@ -92,8 +94,8 @@ const computedHeight = computed<number>(() => {
   return 0
 })
 
-const widthForCss = computed(() => `${computedWidth.value}px`)
-const heightForCss = computed(() => `${computedHeight.value}px`)
+const widthForCss = computed(() => numberToPx(computedWidth.value))
+const heightForCss = computed(() => numberToPx(computedHeight.value))
 
 const scaleForCss = computed(
   () => `scale(${computedWidth.value / PAPER_WIDTH})`,

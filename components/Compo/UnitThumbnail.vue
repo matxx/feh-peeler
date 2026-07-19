@@ -162,8 +162,9 @@
 </template>
 
 <script setup lang="ts">
-import type { IUnitThumbnail } from '@/utils/types/units.ts'
+import type { IUnitThumbnail } from '~/utils/types/units'
 import type { Element } from '~/utils/types/units-filters'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const { mobile } = useDisplay()
 
@@ -191,16 +192,18 @@ const props = withDefaults(
 
 const sizeCornerSmall = computed(() => props.sizeCorner * 0.8)
 
-const marginPx = computed(() => `${props.margin}px`)
-const offsetForIconLine1Px = computed(() => `${props.marginIcon}px`)
+const marginPx = computed(() => numberToPx(props.margin))
+const offsetForIconLine1Px = computed(() => numberToPx(props.marginIcon))
 
 const offsetForIconLine2 = computed(() => props.marginIcon + props.sizeCorner)
-const offsetForIconLine2Px = computed(() => `${offsetForIconLine2.value}px`)
+const offsetForIconLine2Px = computed(() =>
+  numberToPx(offsetForIconLine2.value),
+)
 
 const offsetForIconRow2 = computed(
   () => props.marginIcon + props.sizeCorner / 2,
 )
-const offsetForIconRow2Px = computed(() => `${offsetForIconRow2.value}px`)
+const offsetForIconRow2Px = computed(() => numberToPx(offsetForIconRow2.value))
 </script>
 
 <style lang="scss" scoped>

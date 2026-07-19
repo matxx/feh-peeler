@@ -92,7 +92,8 @@ import ImgPane3 from '~/assets/icons/catalog/Pane_3.png'
 import ImgPane4 from '~/assets/icons/catalog/Pane_4.png'
 import ImgPane5 from '~/assets/icons/catalog/Pane_5.png'
 
-import type { IUnitThumbnail } from '@/utils/types/units.ts'
+import type { IUnitThumbnail } from '~/utils/types/units'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const { mobile } = useDisplay()
 
@@ -161,8 +162,8 @@ const imgPane = computed(() => {
   }
 })
 
-const marginPx = computed(
-  () => `${Math.floor((props.frameSize - props.thumbnailSize) / 2)}px`,
+const marginPx = computed(() =>
+  numberToPx(Math.floor((props.frameSize - props.thumbnailSize) / 2)),
 )
 </script>
 

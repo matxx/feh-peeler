@@ -2,13 +2,14 @@
   <AppIconRarity
     v-if="rarity"
     :rarity="rarity"
-    :size="`${tileSize}px`"
+    :size="numberToPx(tileSize)"
   />
 </template>
 
 <script setup lang="ts">
 import type { ISkill } from '~/utils/types/skills'
-import type { IUnit } from '@/utils/types/units'
+import type { IUnit } from '~/utils/types/units'
+import { numberToPx } from '~/utils/functions/numberToPx'
 
 const props = defineProps<{
   skill: ISkill
