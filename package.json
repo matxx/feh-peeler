@@ -55,7 +55,7 @@
     "pinia": "^4.0.2",
     "uuid": "^14.0.0",
     "vee-validate": "^4.15.1",
-    "vue-virtual-scroller": "^2.0.1",
+    "vue-virtual-scroller": "^3.0.4",
     "wrangler": "^4.75.0",
     "zod": "^3.25.76"
   },
