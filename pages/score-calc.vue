@@ -110,16 +110,8 @@
           <v-card-text class="pa-0">
             <v-container fluid>
               <v-row>
-                <v-col cols="12">
-                  <v-checkbox
-                    v-model="hasBonusUnit"
-                    :label="t('scoreCalc.labels.hasBonusUnit')"
-                    density="compact"
-                    hide-details
-                  />
-                </v-col>
                 <!-- <v-col
-                  cols="6"
+                  cols="12"
                   md="3"
                 >
                   <v-switch
@@ -162,66 +154,30 @@
                     />
                   </v-col>
                 </template>
+
                 <template v-else>
                   <v-col
-                    cols="6"
+                    cols="12"
                     md="3"
                   >
-                    <v-select
-                      v-model="seasonElements[0]"
-                      :items="itemsForElementsLegendary"
-                      clearable
+                    <v-checkbox
+                      v-model="hasBonusUnit"
+                      :label="t('scoreCalc.labels.hasBonusUnit')"
                       density="compact"
                       hide-details
-                      :label="
-                        t('scoreCalc.labels.seasonElements', { index: 1 })
-                      "
                     />
                   </v-col>
+
                   <v-col
                     cols="6"
                     md="3"
                   >
-                    <v-select
-                      v-model="seasonElements[1]"
-                      :items="itemsForElementsLegendary"
-                      clearable
-                      density="compact"
-                      hide-details
-                      :label="
-                        t('scoreCalc.labels.seasonElements', { index: 2 })
-                      "
-                    />
-                  </v-col>
-                  <v-col
-                    cols="6"
-                    md="3"
-                  >
-                    <v-select
-                      v-model="seasonElements[2]"
-                      :items="itemsForElementsMythic"
-                      clearable
-                      density="compact"
-                      hide-details
-                      :label="
-                        t('scoreCalc.labels.seasonElements', { index: 3 })
-                      "
-                    />
-                  </v-col>
-                  <v-col
-                    cols="6"
-                    md="3"
-                  >
-                    <v-select
-                      v-model="seasonElements[3]"
-                      :items="itemsForElementsMythic"
-                      clearable
-                      density="compact"
-                      hide-details
-                      :label="
-                        t('scoreCalc.labels.seasonElements', { index: 4 })
-                      "
-                    />
+                    <div class="d-flex align-center">
+                      <div class="mr-3">
+                        {{ t('scoreCalc.labels.seasons') }}:
+                      </div>
+                      <AppSelectSeasons v-model="seasonElements" />
+                    </div>
                   </v-col>
                 </template>
               </v-row>
@@ -324,7 +280,7 @@ import { mean } from '~/utils/functions/math'
 const { t } = useI18n()
 const { sm, smAndDown } = useDisplay()
 const localePath = useLocalePath()
-const { itemsForElementsLegendary, itemsForElementsMythic } = useSelects()
+const { itemsForElementsMythic } = useSelects()
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataSkills = useStoreDataSkills()
@@ -336,9 +292,9 @@ const { isLoading: isLoadingData } = useDataStores([
 ])
 
 const DEFAULT_VALUES = {
+  isMjolnirStrike: false,
   hasBonusUnit: true,
   seasonElements: [],
-  isMjolnirStrike: false,
   mjolnirStrikeMinor: null,
   mjolnirStrikeMajor: null,
 }

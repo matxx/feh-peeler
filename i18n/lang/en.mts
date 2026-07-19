@@ -841,11 +841,11 @@ export default {
         'Score not rounded (in order to see how close you are from the next step)',
 
       realBST: 'Real BST',
-      duoDuelEffectVisibleBst: 'Duel (as Duo)',
-      legendaryDuelEffectVisibleBst: 'Duel (as Legendary)',
-      duelSkillVisibleBst: 'Duel (from skill)',
-      duelEffectVisibleBst: 'Duel (from ?)',
-      clashEffectVisibleBst: 'Clash',
+      duoDuelEffectVisibleBst: 'Duel effect (as Duo)',
+      legendaryDuelEffectVisibleBst: 'Duel effect (as Legendary)',
+      duelSkillVisibleBst: 'Duel effect (from A skill)',
+      duelEffectVisibleBst: 'Duel effect (from ?)',
+      clashEffectVisibleBst: 'Clash effect',
 
       scoreBeforeBlessing: 'Score before blessing',
       chosenHeroScoreBeforeBlessing: 'Chosen hero score before blessing',
@@ -854,10 +854,11 @@ export default {
       realTotalSP: 'Real Total SP',
     },
     labels: {
-      hasBonusUnit: 'Bonus unit ?',
       arena: 'Arena',
       mjolnirStrike: 'MjolnirStrike',
-      seasonElements: 'Season element #{index}',
+      hasBonusUnit: 'Bonus unit ?',
+      seasons: 'Seasons',
+
       majorBlessing: 'Major Blessing',
       minorBlessing: 'Minor Blessing',
 

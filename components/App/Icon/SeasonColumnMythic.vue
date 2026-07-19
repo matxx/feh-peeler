@@ -1,0 +1,83 @@
+<template>
+  <div class="seasons-mythic">
+    <AppIconSeason
+      v-bind="props"
+      :element="elementTop"
+      class="season-mythic season-mythic--top"
+      :width="width"
+    />
+
+    <AppIconSeason
+      v-bind="props"
+      :element="elementBottom"
+      class="season-mythic season-mythic--bottom"
+      :width="width"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import {
+  ELEMENT_LIGHT,
+  ELEMENT_DARK,
+  ELEMENT_ASTRA,
+  ELEMENT_ANIMA,
+  ELEMENT_CHAOS,
+  type ElementMythicOffensiveOrChaos,
+} from '~/utils/types/units-filters'
+import { numberToPx } from '~/utils/functions/numberToPx'
+
+const WIDTH_DEFAULT = 30
+
+const props = withDefaults(
+  defineProps<{
+    elementTop?: ElementMythicOffensiveOrChaos
+    // size?: number
+    // height?: number
+    width?: number
+  }>(),
+  {
+    elementTop: undefined,
+    width: WIDTH_DEFAULT,
+  },
+)
+
+// const computedWidth = computed(() => props.width ?? props.size)
+// const computedHeight = computed(() => props.height ?? props.size)
+
+const elementBottom = computed(() => {
+  switch (props.elementTop) {
+    case ELEMENT_LIGHT:
+      return ELEMENT_DARK
+    case ELEMENT_ASTRA:
+      return ELEMENT_ANIMA
+    case ELEMENT_CHAOS:
+      return ELEMENT_CHAOS
+  }
+
+  return undefined
+})
+
+const totalWidth = computed(() => 1.5 * props.width)
+const totalWidthPx = computed(() => numberToPx(totalWidth.value))
+</script>
+
+<style lang="scss" scoped>
+.seasons-mythic {
+  position: relative;
+  width: v-bind('totalWidthPx');
+  flex: 0 0 v-bind('totalWidth');
+  height: 40px;
+}
+.season-mythic {
+  position: absolute;
+}
+.season-mythic--top {
+  top: 2px;
+  left: 9px;
+}
+.season-mythic--bottom {
+  top: 18px;
+  left: 0;
+}
+</style>
