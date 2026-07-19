@@ -1,0 +1,45 @@
+name: Fix Dependabot lockfile
+
+# Dependabot's own lockfile updater patches package-lock.json surgically
+# instead of running a real npm install, and it regularly fails to fully
+# resolve optional/peer dependency subtrees (seen repeatedly in this repo:
+# missing crossws, @oxc-parser/binding-*, nested pinia, ...). This workflow
+# regenerates the lockfile on Dependabot's branch and pushes the fix back
+# to the PR before it gets merged.
+#
+# Uses pull_request_target (not pull_request) because GitHub forces a
+# read-only token with no secrets access for pull_request runs triggered
+# by Dependabot, regardless of the permissions declared below.
+
+on:
+  pull_request_target:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-lockfile:
+    if: github.actor == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Regenerate lockfile
+        run: npm install --package-lock-only
+
+      - name: Commit lockfile if changed
+        run: |
+          if ! git diff --quiet -- package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "fix: regenerate lockfile"
+            git push
+          fi
