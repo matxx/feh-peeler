@@ -20,11 +20,9 @@ export type ElementMythic =
   | typeof ELEMENT_ANIMA
 export type Element = ElementLegendary | ElementMythic
 
-export type ElementMythicOffensiveOrChaos =
-  typeof ELEMENT_LIGHT | typeof ELEMENT_ASTRA | typeof ELEMENT_CHAOS
-
 export type ElementChaos = typeof ELEMENT_CHAOS
 export type ElementOrChaos = Element | ElementChaos
+export type ElementMythicOrChaos = ElementMythic | ElementChaos
 
 export const SORTED_LEGENDARY_ELEMENTS: ElementLegendary[] = [
   ELEMENT_FIRE,

@@ -32,7 +32,7 @@
           >
             <AppIconSeason
               :element="element"
-              :height="SIZE_IN_BUTTON"
+              :width="WIDTH"
             />
           </v-btn>
         </v-btn-group>
@@ -42,29 +42,14 @@
           variant="outlined"
         >
           <v-btn
+            v-for="elems in MYTHICS_COLUMNS"
+            :key="`${elems[0]}-${elems[1]}`"
             size="small"
-            @click="selectMythic(ELEMENT_LIGHT, ELEMENT_DARK)"
+            @click="selectMythic(elems[0], elems[1])"
           >
-            <AppIconSeasonColumnMythic
-              :element-top="ELEMENT_LIGHT"
-              :width="WIDTH"
-            />
-          </v-btn>
-          <v-btn
-            size="small"
-            @click="selectMythic(ELEMENT_ASTRA, ELEMENT_ANIMA)"
-          >
-            <AppIconSeasonColumnMythic
-              :element-top="ELEMENT_ASTRA"
-              :width="WIDTH"
-            />
-          </v-btn>
-          <v-btn
-            size="small"
-            @click="selectMythic(ELEMENT_CHAOS, ELEMENT_CHAOS)"
-          >
-            <AppIconSeasonColumnMythic
-              :element-top="ELEMENT_CHAOS"
+            <AppIconSeasonColumn
+              :element-top="elems[0]"
+              :element-bottom="elems[1]"
               :width="WIDTH"
             />
           </v-btn>
@@ -78,6 +63,7 @@
 import {
   SORTED_LEGENDARY_ELEMENTS,
   type ElementOrChaos,
+  type ElementMythicOrChaos,
   ELEMENT_LIGHT,
   ELEMENT_DARK,
   ELEMENT_ASTRA,
@@ -87,7 +73,12 @@ import {
 import { numberToPx } from '~/utils/functions/numberToPx'
 
 const WIDTH = 20
-const SIZE_IN_BUTTON = 30
+
+const MYTHICS_COLUMNS: ElementMythicOrChaos[][] = [
+  [ELEMENT_LIGHT, ELEMENT_DARK],
+  [ELEMENT_ASTRA, ELEMENT_ANIMA],
+  [ELEMENT_CHAOS, ELEMENT_CHAOS],
+]
 
 const emit = defineEmits(['update:model-value'])
 const seasons = defineModel<ElementOrChaos[]>()

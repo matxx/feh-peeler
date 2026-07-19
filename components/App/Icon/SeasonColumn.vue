@@ -17,46 +17,28 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ELEMENT_LIGHT,
-  ELEMENT_DARK,
-  ELEMENT_ASTRA,
-  ELEMENT_ANIMA,
-  ELEMENT_CHAOS,
-  type ElementMythicOffensiveOrChaos,
-} from '~/utils/types/elements'
+import type { ElementMythicOrChaos } from '~/utils/types/elements'
 import { numberToPx } from '~/utils/functions/numberToPx'
 
 const WIDTH_DEFAULT = 30
 
 const props = withDefaults(
   defineProps<{
-    elementTop?: ElementMythicOffensiveOrChaos
+    elementTop?: ElementMythicOrChaos
+    elementBottom?: ElementMythicOrChaos
     // size?: number
     // height?: number
     width?: number
   }>(),
   {
     elementTop: undefined,
+    elementBottom: undefined,
     width: WIDTH_DEFAULT,
   },
 )
 
 // const computedWidth = computed(() => props.width ?? props.size)
 // const computedHeight = computed(() => props.height ?? props.size)
-
-const elementBottom = computed(() => {
-  switch (props.elementTop) {
-    case ELEMENT_LIGHT:
-      return ELEMENT_DARK
-    case ELEMENT_ASTRA:
-      return ELEMENT_ANIMA
-    case ELEMENT_CHAOS:
-      return ELEMENT_CHAOS
-  }
-
-  return undefined
-})
 
 const totalWidth = computed(() => 1.5 * props.width)
 const totalWidthPx = computed(() => numberToPx(totalWidth.value))
