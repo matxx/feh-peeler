@@ -32,7 +32,7 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Regenerate lockfile
-        run: npm install --package-lock-only
+        run: npm install --package-lock-only --ignore-scripts
 
       - name: Commit lockfile if changed
         run: |
