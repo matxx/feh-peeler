@@ -1,0 +1,162 @@
+[
+  {
+    "name": "BG_MjolnirCharaVS.png",
+    "x": 997,
+    "y": 1,
+    "width": 544,
+    "height": 180,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Ability_Blue.png",
+    "x": 997,
+    "y": 183,
+    "width": 118,
+    "height": 118,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Ability_Red.png",
+    "x": 1117,
+    "y": 183,
+    "width": 118,
+    "height": 118,
+    "rotated": false
+  },
+  {
+    "name": "Frm_MjolnirCounterBG.png",
+    "x": 1237,
+    "y": 183,
+    "width": 778,
+    "height": 76,
+    "rotated": false
+  },
+  {
+    "name": "Frm_MjolnirEnemyLv.png",
+    "x": 785,
+    "y": 303,
+    "width": 532,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Frm_MjolnirKingdomLv.png",
+    "x": 1465,
+    "y": 261,
+    "width": 532,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Frm_MjolnirMyLv.png",
+    "x": 1,
+    "y": 303,
+    "width": 782,
+    "height": 80,
+    "rotated": false
+  },
+  {
+    "name": "Frm_Process.0.png",
+    "x": 833,
+    "y": 1,
+    "width": 266,
+    "height": 80,
+    "rotated": true
+  },
+  {
+    "name": "Frm_Process.1.png",
+    "x": 915,
+    "y": 1,
+    "width": 266,
+    "height": 80,
+    "rotated": true
+  },
+  {
+    "name": "Icon_Avoid.png",
+    "x": 1465,
+    "y": 343,
+    "width": 66,
+    "height": 58,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MjolnirSeasonCycle_DarkLight.png",
+    "x": 1,
+    "y": 1,
+    "width": 300,
+    "height": 206,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MjolnirSeasonCycle_HeavenLogic.png",
+    "x": 209,
+    "y": 1,
+    "width": 300,
+    "height": 206,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MjolnirSeasonCycle_LightDark.png",
+    "x": 417,
+    "y": 1,
+    "width": 300,
+    "height": 206,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MjolnirSeasonCycle_LogicHeaven.png",
+    "x": 625,
+    "y": 1,
+    "width": 300,
+    "height": 206,
+    "rotated": true
+  },
+  {
+    "name": "Icon_MjolnirSeason_DarkLight.png",
+    "x": 1543,
+    "y": 1,
+    "width": 116,
+    "height": 122,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MjolnirSeason_HeavenLogic.png",
+    "x": 1661,
+    "y": 1,
+    "width": 116,
+    "height": 122,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MjolnirSeason_LightDark.png",
+    "x": 1779,
+    "y": 1,
+    "width": 116,
+    "height": 122,
+    "rotated": false
+  },
+  {
+    "name": "Icon_MjolnirSeason_LogicHeaven.png",
+    "x": 1897,
+    "y": 1,
+    "width": 116,
+    "height": 122,
+    "rotated": false
+  },
+  {
+    "name": "Icon_unselectable.png",
+    "x": 1319,
+    "y": 261,
+    "width": 144,
+    "height": 144,
+    "rotated": false
+  },
+  {
+    "name": "Line_Mjolnir_Edit.png",
+    "x": 1,
+    "y": 385,
+    "width": 80,
+    "height": 8,
+    "rotated": false
+  }
+]
