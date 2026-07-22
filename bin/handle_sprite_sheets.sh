@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 
-# put all your sprite sheets (.plist and .png files)
-# in the `assets/sprite-sheets` directory
-# and launch this script
-
 require 'plist'
 require 'json'
 

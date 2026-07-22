@@ -22,6 +22,11 @@ Start the development server on `http://localhost:3000`:
 npm run dev
 ```
 
+## Adding sprite sheets from the game
+
+Put all your sprite sheets (.plist + .png files) in the `assets/sprite-sheets` directory
+and launch this script `./bin/handle_sprite_sheets.sh`
+
 ## TODO
 
 ### Features
