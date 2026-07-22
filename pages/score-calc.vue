@@ -274,7 +274,13 @@ const { isLoading: isLoadingData } = useDataStores([
   useStoreDataSkillsAvailabilities(),
 ])
 
-const DEFAULT_VALUES = {
+const DEFAULT_VALUES: {
+  isMjolnirStrike: boolean
+  hasBonusUnit: boolean
+  seasonElements: Element[]
+  mjolnirStrikeMajor: ElementMythic
+  // mjolnirStrikeMinor: ElementMythic | null
+} = {
   isMjolnirStrike: false,
   hasBonusUnit: true,
   seasonElements: [],
