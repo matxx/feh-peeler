@@ -121,7 +121,7 @@
                     :label="
                       isMjolnirStrike
                         ? t('scoreCalc.labels.mjolnirStrike')
-                        : t('scoreCalc.labels.arena')
+                        : t('scoreCalc.labels.arenaOrAA')
                     "
                   />
                 </v-col> -->
@@ -130,28 +130,10 @@
                   <v-col
                     cols="6"
                     md="3"
+                    class="d-flex align-center py-1"
                   >
-                    <v-select
-                      v-model="mjolnirStrikeMajor"
-                      :items="itemsForElementsMythic"
-                      clearable
-                      density="compact"
-                      hide-details
-                      :label="t('scoreCalc.labels.majorBlessing')"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="6"
-                    md="3"
-                  >
-                    <v-select
-                      v-model="mjolnirStrikeMinor"
-                      :items="itemsForElementsMythic"
-                      clearable
-                      density="compact"
-                      hide-details
-                      :label="t('scoreCalc.labels.minorBlessing')"
-                    />
+                    <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
+                    <AppMjolnirSelectSeasons v-model="mjolnirStrikeMajor" />
                   </v-col>
                 </template>
 
@@ -171,13 +153,10 @@
                   <v-col
                     cols="6"
                     md="3"
+                    class="d-flex align-center"
                   >
-                    <div class="d-flex align-center">
-                      <div class="mr-3">
-                        {{ t('scoreCalc.labels.seasons') }}:
-                      </div>
-                      <AppSelectSeasons v-model="seasonElements" />
-                    </div>
+                    <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
+                    <AppSelectSeasons v-model="seasonElements" />
                   </v-col>
                 </template>
               </v-row>
@@ -274,13 +253,17 @@ import {
   // type IUnitInstanceInScoreCalcV2,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
-import type { Element, ElementMythic } from '~/utils/types/elements'
+import {
+  ELEMENT_LIGHT,
+  mythicComplement,
+  type Element,
+  type ElementMythic,
+} from '~/utils/types/elements'
 import { mean } from '~/utils/functions/math'
 
 const { t } = useI18n()
 const { sm, smAndDown } = useDisplay()
 const localePath = useLocalePath()
-const { itemsForElementsMythic } = useSelects()
 
 const storeDataUnits = useStoreDataUnits()
 const storeDataSkills = useStoreDataSkills()
@@ -295,8 +278,8 @@ const DEFAULT_VALUES = {
   isMjolnirStrike: false,
   hasBonusUnit: true,
   seasonElements: [],
-  mjolnirStrikeMinor: null,
-  mjolnirStrikeMajor: null,
+  mjolnirStrikeMajor: ELEMENT_LIGHT,
+  // mjolnirStrikeMinor: null,
 }
 
 const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
@@ -305,17 +288,20 @@ const units = ref<IUnitInstanceInScoreCalc[]>(getEmptyTeamInScoreCalc())
 const hasBonusUnit = ref(DEFAULT_VALUES.hasBonusUnit)
 const seasonElements = ref<Element[]>(DEFAULT_VALUES.seasonElements)
 const isMjolnirStrike = ref(DEFAULT_VALUES.isMjolnirStrike)
-const mjolnirStrikeMajor = ref<ElementMythic | null>(
-  DEFAULT_VALUES.mjolnirStrikeMajor,
-)
-const mjolnirStrikeMinor = ref<ElementMythic | null>(
-  DEFAULT_VALUES.mjolnirStrikeMinor,
-)
+const mjolnirStrikeMajor = ref<ElementMythic>(DEFAULT_VALUES.mjolnirStrikeMajor)
+// const mjolnirStrikeMinor = ref<ElementMythic | null>(
+//   DEFAULT_VALUES.mjolnirStrikeMinor,
+// )
+watch(mjolnirStrikeMajor, () => {
+  if (mjolnirStrikeMajor.value) return
+
+  mjolnirStrikeMajor.value = DEFAULT_VALUES.mjolnirStrikeMajor
+})
 
 const unitsScores = ref(units.value.map((_) => 0))
 const areUnitsDetailsClosed = ref(units.value.map((_) => true))
 onMounted(() => {
-  units.value.map((_) => smAndDown.value)
+  areUnitsDetailsClosed.value = units.value.map((_) => smAndDown.value)
 })
 
 const noUnit = computed(() => filter(units.value, 'id').length === 0)
@@ -387,13 +373,14 @@ function confirmReset() {
   seasonElements.value = DEFAULT_VALUES.seasonElements
   isMjolnirStrike.value = DEFAULT_VALUES.isMjolnirStrike
   mjolnirStrikeMajor.value = DEFAULT_VALUES.mjolnirStrikeMajor
-  mjolnirStrikeMinor.value = DEFAULT_VALUES.mjolnirStrikeMinor
+  // mjolnirStrikeMinor.value = DEFAULT_VALUES.mjolnirStrikeMinor
 }
 
 const mjolnirStrike = computed(() => ({
   isActive: isMjolnirStrike.value,
-  minor: mjolnirStrikeMinor.value,
   major: mjolnirStrikeMajor.value,
+  // minor: mjolnirStrikeMinor.value,
+  minor: mythicComplement(mjolnirStrikeMajor.value),
 }))
 const scoreContext = useScoreContext(
   units,
@@ -438,7 +425,7 @@ interface IPayloadToSave {
   seasonElements: Element[]
   isMjolnirStrike: boolean
   mjolnirStrikeMajor: ElementMythic | null
-  mjolnirStrikeMinor: ElementMythic | null
+  // mjolnirStrikeMinor: ElementMythic | null
 }
 // interface IPayloadToSaveV1 extends IPayloadToSave {
 //   version: 1
@@ -456,7 +443,7 @@ const payloadToSave = computed(() => ({
   seasonElements: seasonElements.value,
   isMjolnirStrike: isMjolnirStrike.value,
   mjolnirStrikeMajor: mjolnirStrikeMajor.value,
-  mjolnirStrikeMinor: mjolnirStrikeMinor.value,
+  // mjolnirStrikeMinor: mjolnirStrikeMinor.value,
 }))
 storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
@@ -474,8 +461,9 @@ function updateData(data: IPayloadToSave) {
   hasBonusUnit.value = data.hasBonusUnit
   seasonElements.value = data.seasonElements || []
   isMjolnirStrike.value = data.isMjolnirStrike
-  mjolnirStrikeMajor.value = data.mjolnirStrikeMajor
-  mjolnirStrikeMinor.value = data.mjolnirStrikeMinor
+  mjolnirStrikeMajor.value =
+    data.mjolnirStrikeMajor || DEFAULT_VALUES.mjolnirStrikeMajor
+  // mjolnirStrikeMinor.value = data.mjolnirStrikeMinor
 
   if (data.version === 1) {
     units.value.forEach((u) => {

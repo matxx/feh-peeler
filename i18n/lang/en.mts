@@ -854,13 +854,11 @@ export default {
       realTotalSP: 'Real Total SP',
     },
     labels: {
-      arena: 'Arena',
-      mjolnirStrike: 'MjolnirStrike',
+      arenaOrAA: 'Arena / Allegiance Battles',
+      mjolnirStrike: 'Mjolnir Strike',
+
       hasBonusUnit: 'Bonus unit ?',
       seasons: 'Seasons',
-
-      majorBlessing: 'Major Blessing',
-      minorBlessing: 'Minor Blessing',
 
       unit: 'Unit #{index}',
       rarity: 'Rarity',

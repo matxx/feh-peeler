@@ -34,8 +34,8 @@ export default function useScoreContext(
     ),
     mjolnirStrike: mjolnirStrike?.value ?? {
       isActive: false,
-      minor: null,
       major: null,
+      minor: null,
     },
   }))
 }

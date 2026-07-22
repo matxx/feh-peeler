@@ -43,8 +43,8 @@ export interface ScoreContext {
   legendaryCounts: IndexedBy<ElementLegendary, number>
   mjolnirStrike: {
     isActive: boolean
-    minor: ElementMythic | null
     major: ElementMythic | null
+    minor: ElementMythic | null
   }
 }
 

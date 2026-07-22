@@ -85,4 +85,25 @@ export function getSortableElement(element?: Element) {
     case ELEMENT_ANIMA:
       return 7
   }
+
+  return -1
+}
+
+export function mythicComplement(
+  element: ElementMythic | null,
+): ElementMythic | null {
+  if (!element) return null
+
+  switch (element) {
+    case ELEMENT_LIGHT:
+      return ELEMENT_DARK
+    case ELEMENT_DARK:
+      return ELEMENT_LIGHT
+    case ELEMENT_ASTRA:
+      return ELEMENT_ANIMA
+    case ELEMENT_ANIMA:
+      return ELEMENT_ASTRA
+  }
+
+  return null
 }
