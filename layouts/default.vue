@@ -30,11 +30,3 @@ useHead(() => ({
 }))
 onMounted(useStoreGlobals().updateScrollbarSizes)
 </script>
-
-<!-- BUG: when using "scoped" here, layout is fucked up before mounted -->
-<style lang="scss">
-/* MONKEY PATCH: before mounted, padding for header is not set causing some UI shifting to the bottom at mount time */
-.v-main--before-mounted {
-  padding-top: 64px;
-}
-</style>
