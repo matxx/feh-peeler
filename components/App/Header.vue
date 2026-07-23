@@ -172,9 +172,3 @@ onMounted(() => {
   storeTheme.browserThemeChanged()
 })
 </script>
-
-<style lang="scss" scoped>
-.width-200px {
-  width: 200px;
-}
-</style>

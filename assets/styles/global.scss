@@ -20,6 +20,10 @@
   white-space: initial !important;
 }
 
+.width-200px {
+  width: 200px;
+}
+
 .width-500px {
   width: 500px;
 }
@@ -74,4 +78,9 @@
 .theme-dark .crossed::before,
 .theme-dark .crossed::after {
   background-color: white;
+}
+
+/* MONKEY PATCH: before mounted, padding for header is not set causing some UI shifting to the bottom at mount time */
+.v-main--before-mounted {
+  padding-top: 64px;
 }
