@@ -61,6 +61,7 @@
   },
   "overrides": {
     "@vercel/nft": "^0.27.4",
+    "vite": ">= 7.3.5",
     "vuetify": "< 4"
   }
 }
