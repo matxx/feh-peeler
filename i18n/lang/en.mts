@@ -14,7 +14,8 @@ import * as hgs from '~/utils/types/units-heroicGrails'
 import * as moves from '~/utils/types/moves'
 import * as unitThemes from '~/utils/types/units-themes'
 
-export default {
+// MONKEY PATCH : https://github.com/nuxt-modules/i18n/issues/3961#issuecomment-5035985161
+export default () => ({
   global: {
     NA: 'N/A',
     total: 'Total',
@@ -915,4 +916,4 @@ export default {
       completeFormulae: 'Complete formulae to calculate score.',
     },
   },
-}
+})
