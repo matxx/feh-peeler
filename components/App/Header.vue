@@ -173,7 +173,7 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style>
 .width-200px {
   width: 200px;
 }
