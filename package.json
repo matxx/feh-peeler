@@ -60,7 +60,11 @@
     "zod": "^3.25.76"
   },
   "overrides": {
+    "@babel/core": "^7.29.6",
     "@vercel/nft": "^0.27.4",
+    "brace-expansion": "^2.1.2 || ^5.0.7",
+    "js-yaml": "^4.3.0",
+    "sharp": "^0.35.0",
     "vite": "^7.3.5",
     "vuetify": "< 4"
   }
