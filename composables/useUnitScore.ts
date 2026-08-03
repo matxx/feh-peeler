@@ -244,6 +244,7 @@ export default function useUnitScore(
 
     return 0
   })
+  const hasBonusMerges = computed(() => bonusMergesCount.value > 0)
   const visibleMerges = computed(
     () => unitInstance.value.merges + bonusMergesCount.value,
   )
@@ -317,7 +318,9 @@ export default function useUnitScore(
   const scorePartMerges = computed(() => visibleMerges.value * 2)
   const scorePartSPs = computed(() => Math.floor(visibleSkillSPs.value / 100))
   const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
-  const scorePartBlessing = computed(() => blessingScore.value)
+  const scorePartBlessing = computed(() =>
+    scoreContext.value.mjolnirStrike.isActive ? 0 : blessingScore.value,
+  )
   const baseScoreBeforeBlessing = computed(() =>
     unit.value
       ? sum([
@@ -339,6 +342,10 @@ export default function useUnitScore(
     unit.value ? baseToFinalScore(baseScore.value) : 0,
   )
 
+  const chosenHeroIsActive = computed(
+    () => !scoreContext.value.mjolnirStrike.isActive,
+  )
+
   // a chosen hero attached onto a legendary only has its score used/compared
   // if it shares the same element as that legendary
   const chosenHeroElementMismatch = computed(() => {
@@ -350,6 +357,7 @@ export default function useUnitScore(
   })
 
   const chosenHeroScoreData = computed(() => {
+    if (!chosenHeroIsActive.value) return
     if (!unitInstance.value.chosenHeroId) return
     if (chosenHeroElementMismatch.value) return
 
@@ -453,6 +461,7 @@ export default function useUnitScore(
     totalSkillSPs,
     visibleSkillSPs,
     bonusMergesCount,
+    hasBonusMerges,
     visibleMerges,
 
     isChosenInSeason,

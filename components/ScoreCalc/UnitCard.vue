@@ -18,26 +18,32 @@
         <v-card-text class="pb-0">
           <div class="d-flex flex-no-wrap justify-space-between">
             <div class="d-flex flex-column">
-              <v-tooltip location="bottom">
+              <v-tooltip
+                :disabled="!showScoreTooltip"
+                location="bottom"
+              >
                 <template #activator="{ props: tooltipProps }">
                   <v-card-title v-bind="tooltipProps">
                     {{ t('scoreCalc.headers.score') }}: {{ visibleFinalScore }}
-                    <sup>
+                    <sup v-show="showScoreTooltip">
                       <v-icon size="x-small">mdi-information-outline</v-icon>
                     </sup>
                   </v-card-title>
                 </template>
 
                 <div>
-                  <div>
+                  <div v-show="!scoreContext.mjolnirStrike.isActive">
                     {{ t('scoreCalc.tooltips.scoreBeforeBlessing') }}:
                     {{ finalScoreBeforeBlessing }}
                   </div>
-                  <div v-if="chosenHeroFinalScoreBeforeBlessing">
+                  <div
+                    v-show="!scoreContext.mjolnirStrike.isActive"
+                    v-if="chosenHeroFinalScoreBeforeBlessing"
+                  >
                     {{ t('scoreCalc.tooltips.chosenHeroScoreBeforeBlessing') }}:
                     {{ chosenHeroFinalScoreBeforeBlessing }}
                   </div>
-                  <div v-if="bonusMergesCount !== 0">
+                  <div v-show="hasBonusMerges">
                     {{ t('scoreCalc.tooltips.visibleMerges') }}: +{{
                       visibleMerges
                     }}
@@ -373,69 +379,71 @@
         </v-container>
       </AppRenderOnceWhileActive>
 
-      <h5 class="mt-2">
-        {{ t('scoreCalc.headers.chosenHero') }}
-      </h5>
-      <v-container
-        fluid
-        class="pa-0"
-      >
-        <v-row dense>
-          <v-col cols="8">
-            <AppSelectUnit
-              :model-value="unitInstance.chosenHeroId"
-              only-chosen
-              clearable
-              @update:model-value="updateUnit('chosenHeroId', $event)"
-            />
-          </v-col>
-          <v-col cols="4">
-            <VeeField
-              v-slot="{ handleChange, errors }"
-              :value="unitInstance.chosenHeroMerges"
-              name="chosenHeroMerges"
-            >
-              <v-number-input
-                :model-value="unitInstance.chosenHeroMerges"
-                required
-                :min="0"
-                :max="MAX_MERGES"
-                control-variant="stacked"
-                density="compact"
-                hide-details
-                :label="t('scoreCalc.labels.merges')"
-                :error-messages="errors"
-                @update:model-value="
-                  ($event) => {
-                    updateUnit('chosenHeroMerges', $event)
-                    handleChange($event)
-                  }
-                "
+      <div v-show="!scoreContext.mjolnirStrike.isActive">
+        <h5 class="mt-2">
+          {{ t('scoreCalc.headers.chosenHero') }}
+        </h5>
+        <v-container
+          fluid
+          class="pa-0"
+        >
+          <v-row dense>
+            <v-col cols="8">
+              <AppSelectUnit
+                :model-value="unitInstance.chosenHeroId"
+                only-chosen
+                clearable
+                @update:model-value="updateUnit('chosenHeroId', $event)"
               />
-            </VeeField>
-          </v-col>
-        </v-row>
-      </v-container>
-      <h6>
-        <template v-if="unitInstance.chosenHeroId">
-          <span
-            v-if="chosenHeroElementMismatch"
-            class="text-error"
-          >
-            {{ t('scoreCalc.headers.chosenHeroDifferentElement') }}
-          </span>
-          <span v-else-if="chosenHeroIsInSeason">
-            {{ t('scoreCalc.headers.score') }}: {{ chosenHeroFinalScore }}
-          </span>
-          <span
-            v-else
-            class="text-error"
-          >
-            {{ t('scoreCalc.headers.chosenHeroNotInSeason') }}
-          </span>
-        </template>
-        <span v-else> &nbsp; </span>
-      </h6>
+            </v-col>
+            <v-col cols="4">
+              <VeeField
+                v-slot="{ handleChange, errors }"
+                :value="unitInstance.chosenHeroMerges"
+                name="chosenHeroMerges"
+              >
+                <v-number-input
+                  :model-value="unitInstance.chosenHeroMerges"
+                  required
+                  :min="0"
+                  :max="MAX_MERGES"
+                  control-variant="stacked"
+                  density="compact"
+                  hide-details
+                  :label="t('scoreCalc.labels.merges')"
+                  :error-messages="errors"
+                  @update:model-value="
+                    ($event) => {
+                      updateUnit('chosenHeroMerges', $event)
+                      handleChange($event)
+                    }
+                  "
+                />
+              </VeeField>
+            </v-col>
+          </v-row>
+        </v-container>
+        <h6>
+          <template v-if="unitInstance.chosenHeroId">
+            <span
+              v-if="chosenHeroElementMismatch"
+              class="text-error"
+            >
+              {{ t('scoreCalc.headers.chosenHeroDifferentElement') }}
+            </span>
+            <span v-else-if="chosenHeroIsInSeason">
+              {{ t('scoreCalc.headers.score') }}: {{ chosenHeroFinalScore }}
+            </span>
+            <span
+              v-else
+              class="text-error"
+            >
+              {{ t('scoreCalc.headers.chosenHeroNotInSeason') }}
+            </span>
+          </template>
+          <span v-else> &nbsp; </span>
+        </h6>
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -516,7 +524,8 @@ const {
 
   visibleSkillSPs,
   totalSkillSPs,
-  bonusMergesCount,
+  hasBonusMerges,
+  // bonusMergesCount,
   visibleMerges,
 
   // for debug
@@ -566,6 +575,10 @@ const isBlessingDisabled = computed(() => !unit.value || !!unit.value.element)
 
 const unitCode = computed(() =>
   encodeUnitInstanceInScoreCalc(props.unitInstance),
+)
+
+const showScoreTooltip = computed(() =>
+  props.scoreContext.mjolnirStrike.isActive ? hasBonusMerges.value : true,
 )
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
