@@ -4,39 +4,6 @@
       <v-col>
         <TheWarningAboutLocalStorage class="mb-3" />
 
-        <!-- <v-alert
-          type="warning"
-          border="start"
-          variant="tonal"
-          icon="mdi-account-hard-hat"
-          prominent
-        >
-          This page is under construction. It is intended to have all the
-          features of this
-          <a
-            href="https://arcticsilverfox.com/score_calc/"
-            target="_blank"
-            >Arena Score Calculator</a
-          >
-          (which is not updated anymore).
-          <br />
-          If you see a bug (example: difference in final scores), please file a
-          bug report on
-          <a
-            :href="DISCORD_LINK"
-            target="_blank"
-            >Discord</a
-          >
-          or
-          <a
-            href="https://github.com/matxx/feh-peeler/issues/new"
-            target="_blank"
-            >Github</a
-          >. <br />
-          Mjolnir Strike is probably not working correctly at the moment because
-          not tested (waiting on the event to come back).
-        </v-alert> -->
-
         <div class="d-flex align-center">
           <v-btn
             v-tooltip="t('global.reset')"
@@ -97,12 +64,12 @@
                 </sup>
               </span>
             </div>
-            <div>
+            <div v-show="!isMjolnirStrike">
               <span>{{ t('scoreCalc.headers.offenseRange') }}:</span>
               {{ noUnit ? '-' : offenseScoreMin }} to
               {{ noUnit ? '-' : offenseScoreMax }}
             </div>
-            <div>
+            <div v-show="!isMjolnirStrike">
               <span>{{ t('scoreCalc.headers.defenseScore') }}:</span>
               {{ noUnit ? '-' : defenseScore }}
             </div>
@@ -110,7 +77,7 @@
           <v-card-text class="pa-0">
             <v-container fluid>
               <v-row>
-                <!-- <v-col
+                <v-col
                   cols="12"
                   md="3"
                 >
@@ -124,7 +91,7 @@
                         : t('scoreCalc.labels.arenaOrAA')
                     "
                   />
-                </v-col> -->
+                </v-col>
 
                 <template v-if="isMjolnirStrike">
                   <v-col
@@ -135,9 +102,41 @@
                     <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
                     <AppMjolnirSelectSeasons v-model="mjolnirStrikeMajor" />
                   </v-col>
+
+                  <v-col
+                    cols="12"
+                    md="3"
+                  >
+                    <VeeField
+                      v-slot="{ errors }"
+                      :value="mjolnirStrikeTier"
+                      name="mjolnirStrikeTier"
+                    >
+                      <v-number-input
+                        v-model="mjolnirStrikeTier"
+                        required
+                        :min="MIN_TIER"
+                        :max="MAX_TIER"
+                        control-variant="stacked"
+                        density="compact"
+                        hide-details
+                        :label="t('scoreCalc.labels.tier')"
+                        :error-messages="errors"
+                      />
+                    </VeeField>
+                  </v-col>
                 </template>
 
                 <template v-else>
+                  <v-col
+                    cols="6"
+                    md="3"
+                    class="d-flex align-center"
+                  >
+                    <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
+                    <AppSelectSeasons v-model="seasonElements" />
+                  </v-col>
+
                   <v-col
                     cols="12"
                     md="3"
@@ -148,15 +147,6 @@
                       density="compact"
                       hide-details
                     />
-                  </v-col>
-
-                  <v-col
-                    cols="6"
-                    md="3"
-                    class="d-flex align-center"
-                  >
-                    <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
-                    <AppSelectSeasons v-model="seasonElements" />
                   </v-col>
                 </template>
               </v-row>
@@ -260,6 +250,11 @@ import {
   type ElementMythic,
 } from '~/utils/types/elements'
 import { mean } from '~/utils/functions/math'
+import {
+  MAX_TIER,
+  MIN_TIER,
+  addedScoreForTier,
+} from '~/utils/types/mjolnir-strike'
 
 const { t } = useI18n()
 const { sm, smAndDown } = useDisplay()
@@ -279,13 +274,13 @@ const DEFAULT_VALUES: {
   hasBonusUnit: boolean
   seasonElements: Element[]
   mjolnirStrikeMajor: ElementMythic
-  // mjolnirStrikeMinor: ElementMythic | null
+  mjolnirStrikeTier: number
 } = {
   isMjolnirStrike: false,
   hasBonusUnit: true,
   seasonElements: [],
   mjolnirStrikeMajor: ELEMENT_LIGHT,
-  // mjolnirStrikeMinor: null,
+  mjolnirStrikeTier: 21,
 }
 
 const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
@@ -295,9 +290,8 @@ const hasBonusUnit = ref(DEFAULT_VALUES.hasBonusUnit)
 const seasonElements = ref<Element[]>(DEFAULT_VALUES.seasonElements)
 const isMjolnirStrike = ref(DEFAULT_VALUES.isMjolnirStrike)
 const mjolnirStrikeMajor = ref<ElementMythic>(DEFAULT_VALUES.mjolnirStrikeMajor)
-// const mjolnirStrikeMinor = ref<ElementMythic | null>(
-//   DEFAULT_VALUES.mjolnirStrikeMinor,
-// )
+const mjolnirStrikeTier = ref<number>(DEFAULT_VALUES.mjolnirStrikeTier)
+
 watch(mjolnirStrikeMajor, () => {
   if (mjolnirStrikeMajor.value) return
 
@@ -379,14 +373,14 @@ function confirmReset() {
   seasonElements.value = DEFAULT_VALUES.seasonElements
   isMjolnirStrike.value = DEFAULT_VALUES.isMjolnirStrike
   mjolnirStrikeMajor.value = DEFAULT_VALUES.mjolnirStrikeMajor
-  // mjolnirStrikeMinor.value = DEFAULT_VALUES.mjolnirStrikeMinor
+  mjolnirStrikeTier.value = DEFAULT_VALUES.mjolnirStrikeTier
 }
 
 const mjolnirStrike = computed(() => ({
   isActive: isMjolnirStrike.value,
   major: mjolnirStrikeMajor.value,
-  // minor: mjolnirStrikeMinor.value,
   minor: mythicComplement(mjolnirStrikeMajor.value),
+  tier: mjolnirStrikeTier.value,
 }))
 const scoreContext = useScoreContext(
   units,
@@ -395,12 +389,19 @@ const scoreContext = useScoreContext(
   mjolnirStrike,
 )
 
+const mjolnirStrikeAddedScoreForTier = computed(() =>
+  addedScoreForTier(mjolnirStrikeTier.value),
+)
 const averageScore = computed(() => TEAM_BASE_SCORE + mean(unitsScores.value))
 const scoreRounded = computed(
-  () => scoreContext.value.bonusFactor * Math.floor(averageScore.value),
+  () =>
+    scoreContext.value.bonusFactor * Math.floor(averageScore.value) +
+    mjolnirStrikeAddedScoreForTier.value,
 )
 const scoreExact = computed(
-  () => scoreContext.value.bonusFactor * averageScore.value,
+  () =>
+    scoreContext.value.bonusFactor * averageScore.value +
+    mjolnirStrikeAddedScoreForTier.value,
 )
 const defenseScore = computed(() => Math.floor(averageScore.value) * 2)
 const offenseScoreMin = computed(
@@ -417,27 +418,36 @@ const offenseScoreMax = computed(
 // local storage
 
 const LOCAL_STORAGE_KEY = 'feh-peeler:score-calc'
-const CURRENT_PAYLOAD_VERSION = 2
+const CURRENT_PAYLOAD_VERSION = 3
 const {
   isLoading: isLoadingStorage,
   storeOnUpdate,
   updateOnMounted,
 } = useLocalStorage(LOCAL_STORAGE_KEY)
 
-interface IPayloadToSave {
+interface IPayloadToSaveV3 {
   version: number
   units: IUnitInstanceInScoreCalc[]
   hasBonusUnit: boolean
   seasonElements: Element[]
   isMjolnirStrike: boolean
   mjolnirStrikeMajor: ElementMythic | null
-  // mjolnirStrikeMinor: ElementMythic | null
+  mjolnirStrikeTier: number
 }
-// interface IPayloadToSaveV1 extends IPayloadToSave {
+// interface IPayloadToSaveV0 {
+//   version: number
+//   units: IUnitInstanceInScoreCalc[]
+//   hasBonusUnit: boolean
+//   seasonElements: Element[]
+//   isMjolnirStrike: boolean
+//   mjolnirStrikeMajor: ElementMythic | null
+//   mjolnirStrikeMinor: ElementMythic | null
+// }
+// interface IPayloadToSaveV1 extends IPayloadToSaveV0 {
 //   version: 1
 //   units: IUnitInstanceInScoreCalcV1[]
 // }
-// interface IPayloadToSaveV2 extends IPayloadToSave {
+// interface IPayloadToSaveV2 extends IPayloadToSaveV0 {
 //   version: 2
 //   units: IUnitInstanceInScoreCalcV2[]
 // }
@@ -449,15 +459,16 @@ const payloadToSave = computed(() => ({
   seasonElements: seasonElements.value,
   isMjolnirStrike: isMjolnirStrike.value,
   mjolnirStrikeMajor: mjolnirStrikeMajor.value,
-  // mjolnirStrikeMinor: mjolnirStrikeMinor.value,
+  mjolnirStrikeTier: mjolnirStrikeTier.value,
 }))
 storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
 
-function updateData(data: IPayloadToSave) {
+function updateData(data: IPayloadToSaveV3) {
   switch (data.version) {
     case 1:
     case 2:
+    case 3:
       break
     default:
       throw new Error('unknown version')
@@ -469,7 +480,8 @@ function updateData(data: IPayloadToSave) {
   isMjolnirStrike.value = data.isMjolnirStrike
   mjolnirStrikeMajor.value =
     data.mjolnirStrikeMajor || DEFAULT_VALUES.mjolnirStrikeMajor
-  // mjolnirStrikeMinor.value = data.mjolnirStrikeMinor
+  mjolnirStrikeTier.value =
+    data.mjolnirStrikeTier || DEFAULT_VALUES.mjolnirStrikeTier
 
   if (data.version === 1) {
     units.value.forEach((u) => {

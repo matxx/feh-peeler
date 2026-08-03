@@ -16,7 +16,7 @@ export default function useScoreContext(
   const storeDataUnits = useStoreDataUnits()
 
   return computed<ScoreContext>(() => ({
-    bonusFactor: hasBonusUnit.value ? 2 : 1,
+    bonusFactor: hasBonusUnit.value || mjolnirStrike?.value?.isActive ? 2 : 1,
     seasonElements: seasonElements.value,
     legendaryCounts: objectFromEntries(
       SORTED_LEGENDARY_ELEMENTS.map((element) => [

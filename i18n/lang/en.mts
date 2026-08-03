@@ -856,10 +856,11 @@ export default () => ({
     },
     labels: {
       arenaOrAA: 'Arena / Allegiance Battles',
-      mjolnirStrike: 'Mjolnir Strike',
+      mjolnirStrike: "Mjölnir's Strike",
 
-      hasBonusUnit: 'Bonus unit ?',
       seasons: 'Seasons',
+      hasBonusUnit: 'Bonus unit ?',
+      tier: 'Tier',
 
       unit: 'Unit #{index}',
       rarity: 'Rarity',
