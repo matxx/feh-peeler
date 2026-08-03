@@ -54,15 +54,31 @@
             <div>
               <span>{{ t('scoreCalc.headers.score') }}:</span>
               {{ noUnit ? '-' : scoreRounded }}
-              <span
-                v-if="!noUnit"
-                v-tooltip:bottom="t('scoreCalc.tooltips.scoreExact')"
-              >
-                ({{ scoreExact }})<!--
+
+              <v-tooltip location="bottom">
+                <template #activator="{ props: tooltipProps }">
+                  <span
+                    v-if="!noUnit"
+                    v-bind="tooltipProps"
+                  >
+                    ({{ scoreExact }})<!--
                 --><sup>
-                  <v-icon size="x-small">mdi-information-outline</v-icon>
-                </sup>
-              </span>
+                      <v-icon size="x-small">mdi-information-outline</v-icon>
+                    </sup>
+                  </span>
+                </template>
+
+                <div>
+                  <div>{{ t('scoreCalc.tooltips.scoreExact') }}</div>
+                  <div v-show="isMjolnirStrike">
+                    {{
+                      t('scoreCalc.tooltips.scoreAddedByTier', {
+                        score: mjolnirStrikeAddedScoreForTier,
+                      })
+                    }}
+                  </div>
+                </div>
+              </v-tooltip>
             </div>
             <div v-show="!isMjolnirStrike">
               <span>{{ t('scoreCalc.headers.offenseRange') }}:</span>
@@ -390,7 +406,7 @@ const scoreContext = useScoreContext(
 )
 
 const mjolnirStrikeAddedScoreForTier = computed(() =>
-  addedScoreForTier(mjolnirStrikeTier.value),
+  isMjolnirStrike.value ? addedScoreForTier(mjolnirStrikeTier.value) : 0,
 )
 const averageScore = computed(() => TEAM_BASE_SCORE + mean(unitsScores.value))
 const scoreRounded = computed(

@@ -37,6 +37,11 @@
                     {{ t('scoreCalc.tooltips.chosenHeroScoreBeforeBlessing') }}:
                     {{ chosenHeroFinalScoreBeforeBlessing }}
                   </div>
+                  <div v-if="bonusMergesCount !== 0">
+                    {{ t('scoreCalc.tooltips.visibleMerges') }}: +{{
+                      visibleMerges
+                    }}
+                  </div>
                 </div>
               </v-tooltip>
 
@@ -511,6 +516,8 @@ const {
 
   visibleSkillSPs,
   totalSkillSPs,
+  bonusMergesCount,
+  visibleMerges,
 
   // for debug
   // scorePartRarity,

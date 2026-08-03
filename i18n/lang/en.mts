@@ -840,6 +840,7 @@ export default () => ({
     tooltips: {
       scoreExact:
         'Score not rounded (in order to see how close you are from the next step)',
+      scoreAddedByTier: 'Score added by tier: {score}',
 
       realBST: 'Real BST',
       duoDuelEffectVisibleBst: 'Duel effect (as Duo)',
@@ -850,6 +851,8 @@ export default () => ({
 
       scoreBeforeBlessing: 'Score before blessing',
       chosenHeroScoreBeforeBlessing: 'Chosen hero score before blessing',
+
+      visibleMerges: 'Visible merges',
 
       visibleTotalSP: 'In season chosen heroes always have max SP',
       realTotalSP: 'Real Total SP',

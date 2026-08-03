@@ -244,6 +244,9 @@ export default function useUnitScore(
 
     return 0
   })
+  const visibleMerges = computed(
+    () => unitInstance.value.merges + bonusMergesCount.value,
+  )
 
   // both blessings (normal blessing and chosen hero blessing)
   // can increase score with resp. legendary units
@@ -311,9 +314,7 @@ export default function useUnitScore(
   const scorePartLevel = computed(() =>
     Math.floor(rarityLevelFactor.value * unitInstance.value.level),
   )
-  const scorePartMerges = computed(
-    () => (unitInstance.value.merges + bonusMergesCount.value) * 2,
-  )
+  const scorePartMerges = computed(() => visibleMerges.value * 2)
   const scorePartSPs = computed(() => Math.floor(visibleSkillSPs.value / 100))
   const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
   const scorePartBlessing = computed(() => blessingScore.value)
@@ -452,6 +453,7 @@ export default function useUnitScore(
     totalSkillSPs,
     visibleSkillSPs,
     bonusMergesCount,
+    visibleMerges,
 
     isChosenInSeason,
 
