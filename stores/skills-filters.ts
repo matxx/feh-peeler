@@ -28,7 +28,7 @@ import {
   HOF_13_20,
   HOF_21_24,
   HOF_25,
-  SORTABLE_VERSION_8_0,
+  HOF_25_SKILLS_VERSION_THRESHOLD,
   CAN_USE_INTERSECTION,
   type IFilters,
 } from '~/utils/types/skills-filters'
@@ -102,7 +102,7 @@ const filterHoF = (
     case HOF_25:
       return (
         (SKILL_PASSIVE_ABC.includes(s.category) ? s.sp >= 300 : true) &&
-        s.sortableVersion >= SORTABLE_VERSION_8_0 &&
+        s.sortableVersion >= HOF_25_SKILLS_VERSION_THRESHOLD &&
         true
       )
     default:
