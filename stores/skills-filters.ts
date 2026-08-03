@@ -65,7 +65,7 @@ import type { IUnitData } from '~/utils/types/units'
 import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
 import * as w from '~/utils/types/weapons'
 import type { MoveType } from '~/utils/types/moves'
-import type { ExtendedWeaponType } from '~/utils/types/weapons'
+import type { ExtendedWeaponType, WeaponType } from '~/utils/types/weapons'
 import {
   getPrevVersion,
   getSortableVersion,
@@ -125,6 +125,31 @@ function isSkillAvailableToUnitMoveType(
 
   return true
 }
+function isWeaponType(
+  weaponType: ExtendedWeaponType,
+): weaponType is WeaponType {
+  return weaponType in w.WEAPON_FAMILY_FOR_TYPE
+}
+
+// A weapon type matches a restriction list if it's listed directly, or if
+// its weapon family (e.g. "All Melee") or weapon color (e.g. "Green") is.
+function weaponTypeMatchesRestrictionList(
+  weaponType: ExtendedWeaponType,
+  restrictionList: ExtendedWeaponType[],
+) {
+  if (restrictionList.includes(weaponType)) return true
+  if (isWeaponType(weaponType)) {
+    if (restrictionList.includes(w.WEAPON_FAMILY_FOR_TYPE[weaponType])) {
+      return true
+    }
+    if (restrictionList.includes(w.WEAPON_COLOR_FOR_TYPE[weaponType])) {
+      return true
+    }
+  }
+
+  return false
+}
+
 function isSkillAvailableToUnitWeaponType(
   restrictions: IRestrictions<ExtendedWeaponType>,
   unit: IUnitData,
@@ -132,43 +157,17 @@ function isSkillAvailableToUnitWeaponType(
   if (restrictions.none) return true
 
   if (restrictions.can_use) {
-    if (restrictions.can_use.includes(unit.weapon_type)) {
-      return true
-    }
-    if (
-      restrictions.can_use.includes(w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type])
-    ) {
-      return true
-    }
-    if (
-      restrictions.can_use.includes(w.WEAPON_COLOR_FOR_TYPE[unit.weapon_type])
-    ) {
-      return true
-    }
-
-    return false
+    return weaponTypeMatchesRestrictionList(
+      unit.weapon_type,
+      restrictions.can_use,
+    )
   }
 
   if (restrictions.can_not_use) {
-    if (restrictions.can_not_use.includes(unit.weapon_type)) {
-      return false
-    }
-    if (
-      restrictions.can_not_use.includes(
-        w.WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
-      )
-    ) {
-      return false
-    }
-    if (
-      restrictions.can_not_use.includes(
-        w.WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
-      )
-    ) {
-      return false
-    }
-
-    return true
+    return !weaponTypeMatchesRestrictionList(
+      unit.weapon_type,
+      restrictions.can_not_use,
+    )
   }
 
   return true
@@ -309,67 +308,17 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (s.restrictions.weapons.none) return true
 
     if (s.restrictions.weapons.can_use) {
-      const canUse = new Set(s.restrictions.weapons.can_use)
-      switch (weaponType) {
-        case w.WEAPON_R_SW:
-          return canUse.has(w.WEAPON_R_SW) || canUse.has(w.WEAPON_A_ME)
-        case w.WEAPON_B_LA:
-          return canUse.has(w.WEAPON_B_LA) || canUse.has(w.WEAPON_A_ME)
-        case w.WEAPON_G_AX:
-          return canUse.has(w.WEAPON_G_AX) || canUse.has(w.WEAPON_A_ME)
-        case w.WEAPON_C_ST:
-          return canUse.has(w.WEAPON_C_ST)
-        case w.WEAPON_R_TO:
-          return canUse.has(w.WEAPON_R_TO) || canUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_B_TO:
-          return canUse.has(w.WEAPON_B_TO) || canUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_G_TO:
-          return canUse.has(w.WEAPON_G_TO) || canUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_C_TO:
-          return canUse.has(w.WEAPON_C_TO) || canUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_A_BO:
-          return canUse.has(w.WEAPON_A_BO)
-        case w.WEAPON_A_DA:
-          return canUse.has(w.WEAPON_A_DA)
-        case w.WEAPON_A_BR:
-          return canUse.has(w.WEAPON_A_BR)
-        case w.WEAPON_A_BE:
-          return canUse.has(w.WEAPON_A_BE)
-        default:
-          return false
-      }
+      return weaponTypeMatchesRestrictionList(
+        weaponType,
+        s.restrictions.weapons.can_use,
+      )
     }
 
     if (s.restrictions.weapons.can_not_use) {
-      const canNotUse = new Set(s.restrictions.weapons.can_not_use)
-      switch (weaponType) {
-        case w.WEAPON_R_SW:
-          return !canNotUse.has(w.WEAPON_R_SW) && !canNotUse.has(w.WEAPON_A_ME)
-        case w.WEAPON_B_LA:
-          return !canNotUse.has(w.WEAPON_B_LA) && !canNotUse.has(w.WEAPON_A_ME)
-        case w.WEAPON_G_AX:
-          return !canNotUse.has(w.WEAPON_G_AX) && !canNotUse.has(w.WEAPON_A_ME)
-        case w.WEAPON_C_ST:
-          return !canNotUse.has(w.WEAPON_C_ST)
-        case w.WEAPON_R_TO:
-          return !canNotUse.has(w.WEAPON_R_TO) && !canNotUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_B_TO:
-          return !canNotUse.has(w.WEAPON_B_TO) && !canNotUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_G_TO:
-          return !canNotUse.has(w.WEAPON_G_TO) && !canNotUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_C_TO:
-          return !canNotUse.has(w.WEAPON_C_TO) && !canNotUse.has(w.WEAPON_A_TO)
-        case w.WEAPON_A_BO:
-          return !canNotUse.has(w.WEAPON_A_BO)
-        case w.WEAPON_A_DA:
-          return !canNotUse.has(w.WEAPON_A_DA)
-        case w.WEAPON_A_BR:
-          return !canNotUse.has(w.WEAPON_A_BR)
-        case w.WEAPON_A_BE:
-          return !canNotUse.has(w.WEAPON_A_BE)
-        default:
-          return false
-      }
+      return !weaponTypeMatchesRestrictionList(
+        weaponType,
+        s.restrictions.weapons.can_not_use,
+      )
     }
 
     return false
