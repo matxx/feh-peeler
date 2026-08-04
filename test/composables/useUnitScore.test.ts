@@ -25,8 +25,11 @@ import {
   ELEMENT_EARTH,
   ELEMENT_LIGHT,
   ELEMENT_DARK,
+  mythicComplement,
   type Element,
+  type ElementMythic,
 } from '~/utils/types/elements'
+import { addedScoreForTier } from '~/utils/types/mjolnir-strike'
 import { mean } from '~/utils/functions/math'
 
 import {
@@ -49,6 +52,14 @@ interface TeamCase {
   context: {
     hasBonusUnit: boolean
     seasonElements: Element[]
+    // when set, mirrors pages/score-calc.vue's Mjölnir's Strike mode: the
+    // team-score computation switches to the tier-adjusted formula below,
+    // and useScoreContext() forces bonusFactor to 2 and disables blessings
+    // for units matching major/minor - see mjolnirStrike in useUnitScore.ts
+    mjolnirStrike?: {
+      major: ElementMythic
+      tier: number
+    }
   }
   expectedVisibleFinalScores: number[]
   expectedTeamFinalScore: number
@@ -352,6 +363,53 @@ const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_BOTH: TeamC
     expectedTeamFinalScore: 696,
   }
 
+// Covers Mjölnir's Strike mode (dark major, tier 20): blessings are
+// disabled entirely (scorePartBlessing forced to 0), regardless of
+// legendary/mythic status or season, and bonusFactor is forced to 2 even
+// without hasBonusUnit - see bonusMergesCount/scorePartBlessing in
+// useUnitScore.ts and bonusFactor in useScoreContext.ts. The team score
+// also picks up addedScoreForTier(20) on top of the usual formula, exactly
+// as pages/score-calc.vue's scoreRounded computed does.
+const TEAM_MJOLNIR_SEIDR: TeamCase = {
+  name: "Mjölnir's Strike (dark, tier 20): M!Seidr",
+  code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Ku44Og44Os44O855S3Iiwic2tpbGxJZHMiOnsic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODqeODleOCoeOCqOODqyIsInNraWxsSWRzIjp7InNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgrvjgqTjgroiLCJza2lsbElkcyI6eyJwYXNzaXZlYSI6IlNJRF/mmI7pj6HmraLmsLQiLCJwYXNzaXZlYyI6IlNJRF/lhbHjgavmnKrmnaXjgpLopovigKbjg7vnpZ4iLCJzYWNyZWRzZWFsIjoiU1NJRF/mraLmsLQzIn0sInNraWxsU1BzIjp7IndlYXBvbiI6NDAwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjoyMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6NywiYm9vbiI6InJlcyIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiQXN0cmEiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
+  context: {
+    hasBonusUnit: false,
+    seasonElements: [],
+    mjolnirStrike: { major: ELEMENT_DARK, tier: 20 },
+  },
+  expectedVisibleFinalScores: [772, 770, 772, 742],
+  expectedTeamFinalScore: 832,
+}
+// same setup, different team (M!Peony) - includes a blessed unit whose
+// blessing would otherwise score, to confirm it's still zeroed out
+const TEAM_MJOLNIR_PEONY: TeamCase = {
+  name: "Mjölnir's Strike (dark, tier 20): M!Peony",
+  code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Ku44Og44Os44O855S3Iiwic2tpbGxJZHMiOnsic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODqeODleOCoeOCqOODqyIsInNraWxsSWRzIjp7InNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/npZ7pmo7jg5TjgqLjg4vjg7wiLCJza2lsbElkcyI6eyJwYXNzaXZlYSI6IlNJRF/pnZLjga7mrbvpl5jjg7vpo5vooYw0IiwicGFzc2l2ZWIiOiJTSURf6a2U44Gu6JuH5q+S44O75ZG85ZC4Iiwic2FjcmVkc2VhbCI6IlNTSURf5puy5oqA6aOb6KGMMyJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjQwMCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MjQwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjcsImJvb24iOiJzcGQiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IkxpZ2h0IiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfV0=',
+  context: {
+    hasBonusUnit: false,
+    seasonElements: [],
+    mjolnirStrike: { major: ELEMENT_DARK, tier: 20 },
+  },
+  expectedVisibleFinalScores: [772, 770, 772, 764],
+  expectedTeamFinalScore: 836,
+}
+// same setup, L!Ayra (legendary) with a water season set in the arena
+// context - confirms legendaries still don't get a blessing bonus from
+// other legendaries even outside of Mjölnir's Strike's own blessing
+// suppression (blessingScore returns 0 for is_legendary regardless)
+const TEAM_MJOLNIR_AYRA: TeamCase = {
+  name: "Mjölnir's Strike (dark, tier 20): L!Ayra, water season in arena",
+  code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Ku44Og44Os44O855S3Iiwic2tpbGxJZHMiOnsic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODqeODleOCoeOCqOODqyIsInNraWxsSWRzIjp7InNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgqLjgqTjg6kiLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf44Kk44K244O844Kv44Gu5a6I6K235YmjIiwic3BlY2lhbCI6IlNJRF/liaPogZbjga7mtYHmmJ/pm6gifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6OCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
+  context: {
+    hasBonusUnit: false,
+    seasonElements: [ELEMENT_WATER],
+    mjolnirStrike: { major: ELEMENT_DARK, tier: 20 },
+  },
+  expectedVisibleFinalScores: [772, 770, 772, 756],
+  expectedTeamFinalScore: 834,
+}
+
 const TEAM_CASES: TeamCase[] = [
   TEAM_STANDARD,
 
@@ -380,6 +438,10 @@ const TEAM_CASES: TeamCase[] = [
   TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_1,
   TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_2,
   TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_BOTH,
+
+  TEAM_MJOLNIR_SEIDR,
+  TEAM_MJOLNIR_PEONY,
+  TEAM_MJOLNIR_AYRA,
 ]
 
 describe('useUnitScore', () => {
@@ -387,10 +449,20 @@ describe('useUnitScore', () => {
     'computes the expected visibleFinalScore for: $name',
     ({ code, context, expectedVisibleFinalScores, expectedTeamFinalScore }) => {
       const units = decodeTeamInScoreCalc(code)
+      // mirrors pages/score-calc.vue's own mjolnirStrike computed, which
+      // fills in `minor` from `major` via mythicComplement()
+      const mjolnirStrike = context.mjolnirStrike
+        ? ref({
+            isActive: true,
+            major: context.mjolnirStrike.major,
+            minor: mythicComplement(context.mjolnirStrike.major),
+          })
+        : undefined
       const scoreContext = useScoreContext(
         ref(units),
         ref(context.hasBonusUnit),
         ref(context.seasonElements),
+        mjolnirStrike,
       )
 
       const scores: number[] = []
@@ -410,10 +482,14 @@ describe('useUnitScore', () => {
       // (TEAM_BASE_SCORE + mean of visibleBaseScore, floored, then scaled by
       // bonusFactor) - NOT Math.floor(mean(visibleFinalScore)), which can
       // diverge from it by 1 whenever bonusFactor > 1 and the average base
-      // score has a fractional part >= 0.5
+      // score has a fractional part >= 0.5 - plus, during Mjölnir's Strike,
+      // addedScoreForTier(tier) added on top (scoreRounded in score-calc.vue)
       const teamScore =
         scoreContext.value.bonusFactor *
-        Math.floor(TEAM_BASE_SCORE + mean(baseScores))
+          Math.floor(TEAM_BASE_SCORE + mean(baseScores)) +
+        (context.mjolnirStrike
+          ? addedScoreForTier(context.mjolnirStrike.tier)
+          : 0)
       expect(teamScore).toEqual(expectedTeamFinalScore)
     },
   )
