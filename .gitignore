@@ -19,6 +19,9 @@ logs
 .fleet
 .idea
 
+# Wrangler local dev state
+.wrangler
+
 # Local env files
 .env
 .env.*
