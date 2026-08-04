@@ -255,8 +255,8 @@ import {
   TEAM_BASE_SCORE,
   type EditableKey,
   type IUnitInstanceInScoreCalc,
-  // type IUnitInstanceInScoreCalcV1,
-  // type IUnitInstanceInScoreCalcV2,
+  type IUnitInstanceInScoreCalcV1,
+  type IUnitInstanceInScoreCalcV2,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
 import {
@@ -441,32 +441,28 @@ const {
   updateOnMounted,
 } = useLocalStorage(LOCAL_STORAGE_KEY)
 
-interface IPayloadToSaveV3 {
-  version: number
-  units: IUnitInstanceInScoreCalc[]
+interface IPayloadToSaveCommon {
   hasBonusUnit: boolean
   seasonElements: Element[]
   isMjolnirStrike: boolean
   mjolnirStrikeMajor: ElementMythic | null
+}
+interface IPayloadToSaveV1 extends IPayloadToSaveCommon {
+  version: 1
+  units: IUnitInstanceInScoreCalcV1[]
+  mjolnirStrikeMinor: ElementMythic | null
+}
+interface IPayloadToSaveV2 extends IPayloadToSaveCommon {
+  version: 2
+  units: IUnitInstanceInScoreCalcV2[]
+  mjolnirStrikeMinor: ElementMythic | null
+}
+interface IPayloadToSaveV3 extends IPayloadToSaveCommon {
+  version: 3
+  units: IUnitInstanceInScoreCalc[]
   mjolnirStrikeTier: number
 }
-// interface IPayloadToSaveV0 {
-//   version: number
-//   units: IUnitInstanceInScoreCalc[]
-//   hasBonusUnit: boolean
-//   seasonElements: Element[]
-//   isMjolnirStrike: boolean
-//   mjolnirStrikeMajor: ElementMythic | null
-//   mjolnirStrikeMinor: ElementMythic | null
-// }
-// interface IPayloadToSaveV1 extends IPayloadToSaveV0 {
-//   version: 1
-//   units: IUnitInstanceInScoreCalcV1[]
-// }
-// interface IPayloadToSaveV2 extends IPayloadToSaveV0 {
-//   version: 2
-//   units: IUnitInstanceInScoreCalcV2[]
-// }
+type IPayloadToSave = IPayloadToSaveV1 | IPayloadToSaveV2 | IPayloadToSaveV3
 
 const payloadToSave = computed(() => ({
   version: CURRENT_PAYLOAD_VERSION,
@@ -480,30 +476,33 @@ const payloadToSave = computed(() => ({
 storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
 
-function updateData(data: IPayloadToSaveV3) {
-  switch (data.version) {
-    case 1:
-    case 2:
-    case 3:
-      break
-    default:
-      throw new Error('unknown version')
-  }
-
-  units.value = data.units || []
+function updateData(data: IPayloadToSave) {
   hasBonusUnit.value = data.hasBonusUnit
   seasonElements.value = data.seasonElements || []
   isMjolnirStrike.value = data.isMjolnirStrike
   mjolnirStrikeMajor.value =
     data.mjolnirStrikeMajor || DEFAULT_VALUES.mjolnirStrikeMajor
-  mjolnirStrikeTier.value =
-    data.mjolnirStrikeTier || DEFAULT_VALUES.mjolnirStrikeTier
 
-  if (data.version === 1) {
-    units.value.forEach((u) => {
-      u.chosenHeroId = null
-      u.chosenHeroMerges = 0
-    })
+  switch (data.version) {
+    case 1:
+      units.value = (data.units || []).map((u) => ({
+        ...u,
+        chosenHeroId: null,
+        chosenHeroMerges: 0,
+      }))
+      mjolnirStrikeTier.value = DEFAULT_VALUES.mjolnirStrikeTier
+      break
+    case 2:
+      units.value = data.units || []
+      mjolnirStrikeTier.value = DEFAULT_VALUES.mjolnirStrikeTier
+      break
+    case 3:
+      units.value = data.units || []
+      mjolnirStrikeTier.value =
+        data.mjolnirStrikeTier || DEFAULT_VALUES.mjolnirStrikeTier
+      break
+    default:
+      throw new Error('unknown version')
   }
 }
 </script>
