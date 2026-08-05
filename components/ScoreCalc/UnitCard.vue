@@ -465,7 +465,7 @@ import {
   SCU_CODE_PREFIX,
   DUEL_SKILL_IDS_BY_MOVE_BY_COLOR,
   type IUnitInstanceInScoreCalc,
-  type ScoreContext,
+  type ScoreContextOut,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds } from '~/utils/types/units'
 // import { STATS } from '~/utils/types/units-stats'
@@ -497,7 +497,7 @@ const emit = defineEmits([
 ])
 const props = withDefaults(
   defineProps<{
-    scoreContext: ScoreContext
+    scoreContext: ScoreContextOut
     unitInstance: IUnitInstanceInScoreCalc
     index: number
     isLoading?: boolean

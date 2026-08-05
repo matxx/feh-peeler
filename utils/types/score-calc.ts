@@ -10,6 +10,7 @@ import type {
   Element,
   ElementLegendary,
   ElementMythic,
+  ElementOrChaos,
 } from '~/utils/types/elements'
 import type { Stat } from '~/utils/types/units-stats'
 import { WEAPON_R, WEAPON_B, WEAPON_G, WEAPON_C } from '~/utils/types/weapons'
@@ -37,12 +38,34 @@ export interface IUnitInstanceInScoreCalcV2 extends IUnitInstanceInScoreCalcV1 {
 }
 export type IUnitInstanceInScoreCalc = IUnitInstanceInScoreCalcV2
 
-export interface ScoreContext {
-  bonusFactor: number
-  seasonElements: Element[]
-  legendaryCounts: IndexedBy<ElementLegendary, number>
+export const MODE_ARENA = 'ARENA'
+export const MODE_MJOLNIR_STRIKE = 'MJOLNIR_STRIKE'
+export type Mode = typeof MODE_ARENA | typeof MODE_MJOLNIR_STRIKE
+
+export interface ScoreContextIn {
+  arena: {
+    isActive: boolean
+    hasBonusUnit: boolean
+    seasons: ElementOrChaos[]
+  }
   mjolnirStrike: {
     isActive: boolean
+    tier: number | null
+    major: ElementMythic | null
+    minor: ElementMythic | null
+  }
+}
+export interface ScoreContextOut {
+  bonusFactor: number
+  arena: {
+    isActive: boolean
+    hasBonusUnit: boolean
+    seasons: ElementOrChaos[]
+    legendaryCounts: IndexedBy<ElementLegendary, number>
+  }
+  mjolnirStrike: {
+    isActive: boolean
+    tier: number | null
     major: ElementMythic | null
     minor: ElementMythic | null
   }
