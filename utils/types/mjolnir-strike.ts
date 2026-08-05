@@ -1,4 +1,4 @@
-export const MIN_TIER = 0
+export const MIN_TIER = 1
 export const MAX_TIER = 21
 
 // https://www.reddit.com/r/FireEmblemHeroes/comments/eswpa6/comment/fjkg048/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button

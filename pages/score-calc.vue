@@ -70,7 +70,7 @@
 
                 <div>
                   <div>{{ t('scoreCalc.tooltips.scoreExact') }}</div>
-                  <div v-show="isMjolnirStrike">
+                  <div v-show="mjolnirStrike.isActive">
                     {{
                       t('scoreCalc.tooltips.scoreAddedByTier', {
                         score: mjolnirStrikeAddedScoreForTier,
@@ -80,12 +80,12 @@
                 </div>
               </v-tooltip>
             </div>
-            <div v-show="!isMjolnirStrike">
+            <div v-show="arena.isActive">
               <span>{{ t('scoreCalc.headers.offenseRange') }}:</span>
               {{ noUnit ? '-' : offenseScoreMin }} to
               {{ noUnit ? '-' : offenseScoreMax }}
             </div>
-            <div v-show="!isMjolnirStrike">
+            <div v-show="arena.isActive">
               <span>{{ t('scoreCalc.headers.defenseScore') }}:</span>
               {{ noUnit ? '-' : defenseScore }}
             </div>
@@ -98,18 +98,20 @@
                   md="3"
                 >
                   <v-switch
-                    v-model="isMjolnirStrike"
+                    v-model="mode"
+                    :true-value="MODE_MJOLNIR_STRIKE"
+                    :false-value="MODE_ARENA"
                     density="compact"
                     hide-details
                     :label="
-                      isMjolnirStrike
+                      mjolnirStrike.isActive
                         ? t('scoreCalc.labels.mjolnirStrike')
                         : t('scoreCalc.labels.arenaOrAA')
                     "
                   />
                 </v-col>
 
-                <template v-if="isMjolnirStrike">
+                <template v-if="mjolnirStrike.isActive">
                   <v-col
                     cols="6"
                     md="3"
@@ -150,7 +152,7 @@
                     class="d-flex align-center"
                   >
                     <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
-                    <AppSelectSeasons v-model="seasonElements" />
+                    <AppSelectSeasons v-model="arenaSeasons" />
                   </v-col>
 
                   <v-col
@@ -158,7 +160,7 @@
                     md="3"
                   >
                     <v-checkbox
-                      v-model="hasBonusUnit"
+                      v-model="arenaHasBonusUnit"
                       :label="t('scoreCalc.labels.hasBonusUnit')"
                       density="compact"
                       hide-details
@@ -249,6 +251,8 @@ import {
   encodeTeamInScoreCalc,
   getEmptyTeamInScoreCalc,
   getEmptyUnitInstanceSkillSPs,
+  MODE_ARENA,
+  MODE_MJOLNIR_STRIKE,
   OFFENSE_SCORE_DIFF_MAX,
   OFFENSE_SCORE_DIFF_MIN,
   SCT_CODE_PREFIX,
@@ -257,6 +261,8 @@ import {
   type IUnitInstanceInScoreCalc,
   type IUnitInstanceInScoreCalcV1,
   type IUnitInstanceInScoreCalcV2,
+  type Mode,
+  type ScoreContextIn,
 } from '~/utils/types/score-calc'
 import { getEmptyUnitInstanceSkillIds, type UnitId } from '~/utils/types/units'
 import {
@@ -286,15 +292,15 @@ const { isLoading: isLoadingData } = useDataStores([
 ])
 
 const DEFAULT_VALUES: {
-  isMjolnirStrike: boolean
-  hasBonusUnit: boolean
-  seasonElements: Element[]
+  mode: Mode
+  arenaHasBonusUnit: boolean
+  arenaSeasons: Element[]
   mjolnirStrikeMajor: ElementMythic
   mjolnirStrikeTier: number
 } = {
-  isMjolnirStrike: false,
-  hasBonusUnit: true,
-  seasonElements: [],
+  mode: MODE_ARENA,
+  arenaHasBonusUnit: true,
+  arenaSeasons: [],
   mjolnirStrikeMajor: ELEMENT_LIGHT,
   mjolnirStrikeTier: 21,
 }
@@ -302,9 +308,9 @@ const DEFAULT_VALUES: {
 const isLoading = computed(() => isLoadingData.value || isLoadingStorage.value)
 
 const units = ref<IUnitInstanceInScoreCalc[]>(getEmptyTeamInScoreCalc())
-const hasBonusUnit = ref(DEFAULT_VALUES.hasBonusUnit)
-const seasonElements = ref<Element[]>(DEFAULT_VALUES.seasonElements)
-const isMjolnirStrike = ref(DEFAULT_VALUES.isMjolnirStrike)
+const mode = ref<Mode>(DEFAULT_VALUES.mode)
+const arenaHasBonusUnit = ref(DEFAULT_VALUES.arenaHasBonusUnit)
+const arenaSeasons = ref<Element[]>(DEFAULT_VALUES.arenaSeasons)
 const mjolnirStrikeMajor = ref<ElementMythic>(DEFAULT_VALUES.mjolnirStrikeMajor)
 const mjolnirStrikeTier = ref<number>(DEFAULT_VALUES.mjolnirStrikeTier)
 
@@ -385,28 +391,30 @@ function confirmReset() {
   if (!confirm(t('global.confirmReset'))) return
 
   units.value = getEmptyTeamInScoreCalc()
-  hasBonusUnit.value = DEFAULT_VALUES.hasBonusUnit
-  seasonElements.value = DEFAULT_VALUES.seasonElements
-  isMjolnirStrike.value = DEFAULT_VALUES.isMjolnirStrike
+  mode.value = DEFAULT_VALUES.mode
+  arenaHasBonusUnit.value = DEFAULT_VALUES.arenaHasBonusUnit
+  arenaSeasons.value = DEFAULT_VALUES.arenaSeasons
   mjolnirStrikeMajor.value = DEFAULT_VALUES.mjolnirStrikeMajor
   mjolnirStrikeTier.value = DEFAULT_VALUES.mjolnirStrikeTier
 }
 
-const mjolnirStrike = computed(() => ({
-  isActive: isMjolnirStrike.value,
+const arena = computed<ScoreContextIn['arena']>(() => ({
+  isActive: mode.value === MODE_ARENA,
+  hasBonusUnit: arenaHasBonusUnit.value,
+  seasons: arenaSeasons.value,
+}))
+const mjolnirStrike = computed<ScoreContextIn['mjolnirStrike']>(() => ({
+  isActive: mode.value === MODE_MJOLNIR_STRIKE,
+  tier: mjolnirStrikeTier.value,
   major: mjolnirStrikeMajor.value,
   minor: mythicComplement(mjolnirStrikeMajor.value),
-  tier: mjolnirStrikeTier.value,
 }))
-const scoreContext = useScoreContext(
-  units,
-  hasBonusUnit,
-  seasonElements,
-  mjolnirStrike,
-)
+const scoreContext = useScoreContext(units, arena, mjolnirStrike)
 
 const mjolnirStrikeAddedScoreForTier = computed(() =>
-  isMjolnirStrike.value ? addedScoreForTier(mjolnirStrikeTier.value) : 0,
+  mode.value === MODE_MJOLNIR_STRIKE
+    ? addedScoreForTier(mjolnirStrikeTier.value)
+    : 0,
 )
 const averageScore = computed(() => TEAM_BASE_SCORE + mean(unitsScores.value))
 const scoreRounded = computed(
@@ -434,7 +442,7 @@ const offenseScoreMax = computed(
 // local storage
 
 const LOCAL_STORAGE_KEY = 'feh-peeler:score-calc'
-const CURRENT_PAYLOAD_VERSION = 3
+const CURRENT_PAYLOAD_VERSION = 4
 const {
   isLoading: isLoadingStorage,
   storeOnUpdate,
@@ -459,17 +467,27 @@ interface IPayloadToSaveV2 extends IPayloadToSaveCommon {
 }
 interface IPayloadToSaveV3 extends IPayloadToSaveCommon {
   version: 3
-  units: IUnitInstanceInScoreCalc[]
+  units: IUnitInstanceInScoreCalcV2[]
   mjolnirStrikeTier: number
 }
-type IPayloadToSave = IPayloadToSaveV1 | IPayloadToSaveV2 | IPayloadToSaveV3
+interface IPayloadToSaveV4 {
+  version: 4
+  units: IUnitInstanceInScoreCalcV2[]
+  mode: Mode
+  arenaHasBonusUnit: boolean
+  arenaSeasons: Element[]
+  mjolnirStrikeMajor: ElementMythic
+  mjolnirStrikeTier: number
+}
+type IPayloadToSave =
+  IPayloadToSaveV1 | IPayloadToSaveV2 | IPayloadToSaveV3 | IPayloadToSaveV4
 
-const payloadToSave = computed(() => ({
+const payloadToSave = computed<IPayloadToSaveV4>(() => ({
   version: CURRENT_PAYLOAD_VERSION,
   units: units.value,
-  hasBonusUnit: hasBonusUnit.value,
-  seasonElements: seasonElements.value,
-  isMjolnirStrike: isMjolnirStrike.value,
+  mode: mode.value,
+  arenaHasBonusUnit: arenaHasBonusUnit.value,
+  arenaSeasons: arenaSeasons.value,
   mjolnirStrikeMajor: mjolnirStrikeMajor.value,
   mjolnirStrikeTier: mjolnirStrikeTier.value,
 }))
@@ -477,9 +495,21 @@ storeOnUpdate(payloadToSave)
 updateOnMounted(updateData)
 
 function updateData(data: IPayloadToSave) {
-  hasBonusUnit.value = data.hasBonusUnit
-  seasonElements.value = data.seasonElements || []
-  isMjolnirStrike.value = data.isMjolnirStrike
+  if (data.version === 4) {
+    mode.value = data.mode || DEFAULT_VALUES.mode
+    arenaHasBonusUnit.value = data.arenaHasBonusUnit
+    arenaSeasons.value = data.arenaSeasons || []
+    mjolnirStrikeMajor.value =
+      data.mjolnirStrikeMajor || DEFAULT_VALUES.mjolnirStrikeMajor
+    units.value = data.units || []
+    mjolnirStrikeTier.value =
+      data.mjolnirStrikeTier || DEFAULT_VALUES.mjolnirStrikeTier
+    return
+  }
+
+  arenaHasBonusUnit.value = data.hasBonusUnit
+  arenaSeasons.value = data.seasonElements || []
+  mode.value = data.isMjolnirStrike ? MODE_MJOLNIR_STRIKE : MODE_ARENA
   mjolnirStrikeMajor.value =
     data.mjolnirStrikeMajor || DEFAULT_VALUES.mjolnirStrikeMajor
 

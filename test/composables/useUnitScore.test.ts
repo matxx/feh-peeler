@@ -16,7 +16,10 @@ import useUnitScore from '~/composables/useUnitScore'
 import useScoreContext from '~/composables/useScoreContext'
 import {
   decodeTeamInScoreCalc,
+  MODE_ARENA,
+  MODE_MJOLNIR_STRIKE,
   TEAM_BASE_SCORE,
+  type Mode,
 } from '~/utils/types/score-calc'
 import {
   ELEMENT_FIRE,
@@ -50,8 +53,13 @@ interface TeamCase {
   name: string
   code: string
   context: {
-    hasBonusUnit: boolean
-    seasonElements: Element[]
+    // mirrors pages/score-calc.vue's own mode ref: MODE_ARENA unless
+    // mjolnirStrike below is set, in which case MODE_MJOLNIR_STRIKE
+    mode: Mode
+    arena?: {
+      hasBonusUnit: boolean
+      seasons: Element[]
+    }
     // when set, mirrors pages/score-calc.vue's Mjölnir's Strike mode: the
     // team-score computation switches to the tier-adjusted formula below,
     // and useScoreContext() forces bonusFactor to 2 and disables blessings
@@ -76,8 +84,11 @@ const TEAM_STANDARD: TeamCase = {
   name: 'standard team (boons/banes, chosen hero, duel skills)',
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Or44OV44Kp44Oz44K5Iiwic2tpbGxJZHMiOnsicGFzc2l2ZWEiOiJTSURf6LWk44Gu5q276ZeY44O75q2p6KGMMSJ9LCJyYXJpdHkiOjUsImxldmVsIjo0MCwibWVyZ2VzIjoyLCJib29uIjoiYXRrIiwiYmFuZSI6ImRlZiIsImJsZXNzaW5nIjoiRmlyZSIsInNraWxsU1BzIjp7InBhc3NpdmVhIjo3MCwicGFzc2l2ZWIiOjEyMCwicGFzc2l2ZWMiOjgwLCJzYWNyZWRzZWFsIjo1MH0sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/mvIbpu5Ljga7pqI7lo6siLCJza2lsbElkcyI6e30sInJhcml0eSI6NSwibGV2ZWwiOjQwLCJtZXJnZXMiOjQsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6eyJ3ZWFwb24iOjEwMCwic3BlY2lhbCI6MTAwLCJzYWNyZWRzZWFsIjo1MH0sImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjg5XjgqPjg6jjg6vjg6AiLCJjaG9zZW5IZXJvTWVyZ2VzIjozfSx7ImlkIjoiUElEX+aVkeS4luODleOCo+ODqOODq+ODoCIsInNraWxsSWRzIjp7fSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MSwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODq+ODvOODsyIsInNraWxsSWRzIjp7InBhc3NpdmVhIjoiU0lEX+eEoeOBruatu+mXmOODu+atqeihjDQifSwicmFyaXR5Ijo1LCJsZXZlbCI6NDAsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7InBhc3NpdmVhIjozMDB9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: false,
-    seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: false,
+      seasons: [ELEMENT_FIRE, ELEMENT_WATER],
+    },
   },
   expectedVisibleFinalScores: [341, 351, 370, 338],
   expectedTeamFinalScore: 350,
@@ -89,8 +100,11 @@ const TEAM_BONUS_FACTOR: TeamCase = {
   name: 'team with the bonus-unit x2 factor',
   code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzcGVjaWFsIjoiU0lEX+absuWwhCIsInBhc3NpdmVhIjoiU0lEX+msvOelnumjm+eHleOBruaOqeaSgyIsInBhc3NpdmViIjoiU0lEX+mAn+OBleWuiOWCmeOBrueci+egtCIsInBhc3NpdmVjIjoiU0lEX+S4jeayu+OBruW5u+eFmTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Op44OV44Kh44Ko44OrIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+mtlOWZqOODu+ODqOODiOOCpeODs+OBruaWpyIsImFzc2lzdCI6IlNJRF/lhaXjgozmm7/jgYjjg7vmranms5UiLCJzcGVjaWFsIjoiU0lEX+mHjeijheOBruWPjOeCjiIsInBhc3NpdmVhIjoiU0lEX+eBq+WcsOawtOOBruWRveiEiCIsInBhc3NpdmViIjoiU0lEX+W+jOOBruWFiCIsInBhc3NpdmVjIjoiU0lEX+mOp+OBruitt+OCiuaJi+ODu+eQhuODu+iMqCIsInNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq7jg6Djg6zjg7znlLciLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf6a2U5Zmo44O75bm856We44Gu44OW44Os44K5IiwiYXNzaXN0IjoiU0lEX+WFpeOCjOabv+OBiOODu+atqeazlSIsInNwZWNpYWwiOiJTSURf6YeN6KOF44Gu5Y+M5rC3IiwicGFzc2l2ZWEiOiJTSURf54Gr5Zyw5rC044Gu5ZG96ISIIiwicGFzc2l2ZWIiOiJTSURf5b6M44Gu5YWIIiwicGFzc2l2ZWMiOiJTSURf6KGj44Gu6K2344KK5omL44O76a2U44O76IyoIiwic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+ODi+ODi+OCouODsyIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/npZ7oiJ7jga7jg5bjg6zjgrlf5LiAIiwiYXNzaXN0IjoiU0lEX+WwiuOBjeernOOBruihgOOCkuKApuODu+aJvyIsInNwZWNpYWwiOiJTSURf56uc44Gu5ZKG5ZOuIiwicGFzc2l2ZWEiOiJTSURf5pS75pKD6YCf44GV44Gu56qB56C0IiwicGFzc2l2ZWIiOiJTSURf56uc6bGX6Zqc5aOB44O75a++6Lui56e7IiwicGFzc2l2ZWMiOiJTSURf5b2x5Yqp44O75byV44GN5oi744GXNCIsInNhY3JlZHNlYWwiOiJTU0lEX+aUu+aSg+mAn+OBleOBrua/gOeqgTMifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjI0MCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxLCJib29uIjoic3BkIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_FIRE, ELEMENT_WATER],
+    },
   },
   expectedVisibleFinalScores: [780, 780, 778, 726],
   expectedTeamFinalScore: 766,
@@ -103,8 +117,11 @@ const TEAM_BONUS_FACTOR_CHOSEN_HERO_DIFFERENT_ELEMENT: TeamCase = {
   name: 'team with the bonus-unit x2 factor, chosen hero of a different element attached to the legendary',
   code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzcGVjaWFsIjoiU0lEX+absuWwhCIsInBhc3NpdmVhIjoiU0lEX+msvOelnumjm+eHleOBruaOqeaSgyIsInBhc3NpdmViIjoiU0lEX+mAn+OBleWuiOWCmeOBrueci+egtCIsInBhc3NpdmVjIjoiU0lEX+S4jeayu+OBruW5u+eFmTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Op44OV44Kh44Ko44OrIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+mtlOWZqOODu+ODqOODiOOCpeODs+OBruaWpyIsImFzc2lzdCI6IlNJRF/lhaXjgozmm7/jgYjjg7vmranms5UiLCJzcGVjaWFsIjoiU0lEX+mHjeijheOBruWPjOeCjiIsInBhc3NpdmVhIjoiU0lEX+eBq+WcsOawtOOBruWRveiEiCIsInBhc3NpdmViIjoiU0lEX+W+jOOBruWFiCIsInBhc3NpdmVjIjoiU0lEX+mOp+OBruitt+OCiuaJi+ODu+eQhuODu+iMqCIsInNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq7jg6Djg6zjg7znlLciLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf6a2U5Zmo44O75bm856We44Gu44OW44Os44K5IiwiYXNzaXN0IjoiU0lEX+WFpeOCjOabv+OBiOODu+atqeazlSIsInNwZWNpYWwiOiJTSURf6YeN6KOF44Gu5Y+M5rC3IiwicGFzc2l2ZWEiOiJTSURf54Gr5Zyw5rC044Gu5ZG96ISIIiwicGFzc2l2ZWIiOiJTSURf5b6M44Gu5YWIIiwicGFzc2l2ZWMiOiJTSURf6KGj44Gu6K2344KK5omL44O76a2U44O76IyoIiwic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+ODi+ODi+OCouODsyIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/npZ7oiJ7jga7jg5bjg6zjgrlf5LiAIiwiYXNzaXN0IjoiU0lEX+WwiuOBjeernOOBruihgOOCkuKApuODu+aJvyIsInNwZWNpYWwiOiJTSURf56uc44Gu5ZKG5ZOuIiwicGFzc2l2ZWEiOiJTSURf5pS75pKD6YCf44GV44Gu56qB56C0IiwicGFzc2l2ZWIiOiJTSURf56uc6bGX6Zqc5aOB44O75a++6Lui56e7IiwicGFzc2l2ZWMiOiJTSURf5b2x5Yqp44O75byV44GN5oi744GXNCIsInNhY3JlZHNlYWwiOiJTU0lEX+aUu+aSg+mAn+OBleOBrua/gOeqgTMifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjI0MCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxLCJib29uIjoic3BkIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjgqLjg6vjg5Xjgqnjg7PjgrkiLCJjaG9zZW5IZXJvTWVyZ2VzIjo1fV0=',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_FIRE, ELEMENT_WATER],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_FIRE, ELEMENT_WATER],
+    },
   },
   expectedVisibleFinalScores: [780, 780, 778, 726],
   expectedTeamFinalScore: 766,
@@ -121,8 +138,11 @@ const TEAM_BONUS_LEGENDARY_NO_OTHER_LEGENDARY: TeamCase = {
   name: 'L!Camilla as bonus unit w/o other legendaries',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/mr5Tnv7zjg5jjgq/jg4jjg6siLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg6zjg7zjgq7jg6Pjg6vjg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER],
+    },
   },
   expectedVisibleFinalScores: [744, 670, 676, 664],
   expectedTeamFinalScore: 688,
@@ -132,8 +152,11 @@ const TEAM_BONUS_LEGENDARY_1_OTHER_LEGENDARY: TeamCase = {
   name: 'L!Camilla as bonus unit w/ 1 other legendary',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/kvJ3mib/jg5njg6zjg4giLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg6zjg7zjgq7jg6Pjg6vjg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER],
+    },
   },
   expectedVisibleFinalScores: [744, 670, 676, 664],
   expectedTeamFinalScore: 688,
@@ -143,8 +166,11 @@ const TEAM_BONUS_LEGENDARY_2_OTHER_LEGENDARIES: TeamCase = {
   name: 'L!Camilla as bonus unit w/ 2 other legendaries',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44OV44Kj44Oo44Or44OgIiwiY2hvc2VuSGVyb01lcmdlcyI6Mn0seyJpZCI6IlBJRF/kvJ3mib/jg5njg6zjg4giLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgq7jg43jg7TjgqPjgqIiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgq/jg6rjgrnlpbMiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER],
+    },
   },
   expectedVisibleFinalScores: [744, 670, 676, 664],
   expectedTeamFinalScore: 688,
@@ -159,8 +185,11 @@ const TEAM_ANNA_BASE: TeamCase = {
   name: 'chosen hero blessing bonus: base team, no chosen hero attached',
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Oz44OKIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6InJlcyIsImJsZXNzaW5nIjoiTGlnaHQiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgqzjg6vjgrfjgqIiLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf5oSb44Gu56Wt44Gu5pan77yLIiwiYXNzaXN0IjoiU0lEX+W8leOBjeaIu+OBl+ODu+atqeazlSIsInNwZWNpYWwiOiJTSURf6KeS6YCQIiwicGFzc2l2ZWEiOiJTSURf5r+B5rWB44Gu5LiA5pKDIiwicGFzc2l2ZWIiOiJTSURf5b6M44Gu5YWIIiwicGFzc2l2ZWMiOiJTSURf5pS75pKD6YCf44GV44Gu5L+h5b+1Iiwic2FjcmVkc2VhbCI6IlNTSURf5LiN5YuV44Gu5ae/5YuiMyJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MjAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IkVhcnRoIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+OCr+ODreODvOODiSIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/jg5XjgqfjgqTjg6vjg47jg7zjg4hf5LiAIiwiYXNzaXN0IjoiU0lEX+mAn+OBleWuiOWCmeOBruW/nOaPtO+8iyIsInNwZWNpYWwiOiJTSURf5puy5bCEIiwicGFzc2l2ZWEiOiJTSURf6ay856We6aOb54eV44Gu54KO5pKDMyIsInBhc3NpdmViIjoiU0lEX+iQveaYn+ODu+aJvyIsInBhc3NpdmVjIjoiU0lEX+S4jeayu+OBruW5u+eFmTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiRWFydGgiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Kw44Ot44O844Oh44OrIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+ODnOODq+ODiOOCouOCr+OCuSIsImFzc2lzdCI6IlNJRF/mlLvmkoPlrojlgpnjga7lv5zmj7TvvIsiLCJzcGVjaWFsIjoiU0lEX+inkumAkCIsInBhc3NpdmVhIjoiU0lEX+msvOelnumjm+eHleOBrueCjuaSgzMiLCJwYXNzaXZlYiI6IlNJRF/lpKnoiJ7jgYTnq4vjgaQiLCJwYXNzaXZlYyI6IlNJRF/mlLvmkoPpgJ/jgZXjga7kv6Hnvqk0Iiwic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O75Ymj5qeN5pan5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6NDAwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiRWFydGgiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_EARTH],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_EARTH],
+    },
   },
   expectedVisibleFinalScores: [658, 774, 760, 776],
   expectedTeamFinalScore: 742,
@@ -170,8 +199,11 @@ const TEAM_ANNA_WITH_CHOSEN_HERO: TeamCase = {
   name: 'chosen hero blessing bonus: C!Fjorm attached to Anna',
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Oz44OKIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6InJlcyIsImJsZXNzaW5nIjoiTGlnaHQiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjg5XjgqPjg6jjg6vjg6AiLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+OCrOODq+OCt+OCoiIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/mhJvjga7npa3jga7mlqfvvIsiLCJhc3Npc3QiOiJTSURf5byV44GN5oi744GX44O75q2p5rOVIiwic3BlY2lhbCI6IlNJRF/op5LpgJAiLCJwYXNzaXZlYSI6IlNJRF/mv4HmtYHjga7kuIDmkoMiLCJwYXNzaXZlYiI6IlNJRF/lvozjga7lhYgiLCJwYXNzaXZlYyI6IlNJRF/mlLvmkoPpgJ/jgZXjga7kv6Hlv7UiLCJzYWNyZWRzZWFsIjoiU1NJRF/kuI3li5Xjga7lp7/li6IzIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjoyMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiRWFydGgiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44Kv44Ot44O844OJIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+ODleOCp+OCpOODq+ODjuODvOODiF/kuIAiLCJhc3Npc3QiOiJTSURf6YCf44GV5a6I5YKZ44Gu5b+c5o+077yLIiwic3BlY2lhbCI6IlNJRF/mm7LlsIQiLCJwYXNzaXZlYSI6IlNJRF/prLznpZ7po5vnh5Xjga7ngo7mkoMzIiwicGFzc2l2ZWIiOiJTSURf6JC95pif44O75om/IiwicGFzc2l2ZWMiOiJTSURf5LiN5rK744Gu5bm754WZNCIsInNhY3JlZHNlYWwiOiJTU0lEX+i/keWPjeODu+W8k+aal+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjQwMCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjMwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoic3BkIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJFYXJ0aCIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgrDjg63jg7zjg6Hjg6siLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf44Oc44Or44OI44Ki44Kv44K5IiwiYXNzaXN0IjoiU0lEX+aUu+aSg+WuiOWCmeOBruW/nOaPtO+8iyIsInNwZWNpYWwiOiJTSURf6KeS6YCQIiwicGFzc2l2ZWEiOiJTSURf6ay856We6aOb54eV44Gu54KO5pKDMyIsInBhc3NpdmViIjoiU0lEX+WkqeiInuOBhOeri+OBpCIsInBhc3NpdmVjIjoiU0lEX+aUu+aSg+mAn+OBleOBruS/oee+qTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/pgaDlj43jg7vliaPmp43mlqflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJFYXJ0aCIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_EARTH],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_EARTH],
+    },
   },
   expectedVisibleFinalScores: [736, 774, 760, 776],
   expectedTeamFinalScore: 760,
@@ -182,8 +214,11 @@ const TEAM_ANNA_WITH_CHOSEN_HERO_AND_BLESSING: TeamCase = {
   name: 'chosen hero blessing bonus: C!Fjorm attached to Anna, Anna blessed Earth',
   code: 'SCTv1:W3siaWQiOiJQSURf44Ki44Oz44OKIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6InJlcyIsImJsZXNzaW5nIjoiRWFydGgiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6IlBJRF/mlZHkuJbjg5XjgqPjg6jjg6vjg6AiLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+OCrOODq+OCt+OCoiIsInNraWxsSWRzIjp7IndlYXBvbiI6IlNJRF/mhJvjga7npa3jga7mlqfvvIsiLCJhc3Npc3QiOiJTSURf5byV44GN5oi744GX44O75q2p5rOVIiwic3BlY2lhbCI6IlNJRF/op5LpgJAiLCJwYXNzaXZlYSI6IlNJRF/mv4HmtYHjga7kuIDmkoMiLCJwYXNzaXZlYiI6IlNJRF/lvozjga7lhYgiLCJwYXNzaXZlYyI6IlNJRF/mlLvmkoPpgJ/jgZXjga7kv6Hlv7UiLCJzYWNyZWRzZWFsIjoiU1NJRF/kuI3li5Xjga7lp7/li6IzIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjoyMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiRWFydGgiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44Kv44Ot44O844OJIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+ODleOCp+OCpOODq+ODjuODvOODiF/kuIAiLCJhc3Npc3QiOiJTSURf6YCf44GV5a6I5YKZ44Gu5b+c5o+077yLIiwic3BlY2lhbCI6IlNJRF/mm7LlsIQiLCJwYXNzaXZlYSI6IlNJRF/prLznpZ7po5vnh5Xjga7ngo7mkoMzIiwicGFzc2l2ZWIiOiJTSURf6JC95pif44O75om/IiwicGFzc2l2ZWMiOiJTSURf5LiN5rK744Gu5bm754WZNCIsInNhY3JlZHNlYWwiOiJTU0lEX+i/keWPjeODu+W8k+aal+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjQwMCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjMwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoic3BkIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJFYXJ0aCIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgrDjg63jg7zjg6Hjg6siLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf44Oc44Or44OI44Ki44Kv44K5IiwiYXNzaXN0IjoiU0lEX+aUu+aSg+WuiOWCmeOBruW/nOaPtO+8iyIsInNwZWNpYWwiOiJTSURf6KeS6YCQIiwicGFzc2l2ZWEiOiJTSURf6ay856We6aOb54eV44Gu54KO5pKDMyIsInBhc3NpdmViIjoiU0lEX+WkqeiInuOBhOeri+OBpCIsInBhc3NpdmVjIjoiU0lEX+aUu+aSg+mAn+OBleOBruS/oee+qTQiLCJzYWNyZWRzZWFsIjoiU1NJRF/pgaDlj43jg7vliaPmp43mlqflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJFYXJ0aCIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_EARTH],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_EARTH],
+    },
   },
   expectedVisibleFinalScores: [744, 774, 760, 776],
   expectedTeamFinalScore: 762,
@@ -202,8 +237,11 @@ const TEAM_MYTHIC_IN_SEASON_2_DUOS: TeamCase = {
   name: 'in-season mythic (M!Embla) blessing bonus: 2 duo teammates',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+OCqOODs+ODluODqeWRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJEYXJrIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5q+U57+844K344Oj44Ot44OzIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6ImF0ayIsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg5TjgqLjg4vjg7wiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJyZXMiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6bnVsbCwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 676, 678, 672],
   expectedTeamFinalScore: 674,
@@ -213,8 +251,11 @@ const TEAM_MYTHIC_IN_SEASON_PLUS_LEGENDARY_1: TeamCase = {
   name: 'in-season mythic (M!Embla) blessing bonus: + L!Shez',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+OCqOODs+ODluODqeWRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJEYXJrIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44K344Kn44K655S3Iiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiZGVmIiwiYmFuZSI6ImhwIiwiYmxlc3NpbmciOiJXaW5kIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5q+U57+844OU44Ki44OL44O8Iiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoicmVzIiwiYmFuZSI6ImhwIiwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfV0=',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 684, 678, 672],
   expectedTeamFinalScore: 676,
@@ -224,8 +265,11 @@ const TEAM_MYTHIC_IN_SEASON_PLUS_LEGENDARY_2: TeamCase = {
   name: 'in-season mythic (M!Embla) blessing bonus: + L!Caeda',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+OCqOODs+ODluODqeWRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJEYXJrIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5q+U57+844K344Oj44Ot44OzIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6ImF0ayIsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgrfjg7zjg4AiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 684, 678, 672],
   expectedTeamFinalScore: 676,
@@ -236,8 +280,11 @@ const TEAM_MYTHIC_IN_SEASON_PLUS_LEGENDARY_BOTH: TeamCase = {
   name: 'in-season mythic (M!Embla) blessing bonus: + L!Shez + L!Caeda',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+OCqOODs+ODluODqeWRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJEYXJrIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44K344Kn44K655S3Iiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiZGVmIiwiYmFuZSI6ImhwIiwiYmxlc3NpbmciOiJXaW5kIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44K344O844OAIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 692, 678, 672],
   expectedTeamFinalScore: 678,
@@ -253,8 +300,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_2_DUOS: TeamCase = {
   name: 'out-of-season mythic (M!Heimdallr) blessing bonus: 2 duo teammates',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5q+U57+844K344Oj44Ot44OzIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6ImF0ayIsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg5TjgqLjg4vjg7wiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJyZXMiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6bnVsbCwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 670, 678, 672],
   expectedTeamFinalScore: 674,
@@ -263,8 +313,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_1: TeamCase = {
   name: 'out-of-season mythic (M!Heimdallr) blessing bonus: + L!Shez',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44K344Kn44K655S3Iiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiZGVmIiwiYmFuZSI6ImhwIiwiYmxlc3NpbmciOiJXaW5kIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5q+U57+844OU44Ki44OL44O8Iiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoicmVzIiwiYmFuZSI6ImhwIiwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfV0=',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 670, 678, 672],
   expectedTeamFinalScore: 674,
@@ -273,8 +326,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_2: TeamCase = {
   name: 'out-of-season mythic (M!Heimdallr) blessing bonus: + L!Caeda',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5q+U57+844K344Oj44Ot44OzIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoic3BkIiwiYmFuZSI6ImF0ayIsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgrfjg7zjg4AiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 670, 678, 672],
   expectedTeamFinalScore: 674,
@@ -283,8 +339,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_PLUS_LEGENDARY_BOTH: TeamCase = {
   name: 'out-of-season mythic (M!Heimdallr) blessing bonus: + L!Shez + L!Caeda',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44K344Kn44K655S3Iiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiZGVmIiwiYmFuZSI6ImhwIiwiYmxlc3NpbmciOiJXaW5kIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf5Lyd5om/44K344O844OAIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjpudWxsLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 670, 678, 672],
   expectedTeamFinalScore: 674,
@@ -302,8 +361,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_2_DUOS: TeamCase = {
   name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): 2 duo teammates',
   code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/mr5Tnv7zjgrfjg6Pjg63jg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJzcGQiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+avlOe/vOODlOOCouODi+ODvCIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJocCIsImJsZXNzaW5nIjpudWxsLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
   context: {
-    hasBonusUnit: true,
-    seasonElements: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    mode: MODE_ARENA,
+    arena: {
+      hasBonusUnit: true,
+      seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+    },
   },
   expectedVisibleFinalScores: [676, 756, 678, 672],
   expectedTeamFinalScore: 694,
@@ -315,13 +377,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_1: TeamCase
     name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): + L!Shez',
     code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/kvJ3mib/jgrfjgqfjgrrnlLciLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJkZWYiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6IldpbmQiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/mr5Tnv7zjg5TjgqLjg4vjg7wiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJyZXMiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6bnVsbCwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
     context: {
-      hasBonusUnit: true,
-      seasonElements: [
-        ELEMENT_WATER,
-        ELEMENT_WIND,
-        ELEMENT_LIGHT,
-        ELEMENT_DARK,
-      ],
+      mode: MODE_ARENA,
+      arena: {
+        hasBonusUnit: true,
+        seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+      },
     },
     expectedVisibleFinalScores: [676, 764, 678, 672],
     expectedTeamFinalScore: 696,
@@ -333,13 +393,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_2: TeamCase
     name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): + L!Caeda',
     code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/mr5Tnv7zjgrfjg6Pjg63jg7MiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJzcGQiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOm51bGwsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+S8neaJv+OCt+ODvOODgCIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6bnVsbCwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfV0=',
     context: {
-      hasBonusUnit: true,
-      seasonElements: [
-        ELEMENT_WATER,
-        ELEMENT_WIND,
-        ELEMENT_LIGHT,
-        ELEMENT_DARK,
-      ],
+      mode: MODE_ARENA,
+      arena: {
+        hasBonusUnit: true,
+        seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+      },
     },
     expectedVisibleFinalScores: [676, 756, 678, 672],
     expectedTeamFinalScore: 694,
@@ -351,13 +409,11 @@ const TEAM_MYTHIC_OUT_OF_SEASON_CHOSEN_HERO_IN_SEASON_PLUS_LEGENDARY_BOTH: TeamC
     name: 'out-of-season mythic (M!Heimdallr) w/ in-season chosen hero (C!Alfonse): + L!Shez + L!Caeda',
     code: 'SCTv1:W3siaWQiOiJQSURf5Lyd5om/44Kr44Of44OpIiwic2tpbGxJZHMiOnt9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjowLCJib29uIjoiaHAiLCJiYW5lIjoiYXRrIiwiYmxlc3NpbmciOiJXYXRlciIsInNraWxsU1BzIjp7fSwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODmOOCpOODoOODgOODq+WRs+aWuSIsInNraWxsSWRzIjp7fSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MCwiYm9vbiI6InJlcyIsImJhbmUiOiJkZWYiLCJibGVzc2luZyI6IkFuaW1hIiwic2tpbGxTUHMiOnt9LCJjaG9zZW5IZXJvSWQiOiJQSURf5pWR5LiW44Ki44Or44OV44Kp44Oz44K5IiwiY2hvc2VuSGVyb01lcmdlcyI6NX0seyJpZCI6IlBJRF/kvJ3mib/jgrfjgqfjgrrnlLciLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOiJkZWYiLCJiYW5lIjoiaHAiLCJibGVzc2luZyI6IldpbmQiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgrfjg7zjg4AiLCJza2lsbElkcyI6e30sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjAsImJvb24iOm51bGwsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJza2lsbFNQcyI6e30sImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH1d',
     context: {
-      hasBonusUnit: true,
-      seasonElements: [
-        ELEMENT_WATER,
-        ELEMENT_WIND,
-        ELEMENT_LIGHT,
-        ELEMENT_DARK,
-      ],
+      mode: MODE_ARENA,
+      arena: {
+        hasBonusUnit: true,
+        seasons: [ELEMENT_WATER, ELEMENT_WIND, ELEMENT_LIGHT, ELEMENT_DARK],
+      },
     },
     expectedVisibleFinalScores: [676, 764, 678, 672],
     expectedTeamFinalScore: 696,
@@ -374,8 +430,7 @@ const TEAM_MJOLNIR_SEIDR: TeamCase = {
   name: "Mjölnir's Strike (dark, tier 20): M!Seidr",
   code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Ku44Og44Os44O855S3Iiwic2tpbGxJZHMiOnsic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODqeODleOCoeOCqOODqyIsInNraWxsSWRzIjp7InNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/jgrvjgqTjgroiLCJza2lsbElkcyI6eyJwYXNzaXZlYSI6IlNJRF/mmI7pj6HmraLmsLQiLCJwYXNzaXZlYyI6IlNJRF/lhbHjgavmnKrmnaXjgpLopovigKbjg7vnpZ4iLCJzYWNyZWRzZWFsIjoiU1NJRF/mraLmsLQzIn0sInNraWxsU1BzIjp7IndlYXBvbiI6NDAwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjoyMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6NywiYm9vbiI6InJlcyIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiQXN0cmEiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: false,
-    seasonElements: [],
+    mode: MODE_MJOLNIR_STRIKE,
     mjolnirStrike: { major: ELEMENT_DARK, tier: 20 },
   },
   expectedVisibleFinalScores: [772, 770, 772, 742],
@@ -387,8 +442,7 @@ const TEAM_MJOLNIR_PEONY: TeamCase = {
   name: "Mjölnir's Strike (dark, tier 20): M!Peony",
   code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Ku44Og44Os44O855S3Iiwic2tpbGxJZHMiOnsic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODqeODleOCoeOCqOODqyIsInNraWxsSWRzIjp7InNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/npZ7pmo7jg5TjgqLjg4vjg7wiLCJza2lsbElkcyI6eyJwYXNzaXZlYSI6IlNJRF/pnZLjga7mrbvpl5jjg7vpo5vooYw0IiwicGFzc2l2ZWIiOiJTSURf6a2U44Gu6JuH5q+S44O75ZG85ZC4Iiwic2FjcmVkc2VhbCI6IlNTSURf5puy5oqA6aOb6KGMMyJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjQwMCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MjQwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjcsImJvb24iOiJzcGQiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IkxpZ2h0IiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfV0=',
   context: {
-    hasBonusUnit: false,
-    seasonElements: [],
+    mode: MODE_MJOLNIR_STRIKE,
     mjolnirStrike: { major: ELEMENT_DARK, tier: 20 },
   },
   expectedVisibleFinalScores: [772, 770, 772, 764],
@@ -402,8 +456,11 @@ const TEAM_MJOLNIR_AYRA: TeamCase = {
   name: "Mjölnir's Strike (dark, tier 20): L!Ayra, water season in arena",
   code: 'SCTv1:W3siaWQiOiJQSURf5q+U57+844Or44Kt44OKIiwic2tpbGxJZHMiOnsid2VhcG9uIjoiU0lEX+iBlueOi+WbveOBrueItuWomOOBruelnuW8kyIsImFzc2lzdCI6IlNJRF/mnKrmnaXjgpLlj7bjgYjjgovnnrMiLCJzYWNyZWRzZWFsIjoiU1NJRF/ov5Hlj43jg7vlvJPmmpflsILnlKgifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjozMDAsInBhc3NpdmVjIjozMDAsInNhY3JlZHNlYWwiOjMwMCwicGFzc2l2ZXgiOjB9LCJsZXZlbCI6NDAsInJhcml0eSI6NSwibWVyZ2VzIjoxMCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9LHsiaWQiOiJQSURf44Ku44Og44Os44O855S3Iiwic2tpbGxJZHMiOnsic2FjcmVkc2VhbCI6IlNTSURf6YGg5Y+N44O756uc5bCC55SoIn0sInNraWxsU1BzIjp7IndlYXBvbiI6MzUwLCJhc3Npc3QiOjQwMCwic3BlY2lhbCI6NTAwLCJwYXNzaXZlYSI6MzAwLCJwYXNzaXZlYiI6NDAwLCJwYXNzaXZlYyI6MzAwLCJzYWNyZWRzZWFsIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6MTAsImJvb24iOiJhdGsiLCJiYW5lIjpudWxsLCJibGVzc2luZyI6IldhdGVyIiwiY2hvc2VuSGVyb0lkIjpudWxsLCJjaG9zZW5IZXJvTWVyZ2VzIjowfSx7ImlkIjoiUElEX+ODqeODleOCoeOCqOODqyIsInNraWxsSWRzIjp7InNhY3JlZHNlYWwiOiJTU0lEX+mBoOWPjeODu+WJo+anjeaWp+WwgueUqCJ9LCJza2lsbFNQcyI6eyJ3ZWFwb24iOjM1MCwiYXNzaXN0Ijo0MDAsInNwZWNpYWwiOjUwMCwicGFzc2l2ZWEiOjMwMCwicGFzc2l2ZWIiOjQwMCwicGFzc2l2ZWMiOjMwMCwic2FjcmVkc2VhbCI6MzAwLCJwYXNzaXZleCI6MH0sImxldmVsIjo0MCwicmFyaXR5Ijo1LCJtZXJnZXMiOjEwLCJib29uIjoiYXRrIiwiYmFuZSI6bnVsbCwiYmxlc3NpbmciOiJXYXRlciIsImNob3Nlbkhlcm9JZCI6bnVsbCwiY2hvc2VuSGVyb01lcmdlcyI6MH0seyJpZCI6IlBJRF/kvJ3mib/jgqLjgqTjg6kiLCJza2lsbElkcyI6eyJ3ZWFwb24iOiJTSURf44Kk44K244O844Kv44Gu5a6I6K235YmjIiwic3BlY2lhbCI6IlNJRF/liaPogZbjga7mtYHmmJ/pm6gifSwic2tpbGxTUHMiOnsid2VhcG9uIjo0MDAsImFzc2lzdCI6NDAwLCJzcGVjaWFsIjo1MDAsInBhc3NpdmVhIjozMDAsInBhc3NpdmViIjo0MDAsInBhc3NpdmVjIjozMDAsInBhc3NpdmV4IjowfSwibGV2ZWwiOjQwLCJyYXJpdHkiOjUsIm1lcmdlcyI6OCwiYm9vbiI6InNwZCIsImJhbmUiOm51bGwsImJsZXNzaW5nIjoiV2F0ZXIiLCJjaG9zZW5IZXJvSWQiOm51bGwsImNob3Nlbkhlcm9NZXJnZXMiOjB9XQ==',
   context: {
-    hasBonusUnit: false,
-    seasonElements: [ELEMENT_WATER],
+    mode: MODE_MJOLNIR_STRIKE,
+    arena: {
+      hasBonusUnit: false,
+      seasons: [ELEMENT_WATER],
+    },
     mjolnirStrike: { major: ELEMENT_DARK, tier: 20 },
   },
   expectedVisibleFinalScores: [772, 770, 772, 756],
@@ -449,20 +506,21 @@ describe('useUnitScore', () => {
     'computes the expected visibleFinalScore for: $name',
     ({ code, context, expectedVisibleFinalScores, expectedTeamFinalScore }) => {
       const units = decodeTeamInScoreCalc(code)
-      // mirrors pages/score-calc.vue's own mjolnirStrike computed, which
-      // fills in `minor` from `major` via mythicComplement()
-      const mjolnirStrike = context.mjolnirStrike
-        ? ref({
-            isActive: true,
-            major: context.mjolnirStrike.major,
-            minor: mythicComplement(context.mjolnirStrike.major),
-          })
-        : undefined
       const scoreContext = useScoreContext(
         ref(units),
-        ref(context.hasBonusUnit),
-        ref(context.seasonElements),
-        mjolnirStrike,
+        context.arena
+          ? ref({
+              ...context.arena,
+              isActive: context.mode === MODE_ARENA,
+            })
+          : undefined,
+        context.mjolnirStrike
+          ? ref({
+              ...context.mjolnirStrike,
+              isActive: context.mode === MODE_MJOLNIR_STRIKE,
+              minor: mythicComplement(context.mjolnirStrike.major),
+            })
+          : undefined,
       )
 
       const scores: number[] = []

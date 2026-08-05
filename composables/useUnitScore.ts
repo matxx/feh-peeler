@@ -18,7 +18,7 @@ import {
   GROWTH_RATE_DIFF,
   getEmptyUnitInstanceSkillSPs,
   type IUnitInstanceInScoreCalc,
-  type ScoreContext,
+  type ScoreContextOut,
 } from '~/utils/types/score-calc'
 import { SKILL_PASSIVE_A } from '~/utils/types/skills'
 import { BANE, BOON, STATS } from '~/utils/types/units-stats'
@@ -39,7 +39,7 @@ const statAtLevel = (
 
 export default function useUnitScore(
   unitInstance: Ref<IUnitInstanceInScoreCalc>,
-  scoreContext: Ref<ScoreContext>,
+  scoreContext: Ref<ScoreContextOut>,
   isAttachedChosenHero: boolean = false,
 ) {
   const storeDataUnits = useStoreDataUnits()
@@ -74,7 +74,7 @@ export default function useUnitScore(
     const element = unit.value.element
     if (!element) return false
 
-    return scoreContext.value.seasonElements.includes(element)
+    return scoreContext.value.arena.seasons.includes(element)
   })
 
   const rarityConstants = computed(
@@ -237,7 +237,7 @@ export default function useUnitScore(
   const bonusMergesCount = computed(() => {
     if (!unit.value) return 0
     if (!unit.value.is_mythic) return 0
-    if (!scoreContext.value.mjolnirStrike.isActive) return 0
+    if (scoreContext.value.arena.isActive) return 0
 
     if (unit.value.element === scoreContext.value.mjolnirStrike.major) return 10
     if (unit.value.element === scoreContext.value.mjolnirStrike.minor) return 5
@@ -270,12 +270,12 @@ export default function useUnitScore(
             chosenHeroIsInSeason.value ? chosenHero.value?.element : null,
           ]),
         ).map((element) => {
-          if (!scoreContext.value.seasonElements.includes(element)) {
+          if (!scoreContext.value.arena.seasons.includes(element)) {
             return 0
           }
 
           // @ts-expect-error ElementMythic handled here
-          return scoreContext.value.legendaryCounts[element] || 0
+          return scoreContext.value.arena.legendaryCounts[element] || 0
         }),
       ) * 4
     )
@@ -285,12 +285,12 @@ export default function useUnitScore(
     if (!unit.value.is_mythic) return 0
     if (!unit.value.element) return 0
 
-    const relevantElements = scoreContext.value.seasonElements.includes(
+    const relevantElements = scoreContext.value.arena.seasons.includes(
       unit.value.element,
     )
       ? // an in-season mythic unit receives bonuses from all in season legendaries
         intersection(
-          scoreContext.value.seasonElements,
+          scoreContext.value.arena.seasons,
           SORTED_LEGENDARY_ELEMENTS,
         )
       : chosenHero.value && chosenHeroIsInSeason.value
@@ -304,7 +304,7 @@ export default function useUnitScore(
         compact(
           relevantElements.map(
             // @ts-expect-error ElementMythic handled here
-            (element) => scoreContext.value.legendaryCounts[element],
+            (element) => scoreContext.value.arena.legendaryCounts[element],
           ),
         ),
       ) * 4
@@ -319,7 +319,7 @@ export default function useUnitScore(
   const scorePartSPs = computed(() => Math.floor(visibleSkillSPs.value / 100))
   const scorePartBST = computed(() => Math.floor(visibleBst.value / 5))
   const scorePartBlessing = computed(() =>
-    scoreContext.value.mjolnirStrike.isActive ? 0 : blessingScore.value,
+    scoreContext.value.arena.isActive ? blessingScore.value : 0,
   )
   const baseScoreBeforeBlessing = computed(() =>
     unit.value
@@ -342,9 +342,7 @@ export default function useUnitScore(
     unit.value ? baseToFinalScore(baseScore.value) : 0,
   )
 
-  const chosenHeroIsActive = computed(
-    () => !scoreContext.value.mjolnirStrike.isActive,
-  )
+  const chosenHeroIsActive = computed(() => scoreContext.value.arena.isActive)
 
   // a chosen hero attached onto a legendary only has its score used/compared
   // if it shares the same element as that legendary
@@ -382,7 +380,7 @@ export default function useUnitScore(
     let adjustedScoreContext
     if (unit.value?.is_legendary) {
       adjustedScoreContext = ref(JSON.parse(JSON.stringify(scoreContext.value)))
-      adjustedScoreContext.value.legendaryCounts[unit.value.element!] -= 1
+      adjustedScoreContext.value.arena.legendaryCounts[unit.value.element!] -= 1
     } else {
       adjustedScoreContext = scoreContext
     }
