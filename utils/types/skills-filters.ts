@@ -11,25 +11,17 @@ export const CD = 'cd'
 export const MIGHT = 'might'
 export const RANGE = 'range'
 export type Stat =
-  | typeof TIER
-  | typeof SP
-  | typeof CD
-  | typeof MIGHT
-  | typeof RANGE
+  typeof TIER | typeof SP | typeof CD | typeof MIGHT | typeof RANGE
 export const STATS: Stat[] = [TIER, SP, CD, MIGHT, RANGE]
-
-export const SORTABLE_VERSION_8_0 = getSortableVersion('8.0')
 
 export const HOF_DISABLED = 'DISABLED'
 export const HOF_13_20 = '13_20'
 export const HOF_21_24 = '21_24'
 export const HOF_25 = '25'
 export type HoFChamber =
-  | typeof HOF_DISABLED
-  | typeof HOF_13_20
-  | typeof HOF_21_24
-  | typeof HOF_25
+  typeof HOF_DISABLED | typeof HOF_13_20 | typeof HOF_21_24 | typeof HOF_25
 export const HOF_FILTER_LIST: HoFChamber[] = [HOF_25, HOF_21_24, HOF_13_20]
+export const HOF_25_SKILLS_VERSION_THRESHOLD = getSortableVersion('9.0')
 
 export type ISkillStatMinMax = {
   [TIER]: [number, number]
