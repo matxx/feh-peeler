@@ -8,6 +8,7 @@ export default function useData(
   reference: Ref<any>, // eslint-disable-line @typescript-eslint/no-explicit-any
 ) {
   const { addToastWithGenericError } = useStoreSnackbar()
+  const runtimeConfig = useRuntimeConfig()
 
   const isLoading = ref(false)
   const isLoaded = ref(false)
@@ -18,7 +19,7 @@ export default function useData(
     isLoading.value = true
 
     return $fetch(
-      `https://${DOMAIN}/commits/${useRuntimeConfig().public.COMMIT_HASH}/${filename}`,
+      `https://${DOMAIN}/commits/${runtimeConfig.public.COMMIT_HASH}/${filename}`,
     )
       .then(
         async (result) => {
