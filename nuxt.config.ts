@@ -153,7 +153,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     SESSION_PASSWORD: undefined,
     public: {
-      BASE_URL: undefined,
       COMMIT_HASH: undefined,
       GTAG_UA: undefined,
       SENTRY_DSN: undefined,

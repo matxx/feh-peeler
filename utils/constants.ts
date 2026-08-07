@@ -16,8 +16,8 @@ export const URL_HASH_FOR_COOKIE_MANAGEMENT = '#cookie-management'
 
 export const SITE_TITLE = 'FEH Peeler'
 export const SITE_DESCRIPTION = 'Every tools to optimize your FEH experience'
-export const SITE_IMAGE_URL =
-  'https://feh-peeler.com/android-chrome-512x512.png'
+export const SITE_URL = 'https://feh-peeler.com'
+export const SITE_IMAGE_URL = `${SITE_URL}/android-chrome-512x512.png`
 export const SITE_IMAGE_SIZE = 512
 
 export const MINIMAL_TEXT_SEARCH_LENGTH = 3
