@@ -3,7 +3,6 @@ import {
   // READ_MORE_URL,
   URL_HASH_FOR_COOKIE_MANAGEMENT,
 } from '@/utils/constants'
-import getGtagUA from '@/utils/runtime/gtag-ua'
 
 export default defineNuxtPlugin(async () => {
   // @ts-expect-error global var
@@ -50,10 +49,10 @@ export default defineNuxtPlugin(async () => {
     googleConsentMode: true,
   })
 
-  const gtagUa = getGtagUA()
+  const gtagUa = useRuntimeConfig().public.GTAG_UA
   if (gtagUa) {
     // @ts-expect-error tarteaucitron has no types
-    tarteaucitron.user.gtagUa = getGtagUA()
+    tarteaucitron.user.gtagUa = gtagUa
     // @ts-expect-error tarteaucitron has no types
     ;(tarteaucitron.job = tarteaucitron.job || []).push('gtag')
     // @ts-expect-error tarteaucitron has no types

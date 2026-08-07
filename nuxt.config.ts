@@ -1,43 +1,12 @@
-import { fromPairs } from 'lodash-es'
-
-import { env, ENV_PRODUCTION } from './utils/env'
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
   SITE_IMAGE_URL,
   SITE_IMAGE_SIZE,
 } from './utils/constants'
-import { dsn, authToken } from './utils/sentry'
 import { DEFAULT_THEME } from './utils/types/themes'
 
 const DEFAULT_LOCALE = 'en'
-
-const publicEnvVariablesToPass = fromPairs(
-  [
-    'GTAG_UA',
-    'FEH_PEELER_DEVELOPMENT_GTAG_UA',
-    'FEH_PEELER_PRODUCTION_GTAG_UA',
-  ].map((x) => [x, process.env[x]]),
-)
-
-const secretEnvVariablesToPass = fromPairs([].map((x) => [x, process.env[x]]))
-
-const users = []
-if (process.env.BASIC_AUTH_USERNAME && process.env.BASIC_AUTH_PASSWORD) {
-  users.push({
-    username: process.env.BASIC_AUTH_USERNAME,
-    password: process.env.BASIC_AUTH_PASSWORD,
-  })
-}
-if (
-  process.env.BASIC_AUTH_EXTERNAL_USERNAME &&
-  process.env.BASIC_AUTH_EXTERNAL_PASSWORD
-) {
-  users.push({
-    username: process.env.BASIC_AUTH_EXTERNAL_USERNAME,
-    password: process.env.BASIC_AUTH_EXTERNAL_PASSWORD,
-  })
-}
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -122,7 +91,6 @@ export default defineNuxtConfig({
   pages: true,
 
   modules: [
-    '@kgierke/nuxt-basic-auth',
     ['@nuxtjs/eslint-module', { lintOnStart: false }],
     '@pinia/nuxt',
     '@vee-validate/nuxt',
@@ -136,13 +104,6 @@ export default defineNuxtConfig({
 
   pinia: {
     storesDirs: ['./stores/**'],
-  },
-
-  basicAuth: {
-    enabled: env === ENV_PRODUCTION,
-    users: users,
-    // Optional: Whitelist routes
-    // allowedRoutes: ["/api/.*"],
   },
 
   css: [
@@ -190,14 +151,12 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    ...secretEnvVariablesToPass,
+    SESSION_PASSWORD: undefined,
     public: {
-      ...publicEnvVariablesToPass,
+      BASE_URL: undefined,
       COMMIT_HASH: undefined,
-      env,
-      sentry: {
-        dsn,
-      },
+      GTAG_UA: undefined,
+      SENTRY_DSN: undefined,
     },
   },
 
@@ -287,7 +246,7 @@ export default defineNuxtConfig({
   sentry: {
     org: 'me-g7',
     project: 'feh-peeler',
-    authToken,
+    authToken: process.env.SENTRY_AUTH_TOKEN,
     // sourcemaps: {
     //   filesToDeleteAfterUpload: [
     //     './**/*.map',
