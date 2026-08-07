@@ -276,7 +276,7 @@
           <AppAutocomplete
             v-model="storeDataBanners.selectedBanner"
             :loading="storeDataBanners.isLoading"
-            :items="storeDataBanners.banners || []"
+            :items="storeDataBanners.banners"
             item-title="name"
             item-value="name"
             clearable
