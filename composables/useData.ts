@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/nuxt'
 
 const DOMAIN = 'data.feh-peeler.com'
-const COMMIT = '07bd713c374740210cd16874dbab2290f95f8ca1'
 
 export default function useData(
   filename: string,
@@ -18,7 +17,9 @@ export default function useData(
 
     isLoading.value = true
 
-    return $fetch(`https://${DOMAIN}/commits/${COMMIT}/${filename}`)
+    return $fetch(
+      `https://${DOMAIN}/commits/${useRuntimeConfig().public.COMMIT_HASH}/${filename}`,
+    )
       .then(
         async (result) => {
           // when response headers is "content-type: text/plain; charset=utf-8"
