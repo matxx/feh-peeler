@@ -193,6 +193,7 @@ export default defineNuxtConfig({
     ...secretEnvVariablesToPass,
     public: {
       ...publicEnvVariablesToPass,
+      COMMIT_HASH: undefined,
       env,
       sentry: {
         dsn,

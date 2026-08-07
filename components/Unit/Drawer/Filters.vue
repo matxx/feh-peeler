@@ -202,7 +202,7 @@
     <div class="mt-1">
       <div>
         <v-btn-group
-          v-for="(list, index) in UnitsFilters.ELEMENTS_FOR_FILTERS"
+          v-for="(list, index) in ELEMENTS_FOR_FILTERS"
           :key="index"
           divided
           color="primary"
@@ -621,6 +621,7 @@ import difference from 'lodash-es/difference'
 
 import * as UnitsFilters from '~/utils/types/units-filters'
 import type { IFilters, Trait } from '~/utils/types/units-filters'
+import { ELEMENTS_FOR_FILTERS, type Element } from '~/utils/types/elements'
 import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
 import {
@@ -704,7 +705,7 @@ function toggleWeapon(weaponType: WeaponType) {
     filters.value.weapons.add(weaponType)
   }
 }
-function toggleElement(element: UnitsFilters.Element) {
+function toggleElement(element: Element) {
   if (!filters.value) return
 
   if (filters.value.elements.has(element)) {
