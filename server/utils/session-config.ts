@@ -1,16 +1,13 @@
 import type { SessionConfig } from 'h3'
 
-import getEnvVariable from '~/utils/functions/getEnvVariable'
-import { env } from '~/utils/env'
-
 export default () => {
-  const password = getEnvVariable('session password', [
-    `FEH_PEELER_${env.toUpperCase()}_SESSION_PASSWORD`,
-    'SESSION_PASSWORD',
-  ])
+  const password = useRuntimeConfig().SESSION_PASSWORD
+  if (!password) {
+    throw new Error('missing session password')
+  }
 
   const config: SessionConfig = {
-    password: password,
+    password,
     name: 'session',
   }
 

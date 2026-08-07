@@ -1,12 +1,8 @@
 import * as Sentry from '@sentry/nuxt'
-import { ENV_PRODUCTION } from './utils/env'
-
-const publicConfig = useRuntimeConfig().public
 
 Sentry.init({
   // If set up, you can use your runtime config here
-  dsn:
-    publicConfig.env === ENV_PRODUCTION ? publicConfig.sentry.dsn : undefined,
+  dsn: useRuntimeConfig().public.SENTRY_DSN,
 
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control

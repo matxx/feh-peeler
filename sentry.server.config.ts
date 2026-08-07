@@ -1,9 +1,7 @@
 import * as Sentry from '@sentry/nuxt'
-import { dsn } from './utils/sentry'
-import { isProd } from './utils/env'
 
 Sentry.init({
-  dsn: isProd ? dsn : undefined,
+  dsn: useRuntimeConfig().public.SENTRY_DSN,
 
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
