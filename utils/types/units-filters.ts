@@ -1,4 +1,5 @@
 import { objectFromEntries } from '~/utils/functions/typeSafe'
+import type { Element } from '~/utils/types/elements'
 import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
 import type { Gender } from '~/utils/types/units'
