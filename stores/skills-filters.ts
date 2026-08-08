@@ -312,29 +312,81 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       const canUse = new Set(s.restrictions.weapons.can_use)
       switch (weaponType) {
         case w.WEAPON_R_SW:
-          return canUse.has(w.WEAPON_R_SW) || canUse.has(w.WEAPON_A_ME)
+          return (
+            canUse.has(w.WEAPON_R_SW) ||
+            canUse.has(w.WEAPON_R) ||
+            canUse.has(w.WEAPON_A_ME)
+          )
         case w.WEAPON_B_LA:
-          return canUse.has(w.WEAPON_B_LA) || canUse.has(w.WEAPON_A_ME)
+          return (
+            canUse.has(w.WEAPON_B_LA) ||
+            canUse.has(w.WEAPON_B) ||
+            canUse.has(w.WEAPON_A_ME)
+          )
         case w.WEAPON_G_AX:
-          return canUse.has(w.WEAPON_G_AX) || canUse.has(w.WEAPON_A_ME)
+          return (
+            canUse.has(w.WEAPON_G_AX) ||
+            canUse.has(w.WEAPON_G) ||
+            canUse.has(w.WEAPON_A_ME)
+          )
         case w.WEAPON_C_ST:
-          return canUse.has(w.WEAPON_C_ST)
+          return canUse.has(w.WEAPON_C_ST) || canUse.has(w.WEAPON_C)
         case w.WEAPON_R_TO:
-          return canUse.has(w.WEAPON_R_TO) || canUse.has(w.WEAPON_A_TO)
+          return (
+            canUse.has(w.WEAPON_R_TO) ||
+            canUse.has(w.WEAPON_R) ||
+            canUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_B_TO:
-          return canUse.has(w.WEAPON_B_TO) || canUse.has(w.WEAPON_A_TO)
+          return (
+            canUse.has(w.WEAPON_B_TO) ||
+            canUse.has(w.WEAPON_B) ||
+            canUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_G_TO:
-          return canUse.has(w.WEAPON_G_TO) || canUse.has(w.WEAPON_A_TO)
+          return (
+            canUse.has(w.WEAPON_G_TO) ||
+            canUse.has(w.WEAPON_G) ||
+            canUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_C_TO:
-          return canUse.has(w.WEAPON_C_TO) || canUse.has(w.WEAPON_A_TO)
+          return (
+            canUse.has(w.WEAPON_C_TO) ||
+            canUse.has(w.WEAPON_C) ||
+            canUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_A_BO:
-          return canUse.has(w.WEAPON_A_BO)
+          return (
+            canUse.has(w.WEAPON_A_BO) ||
+            canUse.has(w.WEAPON_R) ||
+            canUse.has(w.WEAPON_B) ||
+            canUse.has(w.WEAPON_G) ||
+            canUse.has(w.WEAPON_C)
+          )
         case w.WEAPON_A_DA:
-          return canUse.has(w.WEAPON_A_DA)
+          return (
+            canUse.has(w.WEAPON_A_DA) ||
+            canUse.has(w.WEAPON_R) ||
+            canUse.has(w.WEAPON_B) ||
+            canUse.has(w.WEAPON_G) ||
+            canUse.has(w.WEAPON_C)
+          )
         case w.WEAPON_A_BR:
-          return canUse.has(w.WEAPON_A_BR)
+          return (
+            canUse.has(w.WEAPON_A_BR) ||
+            canUse.has(w.WEAPON_R) ||
+            canUse.has(w.WEAPON_B) ||
+            canUse.has(w.WEAPON_G) ||
+            canUse.has(w.WEAPON_C)
+          )
         case w.WEAPON_A_BE:
-          return canUse.has(w.WEAPON_A_BE)
+          return (
+            canUse.has(w.WEAPON_A_BE) ||
+            canUse.has(w.WEAPON_R) ||
+            canUse.has(w.WEAPON_B) ||
+            canUse.has(w.WEAPON_G) ||
+            canUse.has(w.WEAPON_C)
+          )
         default:
           return false
       }
@@ -344,29 +396,81 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       const canNotUse = new Set(s.restrictions.weapons.can_not_use)
       switch (weaponType) {
         case w.WEAPON_R_SW:
-          return !canNotUse.has(w.WEAPON_R_SW) && !canNotUse.has(w.WEAPON_A_ME)
+          return (
+            !canNotUse.has(w.WEAPON_R_SW) &&
+            !canNotUse.has(w.WEAPON_R) &&
+            !canNotUse.has(w.WEAPON_A_ME)
+          )
         case w.WEAPON_B_LA:
-          return !canNotUse.has(w.WEAPON_B_LA) && !canNotUse.has(w.WEAPON_A_ME)
+          return (
+            !canNotUse.has(w.WEAPON_B_LA) &&
+            !canNotUse.has(w.WEAPON_B) &&
+            !canNotUse.has(w.WEAPON_A_ME)
+          )
         case w.WEAPON_G_AX:
-          return !canNotUse.has(w.WEAPON_G_AX) && !canNotUse.has(w.WEAPON_A_ME)
+          return (
+            !canNotUse.has(w.WEAPON_G_AX) &&
+            !canNotUse.has(w.WEAPON_G) &&
+            !canNotUse.has(w.WEAPON_A_ME)
+          )
         case w.WEAPON_C_ST:
-          return !canNotUse.has(w.WEAPON_C_ST)
+          return !canNotUse.has(w.WEAPON_C_ST) && !canNotUse.has(w.WEAPON_C)
         case w.WEAPON_R_TO:
-          return !canNotUse.has(w.WEAPON_R_TO) && !canNotUse.has(w.WEAPON_A_TO)
+          return (
+            !canNotUse.has(w.WEAPON_R_TO) &&
+            !canNotUse.has(w.WEAPON_R) &&
+            !canNotUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_B_TO:
-          return !canNotUse.has(w.WEAPON_B_TO) && !canNotUse.has(w.WEAPON_A_TO)
+          return (
+            !canNotUse.has(w.WEAPON_B_TO) &&
+            !canNotUse.has(w.WEAPON_B) &&
+            !canNotUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_G_TO:
-          return !canNotUse.has(w.WEAPON_G_TO) && !canNotUse.has(w.WEAPON_A_TO)
+          return (
+            !canNotUse.has(w.WEAPON_G_TO) &&
+            !canNotUse.has(w.WEAPON_G) &&
+            !canNotUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_C_TO:
-          return !canNotUse.has(w.WEAPON_C_TO) && !canNotUse.has(w.WEAPON_A_TO)
+          return (
+            !canNotUse.has(w.WEAPON_C_TO) &&
+            !canNotUse.has(w.WEAPON_C) &&
+            !canNotUse.has(w.WEAPON_A_TO)
+          )
         case w.WEAPON_A_BO:
-          return !canNotUse.has(w.WEAPON_A_BO)
+          return (
+            !canNotUse.has(w.WEAPON_A_BO) &&
+            !canNotUse.has(w.WEAPON_R) &&
+            !canNotUse.has(w.WEAPON_B) &&
+            !canNotUse.has(w.WEAPON_G) &&
+            !canNotUse.has(w.WEAPON_C)
+          )
         case w.WEAPON_A_DA:
-          return !canNotUse.has(w.WEAPON_A_DA)
+          return (
+            !canNotUse.has(w.WEAPON_A_DA) &&
+            !canNotUse.has(w.WEAPON_R) &&
+            !canNotUse.has(w.WEAPON_B) &&
+            !canNotUse.has(w.WEAPON_G) &&
+            !canNotUse.has(w.WEAPON_C)
+          )
         case w.WEAPON_A_BR:
-          return !canNotUse.has(w.WEAPON_A_BR)
+          return (
+            !canNotUse.has(w.WEAPON_A_BR) &&
+            !canNotUse.has(w.WEAPON_R) &&
+            !canNotUse.has(w.WEAPON_B) &&
+            !canNotUse.has(w.WEAPON_G) &&
+            !canNotUse.has(w.WEAPON_C)
+          )
         case w.WEAPON_A_BE:
-          return !canNotUse.has(w.WEAPON_A_BE)
+          return (
+            !canNotUse.has(w.WEAPON_A_BE) &&
+            !canNotUse.has(w.WEAPON_R) &&
+            !canNotUse.has(w.WEAPON_B) &&
+            !canNotUse.has(w.WEAPON_G) &&
+            !canNotUse.has(w.WEAPON_C)
+          )
         default:
           return false
       }
