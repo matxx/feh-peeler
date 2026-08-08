@@ -2,21 +2,35 @@ import sortBy from 'lodash-es/sortBy'
 
 import type { UnitId } from '~/utils/types/units'
 import { chunkMaxLength } from '~/utils/functions/typeSafe'
+import { getSortableName } from '~/utils/functions/bannerSortingVector'
 
-interface IBanner {
+interface IBannerData {
   name: string
   unit_ids: UnitId[]
+}
+interface IBanner extends IBannerData {
+  nameForSorting: string
 }
 
 export const useStoreDataBanners = defineStore('data/banners', () => {
   const storeDataUnits = useStoreDataUnits()
 
-  const banners = ref<IBanner[]>()
+  const bannersData = ref<IBannerData[]>([])
 
   const { isLoading, isLoaded, load } = useData(
     'banners.json',
     'stores/data/banners/load',
-    banners,
+    bannersData,
+  )
+
+  const banners = computed<IBanner[]>(() =>
+    sortBy(
+      bannersData.value.map((banner) => ({
+        ...banner,
+        nameForSorting: getSortableName(banner.name),
+      })),
+      'nameForSorting',
+    ),
   )
 
   const selectedBanner = ref<IBanner>()
