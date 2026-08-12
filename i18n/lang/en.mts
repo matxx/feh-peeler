@@ -592,8 +592,10 @@ export default () => ({
       might: 'Might',
       range: 'Range',
       effectiveness: 'Effectiveness',
+      eff: 'Eff',
       sp: 'SP',
       canUse: 'Can use',
+      prf: 'PRF',
       effect: 'Effect',
       owners: {
         sortByAvailability: 'Owners sorted by Availability',

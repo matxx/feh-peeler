@@ -1,5 +1,5 @@
 <template>
-  <div v-if="skill.is_prf">
+  <span v-if="skill.is_prf">
     <v-icon
       v-tooltip="t('global.exclusiveSkill')"
       :size="size"
@@ -7,15 +7,18 @@
     >
       mdi-cancel
     </v-icon>
-  </div>
-  <div
-    v-else-if="skill.restrictions.moves.none && skill.restrictions.weapons.none"
+  </span>
+  <span
+    v-else-if="
+      !skill.restrictions ||
+      (skill.restrictions.moves.none && skill.restrictions.weapons.none)
+    "
   >
     {{ t('global.all') }}
-  </div>
+  </span>
   <div
     v-else
-    class="d-flex"
+    class="d-inline-flex"
   >
     <div
       v-if="!skill.restrictions.moves.none"

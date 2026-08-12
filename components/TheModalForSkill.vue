@@ -7,7 +7,7 @@
           density="compact"
           class="v-toolbar--justify-space-between"
         >
-          <h3 class="d-flex align-center">
+          <v-toolbar-title class="ml-0">
             <SkillImgCategory
               :category="skill.category"
               :size="TOOLBAR_ICON_SIZE"
@@ -20,14 +20,16 @@
               class="mr-4"
             />
             {{ skill.name }}
-          </h3>
+          </v-toolbar-title>
 
           <template v-if="!mobile">
+            <v-spacer />
             <SkillAvailability
               v-if="skill.category !== SKILL_PASSIVE_S"
               :skill="skill"
               :tile-size="TOOLBAR_OWNER_SIZE"
             />
+            <v-spacer />
           </template>
 
           <v-toolbar-items>

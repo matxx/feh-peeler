@@ -1,73 +1,62 @@
 <template>
   <div>
-    <div class="mb-2 d-flex align-center">
-      <h4 class="mr-3">{{ t('skills.show.tier') }}:</h4>
-      <div>
-        {{ skill.tier }}
-      </div>
-    </div>
+    <v-chip-group column>
+      <v-chip label> {{ t('skills.show.tier') }}: {{ skill.tier }} </v-chip>
 
-    <div
-      :class="skill.eff ? 'd-flex' : 'd-none'"
-      class="mb-2 align-center"
-    >
-      <h4 class="mr-3">{{ t('skills.show.effectiveness') }}:</h4>
-      <SkillEffectivenessList
-        :skill="skill"
-        :size="size"
-      />
-    </div>
+      <v-chip
+        v-show="skill.eff"
+        label
+      >
+        {{
+          mobile ? t('skills.show.eff') : t('skills.show.effectiveness')
+        }}:&nbsp;
+        <SkillEffectivenessList
+          :skill="skill"
+          :size="SIZE"
+        />
+      </v-chip>
 
-    <div
-      :class="skill.cd ? 'd-flex' : 'd-none'"
-      class="mb-2 align-center"
-    >
-      <h4 class="mr-3">{{ t('skills.show.cd') }}:</h4>
-      <div>
-        {{ skill.cd }}
-      </div>
-    </div>
+      <v-chip
+        v-show="skill.cd"
+        label
+      >
+        {{ t('skills.show.cd') }}: {{ skill.cd }}
+      </v-chip>
 
-    <div
-      :class="skill.might ? 'd-flex' : 'd-none'"
-      class="mb-2 align-center"
-    >
-      <h4 class="mr-3">{{ t('skills.show.might') }}:</h4>
-      <div>
-        {{ skill.might }}
-      </div>
-    </div>
+      <v-chip
+        v-show="skill.might"
+        label
+      >
+        {{ t('skills.show.might') }}: {{ skill.might }}
+      </v-chip>
 
-    <div
-      :class="skill.range ? 'd-flex' : 'd-none'"
-      class="mb-2 align-center"
-    >
-      <h4 class="mr-3">{{ t('skills.show.range') }}:</h4>
-      <div>
-        {{ skill.range }}
-      </div>
-    </div>
+      <v-chip
+        v-show="skill.range"
+        label
+      >
+        {{ t('skills.show.range') }}: {{ skill.range }}
+      </v-chip>
 
-    <div
-      :class="skill.sp ? 'd-flex' : 'd-none'"
-      class="mb-2 align-center"
-    >
-      <h4 class="mr-3">{{ t('skills.show.sp') }}:</h4>
-      <div>
-        {{ skill.sp }}
-      </div>
-    </div>
+      <v-chip
+        v-show="skill.sp"
+        label
+      >
+        {{ t('skills.show.sp') }}: {{ skill.sp }}
+      </v-chip>
 
-    <div class="mb-2 d-flex align-center">
-      <h4 class="mr-3">{{ t('skills.show.canUse') }}:</h4>
-      <SkillRestrictions
-        :skill="skill"
-        :size="size"
-      />
-    </div>
+      <v-chip label>
+        <span v-if="skill.is_prf"> {{ t('skills.show.prf') }} </span>
+        <template v-else>
+          <span v-show="!mobile">{{ t('skills.show.canUse') }}:</span>
+          <SkillRestrictions
+            :skill="skill"
+            :size="SIZE"
+          />
+        </template>
+      </v-chip>
+    </v-chip-group>
 
-    <div>
-      <h4 class="mt-5 mb-2">{{ t('skills.show.effect') }}</h4>
+    <div class="mt-3">
       <SkillDescription :skill="skill" />
     </div>
   </div>
@@ -76,9 +65,10 @@
 <script setup lang="ts">
 import type { ISkill } from '~/utils/types/skills'
 
-const size = 30
+const SIZE = 20
 
 const { t } = useI18n()
+const { mobile } = useDisplay()
 
 defineEmits(['close'])
 withDefaults(
