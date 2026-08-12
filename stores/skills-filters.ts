@@ -776,7 +776,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
     if (skill.is_prf) {
       const availability =
         storeDataSkillsAvailabilities.availabilitiesById[skill.id]
-      return (availability.owner_ids || []).includes(unit.id)
+      return (availability?.owner_ids || []).includes(unit.id)
     }
     if (!skill.restrictions) return true
 
