@@ -18,7 +18,7 @@
     <CompoAvailability
       v-if="availability === U_AV_GENERIC_POOL_3_4"
       :size="tileSize"
-      :rarity="4"
+      :rarity="3"
       is-generic-pool
     />
     <CompoAvailability

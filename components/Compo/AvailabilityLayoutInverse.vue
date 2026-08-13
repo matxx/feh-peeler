@@ -11,21 +11,18 @@
 
     <div class="availability__sub">
       <AppIconRarity
-        v-if="rarity"
-        :rarity="rarity"
+        v-if="rarityToDisplay"
+        :rarity="rarityToDisplay"
         :size="numberToPx(subSize)"
-        :class="{ 'filter-grayscale-1': disabled }"
-      />
-      <v-img
-        v-else-if="showRarity"
-        src="assets/icons/fodder/5stars-off.png"
-        class="opacity-50"
+        :class="{ 'filter-grayscale-1': disabled, 'opacity-50': disabled }"
       />
     </div>
   </v-sheet>
 </template>
 
 <script setup lang="ts">
+import isNil from 'lodash-es/isNil'
+
 import { numberToPx } from '~/utils/functions/numberToPx'
 
 const props = withDefaults(
@@ -42,13 +39,21 @@ const props = withDefaults(
   },
 )
 
+const RARITY_WHEN_DISABLED_BUT_SHOWN = 5
+
 const mainRatio = 1
 // const mainSize = computed(() => props.size * mainRatio)
 const mainPercent = computed(() => `${100 * mainRatio}%`)
 
-const subRatio = 1 / 2
+const subRatio = 2 / 3
 const subSize = computed(() => props.size * subRatio)
 const subSizePercent = computed(() => `${100 * subRatio}%`)
+
+const rarityToDisplay = computed(() =>
+  isNil(props.rarity) && props.showRarity
+    ? RARITY_WHEN_DISABLED_BUT_SHOWN
+    : props.rarity,
+)
 </script>
 
 <style scoped lang="scss">

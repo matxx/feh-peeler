@@ -4,7 +4,7 @@
     :src="image"
     :width="size"
     :height="size"
-    :alt="t(`global.assets.icons.alt.rarity.${rarity}`)"
+    :alt="alt"
   />
 </template>
 
@@ -44,5 +44,13 @@ const image = computed(() => {
       return Img45Stars
   }
   return null
+})
+const alt = computed(() => {
+  switch (props.rarity) {
+    case 4.5:
+      return t('global.assets.icons.alt.rarity.45')
+    default:
+      return t(`global.assets.icons.alt.rarity.${props.rarity}`)
+  }
 })
 </script>

@@ -60,7 +60,7 @@
               target="_blank"
             >
               <img
-                src="~/assets/icons/fodder/fehpass.png"
+                src="~/assets/icons/fehpass.png"
                 :height="TOOLBAR_ICON_SIZE"
               />
             </v-btn>
@@ -138,7 +138,7 @@
                 :href="lFehPass(unit.fehpass_id)"
               >
                 <img
-                  src="~/assets/icons/fodder/fehpass.png"
+                  src="~/assets/icons/fehpass.png"
                   :height="TOOLBAR_ICON_SIZE"
                 />
               </v-btn>
