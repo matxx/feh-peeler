@@ -109,7 +109,7 @@ export default () => ({
             '3': 'Rarity 3 stars',
             '4': 'Rarity 4 stars',
             '5': 'Rarity 5 stars',
-            '4.5': 'Rarity 4.5 stars',
+            '45': 'Rarity 4.5 stars',
           },
           skills: {
             [skills.SKILL_WEAPON]: 'Icon Weapon',
