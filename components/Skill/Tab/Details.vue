@@ -47,7 +47,7 @@
       <v-chip label>
         <span v-if="skill.is_prf"> {{ t('skills.show.prf') }} </span>
         <template v-else>
-          <span v-show="!mobile">{{ t('skills.show.canUse') }}:</span>
+          <span v-show="!mobile">{{ t('skills.show.canUse') }}:&nbsp;</span>
           <SkillRestrictions
             :skill="skill"
             :size="SIZE"
