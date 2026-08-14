@@ -38,14 +38,14 @@ export const ITEMS_PER_PAGE_OPTIONS = [
 
 export const INHERIT_SLOTS = 5
 export const HALL_OF_FORMS_DETAILS = {
-  number: 80,
-  is_revival: false,
+  number: 62,
+  is_revival: true,
   resources: {
-    PM1: 'https://www.youtube.com/watch?v=QfubZvWZHcs',
-    FEHOLOGY: 'https://www.youtube.com/watch?v=JCfJpMT6vNs',
+    PM1: 'https://www.youtube.com/watch?v=bzi-woTGStY',
+    FEHOLOGY: 'https://www.youtube.com/watch?v=1CgUZXTknfY',
     // TACHO: 'https://www.youtube.com/watch?v=YFy3zEV7EBc',
     SATACHI: null,
     COOLEST_MAGICAL_CAT:
-      'https://www.reddit.com/r/FireEmblemHeroes/comments/1v3jnc7/recommended_forma_skills_infographic_hall_of/',
+      'https://www.reddit.com/r/FireEmblemHeroes/comments/1vo8rij/recommended_forma_skills_infographic_hall_of/',
   },
 }
