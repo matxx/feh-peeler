@@ -17,6 +17,23 @@
 
           <v-spacer />
 
+          <div v-show="mdAndUp">
+            <div class="d-flex align-center">
+              <span>{{ t('scoreCalc.labels.arenaOrAA') }}</span>
+              <v-switch
+                v-model="mode"
+                :true-value="MODE_MJOLNIR_STRIKE"
+                :false-value="MODE_ARENA"
+                density="compact"
+                hide-details
+                class="mx-3"
+              />
+              <span>{{ t('scoreCalc.labels.mjolnirStrike') }}</span>
+            </div>
+          </div>
+
+          <v-spacer />
+
           <ScoreCalcSaveLoadCode
             :code="teamCode"
             :decode="decodeTeamInScoreCalc"
@@ -41,6 +58,23 @@
             @loaded="updateData"
           />
         </div>
+      </v-col>
+    </v-row>
+
+    <v-row v-show="smAndDown">
+      <v-col class="ml-2">
+        <v-switch
+          v-model="mode"
+          :true-value="MODE_MJOLNIR_STRIKE"
+          :false-value="MODE_ARENA"
+          density="compact"
+          hide-details
+          :label="
+            mjolnirStrike.isActive
+              ? t('scoreCalc.labels.mjolnirStrike')
+              : t('scoreCalc.labels.arenaOrAA')
+          "
+        />
       </v-col>
     </v-row>
 
@@ -94,79 +128,64 @@
             <v-container fluid>
               <v-row>
                 <v-col
-                  cols="12"
+                  v-show="mjolnirStrike.isActive"
+                  cols="6"
                   md="3"
+                  :class="{
+                    'd-flex align-center py-1': mjolnirStrike.isActive,
+                  }"
                 >
-                  <v-switch
-                    v-model="mode"
-                    :true-value="MODE_MJOLNIR_STRIKE"
-                    :false-value="MODE_ARENA"
-                    density="compact"
-                    hide-details
-                    :label="
-                      mjolnirStrike.isActive
-                        ? t('scoreCalc.labels.mjolnirStrike')
-                        : t('scoreCalc.labels.arenaOrAA')
-                    "
-                  />
+                  <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
+                  <AppMjolnirSelectSeasons v-model="mjolnirStrikeMajor" />
                 </v-col>
 
-                <template v-if="mjolnirStrike.isActive">
-                  <v-col
-                    cols="6"
-                    md="3"
-                    class="d-flex align-center py-1"
+                <v-col
+                  v-show="mjolnirStrike.isActive"
+                  cols="6"
+                  md="3"
+                  :class="{ 'd-flex align-center': mjolnirStrike.isActive }"
+                >
+                  <VeeField
+                    v-slot="{ errors }"
+                    :value="mjolnirStrikeTier"
+                    name="mjolnirStrikeTier"
                   >
-                    <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
-                    <AppMjolnirSelectSeasons v-model="mjolnirStrikeMajor" />
-                  </v-col>
-
-                  <v-col
-                    cols="12"
-                    md="3"
-                  >
-                    <VeeField
-                      v-slot="{ errors }"
-                      :value="mjolnirStrikeTier"
-                      name="mjolnirStrikeTier"
-                    >
-                      <v-number-input
-                        v-model="mjolnirStrikeTier"
-                        required
-                        :min="MIN_TIER"
-                        :max="MAX_TIER"
-                        control-variant="stacked"
-                        density="compact"
-                        hide-details
-                        :label="t('scoreCalc.labels.tier')"
-                        :error-messages="errors"
-                      />
-                    </VeeField>
-                  </v-col>
-                </template>
-
-                <template v-else>
-                  <v-col
-                    cols="6"
-                    md="3"
-                    class="d-flex align-center"
-                  >
-                    <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
-                    <AppSelectSeasons v-model="arenaSeasons" />
-                  </v-col>
-
-                  <v-col
-                    cols="12"
-                    md="3"
-                  >
-                    <v-checkbox
-                      v-model="arenaHasBonusUnit"
-                      :label="t('scoreCalc.labels.hasBonusUnit')"
+                    <v-number-input
+                      v-model="mjolnirStrikeTier"
+                      required
+                      :min="MIN_TIER"
+                      :max="MAX_TIER"
+                      control-variant="stacked"
                       density="compact"
                       hide-details
+                      :label="t('scoreCalc.labels.tier')"
+                      :error-messages="errors"
                     />
-                  </v-col>
-                </template>
+                  </VeeField>
+                </v-col>
+
+                <v-col
+                  v-show="!mjolnirStrike.isActive"
+                  cols="6"
+                  md="3"
+                  :class="{ 'd-flex align-center': !mjolnirStrike.isActive }"
+                >
+                  <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
+                  <AppSelectSeasons v-model="arenaSeasons" />
+                </v-col>
+
+                <v-col
+                  v-show="!mjolnirStrike.isActive"
+                  cols="6"
+                  md="3"
+                >
+                  <v-checkbox
+                    v-model="arenaHasBonusUnit"
+                    :label="t('scoreCalc.labels.hasBonusUnit')"
+                    density="compact"
+                    hide-details
+                  />
+                </v-col>
               </v-row>
             </v-container>
           </v-card-text>
@@ -279,7 +298,7 @@ import {
 } from '~/utils/types/mjolnir-strike'
 
 const { t } = useI18n()
-const { sm, smAndDown } = useDisplay()
+const { sm, smAndDown, mdAndUp } = useDisplay()
 const localePath = useLocalePath()
 
 const storeDataUnits = useStoreDataUnits()
