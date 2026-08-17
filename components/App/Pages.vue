@@ -52,7 +52,7 @@
       </v-list>
     </div>
 
-    <AppCredits />
+    <AppCredits :one-list="oneList" />
   </div>
 </template>
 

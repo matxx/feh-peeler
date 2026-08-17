@@ -379,6 +379,7 @@ export default () => ({
       fandom: 'Fandom',
       allRatingsFrom: '* All ratings comes from {link}.',
       game8: 'Game8',
+      lastUnit: '* Last unit',
     },
   },
 

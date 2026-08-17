@@ -1,4 +1,5 @@
 import keyBy from 'lodash-es/keyBy'
+import maxBy from 'lodash-es/maxBy'
 import filter from 'lodash-es/filter'
 import sortBy from 'lodash-es/sortBy'
 import _groupBy from 'lodash-es/groupBy'
@@ -89,6 +90,8 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     }),
   )
 
+  const lastUnit = computed(() => maxBy(units.value, 'release_date'))
+
   const unitsById = computed<IndexedBy<UnitId, IUnit>>(() =>
     keyBy(units.value, 'id'),
   )
@@ -150,6 +153,7 @@ export const useStoreDataUnits = defineStore('data/units', () => {
     unitsWithAvailability,
     unitsWithReleaseDate,
 
+    lastUnit,
     unitsById,
     // unitsByNameForLink,
 
