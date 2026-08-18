@@ -89,19 +89,50 @@
           <v-icon>mdi-restart</v-icon>
         </v-btn>
       </template>
-      <template #[`header.${unitsColumns.COLUMN_HAS_RESPLENDENT}`]>
-        <img
-          src="assets/icons/resplendent.png"
-          :width="size"
-          :height="size"
-        />
+      <template
+        #[`header.${unitsColumns.COLUMN_HAS_RESPLENDENT}`]="{
+          column,
+          isSorted,
+          getSortIcon,
+          sortBy: columnSortBy,
+        }"
+      >
+        <div class="v-data-table-header__content">
+          <img
+            src="assets/icons/resplendent.png"
+            :width="size"
+            :height="size"
+          />
+          <AppDataTableHeaderSort
+            :column="column"
+            :is-sorted="isSorted"
+            :get-sort-icon="getSortIcon"
+            :sort-by="columnSortBy"
+            multi-sort
+          />
+        </div>
       </template>
       <template
         v-for="stat in unitsColumns.COLUMNS_OF_STAT"
         :key="stat"
-        #[`header.${stat}`]="{ column }"
+        #[`header.${stat}`]="{
+          column,
+          isSorted,
+          getSortIcon,
+          sortBy: columnSortBy,
+        }"
       >
-        {{ column.title }}<UnitTooltipStat />
+        <div class="v-data-table-header__content">
+          <span>{{ column.title }}</span>
+          <UnitTooltipStat />
+          <AppDataTableHeaderSort
+            :column="column"
+            :is-sorted="isSorted"
+            :get-sort-icon="getSortIcon"
+            :sort-by="columnSortBy"
+            multi-sort
+          />
+        </div>
       </template>
 
       <!-- CUSTOM CELLS -->
