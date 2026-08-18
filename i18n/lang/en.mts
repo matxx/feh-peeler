@@ -704,7 +704,7 @@ export default () => ({
           },
           byTheme: {
             NY: 'New Year (banners at the beginning of the year)',
-            HSp: 'Hostile Spring (january 2019)',
+            HSp: 'Hostile/Hot Spring (january 2019 & august 2026)',
             De: 'Desert (banners in january from 2021 to 2025) (names on game8 : Plegian, Hatari, Sage, Nabata, Jehanna)',
             I: 'Ilia (january 2026)',
             V: 'Valentine (can also be called "DoD", Day of Devotion) (banners in february)',
@@ -715,7 +715,7 @@ export default () => ({
             Br: 'Bride (females in wedding banners) (banners in mai)',
             // We: 'Wedding (non binary in wedding banners) (banners in mai)',
             Su: 'Summer (banners in june & july)',
-            Ch: 'Cheerleaders (banner in july 2026)',
+            Che: 'Cheerleaders (banner in july 2026)',
             HSu: 'Hoshidan Summer (august 2018 & 2024)',
             P: 'Pirate (august 2020 & 2021)',
             Th: 'Thieves (august 2022)',
