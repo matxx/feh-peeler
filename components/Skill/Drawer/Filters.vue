@@ -608,7 +608,14 @@ const storeDataSkills = useStoreDataSkills()
 
 const canUseModeDialog = ref(false)
 
-const isHofSelected = ref(!!filters.value && filters.value.hof !== HOF_DISABLED)
+const isHofSelected = ref(false)
+watch(
+  filters,
+  () => {
+    isHofSelected.value = !!filters.value && filters.value.hof !== HOF_DISABLED
+  },
+  { immediate: true },
+)
 watch(isHofSelected, () => {
   if (!filters.value) return
 
