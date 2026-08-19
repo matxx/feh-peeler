@@ -8,7 +8,11 @@ import intersection from 'lodash-es/intersection'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
 import * as a from '~/utils/types/units-availabilities'
-import { STATS, type IUnitStat } from '~/utils/types/units-stats'
+import {
+  getDefaultUnitStatsMinMax,
+  STATS,
+  type IUnitStat,
+} from '~/utils/types/units-stats'
 import {
   GENERIC_SUMMON_POOL,
   SPECIAL_SUMMON_POOL,
@@ -204,7 +208,9 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   const { t } = useI18n()
 
   function getNewFilters() {
-    return createFilters(storeDataConstants.defaulUnitStatsMinMax)
+    return createFilters(
+      getDefaultUnitStatsMinMax(storeDataConstants.constants),
+    )
   }
   function resetFilters() {
     filters.value = getNewFilters()
