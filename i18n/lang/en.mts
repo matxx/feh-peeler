@@ -823,6 +823,12 @@ export default () => ({
         [moves.MOVE_C]: 'Cavalry',
         [moves.MOVE_F]: 'Flying',
       },
+
+      cyl: 'NH CYL {n}',
+      legend: {
+        nh: 'NH: New Heroes',
+        cyl: 'CYL: Choose Your Legends',
+      },
     },
   },
 
