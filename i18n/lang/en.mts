@@ -515,6 +515,7 @@ export default () => ({
       buttons: {
         isGHB: 'GHB',
         isTT: 'TT',
+        isBrave: 'CYL',
         isOwned: 'Owned',
       },
       selects: {
@@ -526,6 +527,7 @@ export default () => ({
       tooltips: {
         isGHB: 'Grand Hero Battle',
         isTT: 'Tempest Trial',
+        isBrave: 'Choose Your Legend',
         isOwned:
           'Based on the heroes you marked as owned on the "Catalog of Heroes" page',
       },

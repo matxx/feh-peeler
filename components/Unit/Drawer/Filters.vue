@@ -340,6 +340,7 @@
         class="ml-1"
       >
         <v-btn
+          v-tooltip:bottom="t('units.filters.tooltips.isBrave')"
           size="small"
           class="text-primary"
           :active="filters.isBrave !== null"
@@ -348,7 +349,7 @@
           <v-icon start>
             {{ iconForBool(filters.isBrave) }}
           </v-icon>
-          CYL
+          {{ t('units.filters.buttons.isBrave') }}
         </v-btn>
       </v-btn-group>
     </div>
