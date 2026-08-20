@@ -42,6 +42,12 @@
         </template>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col class="text-grey text-caption">
+        {{ t('misc.stats.legend.nh') }} — {{ t('misc.stats.legend.cyl') }}
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -107,6 +113,51 @@ const unitsByMonthSorted = computed(() =>
   sortBy(objectEntries(unitsConsidered.value), ([month, _units]) => month),
 )
 
+// "Choose Your Legends" voted units are released yearly in August since 2017,
+// and new heroes tend to have higher stats around that time
+const CYL_FIRST_YEAR = 2017
+
+const cylPlotLines = computed(() => {
+  const categories = unitsByMonthSorted.value.map(([month, _units]) => month)
+  const lastMonth = categories[categories.length - 1]
+
+  if (!lastMonth) {
+    return []
+  }
+
+  const lastYear = Number(lastMonth.slice(0, 4))
+  const yearsCount = Math.max(lastYear - CYL_FIRST_YEAR + 1, 0)
+
+  return compact(
+    Array.from(
+      { length: yearsCount },
+      (_, index) => CYL_FIRST_YEAR + index,
+    ).map((year) => {
+      const value = categories.indexOf(`${year}-08`)
+
+      if (value === -1) {
+        return null
+      }
+
+      return {
+        value,
+        zIndex: 5,
+        dashStyle: 'Dash',
+        className: 'highcharts-plot-line-cyl',
+        label: {
+          text: t('misc.stats.cyl', { n: year - CYL_FIRST_YEAR + 1 }),
+          className: 'highcharts-plot-line-cyl-label',
+          rotation: 90,
+          align: 'left',
+          textAlign: 'left',
+          x: 4,
+          y: 12,
+        },
+      }
+    }),
+  )
+})
+
 const graphOnBST = computed(() => ({
   key: 'bst',
   chartOptions: {
@@ -124,6 +175,7 @@ const graphOnBST = computed(() => ({
         text: null,
       },
       categories: unitsByMonthSorted.value.map(([month, _units]) => month),
+      plotLines: cylPlotLines.value,
     },
     yAxis: {
       title: {
@@ -183,6 +235,7 @@ const graphOnStats = computed(() => ({
         text: null,
       },
       categories: unitsByMonthSorted.value.map(([month, _units]) => month),
+      plotLines: cylPlotLines.value,
     },
     yAxis: {
       title: {
@@ -230,6 +283,7 @@ const graphOnStatsByMove = computed(() =>
           text: null,
         },
         categories: unitsByMonthSorted.value.map(([month, _units]) => month),
+        plotLines: cylPlotLines.value,
       },
       yAxis: {
         title: {
@@ -278,6 +332,7 @@ const graphOnStatsByStat = computed(() =>
           text: null,
         },
         categories: unitsByMonthSorted.value.map(([month, _units]) => month),
+        plotLines: cylPlotLines.value,
       },
       yAxis: {
         title: {
@@ -432,6 +487,13 @@ const colors = computed(() => ({
   :deep(.highcharts-color-124) {
     fill: var(--highcharts-color-124);
     stroke: var(--highcharts-color-124);
+  }
+
+  :deep(.highcharts-plot-line-cyl) {
+    stroke-dasharray: 4, 3;
+  }
+  :deep(.highcharts-plot-line-cyl-label) {
+    fill: var(--highcharts-neutral-color-60);
   }
 }
 </style>
