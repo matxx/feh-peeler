@@ -33,15 +33,19 @@
 
                 <div>
                   <div v-show="!scoreContext.mjolnirStrike.isActive">
-                    {{ t('scoreCalc.tooltips.scoreBeforeBlessing') }}:
-                    {{ finalScoreBeforeBlessing }}
+                    {{ t('scoreCalc.tooltips.scoreBeforeLegendariesBonus') }}:
+                    {{ finalScoreBeforeLegendariesBonus }}
                   </div>
                   <div
                     v-show="!scoreContext.mjolnirStrike.isActive"
-                    v-if="chosenHeroFinalScoreBeforeBlessing"
+                    v-if="chosenHeroFinalScoreBeforeLegendariesBonus"
                   >
-                    {{ t('scoreCalc.tooltips.chosenHeroScoreBeforeBlessing') }}:
-                    {{ chosenHeroFinalScoreBeforeBlessing }}
+                    {{
+                      t(
+                        'scoreCalc.tooltips.chosenHeroScoreBeforeLegendariesBonus',
+                      )
+                    }}:
+                    {{ chosenHeroFinalScoreBeforeLegendariesBonus }}
                   </div>
                   <div v-show="hasBonusMerges">
                     {{ t('scoreCalc.tooltips.visibleMerges') }}: +{{
@@ -540,15 +544,15 @@ const {
 
   chosenHero,
   // chosenHeroBaseScore,
-  // chosenHeroBaseScoreBeforeBlessing,
-  chosenHeroFinalScoreBeforeBlessing,
+  // chosenHeroBaseScoreBeforeLegendariesBonus,
+  chosenHeroFinalScoreBeforeLegendariesBonus,
   chosenHeroFinalScore,
   chosenHeroIsInSeason,
   chosenHeroElementMismatch,
 
   // baseScore,
-  // baseScoreBeforeBlessing,
-  finalScoreBeforeBlessing,
+  // baseScoreBeforeLegendariesBonus,
+  finalScoreBeforeLegendariesBonus,
   // finalScore,
   visibleBaseScore,
   visibleFinalScore,

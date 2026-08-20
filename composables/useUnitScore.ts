@@ -321,7 +321,7 @@ export default function useUnitScore(
   const scorePartBlessing = computed(() =>
     scoreContext.value.arena.isActive ? blessingScore.value : 0,
   )
-  const baseScoreBeforeBlessing = computed(() =>
+  const baseScoreBeforeLegendariesBonus = computed(() =>
     unit.value
       ? sum([
           scorePartRarity.value,
@@ -333,10 +333,10 @@ export default function useUnitScore(
       : 0,
   )
   const baseScore = computed(
-    () => baseScoreBeforeBlessing.value + scorePartBlessing.value,
+    () => baseScoreBeforeLegendariesBonus.value + scorePartBlessing.value,
   )
-  const finalScoreBeforeBlessing = computed(() =>
-    unit.value ? baseToFinalScore(baseScoreBeforeBlessing.value) : 0,
+  const finalScoreBeforeLegendariesBonus = computed(() =>
+    unit.value ? baseToFinalScore(baseScoreBeforeLegendariesBonus.value) : 0,
   )
   const finalScore = computed(() =>
     unit.value ? baseToFinalScore(baseScore.value) : 0,
@@ -394,16 +394,17 @@ export default function useUnitScore(
     // typings do not seem to work with recursive use of `useUnitScore`
     // so we need to type cast those values
     const baseScore = data.baseScore.value as number
-    const baseScoreBeforeBlessing = data.baseScoreBeforeBlessing.value as number
-    const finalScoreBeforeBlessing = data.finalScoreBeforeBlessing
+    const baseScoreBeforeLegendariesBonus = data.baseScoreBeforeLegendariesBonus
       .value as number
+    const finalScoreBeforeLegendariesBonus = data
+      .finalScoreBeforeLegendariesBonus.value as number
     const finalScore = data.finalScore.value as number
     const inSeason = data.isChosenInSeason.value as boolean
 
     return {
       baseScore,
-      baseScoreBeforeBlessing,
-      finalScoreBeforeBlessing,
+      baseScoreBeforeLegendariesBonus,
+      finalScoreBeforeLegendariesBonus,
       finalScore,
       inSeason,
     }
@@ -411,11 +412,11 @@ export default function useUnitScore(
   const chosenHeroBaseScore = computed(
     () => chosenHeroScoreData.value?.baseScore,
   )
-  const chosenHeroBaseScoreBeforeBlessing = computed(
-    () => chosenHeroScoreData.value?.baseScoreBeforeBlessing,
+  const chosenHeroBaseScoreBeforeLegendariesBonus = computed(
+    () => chosenHeroScoreData.value?.baseScoreBeforeLegendariesBonus,
   )
-  const chosenHeroFinalScoreBeforeBlessing = computed(
-    () => chosenHeroScoreData.value?.finalScoreBeforeBlessing,
+  const chosenHeroFinalScoreBeforeLegendariesBonus = computed(
+    () => chosenHeroScoreData.value?.finalScoreBeforeLegendariesBonus,
   )
   const chosenHeroFinalScore = computed(
     () => chosenHeroScoreData.value?.finalScore,
@@ -428,17 +429,18 @@ export default function useUnitScore(
   // *without* the blessing bonus, which is then added on top of whichever of
   // the two wins - a blessing shouldn't let a lower base score win the
   // comparison against a higher one it wouldn't otherwise have beaten
-  const visibleBaseScoreBeforeBlessing = computed(
+  const visibleBaseScoreBeforeLegendariesBonus = computed(
     () =>
       max(
         compact([
-          baseScoreBeforeBlessing.value,
-          chosenHeroBaseScoreBeforeBlessing.value,
+          baseScoreBeforeLegendariesBonus.value,
+          chosenHeroBaseScoreBeforeLegendariesBonus.value,
         ]),
       ) || 0,
   )
   const visibleBaseScore = computed(
-    () => visibleBaseScoreBeforeBlessing.value + scorePartBlessing.value,
+    () =>
+      visibleBaseScoreBeforeLegendariesBonus.value + scorePartBlessing.value,
   )
   const visibleFinalScore = computed(() =>
     unit.value ? baseToFinalScore(visibleBaseScore.value) : 0,
@@ -473,15 +475,15 @@ export default function useUnitScore(
 
     chosenHero,
     chosenHeroBaseScore,
-    chosenHeroBaseScoreBeforeBlessing,
-    chosenHeroFinalScoreBeforeBlessing,
+    chosenHeroBaseScoreBeforeLegendariesBonus,
+    chosenHeroFinalScoreBeforeLegendariesBonus,
     chosenHeroFinalScore,
     chosenHeroIsInSeason,
     chosenHeroElementMismatch,
 
     baseScore,
-    baseScoreBeforeBlessing,
-    finalScoreBeforeBlessing,
+    baseScoreBeforeLegendariesBonus,
+    finalScoreBeforeLegendariesBonus,
     finalScore,
     visibleBaseScore,
     visibleFinalScore,

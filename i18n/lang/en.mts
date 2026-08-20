@@ -852,8 +852,9 @@ export default () => ({
       duelEffectVisibleBst: 'Duel effect (from ?)',
       clashEffectVisibleBst: 'Clash effect',
 
-      scoreBeforeBlessing: 'Score before blessing',
-      chosenHeroScoreBeforeBlessing: 'Chosen hero score before blessing',
+      scoreBeforeLegendariesBonus: 'Score before legendaries bonus',
+      chosenHeroScoreBeforeLegendariesBonus:
+        'Chosen hero score before legendaries bonus',
 
       visibleMerges: 'Visible merges',
 
