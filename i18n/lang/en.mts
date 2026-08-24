@@ -272,8 +272,7 @@ export default () => ({
 
   trackers: {
     dsh: {
-      title: 'Double Special Heroes',
-      subtitle:
+      explanation:
         'Special Heroes released within the last year that have not appeared on a Double Special Heroes banner yet, grouped by their original release banner (1 column = 1 banner)',
     },
   },

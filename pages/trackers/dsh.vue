@@ -12,12 +12,9 @@
 
     <v-row>
       <v-col>
-        <h4>
-          {{ t('trackers.dsh.title') }}
-        </h4>
-        <div class="text-body-2 text-medium-emphasis mb-3">
-          {{ t('trackers.dsh.subtitle') }}
-        </div>
+        <p>
+          {{ t('trackers.dsh.explanation') }}
+        </p>
       </v-col>
     </v-row>
 
