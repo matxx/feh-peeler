@@ -1,16 +1,8 @@
 import sortBy from 'lodash-es/sortBy'
 
-import type { UnitId } from '~/utils/types/units'
 import { chunkMaxLength } from '~/utils/functions/typeSafe'
 import { getSortableName } from '~/utils/functions/bannerSortingVector'
-
-interface IBannerData {
-  name: string
-  unit_ids: UnitId[]
-}
-interface IBanner extends IBannerData {
-  nameForSorting: string
-}
+import type { IBannerData, IBanner } from '~/utils/types/banners'
 
 export const useStoreDataBanners = defineStore('data/banners', () => {
   const storeDataUnits = useStoreDataUnits()

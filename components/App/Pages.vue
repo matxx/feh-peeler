@@ -92,6 +92,8 @@ const COLUMNS = [
     { isSubheader: true, text: t('home.subheader.events') },
     { isItem: true, link: 'events-hall-of-forms' },
     { isItem: true, link: 'events-binding-worlds' },
+    { isSubheader: true, text: t('home.subheader.trackers') },
+    { isItem: true, link: 'trackers-dsh' },
     { isSubheader: true, text: t('home.subheader.misc') },
     { isItem: true, link: 'misc-glossary' },
     { isItem: true, link: 'misc-stats-evolution' },
