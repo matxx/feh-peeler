@@ -270,6 +270,14 @@ export default () => ({
     },
   },
 
+  trackers: {
+    dsh: {
+      title: 'Double Special Heroes',
+      subtitle:
+        'Special Heroes released within the last year that have not appeared on a Double Special Heroes banner yet, grouped by their original release banner (1 column = 1 banner)',
+    },
+  },
+
   hallOfForms: {
     resources: {
       usefullResources: 'Usefull resources',
@@ -338,6 +346,7 @@ export default () => ({
       devOnly: 'Dev only',
       skillsAndUnits: 'Skills & Units',
       events: 'Events',
+      trackers: 'Trackers',
       misc: 'Misc',
     },
     title: {
@@ -357,6 +366,8 @@ export default () => ({
       'events-hall-of-forms': 'Hall of Forms',
       'events-binding-worlds': 'Binding Worlds',
 
+      'trackers-dsh': 'Double Special Heroes',
+
       'misc-glossary': 'Glossary',
       'misc-stats-evolution': 'Evolution of stats',
     },
@@ -371,6 +382,8 @@ export default () => ({
 
       'events-hall-of-forms': 'keep track of your progress',
       'events-binding-worlds': 'compare units you can redeem',
+
+      'trackers-dsh': 'units not yet re-featured',
 
       'misc-stats-evolution': 'over the years',
     },
