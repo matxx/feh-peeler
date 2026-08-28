@@ -529,6 +529,7 @@ export default () => ({
         isTT: 'TT',
         isBrave: 'CYL',
         isOwned: 'Owned',
+        hasRefine: 'Refined',
       },
       selects: {
         books: 'Books',
@@ -623,6 +624,7 @@ export default () => ({
       resetFilters: 'Reset filters',
       isPrf: 'PRF ?',
       isMax: 'MAX ?',
+      hasRefine: 'Refined',
       headers: {
         type: 'Type',
         whoCanInheritOrEquip: 'Who can inherit/equip ?',

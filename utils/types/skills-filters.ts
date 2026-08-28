@@ -61,6 +61,7 @@ export interface IFilters {
   isPrf: boolean | null
   isMax: boolean | null
   isArcane: boolean | null
+  hasRefine: boolean | null
 
   stats: ISkillStatMinMax
 }
@@ -94,6 +95,7 @@ export const createFilters = (
   isPrf: null,
   isMax: null,
   isArcane: null,
+  hasRefine: null,
 
   stats,
 })
