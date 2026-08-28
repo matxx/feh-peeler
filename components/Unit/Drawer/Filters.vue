@@ -428,6 +428,26 @@
         variant="outlined"
       >
         <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.hasRefine !== null"
+          @click="cycleFilter('hasRefine')"
+        >
+          <v-icon start>
+            {{ iconForBool(filters.hasRefine) }}
+          </v-icon>
+          {{ t('units.filters.buttons.hasRefine') }}
+        </v-btn>
+      </v-btn-group>
+    </div>
+
+    <div class="mt-1">
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+      >
+        <v-btn
           v-for="moveType in SORTED_MOVE_TYPES"
           :key="moveType"
           size="small"
@@ -742,7 +762,8 @@ function cycleFilter(
     | 'isFallen'
     | 'isStory'
     | 'isTT'
-    | 'isGHB',
+    | 'isGHB'
+    | 'hasRefine',
 ) {
   if (!filters.value) return
 

@@ -179,12 +179,13 @@
           {{ t('skills.filters.isPrf') }}
         </v-btn>
       </v-btn-group>
+    </div>
 
+    <div class="mt-1">
       <v-btn-group
         color="primary"
         density="compact"
         variant="outlined"
-        class="ml-1"
       >
         <v-btn
           size="small"
@@ -200,6 +201,25 @@
             :width="SIZE"
             :height="SIZE"
           />
+        </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.hasRefine !== null"
+          @click="cycleFilter('hasRefine')"
+        >
+          <v-icon start>
+            {{ iconForBool(filters.hasRefine) }}
+          </v-icon>
+          {{ t('skills.filters.hasRefine') }}
         </v-btn>
       </v-btn-group>
     </div>
@@ -684,7 +704,7 @@ function toggleCanUseWeapon(weaponType: ExtendedWeaponType) {
   }
 }
 
-function cycleFilter(key: 'isMax' | 'isPrf' | 'isArcane') {
+function cycleFilter(key: 'isMax' | 'isPrf' | 'isArcane' | 'hasRefine') {
   const val = filters.value
   if (!val) return
 

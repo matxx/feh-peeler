@@ -244,6 +244,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.isStory !== null ||
       filters.value.isTT !== null ||
       filters.value.isGHB !== null ||
+      filters.value.hasRefine !== null ||
       some(
         objectEntries(filters.value.hasPrf),
         ([_cat, bool]) => bool !== null,
@@ -267,6 +268,16 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
         const skill = storeDataSkills.skillsById[skillId]
         return skill.is_prf && skill.category === cat
       },
+    )
+  }
+
+  function hasRefine(unit: IUnitData) {
+    if (!storeDataSkills.isLoaded) return false
+    if (!storeDataUnitsAvailabilities.isLoaded) return false
+
+    return some(
+      storeDataUnitsAvailabilities.availabilitiesById[unit.id].skill_ids,
+      (skillId: SkillId) => storeDataSkills.skillsById[skillId].has_refine,
     )
   }
 
@@ -366,6 +377,10 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       f(filter, (u: IUnit) => filterIsTT(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterIsGHB(filters.value, u)),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filterBoolean(filters.value.hasRefine, hasRefine(u)),
+      ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterMoveType(filters.value, u)),
       // @ts-expect-error unsafe typings
