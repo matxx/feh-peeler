@@ -30,7 +30,7 @@
     "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.10.0",
-    "happy-dom": "^20.11.6",
+    "happy-dom": "^20.13.1",
     "nuxt": "^3.21.11",
     "prettier": "3.9.6",
     "sass": "^1.103.1",
