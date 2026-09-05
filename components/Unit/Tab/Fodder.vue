@@ -52,13 +52,19 @@
             <th
               v-if="index === 0"
               :rowspan="skillsMaxTierByCategory[category].length"
+              class="border-b-lg"
             >
               <SkillImgCategory
                 :category="category"
                 :size="size / 2"
               />
             </th>
-            <th>
+            <th
+              :class="{
+                'border-b-lg':
+                  index === skillsMaxTierByCategory[category].length - 1,
+              }"
+            >
               <NuxtLink
                 class="d-flex align-center"
                 href="#"
@@ -77,6 +83,10 @@
               v-for="avail in storeFodderSettings.fodderAvailabilities"
               :key="avail"
               class="text-center"
+              :class="{
+                'border-b-lg':
+                  index === skillsMaxTierByCategory[category].length - 1,
+              }"
             >
               <AppRenderOncePresent
                 v-if="!skill.is_prf"
