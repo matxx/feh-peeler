@@ -37,7 +37,7 @@
     "tsx": "^4.23.12",
     "vitest": "^4.1.11",
     "vue": "^3.5.41",
-    "vue-router": "^5.2.0",
+    "vue-router": "^5.3.1",
     "vuetify-nuxt-module": "^1.0.0-rc.5"
   },
   "dependencies": {
