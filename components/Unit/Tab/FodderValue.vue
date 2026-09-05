@@ -3,18 +3,18 @@
     <v-table class="text-no-wrap">
       <thead>
         <tr>
-          <th />
-          <th>
+          <th class="border-b-lg" />
+          <th class="border-b-lg">
             {{ t('unitsFodder.skillName') }}
           </th>
 
-          <th>
+          <th class="border-b-lg">
             {{ t('unitsFodder.canUse') }}
           </th>
-          <th>
+          <th class="border-b-lg">
             {{ t('unitsFodder.availability') }}
           </th>
-          <th>
+          <th class="border-b-lg">
             {{ t('unitsFodder.preInheritance') }}
           </th>
         </tr>
@@ -32,13 +32,19 @@
             <th
               v-if="index === 0"
               :rowspan="skillsMaxTierByCategory[category].length"
+              class="border-b-lg"
             >
               <SkillImgCategory
                 :category="category"
                 :size="size / 2"
               />
             </th>
-            <th>
+            <th
+              :class="{
+                'border-b-lg':
+                  index === skillsMaxTierByCategory[category].length - 1,
+              }"
+            >
               <NuxtLink
                 class="d-flex align-center"
                 href="#"
@@ -54,20 +60,35 @@
               </NuxtLink>
             </th>
 
-            <td>
+            <td
+              :class="{
+                'border-b-lg':
+                  index === skillsMaxTierByCategory[category].length - 1,
+              }"
+            >
               <SkillRestrictions
                 :skill="skill"
                 :size="size"
               />
             </td>
-            <td>
+            <td
+              :class="{
+                'border-b-lg':
+                  index === skillsMaxTierByCategory[category].length - 1,
+              }"
+            >
               <SkillAvailability
                 v-if="!skill.is_prf"
                 :skill="skill"
                 :tile-size="size"
               />
             </td>
-            <td>
+            <td
+              :class="{
+                'border-b-lg':
+                  index === skillsMaxTierByCategory[category].length - 1,
+              }"
+            >
               <SkillOwnersPreInheritances
                 v-if="!skill.is_prf"
                 :skill="skill"
