@@ -3,7 +3,13 @@ import take from 'lodash-es/take'
 import keyBy from 'lodash-es/keyBy'
 import compact from 'lodash-es/compact'
 
-import { type SkillId, type ISkill, SKILL_SPECIAL } from '~/utils/types/skills'
+import {
+  type SkillId,
+  type ISkill,
+  type SkillCategory,
+  SKILL_SPECIAL,
+  SKILL_ASSIST,
+} from '~/utils/types/skills'
 import type {
   Availability,
   ISkillAvailability,
@@ -37,6 +43,11 @@ import type { IndexedBy } from '~/utils/functions/typeSafe'
 export const useStoreDataSkillsAvailabilities = defineStore(
   'data/skills-availabilities',
   () => {
+    const notFiveStarLockedCategories: SkillCategory[] = [
+      SKILL_SPECIAL,
+      SKILL_ASSIST,
+    ]
+
     const availabilities = ref<ISkillAvailability[]>([])
 
     const { isLoading, isLoaded, load } = useData(
@@ -75,7 +86,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
       if (!availability.required_slots) return 0
       if (
         isUnitFiveStarLocked &&
-        skill.category === SKILL_SPECIAL &&
+        notFiveStarLockedCategories.includes(skill.category) &&
         !isFiveStarLocked(availability)
       ) {
         return 0
@@ -164,6 +175,7 @@ export const useStoreDataSkillsAvailabilities = defineStore(
 
       availabilitySortingValue,
 
+      notFiveStarLockedCategories,
       isFiveStarLocked,
       isIdFiveStarLocked,
       isSkillFiveStarLocked,
