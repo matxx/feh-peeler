@@ -106,22 +106,22 @@
                         storeFodderSettings.fodderAvailabilities,
                       )
                     "
-                    :has-ref-not-five-star-locked="
+                    :has-note-not-five-star-locked="
                       isUnitFiveStarLocked &&
                       !storeDataSkillsAvailabilities.isFiveStarLocked(item) &&
                       storeDataSkillsAvailabilities.notFiveStarLockedCategories.includes(
                         category,
                       )
                     "
-                    :ref-not-five-star-locked-text="
+                    :note-text-not-five-star-locked="
                       notFiveStarLockedTextByCategory[category]
                     "
-                    :has-ref-multiple-skills="
+                    :has-note-multiple-skills="
                       relevantSkillIdByCategory[category]
                         ? relevantSkillIdByCategory[category] !== skill.id
                         : false
                     "
-                    :ref-multiple-skills-text="
+                    :note-text-multiple-skills="
                       t('unitsFodder.reasonMultipleSkillsInSameSlot')
                     "
                   />

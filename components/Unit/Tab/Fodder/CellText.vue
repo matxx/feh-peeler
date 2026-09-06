@@ -1,5 +1,5 @@
 <template>
-  <span v-if="!hasRefNotFiveStarLocked && !hasRefMultipleSkills">
+  <span v-if="!hasNoteNotFiveStarLocked && !hasNoteMultipleSkills">
     {{ number }}
   </span>
   <span
@@ -44,18 +44,20 @@ import compact from 'lodash-es/compact'
 
 const props = defineProps<{
   number: number
-  hasRefNotFiveStarLocked: boolean
-  hasRefMultipleSkills: boolean
-  refNotFiveStarLockedText?: string
-  refMultipleSkillsText?: string
+  hasNoteNotFiveStarLocked: boolean
+  hasNoteMultipleSkills: boolean
+  noteTextNotFiveStarLocked?: string
+  noteTextMultipleSkills?: string
 }>()
 
 const { t } = useI18n()
 
 const reasons = computed(() =>
   compact([
-    props.hasRefNotFiveStarLocked ? props.refNotFiveStarLockedText : undefined,
-    props.hasRefMultipleSkills ? props.refMultipleSkillsText : undefined,
+    props.hasNoteNotFiveStarLocked
+      ? props.noteTextNotFiveStarLocked
+      : undefined,
+    props.hasNoteMultipleSkills ? props.noteTextMultipleSkills : undefined,
   ]),
 )
 </script>
