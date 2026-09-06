@@ -426,10 +426,11 @@ export default () => ({
     preInheritance: 'Pre-Inheritance',
     canUse: 'Can use',
     totals: 'Totals',
-    explanationOnSpecial:
-      'Not counted in totals : this special is not 5★ locked',
-    explanationOnMultipleSkills:
-      'Not counted in totals : for skills in the same slot, only the skill released the latest is used',
+    notCountedInTotals: 'Not counted in totals',
+    reasonSpecialNotFiveStarLocked: 'this special is not 5★ locked',
+    reasonAssistNotFiveStarLocked: 'this assist is not 5★ locked',
+    reasonMultipleSkillsInSameSlot:
+      'for skills in the same slot, only the skill released the latest is used',
     allSkillsCanBeInheritedInOneGo: 'All skills can be inherited in one go',
     notAllSkillsCanBeInheritedInOneGo:
       'Not all skills can be inherited in one go',

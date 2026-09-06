@@ -3,6 +3,7 @@
 
 <!-- Jesse: Blithe Mercenary [Jesse] - trash unit with trash special to inherit => no note -->
 <!-- Cordelia: Knight Paragon [Cordelia] - trash unit with good special to inherit => no note -->
+<!-- Micaiah: Of Dawn [E!Micaiah] - premium unit with trash assist => note on assist -->
 <!-- Heiðrún: Sisters of Healing [NY!Heiðrún] - premium unit with trash special => note on special -->
 
 <!-- Micaiah: Radiant Queen [L!Micaiah] - double C skill => note on always the same C skill -->
@@ -105,18 +106,24 @@
                         storeFodderSettings.fodderAvailabilities,
                       )
                     "
-                    :has-ref-special="
+                    :has-note-not-five-star-locked="
                       isUnitFiveStarLocked &&
                       !storeDataSkillsAvailabilities.isFiveStarLocked(item) &&
-                      category === SKILL_SPECIAL
+                      storeDataSkillsAvailabilities.notFiveStarLockedCategories.includes(
+                        category,
+                      )
                     "
-                    :ref-special-stars="refsStars[REF_SPECIAL]"
-                    :has-ref-multiple-skills="
+                    :note-text-not-five-star-locked="
+                      notFiveStarLockedTextByCategory[category]
+                    "
+                    :has-note-multiple-skills="
                       relevantSkillIdByCategory[category]
                         ? relevantSkillIdByCategory[category] !== skill.id
                         : false
                     "
-                    :ref-multiple-skills-stars="refsStars[REF_MULTIPLE_SKILLS]"
+                    :note-text-multiple-skills="
+                      t('unitsFodder.reasonMultipleSkillsInSameSlot')
+                    "
                   />
                 </template>
               </AppRenderOncePresent>
@@ -184,23 +191,10 @@
         </tr>
       </AppRenderOnceWhileActive>
     </v-table>
-
-    <div
-      v-if="anyRef"
-      class="mt-3"
-    >
-      <div
-        v-for="ref in refsList"
-        :key="ref"
-      >
-        {{ refsStars[ref] }} {{ refsText[ref] }}
-      </div>
-    </div>
   </AppRenderOnceWhileActive>
 </template>
 
 <script setup lang="ts">
-import some from 'lodash-es/some'
 import take from 'lodash-es/take'
 import sumBy from 'lodash-es/sumBy'
 import filter from 'lodash-es/filter'
@@ -216,6 +210,7 @@ import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
   SKILL_SPECIAL,
+  SKILL_ASSIST,
   TAB_OWNERS,
   type ISkill,
   type SkillCategory,
@@ -237,6 +232,13 @@ const props = defineProps<{
 const { t } = useI18n()
 const storeGlobals = useStoreGlobals()
 const storeFodderSettings = useStoreFodderSettings()
+
+const notFiveStarLockedTextByCategory: Partial<
+  IndexedBy<SkillCategory, string>
+> = {
+  [SKILL_SPECIAL]: t('unitsFodder.reasonSpecialNotFiveStarLocked'),
+  [SKILL_ASSIST]: t('unitsFodder.reasonAssistNotFiveStarLocked'),
+}
 
 const storeDataSkills = useStoreDataSkills()
 const storeDataUnitsAvailabilities = useStoreDataUnitsAvailabilities()
@@ -272,20 +274,6 @@ const skillsMaxTier = computed<ISkill[]>(() =>
 )
 const skillsMaxTierByCategory = computed<IndexedBy<SkillCategory, ISkill[]>>(
   () => groupBy(skillsMaxTier.value, 'category'),
-)
-
-const hasSpecialNotFiveStarLocked = computed(() =>
-  some(
-    skillsMaxTierByCategory.value[SKILL_SPECIAL],
-    (skill) => !storeDataSkillsAvailabilities.isSkillFiveStarLocked(skill),
-  ),
-)
-const hasMultipleSkillsInSameSlots = computed(() =>
-  some(
-    values(skillsMaxTierByCategory.value).map(
-      (skills) => filter(skills, (s) => !s.is_prf).length > 1,
-    ),
-  ),
 )
 
 const relevantSkillIdByCategory = computed<
@@ -325,33 +313,6 @@ const totals = computed(() =>
           : 0,
       ),
     ]),
-  ),
-)
-
-type Ref = typeof REF_SPECIAL | typeof REF_MULTIPLE_SKILLS
-type HasRefs = { [key in Ref]: boolean }
-
-const REF_SPECIAL = 'SPECIAL'
-const REF_MULTIPLE_SKILLS = 'MULTIPLE_SKILL'
-const SORTED_REFS: Ref[] = [REF_SPECIAL, REF_MULTIPLE_SKILLS]
-
-const refsText = {
-  [REF_SPECIAL]: t('unitsFodder.explanationOnSpecial'),
-  [REF_MULTIPLE_SKILLS]: t('unitsFodder.explanationOnMultipleSkills'),
-}
-
-const hasRefs = computed<HasRefs>(() => ({
-  [REF_SPECIAL]:
-    isUnitFiveStarLocked.value && hasSpecialNotFiveStarLocked.value,
-  [REF_MULTIPLE_SKILLS]: hasMultipleSkillsInSameSlots.value,
-}))
-const refsList = computed(() =>
-  filter(SORTED_REFS, (ref) => hasRefs.value[ref]),
-)
-const anyRef = computed(() => refsList.value.length > 0)
-const refsStars = computed(() =>
-  objectFromEntries(
-    refsList.value.map((ref, index) => [ref, '*'.repeat(index + 1)]),
   ),
 )
 </script>
