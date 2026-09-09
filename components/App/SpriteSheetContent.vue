@@ -1,8 +1,5 @@
 <template>
-  <div
-    :style="style"
-    :title="sprite.name"
-  />
+  <div :style="style" />
 </template>
 
 <script setup lang="ts">
