@@ -116,6 +116,18 @@
               :height="size"
             />
           </v-btn>
+          <v-btn
+            size="small"
+            class="text-primary"
+            :active="filters.traits.has(UnitsFilters.TRAIT_VISTA)"
+            @click="toggleTrait(UnitsFilters.TRAIT_VISTA)"
+          >
+            <img
+              src="assets/icons/unit_types/vista.png"
+              :width="size"
+              :height="size"
+            />
+          </v-btn>
         </v-btn-group>
 
         <v-btn-group

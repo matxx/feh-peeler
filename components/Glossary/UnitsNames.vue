@@ -140,7 +140,21 @@ const byTheme = [
   'N',
   'W',
 ]
-const byTrait = ['Ai', 'As', 'At', 'E', 'Et', 'R', 'F', 'C', 'L', 'M', 'D', 'H']
+const byTrait = [
+  'Ai',
+  'As',
+  'At',
+  'E',
+  'Et',
+  'R',
+  'Vi',
+  'F',
+  'C',
+  'L',
+  'M',
+  'D',
+  'H',
+]
 const other = ['35', 'B', 'Ad']
 
 const prefixesByTheme = byTheme.map((prefix) => ({

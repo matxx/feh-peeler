@@ -150,6 +150,12 @@
         :width="sizeCorner"
         :height="sizeCorner"
       />
+      <img
+        v-if="unit.is_vista"
+        src="assets/icons/unit_types/vista.png"
+        :width="sizeCorner"
+        :height="sizeCorner"
+      />
     </v-sheet>
 
     <img

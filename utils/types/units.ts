@@ -77,16 +77,18 @@ export interface IUnitThumbnail {
   move_type: MoveType
   weapon_type: WeaponType
 
-  is_refresher?: true
   is_duo?: true
   is_harmonized?: true
+  is_refresher?: true
+
   is_aided?: true
   is_ascended?: true
   is_attuned?: true
-  is_emblem?: true
-  is_rearmed?: true
-  is_entwined?: true
   is_chosen?: true
+  is_emblem?: true
+  is_entwined?: true
+  is_rearmed?: true
+  is_vista?: true
 }
 
 export type Gender = 'F' | 'FF' | 'FM' | 'M' | 'MF' | 'MM' | 'N' | 'NF'
@@ -133,16 +135,16 @@ export interface IUnitData {
 
   is_duo?: true
   is_harmonized?: true
-
   is_refresher?: true
 
-  is_rearmed?: true
-  is_attuned?: true
-  is_ascended?: true
-  is_emblem?: true
   is_aided?: true
-  is_entwined?: true
+  is_ascended?: true
+  is_attuned?: true
   is_chosen?: true
+  is_emblem?: true
+  is_entwined?: true
+  is_rearmed?: true
+  is_vista?: true
 
   bst: number
   duel_score?: number
