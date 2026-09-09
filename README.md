@@ -53,7 +53,6 @@ and launch this script `./bin/handle_sprite_sheets.sh`
 ### Fixes
 
 1. staff refines appear as exclusive skills (ex: "In The Fold+")
-1. do not count assist skills not 5\* locked (exemple : E!Micaiah with Swap...)
 
 ### Dev stuff
 
