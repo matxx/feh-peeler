@@ -171,7 +171,10 @@
                   :class="{ 'd-flex align-center': !mjolnirStrike.isActive }"
                 >
                   <div class="mr-3">{{ t('scoreCalc.labels.seasons') }}:</div>
-                  <AppSelectSeasons v-model="arenaSeasons" />
+                  <AppSelectSeasons
+                    v-model="arenaSeasons"
+                    without-chaos
+                  />
                 </v-col>
 
                 <v-col

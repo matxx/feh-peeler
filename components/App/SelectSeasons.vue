@@ -8,9 +8,9 @@
       :key="i"
       location="top"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: slotProps }">
         <AppIconSeason
-          v-bind="props"
+          v-bind="slotProps"
           :element="seasons[i - 1]"
           class="season"
           :class="`season--${i - 1}`"
@@ -42,7 +42,7 @@
           variant="outlined"
         >
           <v-btn
-            v-for="elems in MYTHICS_COLUMNS"
+            v-for="elems in mythicsColumns"
             :key="`${elems[0]}-${elems[1]}`"
             size="small"
             @click="selectMythic(elems[0], elems[1])"
@@ -74,11 +74,24 @@ import { numberToPx } from '~/utils/functions/numberToPx'
 
 const WIDTH = 20
 
-const MYTHICS_COLUMNS: ElementMythicOrChaos[][] = [
+const MYTHICS_COLUMNS_WITHOUT_CHAOS: ElementMythicOrChaos[][] = [
   [ELEMENT_LIGHT, ELEMENT_DARK],
   [ELEMENT_ASTRA, ELEMENT_ANIMA],
+]
+const MYTHICS_COLUMNS_WITH_CHAOS: ElementMythicOrChaos[][] = [
+  ...MYTHICS_COLUMNS_WITHOUT_CHAOS,
   [ELEMENT_CHAOS, ELEMENT_CHAOS],
 ]
+
+const props = defineProps<{
+  withoutChaos?: boolean
+}>()
+
+const mythicsColumns = computed(() =>
+  props.withoutChaos
+    ? MYTHICS_COLUMNS_WITHOUT_CHAOS
+    : MYTHICS_COLUMNS_WITH_CHAOS,
+)
 
 const emit = defineEmits(['update:model-value'])
 const seasons = defineModel<ElementOrChaos[]>()
