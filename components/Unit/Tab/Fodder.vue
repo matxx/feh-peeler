@@ -205,7 +205,6 @@ import orderBy from 'lodash-es/orderBy'
 import mapValues from 'lodash-es/mapValues'
 import intersection from 'lodash-es/intersection'
 
-import { INHERIT_SLOTS } from '~/utils/constants'
 import {
   SKILL_CATEGORIES,
   SKILL_CATEGORIES_WITH_ICON,
@@ -223,6 +222,8 @@ import {
   objectFromEntries,
   type IndexedBy,
 } from '~/utils/functions/typeSafe'
+
+const INHERIT_SLOTS = 5
 
 const props = defineProps<{
   unit: IUnit

@@ -101,6 +101,18 @@
 </template>
 
 <script setup lang="ts">
-import { HALL_OF_FORMS_DETAILS } from '~/utils/constants'
 const { t } = useI18n()
+
+const HALL_OF_FORMS_DETAILS = {
+  number: 53,
+  is_revival: true,
+  resources: {
+    PM1: 'https://www.youtube.com/watch?v=JkwJEE-vNUQ',
+    FEHOLOGY: 'https://www.youtube.com/watch?v=4uwH4KvJyA8',
+    TACHO: null,
+    SATACHI: null,
+    // COOLEST_MAGICAL_CAT:
+    //   'https://www.reddit.com/r/FireEmblemHeroes/comments/1vvd8tt/recommended_forma_skills_infographic_hall_of/',
+  },
+}
 </script>
