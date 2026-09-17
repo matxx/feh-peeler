@@ -30,7 +30,6 @@
       :disabled="!availability.is_in[HEROIC_GRAILS]"
       :size="tileSize"
       :rarity="availability.lowest_rarity[HEROIC_GRAILS]"
-      show-rarity
     />
 
     <CompoDivineCodes

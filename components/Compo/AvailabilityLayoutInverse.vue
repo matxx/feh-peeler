@@ -30,12 +30,10 @@ const props = withDefaults(
     disabled?: boolean
     rarity?: number
     size: number
-    showRarity?: boolean
   }>(),
   {
     disabled: false,
     rarity: undefined,
-    showRarity: false,
   },
 )
 
@@ -50,9 +48,7 @@ const subSize = computed(() => props.size * subRatio)
 const subSizePercent = computed(() => `${100 * subRatio}%`)
 
 const rarityToDisplay = computed(() =>
-  isNil(props.rarity) && props.showRarity
-    ? RARITY_WHEN_DISABLED_BUT_SHOWN
-    : props.rarity,
+  isNil(props.rarity) ? RARITY_WHEN_DISABLED_BUT_SHOWN : props.rarity,
 )
 </script>
 
