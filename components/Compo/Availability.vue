@@ -6,7 +6,6 @@
         :disabled="disabled"
         :size="size"
         :rarity="rarity"
-        :show-rarity="showRarity"
       >
         <template #kind>
           <template v-if="isGenericPool">
@@ -58,6 +57,7 @@
 </template>
 
 <script setup lang="tsx">
+import isNil from 'lodash-es/isNil'
 import type { Anchor } from 'vuetify'
 
 import ImgFehPass from '~/assets/icons/fehpass.png'
@@ -68,7 +68,6 @@ const props = withDefaults(
     size: number
     disabled?: boolean
     rarity?: number
-    showRarity?: boolean
     tooltipLocation?: Anchor
     isGenericPool?: boolean
     isSpecialPool?: boolean
@@ -78,7 +77,6 @@ const props = withDefaults(
   {
     disabled: false,
     rarity: undefined,
-    showRarity: true,
     tooltipLocation: 'top',
     isGenericPool: false,
     isSpecialPool: false,
@@ -99,7 +97,7 @@ const cssClasses = computed(() => ({
 }))
 const suffixRarity = computed(() => {
   if (props.disabled) return undefined
-  if (!props.showRarity) return undefined
+  if (isNil(props.rarity)) return undefined
 
   let text
   switch (props.rarity) {

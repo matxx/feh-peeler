@@ -40,7 +40,6 @@
           availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED] &&
           availability[OWNER_LOWEST_RARITY_WHEN_OBTAINED]![HEROIC_GRAILS]
         "
-        show-rarity
       />
 
       <CompoDivineCodes
