@@ -144,49 +144,52 @@
             :key="avail"
             class="text-center"
           >
-            {{ totals[avail] }}
+            <span class="position-relative">
+              {{ totals[avail] }}
 
-            <v-tooltip>
-              <template #activator="{ props: tooltipProps }">
-                <v-icon
-                  v-bind="tooltipProps"
-                  :color="totals[avail] <= INHERIT_SLOTS ? 'green' : 'red'"
-                >
-                  {{
-                    totals[avail] <= INHERIT_SLOTS
-                      ? 'mdi-check-circle'
-                      : 'mdi-close-circle'
-                  }}
-                </v-icon>
-              </template>
+              <v-tooltip>
+                <template #activator="{ props: tooltipProps }">
+                  <v-icon
+                    v-bind="tooltipProps"
+                    class="icon-status"
+                    :color="totals[avail] <= INHERIT_SLOTS ? 'green' : 'red'"
+                  >
+                    {{
+                      totals[avail] <= INHERIT_SLOTS
+                        ? 'mdi-check-circle'
+                        : 'mdi-close-circle'
+                    }}
+                  </v-icon>
+                </template>
 
-              <p>
-                <strong
-                  v-if="totals[avail] <= INHERIT_SLOTS"
-                  class="text-success"
-                >
-                  {{ t('unitsFodder.allSkillsCanBeInheritedInOneGo') }}
-                </strong>
-                <strong
-                  v-else
-                  class="text-error"
-                >
-                  {{ t('unitsFodder.notAllSkillsCanBeInheritedInOneGo') }}
-                </strong>
-              </p>
-              <p>{{ t('unitsFodder.usingBridgeFodderFrom') }}:</p>
-              <ul class="pl-3">
-                <li
-                  v-for="av in take(
-                    storeFodderSettings.fodderAvailabilities,
-                    index + 1,
-                  )"
-                  :key="av"
-                >
-                  {{ t(`unitsFodder.availabilities.${av}`) }}
-                </li>
-              </ul>
-            </v-tooltip>
+                <p>
+                  <strong
+                    v-if="totals[avail] <= INHERIT_SLOTS"
+                    class="text-success"
+                  >
+                    {{ t('unitsFodder.allSkillsCanBeInheritedInOneGo') }}
+                  </strong>
+                  <strong
+                    v-else
+                    class="text-error"
+                  >
+                    {{ t('unitsFodder.notAllSkillsCanBeInheritedInOneGo') }}
+                  </strong>
+                </p>
+                <p>{{ t('unitsFodder.usingBridgeFodderFrom') }}:</p>
+                <ul class="pl-3">
+                  <li
+                    v-for="av in take(
+                      storeFodderSettings.fodderAvailabilities,
+                      index + 1,
+                    )"
+                    :key="av"
+                  >
+                    {{ t(`unitsFodder.availabilities.${av}`) }}
+                  </li>
+                </ul>
+              </v-tooltip>
+            </span>
           </td>
         </tr>
       </AppRenderOnceWhileActive>
@@ -317,3 +320,12 @@ const totals = computed(() =>
   ),
 )
 </script>
+
+<style lang="scss" scoped>
+.icon-status {
+  position: absolute;
+  left: 150%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+</style>
