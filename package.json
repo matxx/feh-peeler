@@ -38,7 +38,7 @@
     "vitest": "^5.0.0",
     "vue": "^3.5.42",
     "vue-router": "^5.3.1",
-    "vuetify-nuxt-module": "^1.0.0-rc.5"
+    "vuetify-nuxt-module": "^1.0.0-rc.6"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
