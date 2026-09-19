@@ -743,6 +743,7 @@ export default () => ({
             WT: 'Wind Tribe (september 2023)',
             IT: 'Ice Tribe (september 2024)',
             Fe: 'Ferox (also called Arena or Gladiator) (september 2025)',
+            Sa: 'Sacae (september 2026)',
             H: 'Halloween (banners in october)',
             N: 'Ninja (banners in november)',
             W: 'Winter (banners in december)',
