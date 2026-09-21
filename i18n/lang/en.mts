@@ -499,6 +499,7 @@ export default () => ({
         [units.TAB_SKILLS]: 'All Skills',
         [units.TAB_FODDER]: 'Fodder',
         [units.TAB_FODDER_VALUE]: 'Fodder Value',
+        [units.TAB_BANNERS]: 'Banners',
       },
       tooltips: {
         [units.TAB_FODDER]: 'Can I inherit all skills in one go ?',
@@ -518,6 +519,9 @@ export default () => ({
       arts: {
         classicArts: 'Classic Arts',
         resplendentArts: 'Resplendent Arts',
+      },
+      banners: {
+        noBannersAssociated: 'No associated banners',
       },
     },
     filters: {

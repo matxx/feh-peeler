@@ -225,6 +225,9 @@
                 :size="FODDERS_TILE_SIZE"
               />
             </v-tabs-window-item>
+            <v-tabs-window-item :value="TAB_BANNERS">
+              <UnitTabBanners :unit="unit" />
+            </v-tabs-window-item>
           </v-tabs-window>
         </v-card-text>
       </template>
@@ -240,6 +243,7 @@ import {
   TAB_SKILLS,
   TAB_FODDER,
   TAB_FODDER_VALUE,
+  TAB_BANNERS,
   UNIT_TABS,
   UNIT_TABS_WITH_TOOLTIP,
 } from '~/utils/types/units'
@@ -267,6 +271,7 @@ const { isLoading } = useDataStores([
   useStoreDataSkills(),
   useStoreDataSkillsAvailabilities(),
   useStoreDataSkillsUnits(),
+  useStoreDataBanners(),
 ])
 
 const unit = computed(() =>
