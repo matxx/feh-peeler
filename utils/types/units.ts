@@ -36,6 +36,7 @@ export const TAB_STATS = 'stats'
 export const TAB_SKILLS = 'skills'
 export const TAB_FODDER = 'fodder'
 export const TAB_FODDER_VALUE = 'fodder-value'
+export const TAB_BANNERS = 'banners'
 
 export const UNIT_DEFAULT_TAB = TAB_BASE_KIT
 
@@ -46,6 +47,7 @@ export type UnitTab =
   | typeof TAB_STATS
   | typeof TAB_SKILLS
   | typeof TAB_FODDER_VALUE
+  | typeof TAB_BANNERS
 export const UNIT_TABS: UnitTab[] = [
   TAB_BASE_KIT,
   TAB_ARTS,
@@ -53,6 +55,7 @@ export const UNIT_TABS: UnitTab[] = [
   TAB_SKILLS,
   TAB_FODDER,
   TAB_FODDER_VALUE,
+  TAB_BANNERS,
 ]
 export const UNIT_TABS_WITH_TOOLTIP = [TAB_FODDER, TAB_FODDER_VALUE]
 

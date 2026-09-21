@@ -1,8 +1,17 @@
 import sortBy from 'lodash-es/sortBy'
 
-import { chunkMaxLength } from '~/utils/functions/typeSafe'
+import {
+  chunkMaxLength,
+  groupBy,
+  type IndexedBy,
+} from '~/utils/functions/typeSafe'
 import { getSortableName } from '~/utils/functions/bannerSortingVector'
-import type { IBannerData, IBanner } from '~/utils/types/banners'
+import type {
+  IBannerData,
+  IBanner,
+  IBannerOccurrence,
+} from '~/utils/types/banners'
+import type { UnitId } from '~/utils/types/units'
 
 export const useStoreDataBanners = defineStore('data/banners', () => {
   const storeDataUnits = useStoreDataUnits()
@@ -42,6 +51,29 @@ export const useStoreDataBanners = defineStore('data/banners', () => {
     })),
   )
 
+  const bannerOccurrencesByUnitId = computed<
+    Partial<IndexedBy<UnitId, IBannerOccurrence[]>>
+  >(() =>
+    groupBy(
+      banners.value.flatMap((banner) =>
+        banner.unit_ids.flatMap((unitId) => [
+          {
+            unitId,
+            banner,
+            start_time: banner.start_time,
+            end_time: banner.end_time,
+          },
+          ...(banner.reruns || []).map((rerun) => ({
+            unitId,
+            banner,
+            ...rerun,
+          })),
+        ]),
+      ),
+      'unitId',
+    ),
+  )
+
   return {
     isLoading,
     isLoaded,
@@ -50,6 +82,7 @@ export const useStoreDataBanners = defineStore('data/banners', () => {
     banners,
     selectedBanner,
     selectedBannerUnitsLines,
+    bannerOccurrencesByUnitId,
   }
 })
 

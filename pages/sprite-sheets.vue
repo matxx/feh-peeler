@@ -1,5 +1,5 @@
+<!-- https://feheroes.fandom.com/wiki/Game_assets_collection#UI_Sprite_sheets -->
 <template>
-  <!-- https://feheroes.fandom.com/wiki/Game_assets_collection#UI_Sprite_sheets -->
   <div class="pa-3">
     <v-tabs
       v-model="tab"
