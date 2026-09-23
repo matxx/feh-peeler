@@ -44,6 +44,12 @@ export default () => ({
     nothingIsMatchingYourRequest: 'Nothing is matching your request',
     invalidRegExp: 'Invalid regular expression',
 
+    versionRange: {
+      min: 'Min',
+      max: 'Max',
+      invalid: 'Format: 6 or 6.4',
+    },
+
     useRegexInSearches: 'Use RegExp in searches',
     useTextInSearches: 'Use Text in searches',
     typeAtLeastThreeCharacters: 'Type at least three characters',
@@ -528,6 +534,7 @@ export default () => ({
       resetFilters: 'Reset filters',
       headers: {
         stats: 'Stats',
+        version: 'Version',
       },
       buttons: {
         isGHB: 'GHB',
@@ -636,6 +643,7 @@ export default () => ({
         stats: 'Stats',
         availability: 'Availability',
         preInheritance: 'Pre-Inheritance',
+        version: 'Version',
       },
       canUseMode: {
         title: 'Filter mode',

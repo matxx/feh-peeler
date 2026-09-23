@@ -100,7 +100,7 @@
           <v-menu location="bottom">
             <template #activator="{ props }">
               <v-btn-group
-                v-show="filters.version !== undefined"
+                v-show="filters.hofVersion !== undefined"
                 v-tooltip:bottom="
                   t('skills.filters.hof.tooltipVersion', {
                     version: storeSkillsFilters.versionThreshold,
@@ -116,7 +116,7 @@
                   class="text-primary"
                   v-bind="props"
                 >
-                  v{{ filters.version }}
+                  v{{ filters.hofVersion }}
                 </v-btn>
               </v-btn-group>
             </template>
@@ -126,7 +126,7 @@
                 v-for="version in storeDataSkills.currentVersions"
                 :key="version"
                 :value="version"
-                @click="filters.version = version"
+                @click="filters.hofVersion = version"
               >
                 <v-list-item-title> v{{ version }} </v-list-item-title>
               </v-list-item>
@@ -574,6 +574,16 @@
         :size="SIZE"
         :availabilities="filters.preInheritance"
         @toggle-availability="togglePreInheritance"
+      />
+    </div>
+
+    <div class="mt-3">
+      <h4>
+        {{ t('skills.filters.headers.version') }}
+      </h4>
+      <AppFiltersVersionRange
+        v-model:min="filters.versionRange[0]"
+        v-model:max="filters.versionRange[1]"
       />
     </div>
   </div>

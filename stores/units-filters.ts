@@ -55,6 +55,11 @@ import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
 import { objectEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
 import type { SkillCategory, SkillId } from '~/utils/types/skills'
+import {
+  isValidVersionRangeInput,
+  getSortableVersionRangeMin,
+  getSortableVersionRangeMax,
+} from '~/utils/functions/sortableVersion'
 
 function filterName(u: IUnit, r?: RegExp) {
   if (!r) return true
@@ -94,6 +99,19 @@ const filterOwnedUnit = (
   u: IUnit,
   ownedUnitIds: Set<UnitId>,
 ) => filterBoolean(filters.isOwned, ownedUnitIds.has(u.id))
+
+function filterVersionRange(filters: IFilters, u: IUnit) {
+  const [min, max] = filters.versionRange
+
+  if (min && isValidVersionRangeInput(min)) {
+    if (u.sortableVersion < getSortableVersionRangeMin(min)) return false
+  }
+  if (max && isValidVersionRangeInput(max)) {
+    if (u.sortableVersion > getSortableVersionRangeMax(max)) return false
+  }
+
+  return true
+}
 
 function filterStats(
   filters: IFilters,
@@ -249,6 +267,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
         objectEntries(filters.value.hasPrf),
         ([_cat, bool]) => bool !== null,
       ) ||
+      !!filters.value.versionRange[0] ||
+      !!filters.value.versionRange[1] ||
       some(
         objectEntries(filters.value.stats),
         ([stat, [min, max]]) =>
@@ -389,6 +409,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       f(filter, (u: IUnit) =>
         filterStats(filters.value, u, storeDataUnitsStats.statsById),
       ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) => filterVersionRange(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
         filterOwnedUnit(filters.value, u, ownedUnitIds.value),

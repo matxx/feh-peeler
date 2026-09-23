@@ -122,7 +122,7 @@ watch(
   (val) => {
     if (!val) return
 
-    filters.value.version = storeDataSkills.currentVersion
+    filters.value.hofVersion = storeDataSkills.currentVersion
   },
   { immediate: true },
 )

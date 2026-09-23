@@ -69,6 +69,9 @@ import type { ExtendedWeaponType } from '~/utils/types/weapons'
 import {
   getPrevVersion,
   getSortableVersion,
+  isValidVersionRangeInput,
+  getSortableVersionRangeMin,
+  getSortableVersionRangeMax,
 } from '~/utils/functions/sortableVersion'
 
 const filterIsPrf = (filters: IFilters, s: ISkill) =>
@@ -79,6 +82,19 @@ const filterIsArcane = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.isArcane, s.is_arcane)
 const filterHasRefine = (filters: IFilters, s: ISkill) =>
   filterBoolean(filters.hasRefine, !!s.refine_kind)
+
+function filterVersionRange(filters: IFilters, s: ISkill) {
+  const [min, max] = filters.versionRange
+
+  if (min && isValidVersionRangeInput(min)) {
+    if (s.sortableVersion < getSortableVersionRangeMin(min)) return false
+  }
+  if (max && isValidVersionRangeInput(max)) {
+    if (s.sortableVersion > getSortableVersionRangeMax(max)) return false
+  }
+
+  return true
+}
 
 const filterHoF = (
   filters: IFilters,
@@ -234,6 +250,9 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   const isFilterActiveOnHasRefine = computed(
     () => filters.value.hasRefine !== null,
   )
+  const isFilterActiveOnVersionRange = computed(
+    () => !!filters.value.versionRange[0] || !!filters.value.versionRange[1],
+  )
 
   const isFilterActiveOnStats = computed(() =>
     some(
@@ -257,6 +276,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       isFilterActiveOnIsMax.value ||
       isFilterActiveOnIsArcane.value ||
       isFilterActiveOnHasRefine.value ||
+      isFilterActiveOnVersionRange.value ||
       isFilterActiveOnStats.value ||
       false,
   )
@@ -653,7 +673,7 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   } = useSearch(searchDescriptionText)
 
   const versionPrevious = computed(
-    () => filters.value.version && getPrevVersion(filters.value.version),
+    () => filters.value.hofVersion && getPrevVersion(filters.value.hofVersion),
   )
   const versionThreshold = computed(
     () => versionPrevious.value && getPrevVersion(versionPrevious.value),
@@ -694,6 +714,8 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
       f(filter, (s: ISkill) => filterIsArcane(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterHasRefine(filters.value, s)),
+      // @ts-expect-error unsafe typings
+      f(filter, (s: ISkill) => filterVersionRange(filters.value, s)),
       // @ts-expect-error unsafe typings
       f(filter, (s: ISkill) => filterCategoryAndWeaponType(filters.value, s)),
       // @ts-expect-error unsafe typings

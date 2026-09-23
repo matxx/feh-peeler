@@ -68,6 +68,8 @@ export interface IFilters {
     [key in SkillCategory]: boolean | null
   }
 
+  versionRange: [string | null, string | null]
+
   stats: IUnitStatMinMax
 }
 
@@ -98,6 +100,8 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   hasRefine: null,
 
   hasPrf: objectFromEntries(SKILL_CATEGORIES_FOR_PRF.map((cat) => [cat, null])),
+
+  versionRange: [null, null],
 
   stats,
 })
