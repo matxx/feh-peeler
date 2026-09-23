@@ -645,6 +645,16 @@
         />
       </div>
     </div>
+
+    <div class="mt-3">
+      <h4>
+        {{ t('units.filters.headers.version') }}
+      </h4>
+      <AppFiltersVersionRange
+        v-model:min="filters.versionRange[0]"
+        v-model:max="filters.versionRange[1]"
+      />
+    </div>
   </div>
 </template>
 

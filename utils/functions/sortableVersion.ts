@@ -38,3 +38,22 @@ export const getNextVersion = (str: string): string => {
 
   return mapToString([parts[0], parts[1] + 1]).join('.')
 }
+
+const VERSION_INPUT_REGEXP = /^\d{1,2}(\.\d{1,2})?$/
+
+export const isValidVersionRangeInput = (str: string): boolean =>
+  VERSION_INPUT_REGEXP.test(str.trim())
+
+export const getSortableVersionRangeMin = (str: string): string => {
+  const parts = str.trim().split('.')
+  if (parts.length === 1) parts.push('0')
+
+  return getSortableVersion(parts.join('.'))
+}
+
+export const getSortableVersionRangeMax = (str: string): string => {
+  const parts = str.trim().split('.')
+  if (parts.length === 1) parts.push('11')
+
+  return getSortableVersion(parts.join('.'))
+}

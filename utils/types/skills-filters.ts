@@ -53,7 +53,7 @@ export interface IFilters {
   }
 
   hof: HoFChamber
-  version: string | undefined
+  hofVersion: string | undefined
 
   availabilities: Set<Availability>
   preInheritance: Set<Availability>
@@ -63,12 +63,14 @@ export interface IFilters {
   isArcane: boolean | null
   hasRefine: boolean | null
 
+  versionRange: [string | null, string | null]
+
   stats: ISkillStatMinMax
 }
 
 export const createFilters = (
   stats: ISkillStatMinMax,
-  version?: string,
+  hofVersion?: string,
 ): IFilters => ({
   name: null,
   description: null,
@@ -87,7 +89,7 @@ export const createFilters = (
   },
 
   hof: HOF_DISABLED,
-  version,
+  hofVersion,
 
   availabilities: new Set(),
   preInheritance: new Set(),
@@ -96,6 +98,8 @@ export const createFilters = (
   isMax: null,
   isArcane: null,
   hasRefine: null,
+
+  versionRange: [null, null],
 
   stats,
 })
