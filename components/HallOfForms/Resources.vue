@@ -104,15 +104,15 @@
 const { t } = useI18n()
 
 const HALL_OF_FORMS_DETAILS = {
-  number: 53,
-  is_revival: true,
+  number: 82,
+  is_revival: false,
   resources: {
-    PM1: 'https://www.youtube.com/watch?v=JkwJEE-vNUQ',
-    FEHOLOGY: 'https://www.youtube.com/watch?v=4uwH4KvJyA8',
+    PM1: 'https://www.youtube.com/watch?v=W5E8zEwkw9A',
+    FEHOLOGY: 'https://www.youtube.com/watch?v=Kfhfqk_R71Y',
     TACHO: null,
     SATACHI: null,
     COOLEST_MAGICAL_CAT:
-      'https://www.reddit.com/r/FireEmblemHeroes/comments/1wi0728/recommended_forma_skills_infographic_hall_of/',
+      'https://www.reddit.com/r/FireEmblemHeroes/comments/1wo6nz1/recommended_forma_skills_infographic_hall_of/',
   },
 }
 </script>
