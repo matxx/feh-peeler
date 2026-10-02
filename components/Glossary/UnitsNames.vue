@@ -125,7 +125,7 @@ const byTheme = [
   'Br',
   // 'We',
   'Su',
-  'Ch',
+  'Che',
   'HSu',
   'P',
   'Th',
