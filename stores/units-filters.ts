@@ -3,7 +3,6 @@ import some from 'lodash-es/some'
 import every from 'lodash-es/every'
 import filter from 'lodash-es/filter'
 import orderBy from 'lodash-es/orderBy'
-import intersection from 'lodash-es/intersection'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
@@ -53,6 +52,7 @@ import {
   type ISorters,
 } from '~/utils/types/units-sorters'
 import { SORTED_MOVE_TYPES_INDEXES } from '~/utils/types/moves'
+import { GAME_ICON_INDEXES } from '~/utils/types/games'
 import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
 import { objectEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
@@ -250,7 +250,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     () =>
       filters.value.books.length > 0 ||
       filters.value.themes.length > 0 ||
-      filters.value.games.length > 0 ||
+      filters.value.games.size > 0 ||
       filters.value.genders.length > 0 ||
       filters.value.traits.size > 0 ||
       filters.value.moves.size > 0 ||
@@ -350,9 +350,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
-        filters.value.games.length === 0
+        filters.value.games.size === 0
           ? true
-          : intersection(filters.value.games, u.games).length > 0,
+          : some(u.gamesSorted, (game) =>
+              filters.value.games.has(GAME_ICON_INDEXES[game]!),
+            ),
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>

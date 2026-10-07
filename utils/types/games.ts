@@ -28,6 +28,36 @@ export const GAME_ICON_INDEXES: { [key: string]: number | undefined } = {
 
 export const GAME_ICONS_COUNT = 17
 
+// in-game titles, indexed by icon index
+export const GAME_ICON_TITLES = [
+  'Heroes',
+  'Shadow Dragon / (New) Mystery',
+  'Echoes',
+  'Genealogy of the Holy War',
+  'Thracia 776',
+  'The Binding Blade',
+  'The Blazing Blade',
+  'The Sacred Stones',
+  'Path of Radiance',
+  'Radiant Dawn',
+  'Awakening',
+  'Fates',
+  'Three Houses',
+  'Tokyo Mirage Sessions #FE Encore',
+  'Engage',
+  'Shadows',
+  "Fortune's Weave",
+]
+
+// icon indexes split in rows for the filters
+export const GAME_ICON_INDEXES_FOR_FILTERS = [
+  [0, 1, 2, 3],
+  [4, 5, 6, 7],
+  [8, 9, 10, 11],
+  [12, 13, 14, 15],
+  [16],
+]
+
 // keeps only games with an icon, one per icon, sorted by icon index
 export function sortGames(games: string[]) {
   return sortBy(

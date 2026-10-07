@@ -596,18 +596,6 @@
     <template v-if="storeDataConstants.constants">
       <div class="mt-1">
         <v-select
-          v-model="filters.games"
-          :items="storeDataConstants.constants.games"
-          multiple
-          clearable
-          density="compact"
-          hide-details
-          :label="t('units.filters.selects.games')"
-        />
-      </div>
-
-      <div class="mt-1">
-        <v-select
           v-model="filters.genders"
           :items="storeDataConstants.constants.units_genders"
           multiple
@@ -618,6 +606,37 @@
         />
       </div>
     </template>
+
+    <div class="mt-3">
+      <h4>
+        {{ t('units.filters.headers.game') }}
+      </h4>
+      <div
+        v-for="(row, index) in GAME_ICON_INDEXES_FOR_FILTERS"
+        :key="index"
+      >
+        <v-btn-group
+          divided
+          color="primary"
+          density="compact"
+          variant="outlined"
+        >
+          <v-btn
+            v-for="gameIconIndex in row"
+            :key="gameIconIndex"
+            size="small"
+            class="text-primary"
+            :active="filters.games.has(gameIconIndex)"
+            @click="toggleGame(gameIconIndex)"
+          >
+            <AppIconGame
+              :index="gameIconIndex"
+              :size="size"
+            />
+          </v-btn>
+        </v-btn-group>
+      </div>
+    </div>
 
     <div class="mt-3">
       <h4>
@@ -667,6 +686,7 @@ import type { IFilters, Trait } from '~/utils/types/units-filters'
 import { ELEMENTS_FOR_FILTERS, type Element } from '~/utils/types/elements'
 import { objectEntries, objectFromEntries } from '~/utils/functions/typeSafe'
 import { SORTED_MOVE_TYPES, type MoveType } from '~/utils/types/moves'
+import { GAME_ICON_INDEXES_FOR_FILTERS } from '~/utils/types/games'
 import {
   WEAPON_C_ST,
   SORTED_WEAPONS_MATRIX_FOR_UNITS_FILTERS,
@@ -746,6 +766,15 @@ function toggleWeapon(weaponType: WeaponType) {
     filters.value.weapons.delete(weaponType)
   } else {
     filters.value.weapons.add(weaponType)
+  }
+}
+function toggleGame(gameIconIndex: number) {
+  if (!filters.value) return
+
+  if (filters.value.games.has(gameIconIndex)) {
+    filters.value.games.delete(gameIconIndex)
+  } else {
+    filters.value.games.add(gameIconIndex)
   }
 }
 function toggleElement(element: Element) {
