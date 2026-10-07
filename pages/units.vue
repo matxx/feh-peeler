@@ -245,6 +245,19 @@
         </strong>
       </template>
 
+      <template #[`item.${unitsColumns.COLUMN_GAME}`]="{ item }">
+        <div class="d-flex ga-1">
+          <AppIconGame
+            v-for="game in isGameSortedDesc
+              ? item.gamesSorted.toReversed()
+              : item.gamesSorted"
+            :key="game"
+            :game="game"
+            :size="size"
+          />
+        </div>
+      </template>
+
       <template #[`item.${unitsColumns.COLUMN_ELEMENT}`]="{ item }">
         <AppIconElement
           v-if="item.element"
@@ -266,7 +279,7 @@
       </template>
     </v-data-table-server>
 
-    <!-- TODO: generation / game -->
+    <!-- TODO: generation -->
   </div>
 </template>
 
@@ -363,6 +376,12 @@ const end = computed(() => {
 })
 const items = computed(() =>
   storeUnitsFilters.unitsFilteredSorted.slice(start.value, end.value),
+)
+
+const isGameSortedDesc = computed(
+  () =>
+    sortBy.value?.find((column) => column.key === unitsColumns.COLUMN_GAME)
+      ?.order === 'desc',
 )
 
 function translate(sortBy: DataTableSortItem[]) {

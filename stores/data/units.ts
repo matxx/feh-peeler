@@ -33,6 +33,7 @@ import { getAvailability } from '~/utils/types/units-availabilities'
 import { getSortableMoveType } from '~/utils/types/moves'
 import { getSortableElement } from '~/utils/types/elements'
 import { getSortableVersion } from '~/utils/functions/sortableVersion'
+import { GAME_ICON_INDEXES, sortGames } from '~/utils/types/games'
 
 export const useStoreDataUnits = defineStore('data/units', () => {
   const unitsData = ref<IUnitData[]>([])
@@ -49,24 +50,34 @@ export const useStoreDataUnits = defineStore('data/units', () => {
   const unitsCount = computed(() => unitsData.value.length)
   const units = computed<IUnit[]>(() =>
     storeDataAccents.isLoaded
-      ? unitsData.value.map((unit) => ({
-          ...unit,
-          weaponFamily: WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
-          weaponColor: WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
-          nameForLink: escapeName(unit.full_name),
-          nameForSelect: `${unit.abbreviated_name} [${unit.title}]`,
-          nameForSorting: unit.full_name,
-          nameForFiltering: storeDataAccents.transliterate(unit.full_name),
-          nameForDisplay: `${unit.abbreviated_name} [${unit.title}]`,
-          sortableType: getSortableType(unit),
-          sortableWeaponColor: getSortableWeaponColor(
-            WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
-          ),
-          sortableWeaponType: getSortableWeaponType(unit),
-          sortableMoveType: getSortableMoveType(unit),
-          sortableElement: getSortableElement(unit.element),
-          sortableVersion: getSortableVersion(unit.version),
-        }))
+      ? unitsData.value.map((unit) => {
+          const gamesSorted = sortGames(unit.games)
+          return {
+            ...unit,
+            weaponFamily: WEAPON_FAMILY_FOR_TYPE[unit.weapon_type],
+            weaponColor: WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
+            nameForLink: escapeName(unit.full_name),
+            nameForSelect: `${unit.abbreviated_name} [${unit.title}]`,
+            nameForSorting: unit.full_name,
+            nameForFiltering: storeDataAccents.transliterate(unit.full_name),
+            nameForDisplay: `${unit.abbreviated_name} [${unit.title}]`,
+            sortableType: getSortableType(unit),
+            sortableWeaponColor: getSortableWeaponColor(
+              WEAPON_COLOR_FOR_TYPE[unit.weapon_type],
+            ),
+            sortableWeaponType: getSortableWeaponType(unit),
+            sortableMoveType: getSortableMoveType(unit),
+            sortableElement: getSortableElement(unit.element),
+            sortableVersion: getSortableVersion(unit.version),
+            gamesSorted,
+            sortableGameMin: gamesSorted.length
+              ? GAME_ICON_INDEXES[gamesSorted[0]]!
+              : Infinity,
+            sortableGameMax: gamesSorted.length
+              ? GAME_ICON_INDEXES[gamesSorted[gamesSorted.length - 1]]!
+              : -Infinity,
+          }
+        })
       : [],
   )
   const unitsWithAvailability = computed<IUnitWithAvailability[]>(() =>

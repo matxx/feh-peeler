@@ -43,9 +43,11 @@ import {
   SORT_STAT_DEF,
   SORT_STAT_RES,
   SORT_ELEMENT,
+  SORT_GAME,
   SORT_THEME,
   SORT_OWNED,
   SORT_NOTHING,
+  DESC,
   createEmptySorters,
   type ISorter,
   type ISorters,
@@ -438,7 +440,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   function sort(units: IUnit[], sorters: ISorters) {
     return orderBy(
       units,
-      sorters.fields.map((field) => {
+      sorters.fields.map((field, index) => {
         switch (field) {
           case SORT_NAME:
             return (unit: IUnit) => unit.nameForSorting
@@ -446,6 +448,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
             return (unit: IUnit) => unit.sortableVersion
           case SORT_ELEMENT:
             return (unit: IUnit) => unit.sortableElement
+          case SORT_GAME:
+            // units without known game are last in both orders
+            return sorters.orders[index] === DESC
+              ? (unit: IUnit) => unit.sortableGameMax
+              : (unit: IUnit) => unit.sortableGameMin
           case SORT_RATING:
             return (unit: IUnit) =>
               storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating || RATING_0
