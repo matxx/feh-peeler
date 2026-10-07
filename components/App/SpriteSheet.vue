@@ -26,6 +26,8 @@ const props = defineProps<{
   grid?: [number, number]
   // column and row (from top left) of the displayed cell of the grid
   cell?: [number, number]
+  // displays only the visible part of the frame, without its transparent margins
+  trimmed?: boolean
 
   width?: number
   height?: number
@@ -42,6 +44,10 @@ const region = computed(() => {
   if (!sprite.value) return { x: 0, y: 0, width: 0, height: 0 }
 
   const { sourceWidth, sourceHeight } = sprite.value
+  if (props.trimmed) {
+    const { trimLeft, trimTop, width, height } = sprite.value
+    return { x: trimLeft, y: trimTop, width, height }
+  }
   if (!props.grid) {
     return { x: 0, y: 0, width: sourceWidth, height: sourceHeight }
   }
@@ -78,20 +84,25 @@ const spriteStyle = computed(() => {
   if (!sprite.value) return {}
 
   const { x, y, width, height, rotated, trimLeft, trimTop } = sprite.value
-  const scaleX = resolvedWidth.value / region.value.width
-  const scaleY = resolvedHeight.value / region.value.height
+  // the displayed area keeps its ratio and is centered in the wrapper
+  const scale = Math.min(
+    resolvedWidth.value / region.value.width,
+    resolvedHeight.value / region.value.height,
+  )
+  const offsetX = (resolvedWidth.value - region.value.width * scale) / 2
+  const offsetY = (resolvedHeight.value - region.value.height * scale) / 2
 
-  // box of the trimmed frame, relative to the displayed area
-  const left = (trimLeft - region.value.x) * scaleX
-  const top = (trimTop - region.value.y) * scaleY
-  const displayedWidth = width * scaleX
-  const displayedHeight = height * scaleY
+  // box of the trimmed frame, relative to the wrapper
+  const left = offsetX + (trimLeft - region.value.x) * scale
+  const top = offsetY + (trimTop - region.value.y) * scale
+  const displayedWidth = width * scale
+  const displayedHeight = height * scale
 
-  const background = (sx: number, sy: number) => ({
+  const background = {
     backgroundImage: `url(${spriteSheet.value.img})`,
-    backgroundSize: `${numberToPx(spriteSheet.value.width * sx)} ${numberToPx(spriteSheet.value.height * sy)}`,
-    backgroundPosition: `${numberToPx(-x * sx)} ${numberToPx(-y * sy)}`,
-  })
+    backgroundSize: `${numberToPx(spriteSheet.value.width * scale)} ${numberToPx(spriteSheet.value.height * scale)}`,
+    backgroundPosition: `${numberToPx(-x * scale)} ${numberToPx(-y * scale)}`,
+  }
 
   if (!rotated) {
     return {
@@ -99,14 +110,14 @@ const spriteStyle = computed(() => {
       top: numberToPx(top),
       width: numberToPx(displayedWidth),
       height: numberToPx(displayedHeight),
-      ...background(scaleX, scaleY),
+      ...background,
     }
   }
 
   /**
    * When 'textureRotated' is true in the .plist, the frame is rotated
    * 90 degrees clockwise in the sheet. To display it correctly, we draw it
-   * with swapped width/height (and scales), centered on its box,
+   * with swapped width/height, centered on its box,
    * then rotate it back -90 degrees.
    */
   return {
@@ -114,7 +125,7 @@ const spriteStyle = computed(() => {
     top: numberToPx(top + (displayedHeight - displayedWidth) / 2),
     width: numberToPx(displayedHeight),
     height: numberToPx(displayedWidth),
-    ...background(scaleY, scaleX),
+    ...background,
     transform: 'rotate(-90deg)',
   }
 })

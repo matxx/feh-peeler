@@ -12,6 +12,7 @@
             <AppSpriteSheet
               sheet="Item"
               frame="Icon_Orb_L.png"
+              trimmed
               :size="imageSize"
               :class="cssClasses"
             />
@@ -20,6 +21,7 @@
             <AppSpriteSheet
               sheet="Summon_Category"
               frame="Icon_Summon_Category_01.png"
+              trimmed
               :size="imageSize"
               :class="cssClasses"
             />
@@ -28,6 +30,7 @@
             <AppSpriteSheet
               sheet="Item"
               frame="Icon_HeroHolyGrail_L.png"
+              trimmed
               :size="imageSize"
               :class="cssClasses"
             />
