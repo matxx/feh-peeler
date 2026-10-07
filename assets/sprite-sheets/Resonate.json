@@ -1,110 +1,114 @@
-[
-  {
-    "name": "Frm_InfoEdit_Resonate.png",
-    "x": 1,
-    "y": 289,
-    "width": 168,
-    "height": 80,
-    "rotated": true,
-    "sourceWidth": 168,
-    "sourceHeight": 82,
-    "trimLeft": 0,
-    "trimTop": 2
-  },
-  {
-    "name": "Icon_PassiveX.png",
-    "x": 83,
-    "y": 437,
-    "width": 36,
-    "height": 38,
-    "rotated": false,
-    "sourceWidth": 40,
-    "sourceHeight": 40,
-    "trimLeft": 4,
-    "trimTop": 2
-  },
-  {
-    "name": "Icon_PassiveX_L.png",
-    "x": 83,
-    "y": 379,
-    "width": 46,
-    "height": 56,
-    "rotated": false,
-    "sourceWidth": 76,
-    "sourceHeight": 76,
-    "trimLeft": 14,
-    "trimTop": 12
-  },
-  {
-    "name": "Icon_Resonate.png",
-    "x": 83,
-    "y": 289,
-    "width": 88,
-    "height": 88,
-    "rotated": false,
-    "sourceWidth": 90,
-    "sourceHeight": 90,
-    "trimLeft": 1,
-    "trimTop": 1
-  },
-  {
-    "name": "Icon_ResonatePlayer1.png",
-    "x": 287,
-    "y": 1,
-    "width": 220,
-    "height": 240,
-    "rotated": false,
-    "sourceWidth": 220,
-    "sourceHeight": 240,
-    "trimLeft": 0,
-    "trimTop": 0
-  },
-  {
-    "name": "Icon_ResonatePlayer2.png",
-    "x": 287,
-    "y": 243,
-    "width": 220,
-    "height": 240,
-    "rotated": false,
-    "sourceWidth": 220,
-    "sourceHeight": 240,
-    "trimLeft": 0,
-    "trimTop": 0
-  },
-  {
-    "name": "Icon_Resonate_L.png",
-    "x": 1,
-    "y": 1,
-    "width": 284,
-    "height": 286,
-    "rotated": false,
-    "sourceWidth": 300,
-    "sourceHeight": 300,
-    "trimLeft": 10,
-    "trimTop": 8
-  },
-  {
-    "name": "Icon_Resonate_s1.png",
-    "x": 131,
-    "y": 379,
-    "width": 50,
-    "height": 50,
-    "rotated": false,
-    "sourceWidth": 56,
-    "sourceHeight": 56,
-    "trimLeft": 3,
-    "trimTop": 3
-  },
-  {
-    "name": "Icon_Resonate_s2.png",
-    "x": 131,
-    "y": 431,
-    "width": 50,
-    "height": 50,
-    "rotated": false,
-    "sourceWidth": 56,
-    "sourceHeight": 56,
-    "trimLeft": 3,
-    "trimTop": 3
-  }
-]
+{
+  "width": 508,
+  "height": 484,
+  "frames": [
+    {
+      "name": "Frm_InfoEdit_Resonate.png",
+      "x": 1,
+      "y": 289,
+      "width": 168,
+      "height": 80,
+      "rotated": true,
+      "sourceWidth": 168,
+      "sourceHeight": 82,
+      "trimLeft": 0,
+      "trimTop": 2
+    },
+    {
+      "name": "Icon_PassiveX.png",
+      "x": 83,
+      "y": 437,
+      "width": 36,
+      "height": 38,
+      "rotated": false,
+      "sourceWidth": 40,
+      "sourceHeight": 40,
+      "trimLeft": 4,
+      "trimTop": 2
+    },
+    {
+      "name": "Icon_PassiveX_L.png",
+      "x": 83,
+      "y": 379,
+      "width": 46,
+      "height": 56,
+      "rotated": false,
+      "sourceWidth": 76,
+      "sourceHeight": 76,
+      "trimLeft": 14,
+      "trimTop": 12
+    },
+    {
+      "name": "Icon_Resonate.png",
+      "x": 83,
+      "y": 289,
+      "width": 88,
+      "height": 88,
+      "rotated": false,
+      "sourceWidth": 90,
+      "sourceHeight": 90,
+      "trimLeft": 1,
+      "trimTop": 1
+    },
+    {
+      "name": "Icon_ResonatePlayer1.png",
+      "x": 287,
+      "y": 1,
+      "width": 220,
+      "height": 240,
+      "rotated": false,
+      "sourceWidth": 220,
+      "sourceHeight": 240,
+      "trimLeft": 0,
+      "trimTop": 0
+    },
+    {
+      "name": "Icon_ResonatePlayer2.png",
+      "x": 287,
+      "y": 243,
+      "width": 220,
+      "height": 240,
+      "rotated": false,
+      "sourceWidth": 220,
+      "sourceHeight": 240,
+      "trimLeft": 0,
+      "trimTop": 0
+    },
+    {
+      "name": "Icon_Resonate_L.png",
+      "x": 1,
+      "y": 1,
+      "width": 284,
+      "height": 286,
+      "rotated": false,
+      "sourceWidth": 300,
+      "sourceHeight": 300,
+      "trimLeft": 10,
+      "trimTop": 8
+    },
+    {
+      "name": "Icon_Resonate_s1.png",
+      "x": 131,
+      "y": 379,
+      "width": 50,
+      "height": 50,
+      "rotated": false,
+      "sourceWidth": 56,
+      "sourceHeight": 56,
+      "trimLeft": 3,
+      "trimTop": 3
+    },
+    {
+      "name": "Icon_Resonate_s2.png",
+      "x": 131,
+      "y": 431,
+      "width": 50,
+      "height": 50,
+      "rotated": false,
+      "sourceWidth": 56,
+      "sourceHeight": 56,
+      "trimLeft": 3,
+      "trimTop": 3
+    }
+  ]
+}

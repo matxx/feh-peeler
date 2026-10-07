@@ -27,11 +27,11 @@
             <v-col cols="12">
               <h4 class="mb-2">Complete grid</h4>
               <v-code class="d-inline-block mb-2">
-                {{ `<${sheet.componentName} frame="${sheet.frame}" />` }}
+                {{ frameCodeOf(sheet) }}
               </v-code>
               <div class="scrollable">
-                <component
-                  :is="sheet.component"
+                <AppSpriteSheet
+                  :sheet="sheet.sheet"
                   :frame="sheet.frame"
                 />
               </div>
@@ -42,7 +42,7 @@
               <div
                 class="grid"
                 :style="{
-                  gridTemplateColumns: `repeat(${sheet.sheetWidth}, ${ICON_SIZE}px)`,
+                  gridTemplateColumns: `repeat(${sheet.grid[0]}, ${ICON_SIZE}px)`,
                 }"
               >
                 <template
@@ -51,21 +51,16 @@
                 >
                   <v-tooltip location="top">
                     <template #activator="{ props: tooltipProps }">
-                      <AppSpriteSheetGrid
+                      <AppSpriteSheet
                         v-bind="tooltipProps"
-                        :sheet-width="sheet.sheetWidth"
-                        :sheet-height="sheet.sheetHeight"
-                        :x="cell.x"
-                        :y="cell.y"
+                        :sheet="sheet.sheet"
+                        :frame="sheet.frame"
+                        :grid="sheet.grid"
+                        :cell="[cell.x, cell.y]"
                         :size="ICON_SIZE"
                         class="cell"
                         @click="copyCode(cell.code)"
-                      >
-                        <component
-                          :is="sheet.component"
-                          :frame="sheet.frame"
-                        />
-                      </AppSpriteSheetGrid>
+                      />
                     </template>
                     <pre>{{ cell.code }}</pre>
                   </v-tooltip>
@@ -80,59 +75,53 @@
 </template>
 
 <script setup lang="ts">
-import type { Component } from 'vue'
-import { Status } from '~/components/App/SpriteSheets'
+import type { SpriteSheetName } from '~/utils/types/spriteSheets'
 
 interface NestedSheet {
-  component: Component
-  componentName: string
+  sheet: SpriteSheetName
   frame: string
-  sheetWidth: number
-  sheetHeight: number
+  // number of columns and rows
+  grid: [number, number]
 }
 
 const ICON_SIZE = 40
 
 const sheets: Record<string, NestedSheet> = {
   Statuses: {
-    component: Status,
-    componentName: 'AppSpriteSheetsStatus',
+    sheet: 'Status',
     frame: 'Icon_Enhance.png',
-    sheetWidth: 36,
-    sheetHeight: 4,
+    grid: [36, 4],
   },
   Games: {
-    component: Status,
-    componentName: 'AppSpriteSheetsStatus',
+    sheet: 'Status',
     frame: 'Icon_MiniUnit_Head.png',
-    sheetWidth: 17,
-    sheetHeight: 1,
+    grid: [17, 1],
   },
 }
 
 const tab = ref()
 
 function cellsOf(sheet: NestedSheet) {
-  return Array.from(
-    { length: sheet.sheetWidth * sheet.sheetHeight },
-    (_, i) => {
-      const x = i % sheet.sheetWidth
-      const y = Math.floor(i / sheet.sheetWidth)
-      return { x, y, code: codeOf(sheet, x, y) }
-    },
-  )
+  const [columns, rows] = sheet.grid
+  return Array.from({ length: columns * rows }, (_, i) => {
+    const x = i % columns
+    const y = Math.floor(i / columns)
+    return { x, y, code: codeOf(sheet, x, y) }
+  })
+}
+
+function frameCodeOf(sheet: NestedSheet) {
+  return `<AppSpriteSheet sheet="${sheet.sheet}" frame="${sheet.frame}" />`
 }
 
 function codeOf(sheet: NestedSheet, x: number, y: number) {
-  return `<AppSpriteSheetGrid
-  :sheet-width="${sheet.sheetWidth}"
-  :sheet-height="${sheet.sheetHeight}"
-  :x="${x}"
-  :y="${y}"
+  return `<AppSpriteSheet
+  sheet="${sheet.sheet}"
+  frame="${sheet.frame}"
+  :grid="[${sheet.grid.join(', ')}]"
+  :cell="[${x}, ${y}]"
   :size="${ICON_SIZE}"
->
-  <${sheet.componentName} frame="${sheet.frame}" />
-</AppSpriteSheetGrid>`
+/>`
 }
 
 const storeSnackbar = useStoreSnackbar()

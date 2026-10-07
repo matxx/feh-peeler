@@ -1,6 +1,7 @@
 <template>
-  <AppSpriteSheetsMjolnir_Common
+  <AppSpriteSheet
     v-if="frame"
+    sheet="Mjolnir_Common"
     :frame="frame"
     :width="computedWidth"
     :height="computedHeight"

@@ -1,3 +1,7 @@
+import type { SPRITE_SHEETS } from '~/assets/sprite-sheets'
+
+export type SpriteSheetName = keyof typeof SPRITE_SHEETS
+
 export interface SpriteFrame {
   name: string
   x: number

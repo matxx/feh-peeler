@@ -1,50 +1,54 @@
-[
-  {
-    "name": "Icon_Majestic.png",
-    "x": 223,
-    "y": 267,
-    "width": 74,
-    "height": 74,
-    "rotated": false,
-    "sourceWidth": 90,
-    "sourceHeight": 90,
-    "trimLeft": 8,
-    "trimTop": 8
-  },
-  {
-    "name": "Icon_MajesticPlayer.png",
-    "x": 1,
-    "y": 267,
-    "width": 220,
-    "height": 238,
-    "rotated": false,
-    "sourceWidth": 220,
-    "sourceHeight": 240,
-    "trimLeft": 0,
-    "trimTop": 1
-  },
-  {
-    "name": "Icon_Majestic_L.png",
-    "x": 1,
-    "y": 1,
-    "width": 266,
-    "height": 264,
-    "rotated": false,
-    "sourceWidth": 300,
-    "sourceHeight": 300,
-    "trimLeft": 17,
-    "trimTop": 18
-  },
-  {
-    "name": "Icon_Majestic_S.png",
-    "x": 223,
-    "y": 343,
-    "width": 46,
-    "height": 48,
-    "rotated": true,
-    "sourceWidth": 56,
-    "sourceHeight": 56,
-    "trimLeft": 6,
-    "trimTop": 4
-  }
-]
+{
+  "width": 298,
+  "height": 506,
+  "frames": [
+    {
+      "name": "Icon_Majestic.png",
+      "x": 223,
+      "y": 267,
+      "width": 74,
+      "height": 74,
+      "rotated": false,
+      "sourceWidth": 90,
+      "sourceHeight": 90,
+      "trimLeft": 8,
+      "trimTop": 8
+    },
+    {
+      "name": "Icon_MajesticPlayer.png",
+      "x": 1,
+      "y": 267,
+      "width": 220,
+      "height": 238,
+      "rotated": false,
+      "sourceWidth": 220,
+      "sourceHeight": 240,
+      "trimLeft": 0,
+      "trimTop": 1
+    },
+    {
+      "name": "Icon_Majestic_L.png",
+      "x": 1,
+      "y": 1,
+      "width": 266,
+      "height": 264,
+      "rotated": false,
+      "sourceWidth": 300,
+      "sourceHeight": 300,
+      "trimLeft": 17,
+      "trimTop": 18
+    },
+    {
+      "name": "Icon_Majestic_S.png",
+      "x": 223,
+      "y": 343,
+      "width": 46,
+      "height": 48,
+      "rotated": true,
+      "sourceWidth": 56,
+      "sourceHeight": 56,
+      "trimLeft": 6,
+      "trimTop": 4
+    }
+  ]
+}

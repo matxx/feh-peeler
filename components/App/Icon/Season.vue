@@ -1,5 +1,6 @@
 <template>
-  <AppSpriteSheetsBlessing
+  <AppSpriteSheet
+    sheet="Blessing"
     :frame="frame"
     :width="computedWidth"
     :height="computedHeight"

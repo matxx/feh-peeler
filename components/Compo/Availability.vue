@@ -9,21 +9,24 @@
       >
         <template #kind>
           <template v-if="isGenericPool">
-            <AppSpriteSheetsItem
+            <AppSpriteSheet
+              sheet="Item"
               frame="Icon_Orb_L.png"
               :size="imageSize"
               :class="cssClasses"
             />
           </template>
           <template v-if="isSpecialPool">
-            <AppSpriteSheetsSummon_Category
+            <AppSpriteSheet
+              sheet="Summon_Category"
               frame="Icon_Summon_Category_01.png"
               :size="imageSize"
               :class="cssClasses"
             />
           </template>
           <template v-if="isHeroicGrails">
-            <AppSpriteSheetsItem
+            <AppSpriteSheet
+              sheet="Item"
               frame="Icon_HeroHolyGrail_L.png"
               :size="imageSize"
               :class="cssClasses"
