@@ -180,6 +180,11 @@ export interface IUnit extends IUnitData {
   sortableMoveType: number
   sortableElement: number
   sortableVersion: string
+
+  // known games, sorted by icon index
+  gamesSorted: string[]
+  sortableGameMin: number
+  sortableGameMax: number
 }
 
 export interface IUnitWithAvailability extends IUnit {

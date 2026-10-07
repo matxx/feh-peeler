@@ -42,7 +42,7 @@ export interface IFilters {
   name: string | null
 
   themes: UnitTheme[]
-  games: string[]
+  games: Set<number> // icon indexes of games
   genders: Gender[]
   books: number[]
 
@@ -77,7 +77,7 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   name: null,
 
   themes: [],
-  games: [],
+  games: new Set(),
   genders: [],
   books: [],
 

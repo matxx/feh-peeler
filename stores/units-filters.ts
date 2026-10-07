@@ -3,7 +3,6 @@ import some from 'lodash-es/some'
 import every from 'lodash-es/every'
 import filter from 'lodash-es/filter'
 import orderBy from 'lodash-es/orderBy'
-import intersection from 'lodash-es/intersection'
 
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 
@@ -43,14 +42,17 @@ import {
   SORT_STAT_DEF,
   SORT_STAT_RES,
   SORT_ELEMENT,
+  SORT_GAME,
   SORT_THEME,
   SORT_OWNED,
   SORT_NOTHING,
+  DESC,
   createEmptySorters,
   type ISorter,
   type ISorters,
 } from '~/utils/types/units-sorters'
 import { SORTED_MOVE_TYPES_INDEXES } from '~/utils/types/moves'
+import { GAME_ICON_INDEXES } from '~/utils/types/games'
 import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
 import { objectEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
@@ -248,7 +250,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     () =>
       filters.value.books.length > 0 ||
       filters.value.themes.length > 0 ||
-      filters.value.games.length > 0 ||
+      filters.value.games.size > 0 ||
       filters.value.genders.length > 0 ||
       filters.value.traits.size > 0 ||
       filters.value.moves.size > 0 ||
@@ -348,9 +350,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
-        filters.value.games.length === 0
+        filters.value.games.size === 0
           ? true
-          : intersection(filters.value.games, u.games).length > 0,
+          : some(u.gamesSorted, (game) =>
+              filters.value.games.has(GAME_ICON_INDEXES[game]!),
+            ),
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
@@ -438,7 +442,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
   function sort(units: IUnit[], sorters: ISorters) {
     return orderBy(
       units,
-      sorters.fields.map((field) => {
+      sorters.fields.map((field, index) => {
         switch (field) {
           case SORT_NAME:
             return (unit: IUnit) => unit.nameForSorting
@@ -446,6 +450,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
             return (unit: IUnit) => unit.sortableVersion
           case SORT_ELEMENT:
             return (unit: IUnit) => unit.sortableElement
+          case SORT_GAME:
+            // units without known game are last in both orders
+            return sorters.orders[index] === DESC
+              ? (unit: IUnit) => unit.sortableGameMax
+              : (unit: IUnit) => unit.sortableGameMin
           case SORT_RATING:
             return (unit: IUnit) =>
               storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating || RATING_0

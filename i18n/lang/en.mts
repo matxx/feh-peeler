@@ -534,6 +534,7 @@ export default () => ({
     filters: {
       resetFilters: 'Reset filters',
       headers: {
+        game: 'Game',
         stats: 'Stats',
         version: 'Version',
       },
