@@ -358,6 +358,7 @@ export default () => ({
       index: 'Home',
       assets: 'Assets',
       'sprite-sheets': 'Sprite Sheets',
+      'sprite-sheets-nested': 'Sprite Sheet (Nested)',
       'skills-tree': 'Skills Tree',
 
       units: 'Units',

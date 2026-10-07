@@ -182,6 +182,10 @@ export default defineNuxtConfig({
         // fr: '/sprite-sheets',
         en: '/sprite-sheets',
       },
+      'sprite-sheets-nested': {
+        // fr: '/sprite-sheets-nested',
+        en: '/sprite-sheets-nested',
+      },
 
       units: {
         // fr: '/unites',

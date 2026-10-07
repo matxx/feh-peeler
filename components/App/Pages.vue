@@ -75,6 +75,7 @@ const { xs } = useDisplay()
 const devLinks = [
   { link: 'assets' },
   { link: 'sprite-sheets' },
+  { link: 'sprite-sheets-nested' },
   { link: 'skills-tree' },
 ]
 
