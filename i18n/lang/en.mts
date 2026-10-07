@@ -792,6 +792,8 @@ export default () => ({
             A: 'Adult',
             Y: 'Young',
 
+            D: 'Defense',
+
             SoV: 'Shadow of Valentia (refers to the Fire Emblem game released in 2017)',
             'FE{N}': "Refers to the {'{N}'}-th Fire Emblem game",
           },

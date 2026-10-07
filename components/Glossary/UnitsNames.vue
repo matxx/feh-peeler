@@ -174,7 +174,7 @@ const prefixesOther = other.map((prefix) => ({
   text: t(`misc.glossary.unitsNames.prefix.other.${prefix}`),
 }))
 
-const suffixes = ['M', 'F', 'A', 'Y', 'SoV', 'FE{N}']
+const suffixes = ['M', 'F', 'A', 'Y', 'D', 'SoV', 'FE{N}']
 
 const suffixesItems = suffixes.map((suffix) => ({
   key: suffix,
