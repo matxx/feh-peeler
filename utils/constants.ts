@@ -1,3 +1,5 @@
+import type { InjectionKey } from 'vue'
+
 export const GRID_COLUMNS_COUNT = 12
 
 export const ACCEPTED_FILE_TYPES = [
@@ -33,3 +35,9 @@ export const ITEMS_PER_PAGE_OPTIONS = [
   { value: 50, title: '50' },
   { value: 100, title: '100' },
 ]
+
+// provided by AppSpriteSheetGrid so that the nested AppSpriteSheet keeps the
+// transparent margins trimmed off its frame, and its grid cells stay aligned
+export const SPRITE_SHEET_UNTRIMMED: InjectionKey<boolean> = Symbol(
+  'spriteSheetUntrimmed',
+)

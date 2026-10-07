@@ -5,7 +5,11 @@
     "y": 361,
     "width": 270,
     "height": 270,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 270,
+    "sourceHeight": 270,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Error_L.png",
@@ -13,7 +17,11 @@
     "y": 361,
     "width": 640,
     "height": 642,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 800,
+    "sourceHeight": 800,
+    "trimLeft": 88,
+    "trimTop": 93
   },
   {
     "name": "Frm_Ribbon.png",
@@ -21,7 +29,11 @@
     "y": 1,
     "width": 900,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 900,
+    "sourceHeight": 180,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Frm_Ribbon_Fes.png",
@@ -29,7 +41,11 @@
     "y": 183,
     "width": 898,
     "height": 176,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 900,
+    "sourceHeight": 180,
+    "trimLeft": 1,
+    "trimTop": 4
   },
   {
     "name": "Stone_B.png",
@@ -37,7 +53,11 @@
     "y": 633,
     "width": 140,
     "height": 140,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 140,
+    "sourceHeight": 140,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Stone_G.png",
@@ -45,7 +65,11 @@
     "y": 633,
     "width": 140,
     "height": 140,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 140,
+    "sourceHeight": 140,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Stone_R.png",
@@ -53,7 +77,11 @@
     "y": 775,
     "width": 140,
     "height": 140,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 140,
+    "sourceHeight": 140,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Stone_W.png",
@@ -61,6 +89,10 @@
     "y": 775,
     "width": 140,
     "height": 140,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 140,
+    "sourceHeight": 140,
+    "trimLeft": 0,
+    "trimTop": 0
   }
 ]

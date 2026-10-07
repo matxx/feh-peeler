@@ -5,7 +5,11 @@
     "y": 1067,
     "width": 130,
     "height": 220,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 140,
+    "sourceHeight": 230,
+    "trimLeft": 6,
+    "trimTop": 4
   },
   {
     "name": "Arrow2_L.1.png",
@@ -13,7 +17,11 @@
     "y": 645,
     "width": 140,
     "height": 230,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 140,
+    "sourceHeight": 230,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Arrow2_R.0.png",
@@ -21,7 +29,11 @@
     "y": 1821,
     "width": 130,
     "height": 220,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 140,
+    "sourceHeight": 230,
+    "trimLeft": 5,
+    "trimTop": 4
   },
   {
     "name": "Arrow2_R.1.png",
@@ -29,7 +41,11 @@
     "y": 645,
     "width": 140,
     "height": 230,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 140,
+    "sourceHeight": 230,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Arrow3_L.0.png",
@@ -37,7 +53,11 @@
     "y": 985,
     "width": 94,
     "height": 160,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 96,
+    "sourceHeight": 160,
+    "trimLeft": 2,
+    "trimTop": 0
   },
   {
     "name": "Arrow3_L.1.png",
@@ -45,7 +65,11 @@
     "y": 865,
     "width": 94,
     "height": 160,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 160,
+    "trimLeft": 2,
+    "trimTop": 0
   },
   {
     "name": "Arrow3_R.0.png",
@@ -53,7 +77,11 @@
     "y": 847,
     "width": 92,
     "height": 160,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 160,
+    "trimLeft": 4,
+    "trimTop": 0
   },
   {
     "name": "Arrow3_R.1.png",
@@ -61,7 +89,11 @@
     "y": 1027,
     "width": 92,
     "height": 160,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 160,
+    "trimLeft": 4,
+    "trimTop": 0
   },
   {
     "name": "Arrow_L.0.png",
@@ -69,7 +101,11 @@
     "y": 1789,
     "width": 104,
     "height": 162,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 108,
+    "sourceHeight": 164,
+    "trimLeft": 4,
+    "trimTop": 2
   },
   {
     "name": "Arrow_L.1.png",
@@ -77,7 +113,11 @@
     "y": 827,
     "width": 104,
     "height": 162,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 108,
+    "sourceHeight": 164,
+    "trimLeft": 4,
+    "trimTop": 2
   },
   {
     "name": "Arrow_R.0.png",
@@ -85,7 +125,11 @@
     "y": 827,
     "width": 104,
     "height": 162,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 108,
+    "sourceHeight": 164,
+    "trimLeft": 4,
+    "trimTop": 2
   },
   {
     "name": "Arrow_R.1.png",
@@ -93,7 +137,11 @@
     "y": 967,
     "width": 104,
     "height": 162,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 108,
+    "sourceHeight": 164,
+    "trimLeft": 4,
+    "trimTop": 2
   },
   {
     "name": "Btn_Appeal.0.png",
@@ -101,7 +149,11 @@
     "y": 645,
     "width": 218,
     "height": 218,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Btn_Appeal.1.png",
@@ -109,7 +161,11 @@
     "y": 1,
     "width": 218,
     "height": 218,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Btn_EditSkillSet.0.png",
@@ -117,7 +173,11 @@
     "y": 1471,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_EditSkillSet.1.png",
@@ -125,7 +185,11 @@
     "y": 1471,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_EditTeams.0.png",
@@ -133,7 +197,11 @@
     "y": 645,
     "width": 178,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_EditTeams.1.png",
@@ -141,7 +209,11 @@
     "y": 435,
     "width": 178,
     "height": 180,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_FullView.0.png",
@@ -149,7 +221,11 @@
     "y": 1009,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_FullView.1.png",
@@ -157,7 +233,11 @@
     "y": 1155,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_LoadTroop.0.png",
@@ -165,7 +245,11 @@
     "y": 1301,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_LoadTroop.1.png",
@@ -173,7 +257,11 @@
     "y": 1301,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Lock.0.png",
@@ -181,7 +269,11 @@
     "y": 1447,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Lock.1.png",
@@ -189,7 +281,11 @@
     "y": 1447,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Lock.2.png",
@@ -197,7 +293,11 @@
     "y": 1593,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Lock_Pink.0.png",
@@ -205,7 +305,11 @@
     "y": 1593,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Lock_Pink.1.png",
@@ -213,7 +317,11 @@
     "y": 1739,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Map.0.png",
@@ -221,7 +329,11 @@
     "y": 615,
     "width": 178,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_Map.1.png",
@@ -229,7 +341,11 @@
     "y": 1625,
     "width": 178,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_Mission.0.png",
@@ -237,7 +353,11 @@
     "y": 1807,
     "width": 178,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_Mission.1.png",
@@ -245,7 +365,11 @@
     "y": 1289,
     "width": 178,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_PairTalk.0.png",
@@ -253,7 +377,11 @@
     "y": 1739,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_PairTalk.1.png",
@@ -261,7 +389,11 @@
     "y": 1885,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Priority.0.png",
@@ -269,7 +401,11 @@
     "y": 1885,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Priority.1.png",
@@ -277,7 +413,11 @@
     "y": 1039,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Priority.2.png",
@@ -285,7 +425,11 @@
     "y": 1073,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_Priority.3.png",
@@ -293,7 +437,11 @@
     "y": 1081,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_SelectTroop.0.png",
@@ -301,7 +449,11 @@
     "y": 1227,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_SelectTroop.1.png",
@@ -309,7 +461,11 @@
     "y": 1219,
     "width": 144,
     "height": 144,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 148,
+    "sourceHeight": 148,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Btn_SkillLock.0.png",
@@ -317,7 +473,11 @@
     "y": 615,
     "width": 96,
     "height": 96,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 96,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Btn_SkillLock.1.png",
@@ -325,7 +485,11 @@
     "y": 713,
     "width": 96,
     "height": 96,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 96,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Btn_SkillSet.0.png",
@@ -333,7 +497,11 @@
     "y": 797,
     "width": 178,
     "height": 180,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_SkillSet.1.png",
@@ -341,7 +509,11 @@
     "y": 787,
     "width": 178,
     "height": 180,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 190,
+    "sourceHeight": 190,
+    "trimLeft": 8,
+    "trimTop": 10
   },
   {
     "name": "Btn_SkillUnlock.0.png",
@@ -349,7 +521,11 @@
     "y": 811,
     "width": 96,
     "height": 96,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 96,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Btn_SkillUnlock.1.png",
@@ -357,7 +533,11 @@
     "y": 909,
     "width": 96,
     "height": 96,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 96,
+    "sourceHeight": 96,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Cursor.png",
@@ -365,7 +545,11 @@
     "y": 865,
     "width": 200,
     "height": 200,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 200,
+    "sourceHeight": 200,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Cursor_Shine_Yellow.png",
@@ -373,7 +557,11 @@
     "y": 645,
     "width": 200,
     "height": 200,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 200,
+    "sourceHeight": 200,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Empty.png",
@@ -381,7 +569,11 @@
     "y": 1617,
     "width": 166,
     "height": 166,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 180,
+    "sourceHeight": 180,
+    "trimLeft": 7,
+    "trimTop": 7
   },
   {
     "name": "Frm_Attribute.png",
@@ -389,7 +581,11 @@
     "y": 787,
     "width": 268,
     "height": 38,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 268,
+    "sourceHeight": 38,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Frm_Lock.png",
@@ -397,7 +593,11 @@
     "y": 1,
     "width": 512,
     "height": 46,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 516,
+    "sourceHeight": 48,
+    "trimLeft": 2,
+    "trimTop": 1
   },
   {
     "name": "Frm_SkillLock.png",
@@ -405,7 +605,11 @@
     "y": 1369,
     "width": 254,
     "height": 74,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 260,
+    "sourceHeight": 80,
+    "trimLeft": 3,
+    "trimTop": 3
   },
   {
     "name": "Icon_1.png",
@@ -413,7 +617,11 @@
     "y": 1377,
     "width": 68,
     "height": 68,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 70,
+    "sourceHeight": 70,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Icon_2.png",
@@ -421,7 +629,11 @@
     "y": 1947,
     "width": 68,
     "height": 68,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 70,
+    "sourceHeight": 70,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Icon_3.png",
@@ -429,7 +641,11 @@
     "y": 1951,
     "width": 68,
     "height": 68,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 70,
+    "sourceHeight": 70,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Icon_Accessory.png",
@@ -437,7 +653,11 @@
     "y": 221,
     "width": 220,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 224,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Accessory_Avatar.png",
@@ -445,7 +665,11 @@
     "y": 1871,
     "width": 68,
     "height": 68,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 68,
+    "sourceHeight": 68,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Accessory_L.png",
@@ -453,7 +677,11 @@
     "y": 1067,
     "width": 300,
     "height": 72,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 304,
+    "sourceHeight": 76,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Icon_Btn_Lock.0.png",
@@ -461,7 +689,11 @@
     "y": 1727,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.1.png",
@@ -469,7 +701,11 @@
     "y": 1807,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.2.png",
@@ -477,7 +713,11 @@
     "y": 1643,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.3.png",
@@ -485,7 +725,11 @@
     "y": 1887,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.4.png",
@@ -493,7 +737,11 @@
     "y": 1643,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.5.png",
@@ -501,7 +749,11 @@
     "y": 1953,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.6.png",
@@ -509,7 +761,11 @@
     "y": 1727,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.7.png",
@@ -517,7 +773,11 @@
     "y": 1807,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.8.png",
@@ -525,7 +785,11 @@
     "y": 1887,
     "width": 78,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Btn_Lock.9.png",
@@ -533,7 +797,11 @@
     "y": 1365,
     "width": 80,
     "height": 82,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 2,
+    "trimTop": 0
   },
   {
     "name": "Icon_DefenseTeam.png",
@@ -541,7 +809,11 @@
     "y": 933,
     "width": 76,
     "height": 74,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 7,
+    "trimTop": 9
   },
   {
     "name": "Icon_Double_s.png",
@@ -549,7 +821,11 @@
     "y": 515,
     "width": 46,
     "height": 52,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Icon_Exchange.png",
@@ -557,7 +833,11 @@
     "y": 1373,
     "width": 72,
     "height": 72,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 72,
+    "sourceHeight": 72,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Filter.png",
@@ -565,7 +845,11 @@
     "y": 1953,
     "width": 72,
     "height": 66,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 82,
+    "sourceHeight": 82,
+    "trimLeft": 5,
+    "trimTop": 14
   },
   {
     "name": "Icon_Friend.png",
@@ -573,7 +857,11 @@
     "y": 1285,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_GodWear_s.png",
@@ -581,7 +869,11 @@
     "y": 1989,
     "width": 52,
     "height": 50,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 6
   },
   {
     "name": "Icon_Illustration.png",
@@ -589,7 +881,11 @@
     "y": 1219,
     "width": 38,
     "height": 38,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 40,
+    "sourceHeight": 40,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.1.png",
@@ -597,7 +893,11 @@
     "y": 499,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.2.png",
@@ -605,7 +905,11 @@
     "y": 1989,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.3.png",
@@ -613,7 +917,11 @@
     "y": 555,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.4.png",
@@ -621,7 +929,11 @@
     "y": 1989,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.5.png",
@@ -629,7 +941,11 @@
     "y": 1989,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.6.png",
@@ -637,7 +953,11 @@
     "y": 1941,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.7.png",
@@ -645,7 +965,11 @@
     "y": 1941,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Lock.8.png",
@@ -653,7 +977,11 @@
     "y": 1939,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Love.0.png",
@@ -661,7 +989,11 @@
     "y": 1933,
     "width": 52,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Love.1.png",
@@ -669,7 +1001,11 @@
     "y": 1939,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Love.2.png",
@@ -677,7 +1013,11 @@
     "y": 1967,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Love.3.png",
@@ -685,7 +1025,11 @@
     "y": 1967,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_Love.4.png",
@@ -693,7 +1037,11 @@
     "y": 1967,
     "width": 52,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 3,
+    "trimTop": 2
   },
   {
     "name": "Icon_NameSearch.png",
@@ -701,7 +1049,11 @@
     "y": 1365,
     "width": 76,
     "height": 80,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 2
   },
   {
     "name": "Icon_Playback.png",
@@ -709,7 +1061,11 @@
     "y": 1373,
     "width": 62,
     "height": 62,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 80,
+    "sourceHeight": 64,
+    "trimLeft": 10,
+    "trimTop": 1
   },
   {
     "name": "Icon_SkillLock.png",
@@ -717,7 +1073,11 @@
     "y": 1189,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Skill_All.png",
@@ -725,7 +1085,11 @@
     "y": 991,
     "width": 84,
     "height": 80,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 4,
+    "trimTop": 6
   },
   {
     "name": "Icon_Stock.png",
@@ -733,7 +1097,11 @@
     "y": 443,
     "width": 56,
     "height": 54,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Talk.0.png",
@@ -741,7 +1109,11 @@
     "y": 1723,
     "width": 76,
     "height": 74,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 76,
+    "sourceHeight": 76,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Talk.1.png",
@@ -749,7 +1121,11 @@
     "y": 1799,
     "width": 76,
     "height": 74,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 76,
+    "sourceHeight": 76,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Team2Num1.png",
@@ -757,7 +1133,11 @@
     "y": 933,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num10.png",
@@ -765,7 +1145,11 @@
     "y": 1185,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num2.png",
@@ -773,7 +1157,11 @@
     "y": 1073,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num3.png",
@@ -781,7 +1169,11 @@
     "y": 1179,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num4.png",
@@ -789,7 +1181,11 @@
     "y": 1447,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num5.png",
@@ -797,7 +1193,11 @@
     "y": 985,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num6.png",
@@ -805,7 +1205,11 @@
     "y": 979,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num7.png",
@@ -813,7 +1217,11 @@
     "y": 1091,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num8.png",
@@ -821,7 +1229,11 @@
     "y": 1197,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2Num9.png",
@@ -829,7 +1241,11 @@
     "y": 1303,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team2_Default.png",
@@ -837,7 +1253,11 @@
     "y": 1219,
     "width": 34,
     "height": 34,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_Team2_Select.png",
@@ -845,7 +1265,11 @@
     "y": 1875,
     "width": 36,
     "height": 36,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Team3Num1.png",
@@ -853,7 +1277,11 @@
     "y": 1007,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team3Num2.png",
@@ -861,7 +1289,11 @@
     "y": 1085,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team3Num3.png",
@@ -869,7 +1301,11 @@
     "y": 1191,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team3Num4.png",
@@ -877,7 +1313,11 @@
     "y": 1297,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team3Num5.png",
@@ -885,7 +1325,11 @@
     "y": 1113,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team3_Default.png",
@@ -893,7 +1337,11 @@
     "y": 1255,
     "width": 34,
     "height": 34,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_Team3_Select.png",
@@ -901,7 +1349,11 @@
     "y": 1913,
     "width": 36,
     "height": 36,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Team4_Default.png",
@@ -909,7 +1361,11 @@
     "y": 1291,
     "width": 34,
     "height": 34,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Team4_Select.png",
@@ -917,7 +1373,11 @@
     "y": 569,
     "width": 36,
     "height": 36,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Team5_Default.png",
@@ -925,7 +1385,11 @@
     "y": 1327,
     "width": 34,
     "height": 34,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_Team5_Select.png",
@@ -933,7 +1397,11 @@
     "y": 1553,
     "width": 36,
     "height": 36,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_TeamLock.png",
@@ -941,7 +1409,11 @@
     "y": 1285,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_TeamNum1.png",
@@ -949,7 +1421,11 @@
     "y": 1219,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum10.png",
@@ -957,7 +1433,11 @@
     "y": 1325,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum11.png",
@@ -965,7 +1445,11 @@
     "y": 1403,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum12.png",
@@ -973,7 +1457,11 @@
     "y": 1431,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum13.png",
@@ -981,7 +1469,11 @@
     "y": 1447,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum14.png",
@@ -989,7 +1481,11 @@
     "y": 1553,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum15.png",
@@ -997,7 +1493,11 @@
     "y": 1659,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum16.png",
@@ -1005,7 +1505,11 @@
     "y": 1765,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum17.png",
@@ -1013,7 +1517,11 @@
     "y": 1409,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum18.png",
@@ -1021,7 +1529,11 @@
     "y": 1447,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum19.png",
@@ -1029,7 +1541,11 @@
     "y": 1553,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum2.png",
@@ -1037,7 +1553,11 @@
     "y": 1659,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum20.png",
@@ -1045,7 +1565,11 @@
     "y": 1765,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum3.png",
@@ -1053,7 +1577,11 @@
     "y": 1509,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum4.png",
@@ -1061,7 +1589,11 @@
     "y": 1537,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum5.png",
@@ -1069,7 +1601,11 @@
     "y": 1515,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum6.png",
@@ -1077,7 +1613,11 @@
     "y": 1621,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum7.png",
@@ -1085,7 +1625,11 @@
     "y": 1727,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum8.png",
@@ -1093,7 +1637,11 @@
     "y": 1833,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_TeamNum9.png",
@@ -1101,7 +1649,11 @@
     "y": 1621,
     "width": 104,
     "height": 104,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 110,
+    "sourceHeight": 110,
+    "trimLeft": 5,
+    "trimTop": 6
   },
   {
     "name": "Icon_Team_Default.png",
@@ -1109,7 +1661,11 @@
     "y": 1363,
     "width": 34,
     "height": 34,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_Team_Select.png",
@@ -1117,7 +1673,11 @@
     "y": 1951,
     "width": 36,
     "height": 36,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 36,
+    "sourceHeight": 36,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Voice.png",
@@ -1125,7 +1685,11 @@
     "y": 1553,
     "width": 40,
     "height": 38,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 40,
+    "sourceHeight": 40,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Weapon_Blue.png",
@@ -1133,7 +1697,11 @@
     "y": 1871,
     "width": 58,
     "height": 60,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 76,
+    "sourceHeight": 76,
+    "trimLeft": 11,
+    "trimTop": 9
   },
   {
     "name": "Icon_Weapon_Gray.png",
@@ -1141,7 +1709,11 @@
     "y": 1871,
     "width": 64,
     "height": 66,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 76,
+    "sourceHeight": 76,
+    "trimLeft": 8,
+    "trimTop": 6
   },
   {
     "name": "Icon_Weapon_Green.png",
@@ -1149,7 +1721,11 @@
     "y": 1377,
     "width": 70,
     "height": 68,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 76,
+    "sourceHeight": 76,
+    "trimLeft": 4,
+    "trimTop": 2
   },
   {
     "name": "Icon_Weapon_L.png",
@@ -1157,7 +1733,11 @@
     "y": 1,
     "width": 1818,
     "height": 74,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 1824,
+    "sourceHeight": 76,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Icon_Weapon_Red.png",
@@ -1165,7 +1745,11 @@
     "y": 1875,
     "width": 74,
     "height": 74,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 76,
+    "sourceHeight": 76,
+    "trimLeft": 2,
+    "trimTop": 2
   },
   {
     "name": "Img_Arrow.png",
@@ -1173,7 +1757,11 @@
     "y": 1617,
     "width": 170,
     "height": 110,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 170,
+    "sourceHeight": 110,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Img_ArrowBoth.png",
@@ -1181,7 +1769,11 @@
     "y": 1785,
     "width": 160,
     "height": 112,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 160,
+    "sourceHeight": 160,
+    "trimLeft": 0,
+    "trimTop": 24
   },
   {
     "name": "Img_ArrowExchange.png",
@@ -1189,7 +1781,11 @@
     "y": 827,
     "width": 180,
     "height": 156,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 180,
+    "sourceHeight": 160,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "None.png",
@@ -1197,7 +1793,11 @@
     "y": 221,
     "width": 182,
     "height": 212,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 19,
+    "trimTop": 4
   },
   {
     "name": "Unset.png",
@@ -1205,7 +1805,11 @@
     "y": 1617,
     "width": 166,
     "height": 166,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 180,
+    "sourceHeight": 180,
+    "trimLeft": 7,
+    "trimTop": 7
   },
   {
     "name": "Up_Arrow.png",
@@ -1213,7 +1817,11 @@
     "y": 1997,
     "width": 44,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 44,
+    "sourceHeight": 54,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Wdw_Team_Select.2.png",
@@ -1221,7 +1829,11 @@
     "y": 1,
     "width": 1054,
     "height": 258,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 1054,
+    "sourceHeight": 258,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Wdw_Team_Select.3.png",
@@ -1229,7 +1841,11 @@
     "y": 261,
     "width": 1054,
     "height": 190,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 1054,
+    "sourceHeight": 190,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Wdw_Team_Select.png",
@@ -1237,6 +1853,10 @@
     "y": 453,
     "width": 1054,
     "height": 190,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 1054,
+    "sourceHeight": 190,
+    "trimLeft": 0,
+    "trimTop": 0
   }
 ]

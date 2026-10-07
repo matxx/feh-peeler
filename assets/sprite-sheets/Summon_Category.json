@@ -5,7 +5,11 @@
     "y": 429,
     "width": 178,
     "height": 178,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 21
   },
   {
     "name": "Icon_Summon_Category_01.png",
@@ -13,7 +17,11 @@
     "y": 609,
     "width": 178,
     "height": 178,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 21
   },
   {
     "name": "Icon_Summon_Category_02.png",
@@ -21,7 +29,11 @@
     "y": 1,
     "width": 208,
     "height": 212,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 4,
+    "trimTop": 5
   },
   {
     "name": "Icon_Summon_Category_03.png",
@@ -29,7 +41,11 @@
     "y": 215,
     "width": 208,
     "height": 212,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 4,
+    "trimTop": 5
   },
   {
     "name": "Icon_Summon_Category_04.png",
@@ -37,7 +53,11 @@
     "y": 1329,
     "width": 178,
     "height": 176,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 23
   },
   {
     "name": "Icon_Summon_Category_05.png",
@@ -45,7 +65,11 @@
     "y": 1507,
     "width": 178,
     "height": 176,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 23
   },
   {
     "name": "Icon_Summon_Category_06.png",
@@ -53,7 +77,11 @@
     "y": 789,
     "width": 178,
     "height": 178,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 21
   },
   {
     "name": "Icon_Summon_Category_07.png",
@@ -61,7 +89,11 @@
     "y": 969,
     "width": 178,
     "height": 178,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 21
   },
   {
     "name": "Icon_Summon_Category_08.png",
@@ -69,6 +101,10 @@
     "y": 1149,
     "width": 178,
     "height": 178,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 220,
+    "trimLeft": 23,
+    "trimTop": 21
   }
 ]

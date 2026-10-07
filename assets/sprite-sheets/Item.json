@@ -5,7 +5,11 @@
     "y": 1883,
     "width": 76,
     "height": 72,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 3
   },
   {
     "name": "Icon_ArenaCrown_L.png",
@@ -13,7 +17,11 @@
     "y": 1,
     "width": 300,
     "height": 294,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ArenaMedal.png",
@@ -21,7 +29,11 @@
     "y": 261,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ArenaMedal_L.png",
@@ -29,7 +41,11 @@
     "y": 1203,
     "width": 292,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_ArenaSword.png",
@@ -37,7 +53,11 @@
     "y": 1127,
     "width": 82,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 5,
+    "trimTop": 0
   },
   {
     "name": "Icon_ArenaSword_L.png",
@@ -45,7 +65,11 @@
     "y": 1505,
     "width": 264,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 21,
+    "trimTop": 0
   },
   {
     "name": "Icon_Blessing_Earth.png",
@@ -53,7 +77,11 @@
     "y": 445,
     "width": 90,
     "height": 88,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Blessing_Earth_L.png",
@@ -61,7 +89,11 @@
     "y": 1505,
     "width": 300,
     "height": 288,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Blessing_Fire.png",
@@ -69,7 +101,11 @@
     "y": 353,
     "width": 90,
     "height": 88,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Blessing_Fire_L.png",
@@ -77,7 +113,11 @@
     "y": 1,
     "width": 300,
     "height": 288,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Blessing_Water.png",
@@ -85,7 +125,11 @@
     "y": 1885,
     "width": 90,
     "height": 88,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Blessing_Water_L.png",
@@ -93,7 +137,11 @@
     "y": 1203,
     "width": 300,
     "height": 288,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_Blessing_Wind.png",
@@ -101,7 +149,11 @@
     "y": 443,
     "width": 90,
     "height": 88,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Blessing_Wind_L.png",
@@ -109,7 +161,11 @@
     "y": 1505,
     "width": 300,
     "height": 288,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_CrystalB.png",
@@ -117,7 +173,11 @@
     "y": 1403,
     "width": 68,
     "height": 80,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 11,
+    "trimTop": 5
   },
   {
     "name": "Icon_CrystalBL.png",
@@ -125,7 +185,11 @@
     "y": 1895,
     "width": 90,
     "height": 84,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 3
   },
   {
     "name": "Icon_CrystalBL_L.png",
@@ -133,7 +197,11 @@
     "y": 299,
     "width": 300,
     "height": 272,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 14
   },
   {
     "name": "Icon_CrystalB_L.png",
@@ -141,7 +209,11 @@
     "y": 1807,
     "width": 218,
     "height": 258,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 43,
+    "trimTop": 21
   },
   {
     "name": "Icon_CrystalG.png",
@@ -149,7 +221,11 @@
     "y": 1485,
     "width": 68,
     "height": 80,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 11,
+    "trimTop": 5
   },
   {
     "name": "Icon_CrystalGL.png",
@@ -157,7 +233,11 @@
     "y": 1219,
     "width": 90,
     "height": 82,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 4
   },
   {
     "name": "Icon_CrystalGL_L.png",
@@ -165,7 +245,11 @@
     "y": 857,
     "width": 300,
     "height": 268,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 16
   },
   {
     "name": "Icon_CrystalG_L.png",
@@ -173,7 +257,11 @@
     "y": 1807,
     "width": 218,
     "height": 258,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 43,
+    "trimTop": 21
   },
   {
     "name": "Icon_CrystalR.png",
@@ -181,7 +269,11 @@
     "y": 1567,
     "width": 68,
     "height": 80,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 11,
+    "trimTop": 5
   },
   {
     "name": "Icon_CrystalRL.png",
@@ -189,7 +281,11 @@
     "y": 717,
     "width": 90,
     "height": 84,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 3
   },
   {
     "name": "Icon_CrystalRL_L.png",
@@ -197,7 +293,11 @@
     "y": 1127,
     "width": 300,
     "height": 272,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 14
   },
   {
     "name": "Icon_CrystalR_L.png",
@@ -205,7 +305,11 @@
     "y": 1807,
     "width": 218,
     "height": 258,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 43,
+    "trimTop": 21
   },
   {
     "name": "Icon_CrystalW.png",
@@ -213,7 +317,11 @@
     "y": 1649,
     "width": 68,
     "height": 80,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 11,
+    "trimTop": 5
   },
   {
     "name": "Icon_CrystalWL.png",
@@ -221,7 +329,11 @@
     "y": 1311,
     "width": 90,
     "height": 82,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 4
   },
   {
     "name": "Icon_CrystalWL_L.png",
@@ -229,7 +341,11 @@
     "y": 579,
     "width": 300,
     "height": 268,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 16
   },
   {
     "name": "Icon_CrystalW_L.png",
@@ -237,7 +353,11 @@
     "y": 1807,
     "width": 218,
     "height": 258,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 43,
+    "trimTop": 21
   },
   {
     "name": "Icon_CrystalY.png",
@@ -245,7 +365,11 @@
     "y": 1731,
     "width": 68,
     "height": 80,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 11,
+    "trimTop": 5
   },
   {
     "name": "Icon_CrystalYL.png",
@@ -253,7 +377,11 @@
     "y": 1803,
     "width": 90,
     "height": 82,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 4
   },
   {
     "name": "Icon_CrystalYL_L.png",
@@ -261,7 +389,11 @@
     "y": 881,
     "width": 300,
     "height": 268,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 16
   },
   {
     "name": "Icon_CrystalY_L.png",
@@ -269,7 +401,11 @@
     "y": 1,
     "width": 218,
     "height": 258,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 43,
+    "trimTop": 21
   },
   {
     "name": "Icon_DefenderSheild_Item.png",
@@ -277,7 +413,11 @@
     "y": 1687,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_DefenderSheild_Item_L.png",
@@ -285,7 +425,11 @@
     "y": 303,
     "width": 298,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Feather.png",
@@ -293,7 +437,11 @@
     "y": 1701,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Feather_L.png",
@@ -301,7 +449,11 @@
     "y": 1,
     "width": 300,
     "height": 296,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 4
   },
   {
     "name": "Icon_GodRefineDrop.png",
@@ -309,7 +461,11 @@
     "y": 1401,
     "width": 90,
     "height": 88,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_GodRefineDrop_L.png",
@@ -317,7 +473,11 @@
     "y": 871,
     "width": 300,
     "height": 288,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 9
   },
   {
     "name": "Icon_HeavenlyShootingStar.png",
@@ -325,7 +485,11 @@
     "y": 1801,
     "width": 88,
     "height": 84,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_HeavenlyShootingStar_L.png",
@@ -333,7 +497,11 @@
     "y": 1411,
     "width": 296,
     "height": 274,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 2,
+    "trimTop": 13
   },
   {
     "name": "Icon_HeroHolyGrail.png",
@@ -341,7 +509,11 @@
     "y": 1887,
     "width": 74,
     "height": 78,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 6
   },
   {
     "name": "Icon_HeroHolyGrail_L.png",
@@ -349,7 +521,11 @@
     "y": 1173,
     "width": 246,
     "height": 260,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 27,
+    "trimTop": 20
   },
   {
     "name": "Icon_HolyCoin.png",
@@ -357,7 +533,11 @@
     "y": 353,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_HolyCoin_L.png",
@@ -365,7 +545,11 @@
     "y": 1,
     "width": 300,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_IdolSoul.png",
@@ -373,7 +557,11 @@
     "y": 1895,
     "width": 80,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_IdolSoul_L.png",
@@ -381,7 +569,11 @@
     "y": 1151,
     "width": 258,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 26,
+    "trimTop": 0
   },
   {
     "name": "Icon_IndividualityFruit.png",
@@ -389,7 +581,11 @@
     "y": 1713,
     "width": 88,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 2,
+    "trimTop": 0
   },
   {
     "name": "Icon_IndividualityFruit_L.png",
@@ -397,7 +593,11 @@
     "y": 573,
     "width": 294,
     "height": 296,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 3,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalB.png",
@@ -405,7 +605,11 @@
     "y": 1401,
     "width": 76,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalBL.png",
@@ -413,7 +617,11 @@
     "y": 1713,
     "width": 86,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalBL_L.png",
@@ -421,7 +629,11 @@
     "y": 297,
     "width": 280,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalB_L.png",
@@ -429,7 +641,11 @@
     "y": 879,
     "width": 246,
     "height": 292,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 23,
+    "trimTop": 5
   },
   {
     "name": "Icon_MedalG.png",
@@ -437,7 +653,11 @@
     "y": 1801,
     "width": 76,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalGL.png",
@@ -445,7 +665,11 @@
     "y": 1803,
     "width": 86,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalGL_L.png",
@@ -453,7 +677,11 @@
     "y": 295,
     "width": 280,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalG_L.png",
@@ -461,7 +689,11 @@
     "y": 877,
     "width": 246,
     "height": 292,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 23,
+    "trimTop": 5
   },
   {
     "name": "Icon_MedalR.png",
@@ -469,7 +701,11 @@
     "y": 1729,
     "width": 76,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalRL.png",
@@ -477,7 +713,11 @@
     "y": 1713,
     "width": 86,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalRL_L.png",
@@ -485,7 +725,11 @@
     "y": 293,
     "width": 280,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalR_L.png",
@@ -493,7 +737,11 @@
     "y": 1171,
     "width": 246,
     "height": 292,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 23,
+    "trimTop": 5
   },
   {
     "name": "Icon_MedalSecret.png",
@@ -501,7 +749,11 @@
     "y": 261,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalSecret_L.png",
@@ -509,7 +761,11 @@
     "y": 905,
     "width": 298,
     "height": 296,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 4
   },
   {
     "name": "Icon_MedalW.png",
@@ -517,7 +773,11 @@
     "y": 1729,
     "width": 76,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalWL.png",
@@ -525,7 +785,11 @@
     "y": 625,
     "width": 86,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalWL_L.png",
@@ -533,7 +797,11 @@
     "y": 291,
     "width": 280,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MedalW_L.png",
@@ -541,7 +809,11 @@
     "y": 1465,
     "width": 246,
     "height": 292,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 23,
+    "trimTop": 5
   },
   {
     "name": "Icon_OccupationSpear.png",
@@ -549,7 +821,11 @@
     "y": 1887,
     "width": 80,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_OccupationSpear_L.png",
@@ -557,7 +833,11 @@
     "y": 577,
     "width": 262,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 22,
+    "trimTop": 0
   },
   {
     "name": "Icon_Orb.png",
@@ -565,7 +845,11 @@
     "y": 1687,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Orb_L.png",
@@ -573,7 +857,11 @@
     "y": 605,
     "width": 298,
     "height": 298,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 1,
+    "trimTop": 1
   },
   {
     "name": "Icon_Phoenix.png",
@@ -581,7 +869,11 @@
     "y": 1793,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Phoenix_L.png",
@@ -589,7 +881,11 @@
     "y": 1,
     "width": 300,
     "height": 292,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 7
   },
   {
     "name": "Icon_RefineStone.png",
@@ -597,7 +893,11 @@
     "y": 1887,
     "width": 74,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 0
   },
   {
     "name": "Icon_RefineStone_L.png",
@@ -605,7 +905,11 @@
     "y": 1429,
     "width": 240,
     "height": 298,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 32,
+    "trimTop": 1
   },
   {
     "name": "Icon_Shadow_Ax.png",
@@ -613,7 +917,11 @@
     "y": 1893,
     "width": 86,
     "height": 84,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 2,
+    "trimTop": 6
   },
   {
     "name": "Icon_Shadow_Ax_L.png",
@@ -621,7 +929,11 @@
     "y": 1421,
     "width": 288,
     "height": 278,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 6,
+    "trimTop": 22
   },
   {
     "name": "Icon_SkyCastleDrop.png",
@@ -629,7 +941,11 @@
     "y": 1401,
     "width": 90,
     "height": 88,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 2
   },
   {
     "name": "Icon_SkyCastleDrop_L.png",
@@ -637,7 +953,11 @@
     "y": 1,
     "width": 300,
     "height": 290,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 0,
+    "trimTop": 8
   },
   {
     "name": "Icon_SkyCastleStone.png",
@@ -645,7 +965,11 @@
     "y": 1731,
     "width": 74,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleStone_L.png",
@@ -653,7 +977,11 @@
     "y": 575,
     "width": 242,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 31,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleThrone0.png",
@@ -661,7 +989,11 @@
     "y": 1807,
     "width": 74,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleThrone0_L.png",
@@ -669,7 +1001,11 @@
     "y": 573,
     "width": 244,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 27,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleThrone1.png",
@@ -677,7 +1013,11 @@
     "y": 1887,
     "width": 76,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 7,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleThrone1_L.png",
@@ -685,7 +1025,11 @@
     "y": 875,
     "width": 250,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 25,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleThrone2.png",
@@ -693,7 +1037,11 @@
     "y": 1807,
     "width": 78,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_SkyCastleThrone2_L.png",
@@ -701,7 +1049,11 @@
     "y": 1127,
     "width": 250,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 25,
+    "trimTop": 0
   },
   {
     "name": "Icon_Stamina.png",
@@ -709,7 +1061,11 @@
     "y": 1807,
     "width": 78,
     "height": 90,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_Stamina_L.png",
@@ -717,7 +1073,11 @@
     "y": 1701,
     "width": 250,
     "height": 300,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 27,
+    "trimTop": 0
   },
   {
     "name": "Icon_VotingFlag.png",
@@ -725,7 +1085,11 @@
     "y": 533,
     "width": 84,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 6,
+    "trimTop": 0
   },
   {
     "name": "Icon_VotingFlag_L.png",
@@ -733,6 +1097,10 @@
     "y": 579,
     "width": 276,
     "height": 300,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 24,
+    "trimTop": 0
   }
 ]

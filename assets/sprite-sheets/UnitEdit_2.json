@@ -5,7 +5,11 @@
     "y": 1,
     "width": 594,
     "height": 316,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 594,
+    "sourceHeight": 316,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Frm_Name_2.png",
@@ -13,7 +17,11 @@
     "y": 481,
     "width": 662,
     "height": 436,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 662,
+    "sourceHeight": 436,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Frm_Name_3.png",
@@ -21,7 +29,11 @@
     "y": 1,
     "width": 852,
     "height": 478,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 900,
+    "sourceHeight": 500,
+    "trimLeft": 24,
+    "trimTop": 11
   },
   {
     "name": "Icon_DoublePlayer.png",
@@ -29,7 +41,11 @@
     "y": 723,
     "width": 220,
     "height": 238,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_GodWear_L.png",
@@ -37,7 +53,11 @@
     "y": 1,
     "width": 128,
     "height": 126,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 128,
+    "sourceHeight": 128,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_PairPlayer.png",
@@ -45,7 +65,11 @@
     "y": 485,
     "width": 220,
     "height": 238,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_RelianceBlank_L.png",
@@ -53,7 +77,11 @@
     "y": 1,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePersonA.png",
@@ -61,7 +89,11 @@
     "y": 243,
     "width": 50,
     "height": 52,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 5,
+    "trimTop": 3
   },
   {
     "name": "Icon_ReliancePersonA_L.png",
@@ -69,7 +101,11 @@
     "y": 481,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePersonB.png",
@@ -77,7 +113,11 @@
     "y": 129,
     "width": 44,
     "height": 52,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 8,
+    "trimTop": 5
   },
   {
     "name": "Icon_ReliancePersonB_L.png",
@@ -85,7 +125,11 @@
     "y": 319,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePersonC.png",
@@ -93,7 +137,11 @@
     "y": 803,
     "width": 46,
     "height": 52,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 7,
+    "trimTop": 4
   },
   {
     "name": "Icon_ReliancePersonC_L.png",
@@ -101,7 +149,11 @@
     "y": 319,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePersonS.png",
@@ -109,7 +161,11 @@
     "y": 803,
     "width": 40,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 10,
+    "trimTop": 3
   },
   {
     "name": "Icon_ReliancePersonS_L.png",
@@ -117,7 +173,11 @@
     "y": 319,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePlayerA.png",
@@ -125,7 +185,11 @@
     "y": 887,
     "width": 50,
     "height": 50,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 5,
+    "trimTop": 4
   },
   {
     "name": "Icon_ReliancePlayerA_L.png",
@@ -133,7 +197,11 @@
     "y": 561,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePlayerB.png",
@@ -141,7 +209,11 @@
     "y": 887,
     "width": 44,
     "height": 52,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 8,
+    "trimTop": 6
   },
   {
     "name": "Icon_ReliancePlayerB_L.png",
@@ -149,7 +221,11 @@
     "y": 561,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePlayerC.png",
@@ -157,7 +233,11 @@
     "y": 243,
     "width": 46,
     "height": 52,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 7,
+    "trimTop": 4
   },
   {
     "name": "Icon_ReliancePlayerC_L.png",
@@ -165,7 +245,11 @@
     "y": 561,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_ReliancePlayerS.png",
@@ -173,7 +257,11 @@
     "y": 887,
     "width": 40,
     "height": 54,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 60,
+    "sourceHeight": 60,
+    "trimLeft": 11,
+    "trimTop": 3
   },
   {
     "name": "Icon_ReliancePlayerS_L.png",
@@ -181,7 +269,11 @@
     "y": 243,
     "width": 220,
     "height": 240,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_TwinWorld.png",
@@ -189,7 +281,11 @@
     "y": 725,
     "width": 220,
     "height": 238,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Star_1.png",
@@ -197,7 +293,11 @@
     "y": 803,
     "width": 82,
     "height": 82,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 86,
+    "sourceHeight": 86,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Star_2.png",
@@ -205,7 +305,11 @@
     "y": 129,
     "width": 82,
     "height": 82,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 86,
+    "sourceHeight": 86,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Star_3.png",
@@ -213,7 +317,11 @@
     "y": 803,
     "width": 82,
     "height": 82,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 86,
+    "sourceHeight": 86,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Star_4.png",
@@ -221,7 +329,11 @@
     "y": 803,
     "width": 82,
     "height": 82,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 86,
+    "sourceHeight": 86,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Star_5.png",
@@ -229,7 +341,11 @@
     "y": 803,
     "width": 82,
     "height": 82,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 86,
+    "sourceHeight": 86,
+    "trimLeft": 4,
+    "trimTop": 4
   },
   {
     "name": "Star_5_Idol.png",
@@ -237,6 +353,10 @@
     "y": 803,
     "width": 82,
     "height": 82,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 86,
+    "sourceHeight": 86,
+    "trimLeft": 4,
+    "trimTop": 4
   }
 ]

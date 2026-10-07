@@ -17,6 +17,10 @@ Dir['assets/sprite-sheets/*.plist'].map do |input_file|
       # Convert "{x,y}" and "{{x,y},{w,h}}" strings into numeric arrays
       # textureRect format: {{x,y},{w,h}}
       rect = config['textureRect'].scan(/\d+/).map(&:to_i)
+      # sprites are trimmed: spriteSourceSize is the untrimmed size and
+      # spriteOffset the offset of the trimmed sprite center from the untrimmed one (y axis pointing up)
+      source_size = config['spriteSourceSize'].scan(/-?\d+/).map(&:to_i)
+      offset = config['spriteOffset'].scan(/-?\d+/).map(&:to_i)
 
       {
         name: name,
@@ -24,7 +28,11 @@ Dir['assets/sprite-sheets/*.plist'].map do |input_file|
         y: rect[1],
         width: rect[2],
         height: rect[3],
-        rotated: config['textureRotated']
+        rotated: config['textureRotated'],
+        sourceWidth: source_size[0],
+        sourceHeight: source_size[1],
+        trimLeft: ((source_size[0] - rect[2]) / 2.0 + offset[0]).round,
+        trimTop: ((source_size[1] - rect[3]) / 2.0 - offset[1]).round
       }
     end
 

@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { numberToPx } from '~/utils/functions/numberToPx'
+import { SPRITE_SHEET_UNTRIMMED } from '~/utils/constants'
 
 /**
  * Displays a single icon from a sprite sheet frame which is itself a grid of icons.
@@ -33,6 +34,9 @@ const props = defineProps<{
   height?: number
   size?: number
 }>()
+
+// frames are trimmed of their transparent margins, which would offset the grid cells
+provide(SPRITE_SHEET_UNTRIMMED, true)
 
 const sheet = useTemplateRef('sheet')
 // natural (untransformed) size of the slot content

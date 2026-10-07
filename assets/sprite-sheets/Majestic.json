@@ -5,7 +5,11 @@
     "y": 267,
     "width": 74,
     "height": 74,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 8,
+    "trimTop": 8
   },
   {
     "name": "Icon_MajesticPlayer.png",
@@ -13,7 +17,11 @@
     "y": 267,
     "width": 220,
     "height": 238,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 1
   },
   {
     "name": "Icon_Majestic_L.png",
@@ -21,7 +29,11 @@
     "y": 1,
     "width": 266,
     "height": 264,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 300,
+    "sourceHeight": 300,
+    "trimLeft": 17,
+    "trimTop": 18
   },
   {
     "name": "Icon_Majestic_S.png",
@@ -29,6 +41,10 @@
     "y": 343,
     "width": 46,
     "height": 48,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 6,
+    "trimTop": 4
   }
 ]

@@ -5,7 +5,11 @@
     "y": 1,
     "width": 90,
     "height": 90,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 90,
+    "sourceHeight": 90,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_FlowerBudPlayer.png",
@@ -13,7 +17,11 @@
     "y": 1,
     "width": 220,
     "height": 240,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MweaponPlayer1.png",
@@ -21,7 +29,11 @@
     "y": 1,
     "width": 220,
     "height": 240,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_MweaponPlayer2.png",
@@ -29,7 +41,11 @@
     "y": 1,
     "width": 220,
     "height": 240,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 220,
+    "sourceHeight": 240,
+    "trimLeft": 0,
+    "trimTop": 0
   },
   {
     "name": "Icon_Mweapon_s1.png",
@@ -37,7 +53,11 @@
     "y": 93,
     "width": 52,
     "height": 50,
-    "rotated": false
+    "rotated": false,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 2,
+    "trimTop": 3
   },
   {
     "name": "Icon_Mweapon_s2.png",
@@ -45,6 +65,10 @@
     "y": 145,
     "width": 52,
     "height": 50,
-    "rotated": true
+    "rotated": true,
+    "sourceWidth": 56,
+    "sourceHeight": 56,
+    "trimLeft": 2,
+    "trimTop": 3
   }
 ]

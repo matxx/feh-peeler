@@ -4,11 +4,11 @@
     class="wrapper"
     :style="style"
   >
-    <div>
+    <div :style="contentWrapperStyle">
       <AppSpriteSheetContent
         :sprite="sprite"
-        :width="resolvedWidth"
-        :height="resolvedHeight"
+        :width="contentWidth"
+        :height="contentHeight"
         :img="img"
       />
     </div>
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import type { SpriteFrame } from '~/utils/types/spriteSheets'
 import { numberToPx } from '~/utils/functions/numberToPx'
+import { SPRITE_SHEET_UNTRIMMED } from '~/utils/constants'
 
 const props = defineProps<{
   spriteSheet: SpriteFrame[]
@@ -33,24 +34,67 @@ const sprite = computed(() => {
   return props.spriteSheet.find((f) => f.name === props.name)
 })
 
+const untrimmed = inject(SPRITE_SHEET_UNTRIMMED, false)
+
+const frameWidth = computed(() =>
+  untrimmed ? sprite.value?.sourceWidth : sprite.value?.width,
+)
+const frameHeight = computed(() =>
+  untrimmed ? sprite.value?.sourceHeight : sprite.value?.height,
+)
+
 const resolvedWidth = computed(() => {
   if (props.size) return props.size
   if (props.width) return props.width
-  if (props.height && sprite.value) {
-    const ratio = sprite.value.width / sprite.value.height
+  if (props.height && frameWidth.value && frameHeight.value) {
+    const ratio = frameWidth.value / frameHeight.value
     return props.height * ratio
   }
-  return sprite.value?.width
+  return frameWidth.value
 })
 
 const resolvedHeight = computed(() => {
   if (props.size) return props.size
   if (props.height) return props.height
-  if (props.width && sprite.value) {
-    const ratio = sprite.value.height / sprite.value.width
+  if (props.width && frameWidth.value && frameHeight.value) {
+    const ratio = frameHeight.value / frameWidth.value
     return props.width * ratio
   }
-  return sprite.value?.height
+  return frameHeight.value
+})
+
+const scaleX = computed(() =>
+  resolvedWidth.value && frameWidth.value
+    ? resolvedWidth.value / frameWidth.value
+    : 1,
+)
+const scaleY = computed(() =>
+  resolvedHeight.value && frameHeight.value
+    ? resolvedHeight.value / frameHeight.value
+    : 1,
+)
+
+const contentWidth = computed(() =>
+  sprite.value ? sprite.value.width * scaleX.value : undefined,
+)
+const contentHeight = computed(() =>
+  sprite.value ? sprite.value.height * scaleY.value : undefined,
+)
+
+// places the trimmed frame where it was in the untrimmed one
+const contentWrapperStyle = computed(() => {
+  if (!untrimmed || !sprite.value) return {}
+
+  return {
+    position: 'absolute' as const,
+    left: numberToPx(sprite.value.trimLeft * scaleX.value),
+    top: numberToPx(sprite.value.trimTop * scaleY.value),
+    width: numberToPx(contentWidth.value ?? 0),
+    height: numberToPx(contentHeight.value ?? 0),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
 
 const style = computed(() =>

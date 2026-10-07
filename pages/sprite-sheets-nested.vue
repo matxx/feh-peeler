@@ -29,10 +29,12 @@
               <v-code class="d-inline-block mb-2">
                 {{ `<${sheet.componentName} frame="${sheet.frame}" />` }}
               </v-code>
-              <component
-                :is="sheet.component"
-                :frame="sheet.frame"
-              />
+              <div class="scrollable">
+                <component
+                  :is="sheet.component"
+                  :frame="sheet.frame"
+                />
+              </div>
             </v-col>
 
             <v-col cols="12">
@@ -141,6 +143,10 @@ async function copyCode(code: string) {
 </script>
 
 <style lang="scss" scoped>
+.scrollable {
+  overflow-x: auto;
+}
+
 .grid {
   display: grid;
   gap: 4px;
