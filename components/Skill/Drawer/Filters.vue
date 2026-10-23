@@ -100,7 +100,7 @@
           <v-menu location="bottom">
             <template #activator="{ props }">
               <v-btn-group
-                v-show="filters.hofVersion !== undefined"
+                v-show="filters.hof !== HOF_DISABLED"
                 v-tooltip:bottom="
                   t('skills.filters.hof.tooltipVersion', {
                     version: storeSkillsFilters.versionThreshold,
