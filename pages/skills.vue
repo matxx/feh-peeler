@@ -103,12 +103,6 @@
           {{ item.name }}
         </NuxtLink>
       </template>
-      <template #[`item.${skillsColumns.COLUMN_RELEASE_DATE}`]="{ item }">
-        {{ storeDataSkills.skillsById[item.baseId].release_date }}
-      </template>
-      <template #[`item.${skillsColumns.COLUMN_VERSION}`]="{ item }">
-        {{ storeDataSkills.skillsById[item.baseId].version }}
-      </template>
       <template #[`item.${skillsColumns.COLUMN_SLOT}`]="{ item }">
         <div class="d-flex justify-center align-center">
           <SkillImgCategory
