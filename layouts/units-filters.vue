@@ -23,6 +23,7 @@
         v-model:filters="filters"
         :sorters="sorters"
         :show-sorters="showSorters"
+        :show-group-by="showGroupBy"
         :size-sorters="sizeSorters"
         :size-filters="sizeFilters"
         class="pa-3"
@@ -123,8 +124,13 @@ const { filters, sorters } = storeToRefs(storeUnitsFilters)
 
 const route = useRoute()
 const getRouteBaseName = useRouteBaseName()
-const showSorters = computed(
-  () => getRouteBaseName(route) === 'units-maximum-scores',
+const showSorters = computed(() =>
+  ['units-maximum-scores', 'units-by-any-stat'].includes(
+    String(getRouteBaseName(route)),
+  ),
+)
+const showGroupBy = computed(
+  () => getRouteBaseName(route) === 'units-by-any-stat',
 )
 
 const content = useTemplateRef('content')

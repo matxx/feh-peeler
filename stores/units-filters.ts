@@ -29,6 +29,11 @@ import {
 } from '~/utils/types/units'
 import { createFilters, type IFilters } from '~/utils/types/units-filters'
 import {
+  DATE_PERIOD_YEAR,
+  type DatePeriod,
+  type UnitGroupByField,
+} from '~/utils/types/units-group-by'
+import {
   SORT_NAME,
   SORT_VERSION,
   SORT_RATING,
@@ -243,12 +248,16 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
   const filters = ref<IFilters>(getNewFilters())
   const sorters = ref<ISorters>(createEmptySorters())
+  const groupBy = ref<UnitGroupByField | null>(null)
+  const groupByDatePeriod = ref<DatePeriod>(DATE_PERIOD_YEAR)
 
   const ownedUnitIds = ref<Set<UnitId>>(new Set())
 
   function $reset() {
     filters.value = getNewFilters()
     sorters.value = createEmptySorters()
+    groupBy.value = null
+    groupByDatePeriod.value = DATE_PERIOD_YEAR
   }
 
   const anyFilterActiveExceptName = computed(
@@ -525,6 +534,8 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
 
     filters,
     sorters,
+    groupBy,
+    groupByDatePeriod,
 
     resetFilters,
 
