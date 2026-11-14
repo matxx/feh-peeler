@@ -25,7 +25,6 @@
           :items="itemsForGroupBy"
           density="compact"
           hide-details
-          :label="t('scores.headers.groupByLabel')"
         />
       </div>
       <div

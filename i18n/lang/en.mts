@@ -342,7 +342,6 @@ export default () => ({
       sort: 'Order',
       filters: 'Filters',
       groupBy: 'Group by',
-      groupByLabel: 'Stat',
       score: 'Score',
       units: 'Units',
     },
@@ -619,6 +618,7 @@ export default () => ({
       [unitThemes.THEME_S12]: 'S12',
       [unitThemes.THEME_NATIONS]: 'Nations',
       [unitThemes.THEME_CHEERLEADERS]: 'Cheerleaders',
+      [unitThemes.THEME_ILIA]: 'Ilia',
     },
   },
 

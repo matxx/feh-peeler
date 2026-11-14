@@ -171,12 +171,10 @@ const groups = computed(() => {
   const field = groupByField.value
   if (!field) return []
 
-  return sortGroupByKeys(Object.keys(unitsByKey.value), field, order.value).map(
-    (key) => ({
-      key,
-      units: unitsByKey.value[key] ?? [],
-    }),
-  )
+  return sortGroupByKeys(unitsByKey.value, field, order.value).map((key) => ({
+    key,
+    units: unitsByKey.value[key] ?? [],
+  }))
 })
 </script>
 
@@ -185,7 +183,7 @@ const groups = computed(() => {
   display: flex;
 }
 .groups__key {
-  flex: 0 0 120px;
+  flex: 0 0 180px;
 
   display: flex;
   align-items: start;

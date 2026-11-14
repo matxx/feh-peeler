@@ -1,5 +1,9 @@
 import type { IUnit } from '~/utils/types/units'
 import { ASC, DESC, type Order } from '~/utils/types/units-sorters'
+import {
+  getSortableWeaponFamily,
+  WEAPON_FAMILY_FOR_TYPE,
+} from '~/utils/types/weapons'
 
 export const GROUP_BY_NUMERIC_FIELDS = [
   'max_score',
@@ -100,22 +104,50 @@ export function getDefaultGroupByOrder(field: UnitGroupByField): Order {
   return isNumericGroupByField(field) || isDateGroupByField(field) ? DESC : ASC
 }
 
+// fields whose groups are sorted with a dedicated value
+// (taken from the first unit of the group) instead of the raw key
+const SORTABLE_GETTERS: Partial<
+  Record<UnitGroupByField, (unit: IUnit) => number | string>
+> = {
+  version: (unit) => unit.sortableVersion,
+  element: (unit) => unit.sortableElement,
+  move_type: (unit) => unit.sortableMoveType,
+  weaponColor: (unit) => unit.sortableWeaponColor,
+  weaponFamily: (unit) => getSortableWeaponFamily(unit.weaponFamily),
+  weapon_type: (unit) =>
+    unit.sortableWeaponColor * 10 +
+    getSortableWeaponFamily(WEAPON_FAMILY_FOR_TYPE[unit.weapon_type]),
+}
+
+function compareValues(a: number | string, b: number | string) {
+  if (typeof a === 'number' && typeof b === 'number') return a - b
+
+  return String(a).localeCompare(String(b), undefined, { numeric: true })
+}
+
 // strings use natural order, units without value are always last
 export function sortGroupByKeys(
-  keys: string[],
+  unitsByKey: Record<string, IUnit[]>,
   field: UnitGroupByField,
   order: Order,
 ): string[] {
   const numeric = isNumericGroupByField(field)
+  const getSortable = SORTABLE_GETTERS[field]
   const direction = order === ASC ? 1 : -1
 
-  return [...keys].sort((a, b) => {
+  const getValue = (key: string): number | string => {
+    const unit = unitsByKey[key]?.[0]
+    if (getSortable && unit) return getSortable(unit)
+    if (numeric) return Number(key)
+
+    return key
+  }
+
+  return Object.keys(unitsByKey).sort((a, b) => {
     if (a === b) return 0
     if (a === GROUP_BY_EMPTY_KEY) return 1
     if (b === GROUP_BY_EMPTY_KEY) return -1
 
-    if (numeric) return direction * (Number(a) - Number(b))
-
-    return direction * a.localeCompare(b, undefined, { numeric: true })
+    return direction * compareValues(getValue(a), getValue(b))
   })
 }
