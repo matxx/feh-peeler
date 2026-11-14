@@ -341,6 +341,7 @@ export default () => ({
     headers: {
       sort: 'Order',
       filters: 'Filters',
+      groupBy: 'Group by',
       score: 'Score',
       units: 'Units',
     },
@@ -363,6 +364,7 @@ export default () => ({
 
       units: 'Units',
       'units-maximum-scores': 'Units By Max Scores',
+      'units-by-any-stat': 'Units By Any Stat',
       'score-calc': 'Score Calculator',
       'catalog-of-heroes': 'Catalog of Heroes',
 
@@ -380,6 +382,7 @@ export default () => ({
     subtitle: {
       units: 'compare/filter/sort units',
       'units-maximum-scores': '(for arena and other modes)',
+      'units-by-any-stat': 'group units by any stat',
       'score-calc': '(for arena and other modes)',
       'catalog-of-heroes': 'check which heroes you are missing',
 
@@ -455,6 +458,38 @@ export default () => ({
   },
 
   units: {
+    groupBy: {
+      empty: 'None',
+      datePeriodsLabel: 'By',
+      datePeriods: {
+        year: 'Year',
+        month: 'Month',
+        day: 'Day',
+      },
+      sortTooltip: 'Click to reverse the order of groups',
+      fields: {
+        name: 'Name',
+        max_score: 'Max Score',
+        bst: 'BST',
+        duel_score: 'Duel Score',
+        clash_score: 'Clash Score',
+        skills_max_sp: 'Skills Max SP',
+        max_df: 'Max Dragonflowers',
+        book: 'Book',
+        version: 'Version',
+        origin: 'Origin',
+        gender: 'Gender',
+        move_type: 'Move Type',
+        weapon_type: 'Weapon Type',
+        weaponColor: 'Weapon Color',
+        weaponFamily: 'Weapon Family',
+        element: 'Element',
+        theme: 'Theme',
+        release_date: 'Release Date',
+        refine_date: 'Refine Date',
+        remix_date: 'Remix Date',
+      },
+    },
     index: {
       columnsDisplayed: 'Displayed columns',
       resetSorting: 'Reset sorting',
@@ -583,6 +618,7 @@ export default () => ({
       [unitThemes.THEME_S12]: 'S12',
       [unitThemes.THEME_NATIONS]: 'Nations',
       [unitThemes.THEME_CHEERLEADERS]: 'Cheerleaders',
+      [unitThemes.THEME_ILIA]: 'Ilia',
     },
   },
 
