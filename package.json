@@ -29,7 +29,7 @@
     "@vueuse/nuxt": "^15.0.0",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-vue": "^10.12.0",
+    "eslint-plugin-vue": "^10.12.1",
     "happy-dom": "^21.0.4",
     "nuxt": "^3.21.11",
     "prettier": "3.9.10",
