@@ -196,8 +196,7 @@ const graphOnBST = computed(() => ({
         color: current.value.colors['on-surface-variant'],
         colorIndex: colorIndexes.value.all,
       },
-    ].concat(
-      moves.SORTED_MOVE_TYPES.map((move) => ({
+      ...moves.SORTED_MOVE_TYPES.map((move) => ({
         name: t(`misc.stats.moves.${move}`),
         data: unitsByMonthSorted.value.map(([month, units]) => [
           month,
@@ -214,7 +213,7 @@ const graphOnBST = computed(() => ({
         color: hexColor(moves.MOVES_COLORS[move]),
         colorIndex: colorIndexes.value.moves[move],
       })),
-    ),
+    ],
   },
 }))
 
@@ -360,8 +359,7 @@ const graphOnStatsByStat = computed(() =>
           color: current.value.colors['on-surface-variant'],
           colorIndex: colorIndexes.value.all,
         },
-      ].concat(
-        moves.SORTED_MOVE_TYPES.map((move) => ({
+        ...moves.SORTED_MOVE_TYPES.map((move) => ({
           name: t(`misc.stats.moves.${move}`),
           data: unitsByMonthSorted.value.map(([month, units]) => [
             month,
@@ -381,7 +379,7 @@ const graphOnStatsByStat = computed(() =>
           color: hexColor(moves.MOVES_COLORS[move]),
           colorIndex: colorIndexes.value.moves[move],
         })),
-      ),
+      ],
     },
   })),
 )

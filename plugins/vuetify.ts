@@ -1,6 +1,6 @@
 import '@mdi/font/css/materialdesignicons.css'
 
-import colors from 'vuetify/lib/util/colors'
+import colors from 'vuetify/util/colors'
 
 // https://stackoverflow.com/q/63758550/5032734
 export const hexColor = (name: string) => {
@@ -36,7 +36,11 @@ export const hexColor = (name: string) => {
   const nameStructured = shades.find((shade) => match === shade)
     ? { base: 'shades', variety: base }
     : { base: base, variety: variety }
-  return colors[nameStructured.base][nameStructured.variety]
+  const colorsByName = colors as Record<
+    string,
+    Record<string, string> | undefined
+  >
+  return colorsByName[nameStructured.base]?.[nameStructured.variety] ?? null
 }
 
 export default defineNuxtPlugin((nuxtApp) => {

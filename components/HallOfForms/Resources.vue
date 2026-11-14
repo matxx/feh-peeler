@@ -103,7 +103,19 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-const HALL_OF_FORMS_DETAILS = {
+interface IHallOfFormsDetails {
+  number: number
+  is_revival: boolean
+  resources?: {
+    PM1?: string | null
+    FEHOLOGY?: string | null
+    TACHO?: string | null
+    SATACHI?: string | null
+    COOLEST_MAGICAL_CAT?: string | null
+  }
+}
+
+const HALL_OF_FORMS_DETAILS: IHallOfFormsDetails = {
   number: 63,
   is_revival: true,
   resources: {

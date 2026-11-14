@@ -2,13 +2,7 @@
   <component
     :is="disabled ? 'div' : NuxtLink"
     class="app-link"
-    @click="
-      ($event) => {
-        if (disabled) return
-
-        $emit('click', $event)
-      }
-    "
+    @click="onClick"
   >
     <slot />
   </component>
@@ -17,13 +11,19 @@
 <script setup lang="ts">
 import { NuxtLink } from '#components'
 
-defineEmits(['click'])
-defineProps({
+const emit = defineEmits(['click'])
+const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
   },
 })
+
+function onClick(event: MouseEvent) {
+  if (props.disabled) return
+
+  emit('click', event)
+}
 </script>
 
 <style lang="scss" scoped>

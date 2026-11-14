@@ -67,7 +67,7 @@ const searchIsActive = computed(
 )
 const { regexp, hasError, errorMessages } = useSearch(searchText)
 
-const itemsFiltered = ref<T[]>([])
+const itemsFiltered = shallowRef<T[]>([])
 const getItemsFiltered = () =>
   regexp.value && searchIsActive.value
     ? filter(
