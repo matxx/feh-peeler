@@ -161,6 +161,8 @@ export interface IUnitData {
 
   // addition_date: string
   release_date: string
+  refine_date?: string
+  remix_date?: string
   version: string
 }
 

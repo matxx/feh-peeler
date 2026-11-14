@@ -63,6 +63,7 @@ export interface IFilters {
   isTT: boolean | null
   isGHB: boolean | null
   hasRefine: boolean | null
+  hasRemix: boolean | null
 
   hasPrf: {
     [key in SkillCategory]: boolean | null
@@ -98,6 +99,7 @@ export const createFilters = (stats: IUnitStatMinMax): IFilters => ({
   isTT: null,
   isGHB: null,
   hasRefine: null,
+  hasRemix: null,
 
   hasPrf: objectFromEntries(SKILL_CATEGORIES_FOR_PRF.map((cat) => [cat, null])),
 

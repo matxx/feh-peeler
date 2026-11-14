@@ -472,6 +472,8 @@ export default () => ({
         [unitsColumns.COLUMN_GENERATION]: 'Generation',
         [unitsColumns.COLUMN_BOOK]: 'Book',
         [unitsColumns.COLUMN_RELEASE_DATE]: 'Release Date',
+        [unitsColumns.COLUMN_REFINE_DATE]: 'Refine Date',
+        [unitsColumns.COLUMN_REMIX_DATE]: 'Remix Date',
         [unitsColumns.COLUMN_GAME]: 'Game',
         [unitsColumns.COLUMN_STAT_HP]: 'HP',
         [unitsColumns.COLUMN_STAT_ATK]: 'Atk',
@@ -544,6 +546,7 @@ export default () => ({
         isBrave: 'CYL',
         isOwned: 'Owned',
         hasRefine: 'Refined',
+        hasRemix: 'Remixed',
       },
       selects: {
         books: 'Books',

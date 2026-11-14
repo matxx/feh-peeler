@@ -450,6 +450,17 @@
           </v-icon>
           {{ t('units.filters.buttons.hasRefine') }}
         </v-btn>
+        <v-btn
+          size="small"
+          class="text-primary"
+          :active="filters.hasRemix !== null"
+          @click="cycleFilter('hasRemix')"
+        >
+          <v-icon start>
+            {{ iconForBool(filters.hasRemix) }}
+          </v-icon>
+          {{ t('units.filters.buttons.hasRemix') }}
+        </v-btn>
       </v-btn-group>
     </div>
 
@@ -814,7 +825,8 @@ function cycleFilter(
     | 'isStory'
     | 'isTT'
     | 'isGHB'
-    | 'hasRefine',
+    | 'hasRefine'
+    | 'hasRemix',
 ) {
   if (!filters.value) return
 

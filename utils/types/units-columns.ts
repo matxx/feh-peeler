@@ -10,6 +10,8 @@ export const COLUMN_VERSION = 'version'
 export const COLUMN_GENERATION = 'generation'
 export const COLUMN_BOOK = 'book'
 export const COLUMN_RELEASE_DATE = 'release_date'
+export const COLUMN_REFINE_DATE = 'refine_date'
+export const COLUMN_REMIX_DATE = 'remix_date'
 export const COLUMN_GAME = 'game'
 export const COLUMN_STAT_HP = 'HP'
 export const COLUMN_STAT_ATK = 'Atk'
@@ -67,6 +69,8 @@ export const ALL_COLUMNS = [
   // COLUMN_GENERATION,
   COLUMN_BOOK,
   COLUMN_RELEASE_DATE,
+  COLUMN_REFINE_DATE,
+  COLUMN_REMIX_DATE,
   COLUMN_GAME,
   COLUMN_STAT_HP,
   COLUMN_STAT_ATK,
@@ -99,6 +103,8 @@ export const COLUMNS_IN_FILTERS = [
   // COLUMN_GENERATION,
   COLUMN_BOOK,
   COLUMN_RELEASE_DATE,
+  COLUMN_REFINE_DATE,
+  COLUMN_REMIX_DATE,
   COLUMN_GAME,
   COLUMN_STAT_HP,
   COLUMN_STAT_ATK,

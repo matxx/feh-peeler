@@ -45,6 +45,8 @@ import {
   SORT_GAME,
   SORT_THEME,
   SORT_OWNED,
+  SORT_REFINE_DATE,
+  SORT_REMIX_DATE,
   SORT_NOTHING,
   DESC,
   createEmptySorters,
@@ -265,6 +267,7 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       filters.value.isTT !== null ||
       filters.value.isGHB !== null ||
       filters.value.hasRefine !== null ||
+      filters.value.hasRemix !== null ||
       some(
         objectEntries(filters.value.hasPrf),
         ([_cat, bool]) => bool !== null,
@@ -290,16 +293,6 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
         const skill = storeDataSkills.skillsById[skillId]
         return skill.is_prf && skill.category === cat
       },
-    )
-  }
-
-  function hasRefine(unit: IUnitData) {
-    if (!storeDataSkills.isLoaded) return false
-    if (!storeDataUnitsAvailabilities.isLoaded) return false
-
-    return some(
-      storeDataUnitsAvailabilities.availabilitiesById[unit.id].skill_ids,
-      (skillId: SkillId) => storeDataSkills.skillsById[skillId].has_refine,
     )
   }
 
@@ -403,7 +396,11 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
       f(filter, (u: IUnit) => filterIsGHB(filters.value, u)),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) =>
-        filterBoolean(filters.value.hasRefine, hasRefine(u)),
+        filterBoolean(filters.value.hasRefine, !!u.refine_date),
+      ),
+      // @ts-expect-error unsafe typings
+      f(filter, (u: IUnit) =>
+        filterBoolean(filters.value.hasRemix, !!u.remix_date),
       ),
       // @ts-expect-error unsafe typings
       f(filter, (u: IUnit) => filterMoveType(filters.value, u)),
@@ -485,6 +482,12 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
             return (unit: IUnit) => t(`units.themes.${unit.theme}`)
           case SORT_OWNED:
             return (unit: IUnit) => ownedUnitIds.value.has(unit.id)
+          case SORT_REFINE_DATE:
+          case SORT_REMIX_DATE:
+            // units without date are last in both orders
+            return sorters.orders[index] === DESC
+              ? (unit: IUnit) => unit[field] || ''
+              : (unit: IUnit) => unit[field] || '\uffff'
           case SORT_NOTHING:
             return () => 0
         }

@@ -14,6 +14,8 @@ export const SORT_VERSION = 'version'
 // export const SORT_GENERATION = 'generation'
 export const SORT_BOOK = 'book'
 export const SORT_RELEASE_DATE = 'release_date'
+export const SORT_REFINE_DATE = 'refine_date'
+export const SORT_REMIX_DATE = 'remix_date'
 export const SORT_GAME = 'game'
 export const SORT_BST = 'bst'
 export const SORT_MAX_DRAGONFLOWERS = 'max_df'
@@ -51,6 +53,8 @@ export type SortingField =
   // | typeof SORT_GENERATION
   | typeof SORT_BOOK
   | typeof SORT_RELEASE_DATE
+  | typeof SORT_REFINE_DATE
+  | typeof SORT_REMIX_DATE
   | typeof SORT_GAME
   | typeof SORT_BST
   | typeof SORT_MAX_DRAGONFLOWERS
@@ -103,6 +107,8 @@ export const COLUMN_TO_SORT: { [key: string]: SortingField | undefined } = {
   [unitsColumns.COLUMN_HAS_RESPLENDENT]: SORT_HAS_RESPLENDENT,
   [unitsColumns.COLUMN_BOOK]: SORT_BOOK,
   [unitsColumns.COLUMN_RELEASE_DATE]: SORT_RELEASE_DATE,
+  [unitsColumns.COLUMN_REFINE_DATE]: SORT_REFINE_DATE,
+  [unitsColumns.COLUMN_REMIX_DATE]: SORT_REMIX_DATE,
   [unitsColumns.COLUMN_VERSION]: SORT_VERSION,
   [unitsColumns.COLUMN_GAME]: SORT_GAME,
   [unitsColumns.COLUMN_ELEMENT]: SORT_ELEMENT,
