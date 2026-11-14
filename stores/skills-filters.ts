@@ -8,6 +8,7 @@ import orderBy from 'lodash-es/orderBy'
 import { MINIMAL_TEXT_SEARCH_LENGTH } from '~/utils/constants'
 import { objectEntries } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
+import { emptyNumberLast, emptyStringLast } from '~/utils/functions/emptyLast'
 
 import * as a from '~/utils/types/units-availabilities'
 import {
@@ -35,6 +36,9 @@ import {
 import {
   SORT_NAME,
   SORT_SLOT,
+  SORT_CD,
+  SORT_MIGHT,
+  SORT_RANGE,
   SORT_RELEASE_DATE,
   SORT_VERSION,
   SORT_MAX,
@@ -52,7 +56,6 @@ import {
 import {
   filterByName,
   filterByDescription,
-  RATING_0,
   SORTED_SLOT_INDEXES,
   SKILL_PASSIVE_ABC,
   type SkillId,
@@ -62,7 +65,7 @@ import {
   SKILL_WEAPON,
 } from '~/utils/types/skills'
 import type { IUnitData } from '~/utils/types/units'
-import { GRADE_F, SORTED_GRADE_INDEXES } from '~/utils/types/grades'
+import { SORTED_GRADE_INDEXES } from '~/utils/types/grades'
 import * as w from '~/utils/types/weapons'
 import type { MoveType } from '~/utils/types/moves'
 import type { ExtendedWeaponType } from '~/utils/types/weapons'
@@ -744,44 +747,60 @@ export const useStoreSkillsFilters = defineStore('skills-filters', () => {
   function sort(skills: ISkill[], sorters: ISorters) {
     return orderBy(
       skills,
-      sorters.fields.map((field) => {
+      sorters.fields.map((field, index) => {
+        const order = sorters.orders[index]
         switch (field) {
           case SORT_NAME:
             return (skill: ISkill) => skill.nameForSorting
           case SORT_SLOT:
             return (skill: ISkill) => SORTED_SLOT_INDEXES[skill.category]
           case SORT_VERSION:
-            return (skill: ISkill) => skill.sortableVersion
+            return emptyStringLast(order, (skill: ISkill) =>
+              skill.version ? skill.sortableVersion : undefined,
+            )
+          case SORT_RELEASE_DATE:
+            return emptyStringLast(order, (skill: ISkill) => skill.release_date)
+          case SORT_CD:
+          case SORT_MIGHT:
+          case SORT_RANGE:
+            return emptyNumberLast(order, (skill: ISkill) => skill[field])
           case SORT_MAX:
             return (skill: ISkill) => (!skill.upgrade_ids ? 1 : 0)
           case SORT_RATING:
-            return (skill: ISkill) =>
-              storeDataSkillsRatingsGame8.byId[skill.id]?.game8_rating ||
-              RATING_0
+            return emptyStringLast(
+              order,
+              (skill: ISkill) =>
+                storeDataSkillsRatingsGame8.byId[skill.id]?.game8_rating,
+            )
           case SORT_GRADE:
-            return (skill: ISkill) => {
+            return emptyNumberLast(order, (skill: ISkill) => {
               const grade =
-                storeDataSkillsRatingsGame8.byId[skill.id]?.game8_grade ||
-                GRADE_F
-              return grade && SORTED_GRADE_INDEXES[grade]
-            }
+                storeDataSkillsRatingsGame8.byId[skill.id]?.game8_grade
+              return grade ? SORTED_GRADE_INDEXES[grade] : undefined
+            })
           // case SORT_RESTRICTIONS: // TODO
           case SORT_DESCRIPTION:
-            return (skill: ISkill) =>
-              storeDataSkillsDescriptions.byId[skill.id]?.full
+            return emptyStringLast(
+              order,
+              (skill: ISkill) =>
+                storeDataSkillsDescriptions.byId[skill.id]?.full,
+            )
           case SORT_AVAILABILITY:
             return (skill: ISkill) =>
               storeDataSkillsAvailabilities.availabilitySortingValue(skill)
           case SORT_PRE_INHERITANCE:
-            return (skill: ISkill) =>
-              skill.downgrade_ids &&
-              min(
-                skill.downgrade_ids.map((s) =>
-                  storeDataSkillsAvailabilities.availabilitySortingValue(
-                    storeDataSkills.skillsById[s],
+            return emptyNumberLast(
+              order,
+              (skill: ISkill) =>
+                skill.downgrade_ids &&
+                min(
+                  skill.downgrade_ids.map((s) =>
+                    storeDataSkillsAvailabilities.availabilitySortingValue(
+                      storeDataSkills.skillsById[s],
+                    ),
                   ),
                 ),
-              )
+            )
           case SORT_NOTHING:
             return () => 0
         }

@@ -23,7 +23,6 @@ import {
 
 import {
   filterByName,
-  RATING_0,
   type IUnit,
   type IUnitData,
   type UnitId,
@@ -45,8 +44,11 @@ import {
   SORT_GAME,
   SORT_THEME,
   SORT_OWNED,
+  SORT_RELEASE_DATE,
   SORT_REFINE_DATE,
   SORT_REMIX_DATE,
+  SORT_DUEL_SCORE,
+  SORT_CLASH_SCORE,
   SORT_NOTHING,
   DESC,
   createEmptySorters,
@@ -58,6 +60,7 @@ import { GAME_ICON_INDEXES } from '~/utils/types/games'
 import { SORTED_WEAPON_TYPES_INDEXES } from '~/utils/types/weapons'
 import { objectEntries, type IndexedBy } from '~/utils/functions/typeSafe'
 import { filterBoolean } from '~/utils/functions/filterBoolean'
+import { emptyNumberLast, emptyStringLast } from '~/utils/functions/emptyLast'
 import type { SkillCategory, SkillId } from '~/utils/types/skills'
 import {
   isValidVersionRangeInput,
@@ -440,21 +443,27 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
     return orderBy(
       units,
       sorters.fields.map((field, index) => {
+        const order = sorters.orders[index]
         switch (field) {
           case SORT_NAME:
             return (unit: IUnit) => unit.nameForSorting
           case SORT_VERSION:
             return (unit: IUnit) => unit.sortableVersion
           case SORT_ELEMENT:
-            return (unit: IUnit) => unit.sortableElement
+            return emptyNumberLast(order, (unit: IUnit) =>
+              unit.element ? unit.sortableElement : undefined,
+            )
           case SORT_GAME:
             // units without known game are last in both orders
-            return sorters.orders[index] === DESC
+            return order === DESC
               ? (unit: IUnit) => unit.sortableGameMax
               : (unit: IUnit) => unit.sortableGameMin
           case SORT_RATING:
-            return (unit: IUnit) =>
-              storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating || RATING_0
+            return emptyStringLast(
+              order,
+              (unit: IUnit) =>
+                storeDataUnitsRatingsGame8.byId[unit.id]?.game8_rating,
+            )
           case SORT_MOVE:
             return (unit: IUnit) => SORTED_MOVE_TYPES_INDEXES[unit.move_type]
           case SORT_WEAP:
@@ -479,15 +488,18 @@ export const useStoreUnitsFilters = defineStore('units-filters', () => {
             return (unit: IUnit) =>
               storeDataUnitsStats.statsById[unit.id].level40_res
           case SORT_THEME:
-            return (unit: IUnit) => t(`units.themes.${unit.theme}`)
+            return emptyStringLast(order, (unit: IUnit) =>
+              unit.theme ? t(`units.themes.${unit.theme}`) : undefined,
+            )
           case SORT_OWNED:
             return (unit: IUnit) => ownedUnitIds.value.has(unit.id)
+          case SORT_RELEASE_DATE:
           case SORT_REFINE_DATE:
           case SORT_REMIX_DATE:
-            // units without date are last in both orders
-            return sorters.orders[index] === DESC
-              ? (unit: IUnit) => unit[field] || ''
-              : (unit: IUnit) => unit[field] || '\uffff'
+            return emptyStringLast(order, (unit: IUnit) => unit[field])
+          case SORT_DUEL_SCORE:
+          case SORT_CLASH_SCORE:
+            return emptyNumberLast(order, (unit: IUnit) => unit[field])
           case SORT_NOTHING:
             return () => 0
         }
