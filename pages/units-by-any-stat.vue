@@ -6,7 +6,7 @@
       <div class="groups__line">
         <h4
           v-tooltip="t('units.groupBy.sortTooltip')"
-          class="groups__key cursor-pointer user-select-none"
+          class="groups__key groups__key--sortable"
           @click="toggleOrder"
         >
           {{ t(`units.groupBy.fields.${groupByField}`) }}
@@ -191,6 +191,10 @@ const groups = computed(() => {
   align-items: start;
   justify-content: center;
   text-align: center;
+}
+.groups__key--sortable {
+  cursor: pointer;
+  user-select: none;
 }
 .groups__units {
   flex: 1;
