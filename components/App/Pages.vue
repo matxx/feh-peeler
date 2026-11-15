@@ -86,7 +86,7 @@ const COLUMNS = [
     // { isItem: true, link: 'skills-lists' },
     { isItem: true, link: 'units' },
     { isItem: true, link: 'units-maximum-scores' },
-    { isItem: true, link: 'units-grouped-by-any-stat' },
+    { isItem: true, link: 'units-grouped-by-stat' },
     { isItem: true, link: 'score-calc' },
     { isItem: true, link: 'catalog-of-heroes' },
   ],

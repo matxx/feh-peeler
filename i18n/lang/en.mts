@@ -364,7 +364,7 @@ export default () => ({
 
       units: 'Units',
       'units-maximum-scores': 'Units By Max Scores',
-      'units-grouped-by-any-stat': 'Units Grouped By Any Stat',
+      'units-grouped-by-stat': 'Units Grouped By Stat',
       'score-calc': 'Score Calculator',
       'catalog-of-heroes': 'Catalog of Heroes',
 
@@ -382,7 +382,7 @@ export default () => ({
     subtitle: {
       units: 'compare/filter/sort units',
       'units-maximum-scores': '(for arena and other modes)',
-      'units-grouped-by-any-stat': 'compare/filter/sort units once grouped',
+      'units-grouped-by-stat': 'compare/filter/sort units once grouped',
       'score-calc': '(for arena and other modes)',
       'catalog-of-heroes': 'check which heroes you are missing',
 

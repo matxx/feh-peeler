@@ -125,12 +125,12 @@ const { filters, sorters } = storeToRefs(storeUnitsFilters)
 const route = useRoute()
 const getRouteBaseName = useRouteBaseName()
 const showSorters = computed(() =>
-  ['units-maximum-scores', 'units-grouped-by-any-stat'].includes(
+  ['units-maximum-scores', 'units-grouped-by-stat'].includes(
     String(getRouteBaseName(route)),
   ),
 )
 const showGroupBy = computed(
-  () => getRouteBaseName(route) === 'units-grouped-by-any-stat',
+  () => getRouteBaseName(route) === 'units-grouped-by-stat',
 )
 
 const content = useTemplateRef('content')
