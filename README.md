@@ -43,6 +43,7 @@ and launch this script `./bin/handle_sprite_sheets.sh`
 ### QoL
 
 1. modal unit/skill : update URL on open/close
+1. modal unit->skills : split concurrent skill trees (in unit remixed)
 1. units: filter on ratings/grades/version
 1. skills: filter on ratings/grades/version/book
 1. how does tarteaucitron work when changing locale ? [this](https://github.com/AmauriC/tarteaucitron.js/issues/353#issuecomment-536913252) suggests you have to reload the page

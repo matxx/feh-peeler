@@ -450,6 +450,14 @@
           </v-icon>
           {{ t('units.filters.buttons.hasRefine') }}
         </v-btn>
+      </v-btn-group>
+
+      <v-btn-group
+        color="primary"
+        density="compact"
+        variant="outlined"
+        class="ml-1"
+      >
         <v-btn
           size="small"
           class="text-primary"

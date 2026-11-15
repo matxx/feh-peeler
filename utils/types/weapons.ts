@@ -131,10 +131,7 @@ export const WEAPON_G = 'Green'
 export const WEAPON_C = 'Colorless'
 
 export type WeaponColor =
-  | typeof WEAPON_R
-  | typeof WEAPON_B
-  | typeof WEAPON_G
-  | typeof WEAPON_C
+  typeof WEAPON_R | typeof WEAPON_B | typeof WEAPON_G | typeof WEAPON_C
 
 export type AggregatedWeaponType = WeaponFamily | WeaponColor
 
@@ -296,6 +293,29 @@ export const SORTED_WEAPON_COLORS: WeaponColor[] = [
   WEAPON_G,
   WEAPON_C,
 ]
+
+// melee, staff, bow, dagger, tome, breath, beast
+export function getSortableWeaponFamily(family: WeaponFamily) {
+  switch (family) {
+    case WEAPON_A_ME:
+    case WEAPON_A_SW:
+    case WEAPON_A_LA:
+    case WEAPON_A_AX:
+      return 0
+    case WEAPON_A_ST:
+      return 1
+    case WEAPON_A_BO:
+      return 2
+    case WEAPON_A_DA:
+      return 3
+    case WEAPON_A_TO:
+      return 4
+    case WEAPON_A_BR:
+      return 5
+    case WEAPON_A_BE:
+      return 6
+  }
+}
 
 export function getSortableWeaponColor(color: WeaponColor) {
   switch (color) {

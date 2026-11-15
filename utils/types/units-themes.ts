@@ -1,5 +1,5 @@
 // must be synced with
-// https://github.com/matxx/feh-scrapper/blob/8ff86efedcfd1bdab07e6037478d4f579c99ad85/lib/scrappers/fandoms/units/themes.rb#L7-L23
+// https://github.com/matxx/feh-scrapper/blob/main/lib/scrappers/fandoms/units/themes.rb
 export const THEME_NEW_YEAR = 'new_year'
 export const THEME_DESERT = 'desert'
 export const THEME_DOD = 'dod'
@@ -20,6 +20,7 @@ export const THEME_THIEVES = 'thieves'
 export const THEME_S12 = 's12'
 export const THEME_NATIONS = 'nations'
 export const THEME_CHEERLEADERS = 'cheerleaders'
+export const THEME_ILIA = 'ilia'
 
 export type UnitTheme =
   | typeof THEME_NEW_YEAR
@@ -42,6 +43,7 @@ export type UnitTheme =
   | typeof THEME_S12
   | typeof THEME_NATIONS
   | typeof THEME_CHEERLEADERS
+  | typeof THEME_ILIA
 
 export const ALL_THEMES: UnitTheme[] = [
   THEME_NEW_YEAR,
@@ -64,4 +66,5 @@ export const ALL_THEMES: UnitTheme[] = [
   THEME_S12,
   THEME_NATIONS,
   THEME_CHEERLEADERS,
+  THEME_ILIA,
 ]
